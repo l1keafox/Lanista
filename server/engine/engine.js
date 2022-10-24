@@ -23,7 +23,7 @@ let gameData; // This gets declared as an object in initEngine.
 
 let userSessionsKey;
 
-const mmoBubble = require('./mmoBubble/mmoBubble');
+
 // Main loop
 // Remember this is something that is added on the stack, it doesn't guarnette it'll be called every X ticks, just it's being put on the stack.
 function doGameLoop(){
@@ -46,7 +46,7 @@ function doGameLoop(){
 }
 
 
-const { GameCard } = require("./../models");
+
 // PUBLIC Functions below
 
 module.exports = { 

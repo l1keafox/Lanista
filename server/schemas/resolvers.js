@@ -89,17 +89,6 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
 
-    // authUserSession: async (parent, args, context) => {
-    //   const { username } = await User.findById({ _id: context.user._id });
-    //   // now we send to the engine stuff but I don't really like how this is formatted.
-    //   // we might want to do this an different way, I'll work on it later.
-    //   Engine.sessionKey().push({
-    //     username: username,
-    //     id: context.user._id,
-    //     sessionId: args.sessionId,
-    //   });
-    // },
-
   },
 };
 module.exports = resolvers;
