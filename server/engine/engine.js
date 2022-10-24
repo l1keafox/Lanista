@@ -57,14 +57,14 @@ module.exports = {
 
         // We need the gameCards
 //        let cards = GameCard.find();
-        GameCard.find({}).exec((err, collection) => { 
-            collection.map(obj =>{
-                if(obj.gameType === "bubbles"){
-                    mmoBubble.init(obj);
-                    this.addGame(mmoBubble);
-                }
-            });
-        } );
+        // GameCard.find({}).exec((err, collection) => { 
+        //     collection.map(obj =>{
+        //         if(obj.gameType === "bubbles"){
+        //             mmoBubble.init(obj);
+        //             this.addGame(mmoBubble);
+        //         }
+        //     });
+        // } );
         // THIS IS WHERE WE ADD mmoBUBBLE GAME - WHEN THE ENGINE INIT it starts this game, so it's always running 
         // in the background server.
 
