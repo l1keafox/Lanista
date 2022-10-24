@@ -1,8 +1,5 @@
 import "./CreateAccount.css";
 import React, { useState } from "react";
-import { useExistingUserContext } from "../../utils/existingUserContext";
-import { BsJoystick } from "react-icons/bs";
-import { IoMdRocket } from "react-icons/io";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
@@ -13,7 +10,6 @@ function CreateAccount() {
   const [reTypePassWord, setReTypePassword] = useState("");
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const { toggleExistingUser, setLogin } = useExistingUserContext();
   const [signUp] = useMutation(ADD_USER);
 
   const handleInputChange = (e) => {
@@ -46,7 +42,6 @@ function CreateAccount() {
         variables: { username, email, password },
       });
       Auth.login(data.addUser.token);
-      setLogin(true);
     } catch (e) {
       console.error(e);
     }
@@ -115,7 +110,7 @@ function CreateAccount() {
           type="button"
           onClick={handleFormSubmit}
         >
-          Create Account <BsJoystick></BsJoystick>
+          Create Account 
         </button>
         <hr
           style={{
@@ -126,8 +121,8 @@ function CreateAccount() {
             backgroundColor: "black",
           }}
         />
-        <button className="loginSubmitBtn" onClick={toggleExistingUser}>
-          Return to Login <IoMdRocket />
+        <button className="loginSubmitBtn">
+          Return to Login 
         </button>
       </div>
 

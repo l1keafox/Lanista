@@ -7,16 +7,13 @@ import { useQuery } from "@apollo/client";
 // components
 import Login from "../../components/Login/Login.js";
 import CreateAccount from "../../components/CreateAccount/CreateAccount.js";
-import FeaturedScores from "../../components/FeaturedScores/FeaturedScores.js";
-import ChatList from "../../components/ChatList/ChatList.js";
 
 // user context
-import { useExistingUserContext } from "../../utils/existingUserContext";
 import auth from "../../utils/auth";
 import { GET_GAME_CARDS } from "../../utils/queries";
 
 function HomePage() {
-  const { existingUser } = useExistingUserContext();
+  
 
   const { data } = useQuery(GET_GAME_CARDS,{
     nextFetchPolicy:"network-only",
@@ -45,10 +42,8 @@ function HomePage() {
   return (
     <div className="homeViewContainer">
       {/* scoreboard component - currently just placeholder */}
-      <FeaturedScores scores={scores} title={gameTitle} />
       {/* conditionally renders <Login /> versus <CreateUser /> based on global context variable */}
-      {auth.loggedIn() ? <div /> : existingUser ? <Login /> : <CreateAccount />}
-      {auth.loggedIn() ? <ChatList /> : <div />}
+      {auth.loggedIn() ? <Login /> : <CreateAccount />}
     </div>
   );
 }
