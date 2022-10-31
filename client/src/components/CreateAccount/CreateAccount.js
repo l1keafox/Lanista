@@ -1,8 +1,8 @@
-import "./CreateAccount.css";
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
+import Button from "@mui/material/Button";
 
 function CreateAccount() {
   const [username, setUsername] = useState("");
@@ -53,7 +53,7 @@ function CreateAccount() {
   };
 
   return (
-    <div className="createUserForm">
+    <div className = "items-center justify-center w-1/2 flex flex-col">
       <h4 className="createUserCardTitle">Create Account</h4>
 
       <div className="formContainer">
@@ -121,9 +121,7 @@ function CreateAccount() {
             backgroundColor: "black",
           }}
         />
-        <button className="loginSubmitBtn">
-          Return to Login 
-        </button>
+        <Button className="loginSubmitBtn" variant="contained">Return to Login </Button>
       </div>
 
       {errorMessage && (
