@@ -7,7 +7,7 @@ async function doGameTick(){
     const startOfTick = new Date();
     Tick.doTick();
     const endOfTick = new Date();
-    console.log(`  -EN> Game Tick took: ${endOfTick - startOfTick}ms :: Date: ${Tick.getDate()}`);
+    console.log(`  -EN> Game Tick took: ${endOfTick - startOfTick}ms  ::  ${Tick.getDate()}`);
 }
 
 async function startLoop(){

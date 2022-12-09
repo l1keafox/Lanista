@@ -20,6 +20,7 @@ module.exports = {
             month: gameDate.month,
             year: gameDate.year,
         };
+
     },
     getDate: function(){
         return `Time: ${date.time}:00  ${date.month}/${date.day}/${date.year}`
