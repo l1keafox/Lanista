@@ -23,12 +23,10 @@ const userSchema = new Schema(
 			required: true,
 			minlength: 5,
 		},
-		tokens: [{
-			token: {
-				type: String,
-				required: true
-			}
-		}]		
+		token: {
+			type: String,
+			// required: true
+		}
 	},
 	{
 		toJSON: {
@@ -48,10 +46,9 @@ userSchema.pre('save', async function (next) {
 
 userSchema.methods.generateAuthToken = async function() {
     // Generate an auth token for the user
-    const token = jwt.sign({_id: this._id}, process.env.JWT_KEY);
-    this.tokens = this.tokens.concat({token})
+    this.token = jwt.sign({_id: this._id}, process.env.JWT_KEY);
     await this.save()
-    return token;
+    return this.token;
 }
 
 userSchema.statics.findByCredentials = async (username, password) => {
