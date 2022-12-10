@@ -1,5 +1,9 @@
 <template>
-  <LandingPage/>
+  <div v-if="this.isLoggedIn">
+  </div>
+  <div v-else>
+    <LandingPage/>
+  </div>
 </template>
 
 <script>
@@ -8,6 +12,16 @@ export default {
   name: 'App',
   components: {
     LandingPage
+  },
+  data(){
+    return {
+      isLoggedIn: false
+    }
+  },
+  provide(){
+    return{
+      isLoggedIn:this.isLoggedIn
+    }
   }
 }
 </script>

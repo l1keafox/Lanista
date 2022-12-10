@@ -24,15 +24,22 @@
             password:""
           }
         },
+        inject:['isLoggedIn'],
         methods:{
           async tryLogin(){
-            console.log({username: this.username, password:this.password});
-            console.log( process.env );
-            const user = await fetch("/users/login",{
+            const rpnse = await fetch("http://localhost:3001/users/login",{
               method: 'POST', 
-              body: JSON.stringify({username: this.username, password:this.password})
+              headers: {'Content-Type': 'application/json'},
+              body:JSON.stringify({"username": this.username, "password":this.password})
             });
-            console.log(user);
+            console.log();
+            if(rpnse.status=== 200){
+              console.log("Sucess");
+              this.isLoggedIn = true;
+              console.log(this.isLoggedIn);
+            } else {
+              console.log("Failure");
+            }
           }
         }
     }
