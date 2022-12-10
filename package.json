@@ -4,15 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": "concurrently \"cd client && npm run serve\" \"cd server && npm run server\" ",
-    "start": "npm run serve && cd server && node server.js",
-    "server": "cd server server.js --ignore client",
+    "start:dev": "concurrently \"cd client && npm run build\" \"cd server && npm run server\" ",
+    "start": "npm run build && cd server && node server.js",
+    "server": "cd server && node server.js --ignore client",
+    "build": "cd client && npm run build --max_old_space_size=4096 node_modules/.bin/react-scripts build",
     "install": "cd server && npm i && cd ../client && npm i",
-    "client": "cd client && npm run serve",
-    "develop": "concurrently \"cd server && npm run develop\" \"cd client && npm run serve\"",
-    "dev": "concurrently \"cd server && npm run develop\" \"cd client && npm run serve\"",
+    "client": "cd client && npm start",
+    "develop": "concurrently \"cd server && npm run develop\" \"cd client && npm start\"",
+    "dev": "concurrently \"cd server && npm run develop\" \"cd client && npm start\"",
     "seed": "cd server && npm run seed",
-    "install-client": "cd client && npm install"
+    "install-client": "cd client && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build"
   },
   "repository": {
     "type": "git",

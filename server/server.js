@@ -1,20 +1,20 @@
 const express = require("express");
 const path = require("path");
-//const { authMiddleware } = require('./utils/auth');
-
+require('dotenv').config({});
+const userRouter = require('./src/routers/users');
 const db = require("./src/config/connection");
-
+const cors = require('cors');
 const { Engine } = require("./src/engine/");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
-
 // Socket.io Stuff
 const { initIo } = require("./src/socket/index"); // initIo to initalize the server, io later on just to grab the object.
 const ioServer = initIo(app); // initalizing io into serverIo
-
+app.use(cors())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(userRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
