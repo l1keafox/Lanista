@@ -1,2 +1,3 @@
 const GameDate = require('./GameDate');
-module.exports = {GameDate };
+const User = require('./User');
+module.exports = {GameDate,User };

@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
-//const { authMiddleware } = require('./utils/auth');
-
+require('dotenv').config({});
+const userRouter = require('./src/routers/users');
 const db = require("./src/config/connection");
 
 const { Engine } = require("./src/engine/");
@@ -15,6 +15,7 @@ const ioServer = initIo(app); // initalizing io into serverIo
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(userRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
