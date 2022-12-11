@@ -27,7 +27,7 @@ class AuthService {
 	login(idToken) {
 		// Saves user token to localStorage and reloads the application for logged in status to take effect
 
-		console.log(idToken, "Token is logging IN Data",decode(idToken));
+		console.log(idToken, "Token is logging IN Data");
 		
 		localStorage.setItem("id_token", idToken);
 		//window.location.assign("/games");

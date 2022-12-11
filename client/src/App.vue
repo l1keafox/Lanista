@@ -1,22 +1,33 @@
 <template>
-  <div v-if="this.isLoggedIn">
-  </div>
-  <div v-else>
+  <MainViewVue/>
+  <!-- <div> {{isLoggedIn}}</div>
+  <div v-if="isLoggedIn" class="h-screen">
+  </div> -->
+  <!-- <div v-else>
     <LandingPage/>
-  </div>
+  </div> -->
 </template>
 
 <script>
-import LandingPage from "./views/LandingPage";
+// import LandingPage from "./views/LandingPage";
+import MainViewVue from "./views/MainView.vue";
+import auth from "./mixins/auth";
+import decode from "jwt-decode";
 export default {
   name: 'App',
   components: {
-    LandingPage
+//    LandingPage,
+    MainViewVue
   },
   data(){
     return {
-      isLoggedIn: false
+      isLoggedIn: false,
     }
+  },
+  mounted(){
+    let dtz = decode(  localStorage.getItem("id_token"));
+    console.log(dtz);
+    this.isLoggedIn = auth.loggedIn();
   },
   provide(){
     return{
@@ -33,7 +44,7 @@ body{
   width: 100vw;
   }
   #app{
-    height: 100%;
-    width: 100%;
-    }
+    height: 100vh;
+    width: 100vw;
+  }
 </style>
