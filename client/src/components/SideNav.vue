@@ -4,9 +4,9 @@
         <div v-else  class="m-2">Logout</div>
         <div class="m-2"> Profile </div>
     </div>
-    <template v-if="showLoginModal" >
+    <div v-if="showLoginModal" :key="showLoginModal">
         <LoginVue id="vue"/>
-    </template>
+    </div>
 </template>
 
 <script>
