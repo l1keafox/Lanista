@@ -7,6 +7,7 @@
                 <div class="mb-8 flex justify-center">
                     <h1>Lanista</h1>
                 </div>
+                <h1>{{ isLoggedIn}}</h1>
                 <div class="flex flex-col text-sm rounded-md">
                   <input class="mb-5 rounded-[4px] border p-3 hover:outline-none focus:outline-none hover:border-yellow-500 " type="text" placeholder="Username or Email id" v-model="username"/>
                   <input class="border rounded-[4px] p-3 hover:outline-none focus:outline-none hover:border-yellow-500" type="password" placeholder="Password" v-model="password" />
@@ -47,7 +48,7 @@ import auth from "./../mixins/auth";
               this.isLoggedIn = true;
               auth.login(det.token);
               // window.location.reload();
-             window.location.href = '/';
+            //  window.location.href = '/';
             } else {
               console.log("Failure");
               alert("Cannot login");

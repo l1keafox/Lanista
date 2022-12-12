@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div v-if="!isLoggedIn" class="m-2" @click="showLogin"> Login</div>
+        <div v-if="!isLoggedIn" class="m-2" @click="showLogin"  :key="isLoggedIn"> Login</div>
         <div v-else  class="m-2">Logout</div>
-        <div class="m-2"> Profile </div>
+        <div class="m-2"> Profile </div> 
     </div>
-    <div v-if="showLoginModal" :key="showLoginModal">
+    <div v-if="showLoginModal">
         <LoginVue id="vue"/>
     </div>
 </template>
@@ -21,6 +21,9 @@
         components:{
             LoginVue
         },
+        mounted(){
+            console.log(this.isLoggedIn);
+        }, 
         methods:{
             showLogin(){
                 console.log('here?',this.showLoginModal);
