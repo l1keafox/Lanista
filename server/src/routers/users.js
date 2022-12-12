@@ -1,7 +1,8 @@
 
 const express = require('express');
-const User = require('../models/User');
+const {User,Owner} = require('../models');
 const auth = require('../middleware/auth');
+const {createNewOwner} = require('./../engine/game/utils');
 const router = express.Router();
 
 router.post('/users', async (req, res) => {
@@ -22,17 +23,24 @@ router.post('/users/login', async(req, res) => {
     //Login a registered user
     try {
         const { username, password } = req.body;
-        console.log(username,password, "FIND");
         if(!username){
             return res.status(401).send({error: 'Login failed! Check authentication credentials'})
         }
         const user = await User.findByCredentials(username, password);
-        console.log(user);
         if (!user) {
             return res.status(401).send({error: 'Login failed! Check authentication credentials'})
         }
         const token = await user.generateAuthToken();
-        console.log(token, user);
+        // Here we should create owner 
+        if(!user.owner){
+            const owner = new Owner(createNewOwner())
+            console.log("  -EN> User creating Owner Model.");
+            user.owner = owner._id;
+            owner.userAcct = user._id;
+            user.save();
+            owner.save();
+        }
+        
         res.send({ user, token })
     } catch (error) {
         res.status(400).send(error)

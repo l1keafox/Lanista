@@ -1,10 +1,12 @@
 <template>
-  <h1>{{ isLoggedIn }} hd</h1>
+  <h1> LANISTA </h1>
   <div v-if="!isLoggedIn" class="m-2" @click="showLogin" :key="isLoggedIn">
     Login
   </div>
   <div v-else class="m-2" @click="doLogOut">Logout</div>
+  
   <div class="m-2">Profile</div>
+  
   <div v-if="showLoginModal">
     <LoginVue id="vue" @close="closePopup" @trylogin="tryLogin" />
   </div>

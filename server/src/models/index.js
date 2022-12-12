@@ -1,3 +1,4 @@
-const GameDate = require('./GameDate');
+const GameDate = require('./GameModels/GameDate');
 const User = require('./User');
-module.exports = {GameDate,User };
+const Owner = require('./GameModels/Owner')
+module.exports = {GameDate,User,Owner };
