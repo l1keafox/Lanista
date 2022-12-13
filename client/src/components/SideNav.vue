@@ -1,11 +1,14 @@
 <template>
-  <h1> LANISTA </h1>
+  <h1  @click="$emit('changeMain','WelcomeMain')"> LANISTA </h1>
   <div v-if="!isLoggedIn" class="m-2" @click="showLogin" :key="isLoggedIn">
     Login
   </div>
-  <div v-else class="m-2" @click="doLogOut">Logout</div>
+  <div v-else>
+    <div class="m-2" @click="doLogOut">Logout</div>
+    <div class="m-2" @click="$emit('changeMain','ProfileMain')" >Profile</div>
+  </div>
   
-  <div class="m-2">Profile</div>
+  
   
   <div v-if="showLoginModal">
     <LoginVue id="vue" @close="closePopup" @trylogin="tryLogin" />
@@ -37,6 +40,10 @@ export default {
     
 
     async tryLogin({ username, password }) {
+      if(!username && !username){
+        this.showLoginModal = false;
+        return;
+      }
       console.log("Trying login", username, password);
       const rpnse = await fetch(
         `http://${window.location.hostname}:3001/users/login`,
@@ -61,6 +68,7 @@ export default {
     },
     showLogin() {
       this.showLoginModal = !this.showLoginModal;
+      console.log(this.showLoginModal);
     },
   },
 };

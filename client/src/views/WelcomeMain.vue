@@ -1,6 +1,6 @@
 <template>
     <div class="flex h-full ">
-        <div class="bg-slate-900 grow "> Welcome To Lanista {{isLoggedIn}}</div>
+        <div class="bg-slate-900 grow "> Welcome To Lanista </div>
     </div>
 </template>
 

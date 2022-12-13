@@ -2,10 +2,10 @@
   <div class="flex h-full ">
     <!-- -->
     <div class="bg-blue-900 w-48"> 
-        <SideNav @logged="update"/>
+        <SideNav @logged="update" @changeMain="changeStage"/>
     </div>
     <div class="bg-slate-900 grow "> 
-      <WelcomeMain/>
+      <component :is="mainStage" />
     </div>
   </div>
 
@@ -13,6 +13,7 @@
 
 <script>
 import WelcomeMain from "./views/WelcomeMain.vue";
+import ProfileMain from "./views/ProfileMain.vue";
 import SideNav from '@/components/SideNav.vue';
 import auth from "./mixins/auth";
 
@@ -20,14 +21,19 @@ export default {
   name: 'App',
   components: {
     SideNav,
+    ProfileMain,
     WelcomeMain
   },
   data(){
     return {
-      isLoggedIn: auth.loggedIn()
+      isLoggedIn: auth.loggedIn(),
+      mainStage:"WelcomeMain"
     }
   },
   methods:{
+    changeStage(newStage){
+      this.mainStage = newStage;
+    },
             update(){
                 this.isLoggedIn = auth.loggedIn();
             }
