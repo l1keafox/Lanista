@@ -1,5 +1,5 @@
 const db = require("../src/config/connection");
-const { User, GameDate,Owner } = require("./../src/models");
+const { User, GameDate,Owner,Gladiator } = require("./../src/models");
 
 db.once("open", async () => {
 	try {
@@ -14,6 +14,8 @@ db.once("open", async () => {
 
 		console.log("  > Owner Deleteing all");
 		await Owner.deleteMany({});
+		console.log("  > Gladiator Deleteing all");
+		await Gladiator.deleteMany({});
 
 		console.log("all done!");
 		process.exit(0);

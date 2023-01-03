@@ -38,18 +38,18 @@ router.post('/users/login', async(req, res) => {
             
             const glad = await new Gladiator( createNewGladiator() );
             console.log("  -EN> Creating Glad:",glad);
-            glad.schedule.push({first:"str",second:"str",third:"str",fourth:"str",fifth:"str",sixth:"str",seventh:"str",eight:"str"});
+            glad.schedule.push({1:"str",2:"str",3:"str",4:"str",5:"str",6:"str",7:"str",8:"str"});
             owner.gladiators.push(glad);
             glad.save();
 
             const glad2 = await new Gladiator( createNewGladiator() );
-            glad2.schedule.push({first:"str",second:"str",third:"str",fourth:"str",fifth:"str",sixth:"str",seventh:"str",eight:"str"});
+            glad2.schedule.push({1:"str",2:"str",3:"str",4:"str",5:"str",6:"str",7:"str",8:"str"});
             console.log("  -EN> Creating Glad:",glad2);
             owner.gladiators.push(glad2);
             glad2.save();
 
             const glad3 = await new Gladiator( createNewGladiator() );
-            glad3.schedule.push({first:"str",second:"str",third:"str",fourth:"str",fifth:"str",sixth:"str",seventh:"str",eight:"str"});
+            glad3.schedule.push({1:"str",2:"str",3:"str",4:"str",5:"str",6:"str",7:"str",8:"str"});
             console.log("  -EN> Creating Glad:",glad3);
             owner.gladiators.push(glad3);
             glad3.save();
@@ -71,6 +71,13 @@ router.post('/users/owner', async(req, res) => {
     // let user = await User.findOne({ _id: req.body.id });
     // let owner = await Owner.findOne({ _id: user.owner });
     let owner2 = await Owner.findOne({ userAcct: req.body.id });
+    res.send(owner2)
+})
+router.post('/users/gladiator', async(req, res) => {
+    // View logged in user profile
+    // let user = await User.findOne({ _id: req.body.id });
+    // let owner = await Owner.findOne({ _id: user.owner });
+    let owner2 = await Gladiator.findOne({ _id: req.body.id });
     res.send(owner2)
 })
 

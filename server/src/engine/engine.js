@@ -5,7 +5,7 @@ let timeToLastTick;
 async function doGameTick(){
     console.log('  -EN> Starting Tick:');
     const startOfTick = new Date();
-    Tick.doTick();
+    await Tick.doTick();
     const endOfTick = new Date();
     console.log(`  -EN> Game Tick took: ${endOfTick - startOfTick}ms  ::  ${Tick.getDate()}`);
 }
@@ -26,11 +26,11 @@ async function startLoop(){
 }
 
 module.exports = { 
-    init : function() {
+    init : async function() {
         
         console.log(`  -EN> Starting Game Engine Tick Time:${timeBetweenTicks}ms`);
         timeToLastTick = new Date(); // this is what starts thecount;
-        doGameTick();
+        await doGameTick();
         startLoop();
     },
  };

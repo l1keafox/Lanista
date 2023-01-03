@@ -1,6 +1,7 @@
 // This is what happens in a tick.
 // Game will start on 
-const { GameDate } = require("./../../models");
+const { GameDate,Gladiator } = require("./../../models");
+
 let date = {
     time: 1, // This is # of events per day maxed at 8
     day: 1, // Days maxed at 30
@@ -21,6 +22,10 @@ module.exports = {
             year: gameDate.year,
         };
 
+        let allGladiators = await Gladiator.find(); 
+        allGladiators.forEach( gladiator => {
+            console.log(`  -EN/Tick> ${gladiator.name} is training`, gladiator.schedule[0][date.time]);
+        });
     },
     getDate: function(){
         return `Time: ${date.time}:00  ${date.month}/${date.day}/${date.year}`

@@ -12,7 +12,7 @@
     </div>
   </div>
   <div v-if="showScheduleManager">
-    <ScheduleManager/>
+    <ScheduleManager :gladId="gladiatorId" @closeSchedule="closeManager"/>
   </div>
 </template>
 
@@ -25,6 +25,7 @@ export default {
   data() {
     return {
       userData: auth.getUser(),
+      gladiatorId: null,
       showScheduleManager:false,
       ownerData: null,
     };
@@ -32,6 +33,11 @@ export default {
   methods:{
     async openManager(event){
       console.log("Manager",event.target.getAttribute("data-id"));
+      this.gladiatorId = event.target.getAttribute("data-id");
+      this.showScheduleManager = true;
+    },
+    closeManager(){
+      this.showScheduleManager = false;
     }
   },
   components:{

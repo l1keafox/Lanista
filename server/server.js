@@ -2,6 +2,8 @@ const express = require("express");
 const path = require("path");
 require('dotenv').config({});
 const userRouter = require('./src/routers/users');
+const gladiatorRouter = require('./src/routers/gladiators');
+
 const db = require("./src/config/connection");
 const cors = require('cors');
 const { Engine } = require("./src/engine/");
@@ -15,6 +17,7 @@ app.use(cors())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(userRouter);
+app.use(gladiatorRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
