@@ -1,14 +1,12 @@
 <template>
-  <h1  @click="$emit('changeMain','WelcomeMain')"> LANISTA </h1>
-  <div v-if="!isLoggedIn" class="m-2" @click="showLogin" :key="isLoggedIn">
+  <h1  @click="$emit('changeMain','WelcomeMain')" class="cursor-pointer"> LANISTA </h1>
+  <div v-if="!isLoggedIn" class="m-2 cursor-pointer" @click="showLogin" :key="isLoggedIn">
     Login
   </div>
   <div v-else>
-    <div class="m-2" @click="doLogOut">Logout</div>
-    <div class="m-2" @click="$emit('changeMain','ProfileMain')" >Profile</div>
+    <div class="m-2 cursor-pointer" @click="doLogOut">Logout</div>
+    <div class="m-2 cursor-pointer" @click="$emit('changeMain','ProfileMain')" >Profile</div>
   </div>
-  
-  
   
   <div v-if="showLoginModal">
     <LoginVue id="vue" @close="closePopup" @trylogin="tryLogin" />

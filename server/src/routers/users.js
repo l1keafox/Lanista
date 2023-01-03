@@ -47,9 +47,13 @@ router.post('/users/login', async(req, res) => {
     }
 
 })
-router.get('/users/me', auth, async(req, res) => {
+router.post('/users/owner', async(req, res) => {
     // View logged in user profile
-    res.send(req.user)
+    // let user = await User.findOne({ _id: req.body.id });
+    // let owner = await Owner.findOne({ _id: user.owner });
+    let owner2 = await Owner.findOne({ userAcct: req.body.id });
+    console.log(owner2);
+    res.send(owner2)
 })
 
 router.post('/users/me/logout', auth, async (req, res) => {
