@@ -1,5 +1,5 @@
 const db = require("../src/config/connection");
-const { User, GameDate } = require("./../src/models");
+const { User, GameDate,Owner } = require("./../src/models");
 
 db.once("open", async () => {
 	try {
@@ -11,6 +11,9 @@ db.once("open", async () => {
 		console.log("  > User");
 		await User.deleteMany({});
 		let users = await User.create(  require('./userSeeds.json') );
+
+		console.log("  > Owner Deleteing all");
+		await Owner.deleteMany({});
 
 		console.log("all done!");
 		process.exit(0);

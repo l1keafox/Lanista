@@ -1,5 +1,4 @@
-// import decode from "jwt-decode";
-const decode = require('jwt-decode');
+import decode from "jwt-decode";
 // create a new class to instantiate for a user
 class AuthService {
 	// get user data from JSON web token by decoding it
@@ -10,6 +9,7 @@ class AuthService {
 			console.log('No token');
 			return false;
 		}
+		console.log("token",token);
 		return decode(token);
 	}
 
@@ -27,7 +27,7 @@ class AuthService {
 	login(idToken) {
 		// Saves user token to localStorage and reloads the application for logged in status to take effect
 
-		console.log(idToken, "Token is logging IN Data",decode(idToken));
+		console.log(idToken, "Token is logging IN Data");
 		
 		localStorage.setItem("id_token", idToken);
 		//window.location.assign("/games");

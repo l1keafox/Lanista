@@ -1,7 +1,8 @@
 
 const express = require('express');
-const User = require('../models/User');
+const {User,Owner,Gladiator,DayEvents} = require('../models');
 const auth = require('../middleware/auth');
+const {createNewOwner,createNewGladiator} = require('./../engine/game/utils');
 const router = express.Router();
 
 router.post('/users', async (req, res) => {
@@ -22,25 +23,55 @@ router.post('/users/login', async(req, res) => {
     //Login a registered user
     try {
         const { username, password } = req.body;
-        console.log(username,password, "FIND");
         if(!username){
             return res.status(401).send({error: 'Login failed! Check authentication credentials'})
         }
         const user = await User.findByCredentials(username, password);
-        console.log(user);
         if (!user) {
             return res.status(401).send({error: 'Login failed! Check authentication credentials'})
         }
         const token = await user.generateAuthToken();
+        // Here we should create owner 
+        if(!user.owner){
+            const owner = await new Owner( createNewOwner() )
+            console.log("  -EN> User creating Owner Model.");
+            
+            const glad = await new Gladiator( createNewGladiator() );
+            console.log("  -EN> Creating Glad:",glad);
+            glad.schedule.push({first:"str",second:"str",third:"str",fourth:"str",fifth:"str",sixth:"str",seventh:"str",eight:"str"});
+            owner.gladiators.push(glad);
+            glad.save();
+
+            const glad2 = await new Gladiator( createNewGladiator() );
+            glad2.schedule.push({first:"str",second:"str",third:"str",fourth:"str",fifth:"str",sixth:"str",seventh:"str",eight:"str"});
+            console.log("  -EN> Creating Glad:",glad2);
+            owner.gladiators.push(glad2);
+            glad2.save();
+
+            const glad3 = await new Gladiator( createNewGladiator() );
+            glad3.schedule.push({first:"str",second:"str",third:"str",fourth:"str",fifth:"str",sixth:"str",seventh:"str",eight:"str"});
+            console.log("  -EN> Creating Glad:",glad3);
+            owner.gladiators.push(glad3);
+            glad3.save();
+
+            user.owner = owner._id;
+            owner.userAcct = user._id;
+            user.save();
+            owner.save();
+        }
+        
         res.send({ user, token })
     } catch (error) {
         res.status(400).send(error)
     }
 
 })
-router.get('/users/me', auth, async(req, res) => {
+router.post('/users/owner', async(req, res) => {
     // View logged in user profile
-    res.send(req.user)
+    // let user = await User.findOne({ _id: req.body.id });
+    // let owner = await Owner.findOne({ _id: user.owner });
+    let owner2 = await Owner.findOne({ userAcct: req.body.id });
+    res.send(owner2)
 })
 
 router.post('/users/me/logout', auth, async (req, res) => {
