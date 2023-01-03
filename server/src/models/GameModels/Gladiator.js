@@ -1,14 +1,21 @@
 const { Schema, model } = require("mongoose");
-const User = require('./../User');
+const Owner = require('./Owner');
 
 const gladiatorSchema = new Schema(
 	{
+        name:{
+            type:String
+        },
+        hits:{
+            type:Number
+        },
+        owner:{
+            type:Schema.Types.ObjectId,
+            ref:"Owner"
+        },
+        schedule:[],
+
 	},
-	{
-		toJSON: {
-			virtuals: true,
-		},
-	}
 );
 
 

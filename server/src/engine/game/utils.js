@@ -4,4 +4,22 @@
 function createNewOwner(){
     return {gold:100};
 }
-module.exports = { createNewOwner }; 
+
+const gladNames = [
+    "Tit",
+    "Fat",
+    "Fat"
+];
+global.rollDice = (numOfDice,numOfFaces) =>{
+    let rtn = 0;
+    while(numOfDice--){
+      rtn += Math.ceil(Math.random()*numOfFaces);
+    };
+    return rtn;
+  };
+
+function createNewGladiator(){
+    return {name: gladNames[ ( rollDice(1,gladNames.length) ) ], hits:100};
+}
+
+module.exports = { createNewOwner,createNewGladiator }; 

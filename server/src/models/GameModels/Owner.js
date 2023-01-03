@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 const User = require('./../User');
-const Gladiator = require('./../User');
+const Gladiator = require('./Gladiator');
 
 const ownerSchema = new Schema(
 	{

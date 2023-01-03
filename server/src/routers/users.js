@@ -1,8 +1,8 @@
 
 const express = require('express');
-const {User,Owner} = require('../models');
+const {User,Owner,Gladiator} = require('../models');
 const auth = require('../middleware/auth');
-const {createNewOwner} = require('./../engine/game/utils');
+const {createNewOwner,createNewGladiator} = require('./../engine/game/utils');
 const router = express.Router();
 
 router.post('/users', async (req, res) => {
@@ -33,10 +33,14 @@ router.post('/users/login', async(req, res) => {
         const token = await user.generateAuthToken();
         // Here we should create owner 
         if(!user.owner){
-            const owner = new Owner(createNewOwner())
+            const owner = await new Owner( createNewOwner() )
             console.log("  -EN> User creating Owner Model.");
+            const glad = await new Gladiator( createNewGladiator() );
+            console.log("  -EN> Creating Glad:",glad);
+            owner.gladiators.push(glad);
             user.owner = owner._id;
             owner.userAcct = user._id;
+            glad.save();
             user.save();
             owner.save();
         }
