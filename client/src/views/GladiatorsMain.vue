@@ -1,10 +1,12 @@
 <template>
   <div>
     <h1>Gladiators</h1>
-    <div  v-if="ownerData"  > 
-        <div v-for="glad in ownerData.gladiators" :key="glad.name"> 
-            <h2>{{glad.name}} </h2>
+    <div  v-if="ownerData" className="flex justify-center items-center" > 
+        <div v-for="glad in ownerData.gladiators" :key="glad" className="h-80 aspect-[5/7] p-3 m-3 hover:bg-slate-200 cursor-default select-none flex flex-col justify-between bg-slate-700"> 
+        
+        <h2>{{glad.name}} </h2>
         <h2>{{glad.hits}} </h2>
+        <button>schedule </button>
       </div>
     </div>
   </div>

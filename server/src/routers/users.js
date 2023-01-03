@@ -1,6 +1,6 @@
 
 const express = require('express');
-const {User,Owner,Gladiator} = require('../models');
+const {User,Owner,Gladiator,DayEvents} = require('../models');
 const auth = require('../middleware/auth');
 const {createNewOwner,createNewGladiator} = require('./../engine/game/utils');
 const router = express.Router();
@@ -35,12 +35,27 @@ router.post('/users/login', async(req, res) => {
         if(!user.owner){
             const owner = await new Owner( createNewOwner() )
             console.log("  -EN> User creating Owner Model.");
+            
             const glad = await new Gladiator( createNewGladiator() );
             console.log("  -EN> Creating Glad:",glad);
+            glad.schedule.push({first:"str",second:"str",third:"str",fourth:"str",fifth:"str",sixth:"str",seventh:"str",eight:"str"});
             owner.gladiators.push(glad);
+            glad.save();
+
+            const glad2 = await new Gladiator( createNewGladiator() );
+            glad2.schedule.push({first:"str",second:"str",third:"str",fourth:"str",fifth:"str",sixth:"str",seventh:"str",eight:"str"});
+            console.log("  -EN> Creating Glad:",glad2);
+            owner.gladiators.push(glad2);
+            glad2.save();
+
+            const glad3 = await new Gladiator( createNewGladiator() );
+            glad3.schedule.push({first:"str",second:"str",third:"str",fourth:"str",fifth:"str",sixth:"str",seventh:"str",eight:"str"});
+            console.log("  -EN> Creating Glad:",glad3);
+            owner.gladiators.push(glad3);
+            glad3.save();
+
             user.owner = owner._id;
             owner.userAcct = user._id;
-            glad.save();
             user.save();
             owner.save();
         }

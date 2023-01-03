@@ -6,9 +6,20 @@ function createNewOwner(){
 }
 
 const gladNames = [
-    "Tit",
+    "Tat",
     "Fat",
-    "Fat"
+    "Cat",
+    "Bat",
+    "Rat",
+    "Mat",
+    "Dat",
+    "Tar",
+    "Far",
+    "Car",
+    "Bar",
+    "Rar",
+    "Mar",
+    "Dar"
 ];
 global.rollDice = (numOfDice,numOfFaces) =>{
     let rtn = 0;
@@ -19,7 +30,7 @@ global.rollDice = (numOfDice,numOfFaces) =>{
   };
 
 function createNewGladiator(){
-    return {name: gladNames[ ( rollDice(1,gladNames.length) ) ], hits:100};
+    return {name: gladNames[  rollDice(1,gladNames.length)  ], hits:100};
 }
 
 module.exports = { createNewOwner,createNewGladiator }; 
