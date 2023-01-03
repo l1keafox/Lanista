@@ -17,7 +17,6 @@ export default {
     };
   },
   async mounted() {
-    console.log(  this.userData._id );
     const rpnse = await fetch(
       `http://${window.location.hostname}:3001/users/owner`,
       {
@@ -26,9 +25,8 @@ export default {
           body: JSON.stringify({ "id": this.userData._id}),
         }      
     );
-    let ditto = await rpnse.json();
-    console.log("WHAT",ditto);
-    this.ownerData =  ditto;
+    let ownerData = await rpnse.json();
+    this.ownerData =  ownerData;
   },
 };
 </script>

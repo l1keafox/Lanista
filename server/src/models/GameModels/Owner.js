@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const User = require('./../User');
+const Gladiator = require('./../User');
 
 const ownerSchema = new Schema(
 	{
@@ -10,7 +11,8 @@ const ownerSchema = new Schema(
         gold:{
             type: Number,
         },
-        structures:[]
+        structures:[],
+		gladiators:[],
 	},
 	{
 		toJSON: {

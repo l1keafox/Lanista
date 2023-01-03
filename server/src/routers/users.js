@@ -52,7 +52,6 @@ router.post('/users/owner', async(req, res) => {
     // let user = await User.findOne({ _id: req.body.id });
     // let owner = await Owner.findOne({ _id: user.owner });
     let owner2 = await Owner.findOne({ userAcct: req.body.id });
-    console.log(owner2);
     res.send(owner2)
 })
 

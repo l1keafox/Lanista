@@ -6,6 +6,7 @@
   <div v-else>
     <div class="m-2 cursor-pointer" @click="doLogOut">Logout</div>
     <div class="m-2 cursor-pointer" @click="$emit('changeMain','ProfileMain')" >Profile</div>
+    <div class="m-2 cursor-pointer" @click="$emit('changeMain','GladiatorsMain')" >Gladiators</div>
   </div>
   
   <div v-if="showLoginModal">
@@ -15,8 +16,8 @@
 
 <script>
 import auth from "./../mixins/auth";
-
 import LoginVue from "./LoginVue.vue";
+
 export default {
   name: "SideNav",
   data() {

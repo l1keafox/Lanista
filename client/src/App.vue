@@ -14,6 +14,7 @@
 <script>
 import WelcomeMain from "./views/WelcomeMain.vue";
 import ProfileMain from "./views/ProfileMain.vue";
+import GladiatorsMain from "./views/GladiatorsMain.vue";
 import SideNav from '@/components/SideNav.vue';
 import auth from "./mixins/auth";
 
@@ -22,7 +23,8 @@ export default {
   components: {
     SideNav,
     ProfileMain,
-    WelcomeMain
+    WelcomeMain,
+    GladiatorsMain
   },
   data(){
     return {
