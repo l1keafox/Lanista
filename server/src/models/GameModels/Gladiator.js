@@ -103,11 +103,9 @@ const gladiatorSchema = new Schema(
 
 
         //  the difference between an skill and ability is that skills are in teh character abilities are given by items. 
+        // But these are both added in the clash/prepair/react.
         skills:[],
         abilities:[]
-
-
-
 	},
 );
 
