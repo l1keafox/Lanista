@@ -1,6 +1,6 @@
 // This is what happens in a tick.
 // Game will start on 
-const { GameDate,Gladiator } = require("./../../models");
+const { GameDate,Gladiator,Owner } = require("./../../models");
 const {doGrowth} = require("./structureEffects")
 let date = {
     time: 1, // This is # of events per day maxed at 8
@@ -23,10 +23,34 @@ module.exports = {
         };
 
         let allGladiators = await Gladiator.find(); 
-        allGladiators.forEach( gladiator => {
-            const growth = doGrowth(gladiator,gladiator.schedule[0][date.time]);
+        let ownersGain = {};
+        await allGladiators.forEach(async gladiator => {
+            const growth = await doGrowth(gladiator,gladiator.schedule[0][date.time]);
             console.log(`  -EN/Tick> ${gladiator.name} is training`, gladiator.schedule[0][date.time],growth);
+            if(!ownersGain[gladiator.owner]){
+                ownersGain[gladiator.owner] = {
+                    gold:0,
+                    fame:0
+                };
+            }
+            const goldGrowth = growth.find(element => element.stat === "gold");
+            const fameGrowth = growth.find(element => element.stat === "fame");
+            if(goldGrowth){
+                ownersGain[gladiator.owner].gold  += goldGrowth.amount;
+            }
+            if(fameGrowth){
+                ownersGain[gladiator.owner].fame  += fameGrowth.amount;
+            }
             gladiator.save();
+        });
+
+
+        Object.keys(ownersGain).forEach(async (ownerid) => {
+            let owner = await Owner.findOne({ _id:ownerid });
+            console.log('  -EN/TICK> Owner',owner.userAcct ,': gained  G:',ownersGain[ownerid].gold,"F:",ownersGain[ownerid].fame);
+            owner.gold += ownersGain[ownerid].gold;
+            owner.fame += ownersGain[ownerid].fame;
+            owner.save();
         });
         
     },
@@ -35,3 +59,4 @@ module.exports = {
     }
 
  };
+   

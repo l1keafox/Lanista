@@ -4,6 +4,7 @@
     <h2>Username:  {{ userData.username }}</h2>
     <div v-if="ownerData">
       <h2>GOLD: {{ ownerData.gold }}</h2>
+      <h2>FAME: {{ ownerData.fame }}</h2>
     </div>
   </div>
 </template>

@@ -4,7 +4,7 @@ Each structure will have an abbprivated name, and that structure can have random
 */
 // There are two different types, min/max and dice numbers/side being that the math is different chances.
 
-const {Owner} = require('./../../models');
+
 const structObj = {
   "chopWood": {
     // increase strength, with a chance of lowering
@@ -21,7 +21,7 @@ const structObj = {
     },
     "gold":{
       diceSide: 1,
-      diceNumber: 4,
+      diceNumber: 2,
       growth: true,
     }
   },
@@ -34,7 +34,7 @@ const structObj = {
     },
     "fame":{
       diceSide: 1,
-      diceNumber: 4,
+      diceNumber: 2,
       growth: true,
     },
   },
@@ -54,7 +54,7 @@ const structObj = {
     },
     "gold":{
       min: 1,
-      max: 4,
+      max: 2,
       growth: true,
 
     }
@@ -73,7 +73,7 @@ const structObj = {
     },
     "gold":{
       min: 1,
-      max: 4,
+      max: 2,
       growth: true,
 
     }
@@ -87,7 +87,7 @@ const structObj = {
     },
     "gold":{
       min: 1,
-      max: 4,
+      max: 2,
       growth: true,
     }
   },
@@ -123,7 +123,7 @@ const structObj = {
     },
     "gold":{
       min: 1,
-      max: 4,
+      max: 2,
       growth: true,
     }
   },
@@ -141,7 +141,7 @@ const structObj = {
     },
     "gold":{
       min: 1,
-      max: 4,
+      max: 2,
       growth: true,
     }
   },
@@ -210,19 +210,12 @@ function growthPenality(gladiator,amnt, stat) {
   return({stat:removeStat, amount: amnt*amp} );
 }
 
-async function ownerAdd(ownerId,stat,growthAmnt){
-  let owner = await Owner.findOne({ _id:ownerId });
-  if(owner){
-    console.log(`adding ${stat} to owner for ${growthAmnt} ${owner[stat]}`);
-    owner[stat] += growthAmnt;
-    console.log(`after ${owner[stat]}`);
-    owner.save();
-  }
-}
+
 
 async function  doGrowth(gladiator, struct) {
   let rtnGrowth = [];
-  Object.keys(structObj[struct]).forEach(async (stat) => {
+
+  Object.keys(structObj[struct]).forEach((stat) => {
     let growthAmnt;
     if (structObj[struct][stat].min) {
       growthAmnt = randomBetween(
@@ -251,8 +244,7 @@ async function  doGrowth(gladiator, struct) {
           rtnGrowth.push({ stat, amount: growthAmnt });
         }
     } else if((stat == 'gold' || stat =="fame") && growthAmnt) {
-      // await ownerAdd(gladiator.owner,stat,growthAmnt);
-      // rtnGrowth.push({ stat, amount: growthAmnt });
+      rtnGrowth.push({ stat, amount: growthAmnt });
     }
   });
   return rtnGrowth;
