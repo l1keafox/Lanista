@@ -1,11 +1,11 @@
 /*
 This is an game object for training
-Each structure will have an abbprivated name, and that structure can have random effects:
+Each training will have an abbprivated name, and that training can have random effects:
 */
 // There are two different types, min/max and dice numbers/side being that the math is different chances.
 
 
-const structObj = {
+const trainingObj = {
   "chopWood": {
     // increase strength, with a chance of lowering
     description: "Chopping Wood",
@@ -164,7 +164,7 @@ const structObj = {
 //   "reputation", Community Service - increases fame
 
 
-/* So how this will work this rough shit is that it will export an module for growth, it will take a character and an type of struct
+/* So how this will work this rough shit is that it will export an module for growth, it will take a character and an type of training
  */
 function randomBetween(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -212,24 +212,24 @@ function growthPenality(gladiator,amnt, stat) {
 
 
 
-async function  doGrowth(gladiator, struct) {
+async function  doGrowth(gladiator, training) {
   let rtnGrowth = [];
 
-  Object.keys(structObj[struct]).forEach((stat) => {
+  Object.keys(trainingObj[training]).forEach((stat) => {
     let growthAmnt;
-    if (structObj[struct][stat].min) {
+    if (trainingObj[training][stat].min) {
       growthAmnt = randomBetween(
-        structObj[struct][stat].min,
-        structObj[struct][stat].max
+        trainingObj[training][stat].min,
+        trainingObj[training][stat].max
       );
     } else {
       growthAmnt = rollDice(
-        structObj[struct][stat].diceNumber,
-        structObj[struct][stat].diceSide
+        trainingObj[training][stat].diceNumber,
+        trainingObj[training][stat].diceSide
       );
     }
-    // console.log(stat,"Growth @", growthAmnt ,"Growth",structObj[struct][stat].growth )
-    if (!structObj[struct][stat].growth) {
+    // console.log(stat,"Growth @", growthAmnt ,"Growth",trainingObj[training][stat].growth )
+    if (!trainingObj[training][stat].growth) {
       growthAmnt = growthAmnt * -1;
     }
     if(stat === "description"){
@@ -250,12 +250,12 @@ async function  doGrowth(gladiator, struct) {
   return rtnGrowth;
 }
 
-function getStruct(struct) {
-  return structObj[struct];
+function getTraining(training) {
+  return trainingObj[training];
 }
 
-function getAllStructs(){
-  return structObj;
+function getAllTrainings(){
+  return trainingObj;
 }
 
-module.exports = { doGrowth, getStruct, getAllStructs};
+module.exports = { doGrowth, getTraining, getAllTrainings};

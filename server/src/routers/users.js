@@ -34,8 +34,8 @@ router.post('/users/login', async(req, res) => {
         // Here we should create owner 
         if(!user.owner){
             const owner = await new Owner( createNewOwner() )
-            console.log("  -EN> User creating Owner Model. Starting Default Structs");
-            owner.structures = ["chopWood","community","woodCarv","hiking","readBook","pray","lookLost","tough"];
+            console.log("  -EN> User creating Owner Model. Starting Default Training");
+            owner.training = ["chopWood","community","woodCarv","hiking","readBook","pray","lookLost","tough"];
             
             const glad = await new Gladiator( createNewGladiator() );
             console.log("  -EN> Creating Glad:",glad,owner._id);

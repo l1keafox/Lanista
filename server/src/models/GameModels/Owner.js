@@ -15,6 +15,7 @@ const ownerSchema = new Schema(
             type: Number,
         },
         structures:[],
+        training:[],
 		gladiators:[],
 	},
 	{

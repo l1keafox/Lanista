@@ -17,8 +17,8 @@
                 <div v-for="(event,key) in gladiatorData.schedule[0]" :key="event">
                     {{key}}:00 Event  <select :name="key" class="bg-green-100 schedule">
                         <option value="fir">{{ event }}</option>
-                        <template v-for="(struct,index) in structData" :key="index">
-                          <option value="index">{{struct}}</option>
+                        <template v-for="(training,index) in trainingData" :key="index">
+                          <option value="index">{{training}}</option>
                         </template>
                       </select>
                 </div>
@@ -44,7 +44,7 @@ export default {
     return {
       gladiatorData: null,
       userData: auth.getUser(),
-      structData: null
+      trainingData: null
     };
   },
   methods:{
@@ -80,16 +80,16 @@ export default {
     );
     this.gladiatorData = await rpnse.json();
 
-    const structs = await fetch(
-      `http://${window.location.hostname}:3001/owner/structures`,
+    const training = await fetch(
+      `http://${window.location.hostname}:3001/owner/training`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ "id": this.userData._id }),
       }
     );
-    const structData = await structs.json();
-    this.structData = structData;
+    const trainingData = await training.json();
+    this.trainingData = trainingData;
 
   },
 };
