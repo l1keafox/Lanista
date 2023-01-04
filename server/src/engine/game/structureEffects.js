@@ -4,6 +4,7 @@ Each structure will have an abbprivated name, and that structure can have random
 */
 // There are two different types, min/max and dice numbers/side being that the math is different chances.
 
+const {Owner} = require('./../../models');
 const structObj = {
   "chopWood": {
     // increase strength, with a chance of lowering
@@ -85,7 +86,7 @@ const structObj = {
       growth: true,
     },
     "gold":{
-      min: 0,
+      min: 1,
       max: 4,
       growth: true,
     }
@@ -103,7 +104,7 @@ const structObj = {
       growth: true,
     },
     "gold":{
-      min: 0,
+      min: 1,
       max: 2,
       growth: true,
     }
@@ -121,7 +122,7 @@ const structObj = {
       growth: true,
     },
     "gold":{
-      min: 0,
+      min: 1,
       max: 4,
       growth: true,
     }
@@ -139,7 +140,7 @@ const structObj = {
       growth: true,
     },
     "gold":{
-      min: 0,
+      min: 1,
       max: 4,
       growth: true,
     }
@@ -209,9 +210,19 @@ function growthPenality(gladiator,amnt, stat) {
   return({stat:removeStat, amount: amnt*amp} );
 }
 
-function doGrowth(gladiator, struct) {
+async function ownerAdd(ownerId,stat,growthAmnt){
+  let owner = await Owner.findOne({ _id:ownerId });
+  if(owner){
+    console.log(`adding ${stat} to owner for ${growthAmnt} ${owner[stat]}`);
+    owner[stat] += growthAmnt;
+    console.log(`after ${owner[stat]}`);
+    owner.save();
+  }
+}
+
+async function  doGrowth(gladiator, struct) {
   let rtnGrowth = [];
-  Object.keys(structObj[struct]).forEach((stat) => {
+  Object.keys(structObj[struct]).forEach(async (stat) => {
     let growthAmnt;
     if (structObj[struct][stat].min) {
       growthAmnt = randomBetween(
@@ -231,7 +242,7 @@ function doGrowth(gladiator, struct) {
     if(stat === "description"){
 
     } else 
-    if(stat !== 'gold' || stat !=="fame"){
+    if(stat !== 'gold' && stat !=="fame"){
       gladiator[stat] += growthAmnt;
       if (gladiator[stat] < 0) {
           rtnGrowth.push( growthPenality(gladiator,gladiator[stat], stat) );
@@ -239,11 +250,10 @@ function doGrowth(gladiator, struct) {
       } else {
           rtnGrowth.push({ stat, amount: growthAmnt });
         }
-    } else {
-
+    } else if((stat == 'gold' || stat =="fame") && growthAmnt) {
+      // await ownerAdd(gladiator.owner,stat,growthAmnt);
+      // rtnGrowth.push({ stat, amount: growthAmnt });
     }
-
-    
   });
   return rtnGrowth;
 }
