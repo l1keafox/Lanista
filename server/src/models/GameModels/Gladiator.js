@@ -79,6 +79,33 @@ const gladiatorSchema = new Schema(
             type:Number
         },
 
+        // Item slots
+        // Using a string to reference an item in the itemsIndex.
+
+        headSlot:{
+            type:String
+        },
+        mainHand:{
+            type:String
+        },
+        offHand:{
+            type:String
+        },
+        body:{
+            type:String
+        },
+        leg:{
+            type:String
+        },
+        boots:{
+            type:String
+        },
+
+
+        //  the difference between an skill and ability is that skills are in teh character abilities are given by items. 
+        skills:[],
+        abilities:[]
+
 
 
 	},
