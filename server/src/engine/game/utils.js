@@ -42,14 +42,14 @@ function createNewGladiator() {
       stress:100,
       morale:100,
       exp:0,
+      age:0,
 
       // Physical Stats
       strength:rollDice(30,60),
       dexterity:rollDice(30,60),
       agility:rollDice(30,60),
-      consitution:rollDice(30,60),
+      constitution:rollDice(30,60),
       vitality:rollDice(30,60),
-      age:15,
       
       // Mental Stats
       intelligence:rollDice(30,60),

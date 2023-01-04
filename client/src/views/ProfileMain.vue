@@ -1,8 +1,10 @@
 <template>
   <div>
     <h1>PROFILE PAGE</h1>
-    <h2>{{ userData }}</h2>
-    <h2>{{ ownerData }}</h2>
+    <h2>Username:  {{ userData.username }}</h2>
+    <div v-if="ownerData">
+      <h2>GOLD: {{ ownerData.gold }}</h2>
+    </div>
   </div>
 </template>
 
@@ -31,4 +33,5 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

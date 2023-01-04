@@ -18,7 +18,7 @@
                   
                   <h2>morale:{{gladiatorData.morale}}/stress:{{gladiatorData.stress}} </h2>
                   <h2>strength:{{gladiatorData.strength}} | dexterity:{{gladiatorData.dexterity}} </h2>
-                  <h2>agility:{{gladiatorData.agility}} consitution:{{gladiatorData.consitution}}  </h2>
+                  <h2>agility:{{gladiatorData.agility}} constitution:{{gladiatorData.constitution}}  </h2>
                   <h2>vitality:{{gladiatorData.vitality}} </h2>
           
                   <h2>intelligence:{{gladiatorData.intelligence}} wisdom:{{gladiatorData.wisdom}} </h2>

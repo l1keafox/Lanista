@@ -2,7 +2,9 @@
     <div>
       <h1>STRUCTUES PAGE</h1>
       <h2>{{ userData }}</h2>
-      <h2>{{ ownerData }}</h2>
+      <div v-if="ownerData">
+        <h2>{{ ownerData.structures }}</h2>
+      </div>
     </div>
   </template>
   

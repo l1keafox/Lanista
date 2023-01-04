@@ -11,6 +11,9 @@ const ownerSchema = new Schema(
         gold:{
             type: Number,
         },
+        fame:{
+            type: Number,
+        },
         structures:[],
 		gladiators:[],
 	},

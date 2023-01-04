@@ -24,7 +24,6 @@ module.exports = {
 
         let allGladiators = await Gladiator.find(); 
         allGladiators.forEach( gladiator => {
-            
             const growth = doGrowth(gladiator,gladiator.schedule[0][date.time]);
             console.log(`  -EN/Tick> ${gladiator.name} is training`, gladiator.schedule[0][date.time],growth);
             gladiator.save();

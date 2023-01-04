@@ -5,20 +5,163 @@ Each structure will have an abbprivated name, and that structure can have random
 // There are two different types, min/max and dice numbers/side being that the math is different chances.
 
 const structObj = {
-  "str": {
+  "chopWood": {
     // increase strength, with a chance of lowering
+    description: "Chopping Wood",
     "strength": {
-      min: 20,
-      max: 30,
+      min: 2,
+      max: 12,
       growth: true,
     },
-    "agility": {
-      diceSide: 4,
-      diceNumber: 3,
-      growth: false,
+    "constitution": {
+      diceSide: 6,
+      diceNumber: 2,
+      growth: true,
+    },
+    "gold":{
+      diceSide: 1,
+      diceNumber: 4,
+      growth: true,
+    }
+  },
+  "tough":{
+    description: "Toughing up one's body",
+    "hits":{
+      min: 1,
+      max: 4,
+      growth: true,
+    },
+    "fame":{
+      diceSide: 1,
+      diceNumber: 4,
+      growth: true,
     },
   },
+  "community":{
+    description:"Doing Community Service",
+    "charisma":{
+      min: 5,
+      max: 10,
+      growth: true,
+
+    },
+    "reputation":{
+      min: 2,
+      max: 10,
+      growth: true,
+
+    },
+    "gold":{
+      min: 1,
+      max: 4,
+      growth: true,
+
+    }
+  },
+  "woodCarv":{
+    description:"Carving wood",
+    "dexterity":{
+      min: 2,
+      max: 12,
+      growth: true,
+    },
+    "agility":{
+      min: 2,
+      max: 12,
+      growth: true,
+    },
+    "gold":{
+      min: 1,
+      max: 4,
+      growth: true,
+
+    }
+  },
+  "hiking":{
+    description:"Hiking and looking for plants",
+    "vitality":{
+      min: 2,
+      max: 12,
+      growth: true,
+    },
+    "gold":{
+      min: 0,
+      max: 4,
+      growth: true,
+    }
+  },
+  "readBook":{
+    description:"Reading books",
+    "intelligence":{
+      min: 2,
+      max: 12,
+      growth: true,
+    },
+    "sensitivity":{
+      min: 2,
+      max: 12,
+      growth: true,
+    },
+    "gold":{
+      min: 0,
+      max: 2,
+      growth: true,
+    }
+  },
+  "pray":{
+    description:"Praying",
+    "piety":{
+      min: 2,
+      max: 12,
+      growth: true,
+    },
+    "wisdom":{
+      min: 2,
+      max: 12,
+      growth: true,
+    },
+    "gold":{
+      min: 0,
+      max: 4,
+      growth: true,
+    }
+  },
+  "lookLost":{
+    description:"Looking for lost items",
+    "luck":{
+      min: 0,
+      max: 12,
+      growth: true,
+    },
+    "bravery":{
+      min: 5,
+      max: 10,
+      growth: true,
+    },
+    "gold":{
+      min: 0,
+      max: 4,
+      growth: true,
+    }
+  },
+
 };
+
+// Level 1
+//   "strength", - Chopping Firewood - increase gold
+//   "constitution", - Chopping Firewood 
+//   "dexterity", - Woodcarving - increase gold
+//   "agility", - Hiking - increase gold
+//   "vitality", Hiking - increase gold
+//   "intelligence", - Reading Books 
+//   "sensitivity", - Reading Books - increase gold
+//   "wisdom", - Praying - increase gold
+//   "piety", - Praying  - increase gold
+//   "bravery", Looking for lost items - increase gold
+//   "luck", Looking for lost items - increase gold
+//   "charisma",  Community Service  - increases fame
+//   "reputation", Community Service - increases fame
+
 
 /* So how this will work this rough shit is that it will export an module for growth, it will take a character and an type of struct
  */
@@ -33,13 +176,14 @@ function rollDice(numOfDice, numOfFaces) {
   return rtn;
 }
 
+
 function growthPenality(gladiator,amnt, stat) {
   // This happens when you get a stat below 0,
   const stats = [
     "strength",
     "dexterity",
     "agility",
-    "consitution",
+    "constitution",
     "vitality",
     "intelligence",
     "wisdom",
@@ -84,12 +228,19 @@ function doGrowth(gladiator, struct) {
     if (!structObj[struct][stat].growth) {
       growthAmnt = growthAmnt * -1;
     }
-    gladiator[stat] += growthAmnt;
-    if (gladiator[stat] < 0) {
-        rtnGrowth.push( growthPenality(gladiator,gladiator[stat], stat) );
-        gladiator[stat] = 1;
+    if(stat === "description"){
+
+    } else 
+    if(stat !== 'gold' || stat !=="fame"){
+      gladiator[stat] += growthAmnt;
+      if (gladiator[stat] < 0) {
+          rtnGrowth.push( growthPenality(gladiator,gladiator[stat], stat) );
+          gladiator[stat] = 1;
+      } else {
+          rtnGrowth.push({ stat, amount: growthAmnt });
+        }
     } else {
-        rtnGrowth.push({ stat, amount: growthAmnt });
+
     }
 
     
@@ -101,4 +252,8 @@ function getStruct(struct) {
   return structObj[struct];
 }
 
-module.exports = { doGrowth, getStruct };
+function getAllStructs(){
+  return structObj;
+}
+
+module.exports = { doGrowth, getStruct, getAllStructs};
