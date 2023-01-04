@@ -19,7 +19,7 @@ const gladNames = [
   "Mar",
   "Dar",
 ];
-global.rollDice = (numOfDice, numOfFaces) => {
+function rollDice(numOfDice, numOfFaces){
   let rtn = 0;
   while (numOfDice--) {
     rtn += Math.ceil(Math.random() * numOfFaces);
@@ -44,24 +44,24 @@ function createNewGladiator() {
       exp:0,
 
       // Physical Stats
-      strength:rollDice(3,6),
-      dexterity:rollDice(3,6),
-      agility:rollDice(3,6),
-      consitution:rollDice(3,6),
-      vitality:rollDice(3,6),
+      strength:rollDice(30,60),
+      dexterity:rollDice(30,60),
+      agility:rollDice(30,60),
+      consitution:rollDice(30,60),
+      vitality:rollDice(30,60),
       age:15,
       
       // Mental Stats
-      intelligence:rollDice(3,6),
-      wisdom:rollDice(3,6),
-      bravery:rollDice(3,6),
-      piety:rollDice(3,6),
-      sensitivity:rollDice(3,6),
+      intelligence:rollDice(30,60),
+      wisdom:rollDice(30,60),
+      bravery:rollDice(30,60),
+      piety:rollDice(30,60),
+      sensitivity:rollDice(30,60),
 
       // Social Stats
-      charisma:rollDice(3,6),
-      luck:rollDice(3,6),
-      reputation:rollDice(3,6),
+      charisma:rollDice(30,60),
+      luck:rollDice(30,60),
+      reputation:rollDice(30,60),
   };
 }
 

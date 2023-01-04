@@ -7,6 +7,8 @@
     <div class="m-2 cursor-pointer" @click="doLogOut">Logout</div>
     <div class="m-2 cursor-pointer" @click="$emit('changeMain','ProfileMain')" >Profile</div>
     <div class="m-2 cursor-pointer" @click="$emit('changeMain','GladiatorsMain')" >Gladiators</div>
+    <div class="m-2 cursor-pointer" @click="$emit('changeMain','StructuresMain')" >Structures</div>
+    
   </div>
   
   <div v-if="showLoginModal">
