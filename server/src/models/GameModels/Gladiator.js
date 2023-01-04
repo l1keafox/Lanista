@@ -41,7 +41,7 @@ const gladiatorSchema = new Schema(
         agility:{ //Speed - Naturally Quick - physical speed - dodging
             type:Number
         },
-        consitution:{ //Physical Make up  - resistances to effects
+        constitution:{ //Physical Make up  - resistances to effects
             type:Number
         },
         vitality:{ //Energy - state of being strong/active - hit points

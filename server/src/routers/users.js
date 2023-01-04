@@ -34,23 +34,28 @@ router.post('/users/login', async(req, res) => {
         // Here we should create owner 
         if(!user.owner){
             const owner = await new Owner( createNewOwner() )
-            console.log("  -EN> User creating Owner Model.");
+            console.log("  -EN> User creating Owner Model. Starting Default Training");
+            owner.training = ["chopWood","community","woodCarv","hiking","readBook","pray","lookLost","tough"];
             
             const glad = await new Gladiator( createNewGladiator() );
-            console.log("  -EN> Creating Glad:",glad);
-            glad.schedule.push({1:"str",2:"str",3:"str",4:"str",5:"str",6:"str",7:"str",8:"str"});
+            console.log("  -EN> Creating Glad:",glad,owner._id);
+            glad.schedule.push({1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:"tough"});
+            glad.owner = owner._id;
             owner.gladiators.push(glad);
             glad.save();
 
             const glad2 = await new Gladiator( createNewGladiator() );
-            glad2.schedule.push({1:"str",2:"str",3:"str",4:"str",5:"str",6:"str",7:"str",8:"str"});
+            glad2.schedule.push({1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:"tough"});
             console.log("  -EN> Creating Glad:",glad2);
+            glad2.owner = owner._id;
             owner.gladiators.push(glad2);
+
             glad2.save();
 
             const glad3 = await new Gladiator( createNewGladiator() );
-            glad3.schedule.push({1:"str",2:"str",3:"str",4:"str",5:"str",6:"str",7:"str",8:"str"});
+            glad3.schedule.push({1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:"tough"});
             console.log("  -EN> Creating Glad:",glad3);
+            glad3.owner = owner._id;
             owner.gladiators.push(glad3);
             glad3.save();
 
@@ -65,20 +70,6 @@ router.post('/users/login', async(req, res) => {
         res.status(400).send(error)
     }
 
-})
-router.post('/users/owner', async(req, res) => {
-    // View logged in user profile
-    // let user = await User.findOne({ _id: req.body.id });
-    // let owner = await Owner.findOne({ _id: user.owner });
-    let owner2 = await Owner.findOne({ userAcct: req.body.id });
-    res.send(owner2)
-})
-router.post('/users/gladiator', async(req, res) => {
-    // View logged in user profile
-    // let user = await User.findOne({ _id: req.body.id });
-    // let owner = await Owner.findOne({ _id: user.owner });
-    let owner2 = await Gladiator.findOne({ _id: req.body.id });
-    res.send(owner2)
 })
 
 router.post('/users/me/logout', auth, async (req, res) => {

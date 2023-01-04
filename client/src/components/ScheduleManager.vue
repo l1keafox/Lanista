@@ -17,13 +17,10 @@
                 <div v-for="(event,key) in gladiatorData.schedule[0]" :key="event">
                     {{key}}:00 Event  <select :name="key" class="bg-green-100 schedule">
                         <option value="fir">{{ event }}</option>
-                        <option value="str">str</option>
-                        <option value="agi">agi</option>
-                        <option value="dex">dex</option>
-                        <option value="int">int</option>
-                        <option value="wis">wis</option>
-                        <option value="cha">cha</option>
-                    </select>
+                        <template v-for="(training,index) in trainingData" :key="index">
+                          <option value="index">{{training}}</option>
+                        </template>
+                      </select>
                 </div>
               </div>
               <button class="bg-yellow-200" @click="doSave" >Save</button>
@@ -39,12 +36,15 @@
 </template>
 
 <script>
+import auth from "./../mixins/auth";
 export default {
   name: "ScheduleManager",
   props: ["gladId"],
   data() {
     return {
       gladiatorData: null,
+      userData: auth.getUser(),
+      trainingData: null
     };
   },
   methods:{
@@ -78,8 +78,19 @@ export default {
         body: JSON.stringify({ "id": this.gladId }),
       }
     );
-    const ownerData = await rpnse.json();
-    this.gladiatorData = ownerData;
+    this.gladiatorData = await rpnse.json();
+
+    const training = await fetch(
+      `http://${window.location.hostname}:3001/owner/training`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ "id": this.userData._id }),
+      }
+    );
+    const trainingData = await training.json();
+    this.trainingData = trainingData;
+
   },
 };
 </script>

@@ -1,14 +1,16 @@
 <template>
-  <h1  @click="$emit('changeMain','WelcomeMain')" class="cursor-pointer"> LANISTA </h1>
-  <div v-if="!isLoggedIn" class="m-2 cursor-pointer" @click="showLogin" :key="isLoggedIn">
+  <br/>
+  <h1  @click="$emit('changeMain','WelcomeMain')" class="cursor-pointer text-3xl text-center font-bold"> LANISTA </h1>
+  <br/>
+  <div v-if="!isLoggedIn" class="m-2 cursor-pointer sideOptions" @click="showLogin" :key="isLoggedIn">
     Login
   </div>
   <div v-else>
-    <div class="m-2 cursor-pointer" @click="doLogOut">Logout</div>
-    <div class="m-2 cursor-pointer" @click="$emit('changeMain','ProfileMain')" >Profile</div>
-    <div class="m-2 cursor-pointer" @click="$emit('changeMain','GladiatorsMain')" >Gladiators</div>
-    <div class="m-2 cursor-pointer" @click="$emit('changeMain','StructuresMain')" >Structures</div>
-    
+    <div class="m-2 cursor-pointer sideOptions" @click="doLogOut">Logout</div>
+    <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','ProfileMain')" >Profile</div>
+    <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','GladiatorsMain')" >Gladiators</div>
+    <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','StructuresMain')" >Structures</div>
+    <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','TrainingMain')" >Training</div>
   </div>
   
   <div v-if="showLoginModal">
@@ -78,5 +80,10 @@ export default {
 <style scoped>
 #vue {
   opacity: 1;
+}
+.sideOptions{
+  background-color: rgb(200, 200, 200);
+  color: black;
+  padding: 1rem;
 }
 </style>

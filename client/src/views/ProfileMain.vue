@@ -1,8 +1,11 @@
 <template>
   <div>
     <h1>PROFILE PAGE</h1>
-    <h2>{{ userData }}</h2>
-    <h2>{{ ownerData }}</h2>
+    <h2>Username:  {{ userData.username }}</h2>
+    <div v-if="ownerData">
+      <h2>GOLD: {{ ownerData.gold }}</h2>
+      <h2>FAME: {{ ownerData.fame }}</h2>
+    </div>
   </div>
 </template>
 
@@ -18,7 +21,7 @@ export default {
   },
   async mounted() {
     const rpnse = await fetch(
-      `http://${window.location.hostname}:3001/users/owner`,
+      `http://${window.location.hostname}:3001/owner`,
       {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -31,4 +34,5 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

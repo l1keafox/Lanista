@@ -1,17 +1,14 @@
 <template>
     <div>
-      <h1>STRUCTUES PAGE</h1>
+      <h1>Training PAGE</h1>
       <h2>{{ userData }}</h2>
-      <div v-if="ownerData">
-        <h2>{{ ownerData.structures }}</h2>
-      </div>
     </div>
   </template>
   
   <script>
   import auth from "./../mixins/auth";
   export default {
-    name: "StructuresMain",
+    name: "TrainingMain",
     data() {
       return {
         userData: auth.getUser(),
