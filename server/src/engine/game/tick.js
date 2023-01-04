@@ -45,7 +45,7 @@ module.exports = {
         });
 
 
-        await Object.keys(ownersGain).forEach(async (ownerid) => {
+        Object.keys(ownersGain).forEach(async (ownerid) => {
             let owner = await Owner.findOne({ _id:ownerid });
             console.log('  -EN/TICK> Owner',owner.userAcct ,': gained  G:',ownersGain[ownerid].gold,"F:",ownersGain[ownerid].fame);
             owner.gold += ownersGain[ownerid].gold;

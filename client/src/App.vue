@@ -17,6 +17,7 @@ import ProfileMain from "./views/ProfileMain.vue";
 import GladiatorsMain from "./views/GladiatorsMain.vue";
 import StructuresMain from "./views/StructuresMain.vue";
 import TrainingMain from "./views/TrainingMain.vue";
+import CombatMain from "./views/CombatMain.vue";
 
 import SideNav from '@/components/SideNav.vue';
 import auth from "./mixins/auth";
@@ -29,6 +30,7 @@ export default {
     WelcomeMain,
     GladiatorsMain,
     TrainingMain,
+    CombatMain,
     StructuresMain
   },
   data(){

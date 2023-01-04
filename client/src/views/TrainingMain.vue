@@ -1,7 +1,9 @@
 <template>
     <div>
       <h1>Training PAGE</h1>
-      <h2>{{ userData }}</h2>
+      <div v-if="ownerData">
+        <h2>{{ ownerData.training }}</h2>
+      </div>
     </div>
   </template>
   
