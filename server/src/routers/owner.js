@@ -4,8 +4,9 @@ const {User,Owner,Gladiator,DayEvents} = require('../models');
 const auth = require('../middleware/auth');
 const router = express.Router();
 
-router.get('/owner/structures', async(req, res) => {
-    let owner2 = await Owner.findOne({ _id: req.body.id });
+router.post('/owner/structures', async(req, res) => {
+    let owner2 = await Owner.findOne({ userAcct: req.body.id });
+    console.log(owner2.structures);
     res.send(owner2.structures)
 })
 

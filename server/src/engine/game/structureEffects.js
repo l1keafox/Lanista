@@ -29,7 +29,7 @@ const structObj = {
     description: "Toughing up one's body",
     "hits":{
       min: 1,
-      max: 4,
+      max: 2,
       growth: true,
     },
     "fame":{
@@ -103,7 +103,7 @@ const structObj = {
       max: 12,
       growth: true,
     },
-    "gold":{
+    "fame":{
       min: 1,
       max: 2,
       growth: true,
@@ -130,8 +130,8 @@ const structObj = {
   "lookLost":{
     description:"Looking for lost items",
     "luck":{
-      min: 0,
-      max: 12,
+      min: 1,
+      max: 5,
       growth: true,
     },
     "bravery":{
