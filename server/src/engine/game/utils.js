@@ -26,9 +26,16 @@ global.rollDice = (numOfDice, numOfFaces) => {
   }
   return rtn;
 };
+function getName(){
+  let name;
+  do{
+    name = gladNames[rollDice(1, gladNames.length)];
+  }while(!name)
+  return name;
+}
 
 function createNewGladiator() {
-  return { name: gladNames[rollDice(1, gladNames.length)], hits: 100 ,
+  return { name: getName(), hits: 100 ,
    
       // Character Points Stats
       mana:100,

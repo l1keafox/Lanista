@@ -70,7 +70,6 @@ export default {
     }
   },
   async mounted() {
-    console.log(this.gladId);
     const rpnse = await fetch(
       `http://${window.location.hostname}:3001/gladiator`,
       {
