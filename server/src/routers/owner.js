@@ -9,8 +9,11 @@ router.post('/owner/structures', async(req, res) => {
     console.log(owner2.structures);
     res.send(owner2.structures)
 })
+
 router.post('/owner/training', async(req, res) => {
     let owner2 = await Owner.findOne({ userAcct: req.body.id });
+    // This needs to return more than just an array of training, this needs to return description/bonuses/costs ect.ect.
+
     console.log(owner2.training);
     res.send(owner2.training)
 })
