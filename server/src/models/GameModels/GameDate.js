@@ -28,13 +28,13 @@ gameDateSchema.methods.addTime = async function () {
 	// 12 months in a year
 	// each day currently is setup 
 	// const numEventsPerDay = 8;
-	// const secsPerEvents = 30;
+	// const secsPerEvents = 28;
 	this.time++;
 	if(this.time > 8 ) {
 		this.time = 1;
 		this.day++;
 	}
-	if(this.day > 30){
+	if(this.day > 28){
 		this.day = 1;
 		this.month++;
 	}
