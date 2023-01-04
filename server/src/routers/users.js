@@ -71,20 +71,6 @@ router.post('/users/login', async(req, res) => {
     }
 
 })
-router.post('/users/owner', async(req, res) => {
-    // View logged in user profile
-    // let user = await User.findOne({ _id: req.body.id });
-    // let owner = await Owner.findOne({ _id: user.owner });
-    let owner2 = await Owner.findOne({ userAcct: req.body.id });
-    res.send(owner2)
-})
-router.post('/users/gladiator', async(req, res) => {
-    // View logged in user profile
-    // let user = await User.findOne({ _id: req.body.id });
-    // let owner = await Owner.findOne({ _id: user.owner });
-    let owner2 = await Gladiator.findOne({ _id: req.body.id });
-    res.send(owner2)
-})
 
 router.post('/users/me/logout', auth, async (req, res) => {
     // Log user out of the application

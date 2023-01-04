@@ -80,6 +80,8 @@ export default {
     );
     const ownerData = await rpnse.json();
     this.gladiatorData = ownerData;
+    
+
   },
 };
 </script>

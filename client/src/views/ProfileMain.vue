@@ -21,7 +21,7 @@ export default {
   },
   async mounted() {
     const rpnse = await fetch(
-      `http://${window.location.hostname}:3001/users/owner`,
+      `http://${window.location.hostname}:3001/owner`,
       {
           method: "POST",
           headers: { "Content-Type": "application/json" },
