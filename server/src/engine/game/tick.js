@@ -1,7 +1,7 @@
 // This is what happens in a tick.
 // Game will start on 
 const { GameDate,Gladiator } = require("./../../models");
-
+const {doGrowth} = require("./structureEffects")
 let date = {
     time: 1, // This is # of events per day maxed at 8
     day: 1, // Days maxed at 30
@@ -24,8 +24,12 @@ module.exports = {
 
         let allGladiators = await Gladiator.find(); 
         allGladiators.forEach( gladiator => {
-            console.log(`  -EN/Tick> ${gladiator.name} is training`, gladiator.schedule[0][date.time]);
+            
+            const growth = doGrowth(gladiator,gladiator.schedule[0][date.time]);
+            console.log(`  -EN/Tick> ${gladiator.name} is training`, gladiator.schedule[0][date.time],growth);
+            gladiator.save();
         });
+        
     },
     getDate: function(){
         return `Time: ${date.time}:00  ${date.month}/${date.day}/${date.year}`

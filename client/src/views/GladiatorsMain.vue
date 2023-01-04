@@ -4,7 +4,8 @@
     <div  v-if="ownerData" class="flex justify-center items-center" > 
         <div v-for="glad in ownerData.gladiators" :key="glad" class="h-80 aspect-[5/7] p-3 m-3 hover:bg-slate-200 cursor-default select-none flex flex-col bg-slate-700"> 
         
-        <h2>{{glad.name}} {{glad.hits}}/{{glad.mana}} </h2>
+        <h1>{{glad.name}} </h1>
+        <h2>{{glad.hits}}/{{glad.mana}} </h2>
         <h2>{{glad.morale}}/{{glad.stress}} </h2>
 
         <button class="bg-yellow-200 m-2 text-purple-900" @click="openManager($event)" :data-id="glad._id">schedule  </button>
@@ -31,6 +32,7 @@ export default {
   data() {
     return {
       userData: auth.getUser(),
+
       gladiatorId: null,
       showScheduleManager:false,
       showGladiatorStats:false,
