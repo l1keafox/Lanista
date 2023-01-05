@@ -25,6 +25,7 @@
             <h2>Leg{{gladiatorData.leg}}</h2>
             <h2>Boots:{{gladiatorData.boots}}</h2>
           </div>
+          <p> Equipped items are lost and cannot be unequipped</p>
           <!--footer-->
           <div
             class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b"
@@ -44,11 +45,14 @@
 </template>
 
 <script>
+import auth from "./../mixins/auth";
 export default {
   name: "EquipmentScreen",
   data(){
     return{
-      gladiatorData:null
+      userData: auth.getUser(),
+      gladiatorData:null,
+      inventoryData:null
     };
   },
   props: ["gladId"],
@@ -71,6 +75,19 @@ export default {
     );
     const gladiatorData = await rpnse.json();
     this.gladiatorData = gladiatorData;
+
+  const inventory = await fetch(
+      `http://${window.location.hostname}:3001/owner/itemsSort`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ "id": this.userData._id }),
+      }
+    );
+    const inventoryData = await inventory.json();
+    console.log(inventoryData);
+    this.inventoryData = inventoryData;
+
   },
 };
 </script>

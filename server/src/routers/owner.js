@@ -3,7 +3,7 @@ const express = require('express');
 const {User,Owner,Gladiator,DayEvents} = require('../models');
 const {getTraining} = require('./../engine/game/trainingEffects');
 const {getStructureEffect} = require('./../engine/game/structureIndex');
-
+const {getItemEffect} = require('./../engine/game/itemsIndex');
 const auth = require('../middleware/auth');
 const router = express.Router();
 
@@ -22,6 +22,21 @@ router.post('/owner/structuresData', async(req, res) => {
     }  );
     res.send(rtnData);
 
+})
+
+router.post('/owner/itemsSort', async(req, res) => {
+    let owner = await Owner.findOne({ userAcct: req.body.id });
+    let rtn = {};
+    owner.inventory.forEach( item =>{
+        let itemEffect = getItemEffect(item.type);
+        // console.log(item.type ,getItemEffect(item.type) , "#",item.amount );
+        if(!rtn[itemEffect.slot])  rtn[itemEffect.slot] = [];
+        rtn[itemEffect.slot].push({type:item.type,number:item.amount } );
+    });
+    console.log(rtn);
+    // So how we want to do this: is return an object that is organized by slot.
+
+    res.send(rtn);
 })
 
 
