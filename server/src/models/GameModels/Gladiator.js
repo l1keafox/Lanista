@@ -13,6 +13,12 @@ const gladiatorSchema = new Schema(
         },
         schedule:[],
 
+        winRecord:{
+            type:Number
+        },
+        loseRecord:{
+            type:Number
+        },
 
         // Character Points Stats
         hits:{ // Physical Hit points

@@ -6,24 +6,15 @@
         
         <h1>{{glad.name}} </h1>
         <hr/>
-        <button class="bg-yellow-200 m-2 text-purple-900" @click="openManager($event)" :data-id="glad._id">schedule  </button>
-        <button class="bg-blue-200 m-2 text-purple-700" @click="openStats($event)" :data-id="glad._id">stats  </button>
-        <button class="bg-red-200 m-2 text-purple-700" @click="openEquipment($event)" :data-id="glad._id">equipment  </button>
-        <button class="bg-green-200 m-2 text-purple-700" @click="openClash($event)" :data-id="glad._id">Clash  </button>
+        <button class="bg-yellow-200 m-2 text-purple-900" @click="openModal($event,'ScheduleManager')" :data-id="glad._id">Schedule  </button>
+        <button class="bg-blue-200 m-2 text-purple-700"   @click="openModal($event,'GladiatorStats')"  :data-id="glad._id">Stats  </button>
+        <button class="bg-red-200 m-2 text-purple-700" @click="openModal($event,'EquipmentScreen')"    :data-id="glad._id">Equipment  </button>
+        <button class="bg-green-200 m-2 text-purple-700" @click="openModal($event,'ClashSettings')"    :data-id="glad._id">Clash  </button>
       </div>
     </div>
   </div>
-  <div v-if="showScheduleManager">
-    <ScheduleManager :gladId="gladiatorId" @closeModal="closeManager"/>
-  </div>
-  <div v-if="showGladiatorStats">
-    <GladiatorStats :gladId="gladiatorId" @closeModal="closeStats"/>
-  </div>
-  <div v-if="showEquipmentScreen">
-    <EquipmentScreen :gladId="gladiatorId" @closeModal="closeEquipment"/>
-  </div>
-  <div v-if="showClashSettings">
-    <ClashSettings :gladId="gladiatorId" @closeModal="closeClash"/>
+  <div v-if="isModalShown">
+    <component :is="modalShown" :gladId="gladiatorId" @closeModal="closeModal"/>
   </div>
 
 </template>
@@ -41,44 +32,20 @@ export default {
   data() {
     return {
       userData: auth.getUser(),
-
+      modalShown:null,
+      isModalShown:null,
       gladiatorId: null,
-      showScheduleManager:false,
-      showGladiatorStats:false,
-      showEquipmentScreen:false,
-      showClashSettings:false,
       ownerData: null,
     };
   },
   methods:{
-    async openManager(event){
+    openModal(event,modalName){
       this.gladiatorId = event.target.getAttribute("data-id");
-      this.showScheduleManager = true;
+      this.isModalShown = true;
+      this.modalShown = modalName;
     },
-    closeManager(){
-      this.showScheduleManager = false;
-    },
-    openStats(event){
-      this.gladiatorId = event.target.getAttribute("data-id");
-      this.showGladiatorStats = true;
-    },
-    closeStats(){
-      this.showGladiatorStats = false;
-    },
-
-    openEquipment(event){
-      this.gladiatorId = event.target.getAttribute("data-id");
-      this.showEquipmentScreen = true;
-    },
-    closeEquipment(){
-      this.showEquipmentScreen = false;
-    },
-    openClash(event){
-      this.gladiatorId = event.target.getAttribute("data-id");
-      this.showClashSettings = true;
-    },
-    closeClash(){
-      this.showClashSettings = false;
+    closeModal(){
+      this.isModalShown = false;
     },
 
 

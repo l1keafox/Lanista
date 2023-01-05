@@ -1,34 +1,40 @@
 <template>
   <div>
-    <div
-      class="py-12 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
-      id="modal"
-    >
-      <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
-        <div
-          class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400"
-        >
-          <div
-            class="flex flex-col border bg-white px-6 py-14 shadow-md rounded-[4px] items-center justify-center"
-          >
-            <div class="mb-8 flex justify-center flex flex-col">
-              <div v-if="gladiatorData">
-                <h1>{{ gladiatorData.name }}</h1>
-                <div v-for="(event,key) in gladiatorData.schedule[0]" :key="event">
-                    {{key}}:00 Event  <select :name="key" class="bg-green-100 schedule">
-                        <option value="fir">{{ event }}</option>
-                        <template v-for="(training,index) in trainingData" :key="index">
-                          <option value="index">{{training}}</option>
-                        </template>
-                      </select>
-                </div>
-              </div>
-              <button class="bg-yellow-200" @click="doSave" >Save</button>
-              <button class="bg-slate-200" @click="$emit('closeModal')">
-                close
-              </button>
+    <!--Background-->
+    <div class="opacity-25 fixed inset-0 bg-black z-40"></div>
+
+    <div class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex" data-id="bg"  v-on:click="bgClose($event)" >
+      <div class="relative w-auto my-6 mx-auto max-w-6xl">
+        <!--content-->
+        <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+          <!--header-->
+          <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+            <h3 class="text-3xl font-semibold">
+              Schedule
+            </h3>
+          </div>
+          <!--body-->
+          <div v-if="gladiatorData">
+            
+            <div v-for="(event,key) in gladiatorData.schedule[0]" :key="event">
+                {{key}}:00 Event  <select :name="key" class="bg-green-100 schedule">
+                    <option value="fir">{{ event }}</option>
+                    <template v-for="(training,index) in trainingData" :key="index">
+                      <option value="index">{{training}}</option>
+                    </template>
+                  </select>
             </div>
           </div>
+          <!--footer-->
+          <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+            <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" v-on:click="$emit('closeModal')">
+              Close
+            </button>
+            <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"  @click="doSave">
+              Save
+            </button>
+          </div>
+          
         </div>
       </div>
     </div>
@@ -48,6 +54,11 @@ export default {
     };
   },
   methods:{
+    bgClose(event){
+            if(event.target.getAttribute("data-id") === "bg"){
+              this.$emit('closeModal')
+            }
+          },
    async doSave(){
         let sch = document.getElementsByTagName("select");
         let saveObj = {};
