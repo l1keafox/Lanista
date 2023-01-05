@@ -17,26 +17,43 @@
 
           </div>
           <!--body-->
-          <div class="relative p-6 flex-auto" v-if="gladiatorData">
-            <h2>Head:{{gladiatorData.headSlot}}</h2>
-            <h2>Main Hand:{{gladiatorData.mainHand}}</h2>
-            <h2>Off Hand:{{gladiatorData.offHand}}</h2>
-            <h2>Body:{{gladiatorData.body}}</h2>
-            <h2>Leg{{gladiatorData.leg}}</h2>
-            <h2>Boots:{{gladiatorData.boots}}</h2>
+          <div class="relative p-6 flex-auto" v-if="gladiatorData && inventoryData">
+            <div class="flex justify-between"> 
+              <h2>Head:{{gladiatorData.headSlot}}</h2> 
+              <select name="headSlot" class="bg-cyan-100 w-28"> 
+                <option value="fir">Select</option>
+                  <template v-if="inventoryData.headSlot">
+                  <template v-for="(item,index) in inventoryData.headSlot" :key="index">
+                  <option  value="index"> {{item.type}}</option>
+                  </template>
+                </template>
+              </select>
+            </div>
+            
+            <div class="flex justify-between"> 
+              <h2>Main Hand:{{gladiatorData.mainHand}}</h2> 
+              <template v-if="inventoryData.mainHand">
+                <select name="mainHand" class="bg-cyan-100 w-28"> 
+                  <option value="fir">Select</option>
+                  <template v-for="(item,index) in inventoryData.mainHand" :key="index">
+                  <option  value="index"> {{item.type}}</option>
+                  </template>
+                </select>
+              </template>
+            </div>
+
+           <div> <h2>Off Hand:{{gladiatorData.offHand}}</h2> </div>
+           <div> <h2>Body:{{gladiatorData.body}}</h2> </div>
+           <div> <h2>Leg{{gladiatorData.leg}}</h2> </div>
+           <div> <h2>Boots:{{gladiatorData.boots}}</h2> </div>
           </div>
           <p> Equipped items are lost and cannot be unequipped</p>
           <!--footer-->
           <div
             class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b"
           >
-            <button
-              class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-              type="button"
-              v-on:click="$emit('closeModal')"
-            >
-              Close
-            </button>
+            <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" v-on:click="$emit('closeModal')"> Close            </button>
+            <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" v-on:click="$emit('closeModal')"> Equip Items            </button>
           </div>
         </div>
       </div>

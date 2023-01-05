@@ -16,7 +16,7 @@
           <!--body-->
           <div v-if="gladiatorData" class="relative p-6 flex-auto">
             <div v-for="(event,key) in gladiatorData.schedule[0]" :key="event">
-                {{key}}:00 Event  <select :name="key" class="bg-green-100 schedule">
+                {{key}}:00 Event  <select :name="key" class="bg-green-100 justify-between">
                     <option value="fir">{{ event }}</option>
                     <template v-for="(training,index) in trainingData" :key="index">
                       <option value="index">{{training}}</option>
