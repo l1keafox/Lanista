@@ -26,6 +26,7 @@ import LoginVue from "./LoginVue.vue";
 
 export default {
   name: "SideNav",
+  
   data() {
     return {
       showLoginModal: false,
@@ -36,7 +37,7 @@ export default {
     LoginVue,
   },
   mounted() {},
-  emits: ['logged'],
+  emits: ['logged','changeMain'],
   methods: {
     async doLogOut(){
         auth.logout();

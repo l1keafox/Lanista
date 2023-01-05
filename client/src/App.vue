@@ -1,7 +1,7 @@
 <template>
-  <div class="flex h-full ">
+  <div class="flex h-full w-full">
     <!-- -->
-    <div class="bg-blue-900 w-48"> 
+    <div class="bg-blue-900 px-3" id="sideBar"> 
         <SideNav @logged="update" @changeMain="changeStage"/>
     </div>
     <div class="bg-slate-900 grow "> 
@@ -60,12 +60,11 @@ export default {
 <style>
 body{
   background-color: rgb(30, 30, 30);
-  height: 100vh;
-  width: 100vw;
   color:rgb(200, 200, 200)
   }
   #app{
     height: 100vh;
-    width: 100vw;
   }
 </style>
+  height: 100vh;
+  width: 100vw;

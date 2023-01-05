@@ -9,7 +9,6 @@ class AuthService {
 			console.log('No token');
 			return false;
 		}
-		console.log("token",token);
 		return decode(token);
 	}
 

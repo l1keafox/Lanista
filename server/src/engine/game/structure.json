@@ -1,0 +1,6 @@
+{
+    "School":{
+      "description":"Starting building that provides basic training options.",
+      "training":["chopWood","community","woodCarv","hiking","readBook","pray","lookLost","tough"]
+    }
+}
