@@ -1,0 +1,15 @@
+{
+    "shortSword":{
+      "slot":"main",
+      "abilities":["slash"]
+    },
+    "dagger":{
+      "description":"short range weapon, but gives backstab react ability that will reward big wins",
+      "slot": "main",
+      "abilities": ["stab","backstab"],
+      "stats":{
+          "agility":10,
+          "strength":-5
+      }
+    }
+}

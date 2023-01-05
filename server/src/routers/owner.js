@@ -13,6 +13,7 @@ router.post('/owner/structures', async(req, res) => {
 
 router.post('/owner/training', async(req, res) => {
     let trainingAvailable = await Owner.findOne({ userAcct: req.body.id });
+
     res.send(trainingAvailable.training)
 })
 
@@ -22,8 +23,11 @@ router.post('/owner/trainingData', async(req, res) => {
     // trainingEffects 
     
     //console.log(getTraining(owner2.training[0]));
-    let rtnData = trainingAvailable.map( train =>{
-        return getTraining(train);
+    console.log(trainingAvailable.training);
+    let rtnData = trainingAvailable.training.map( train =>{
+        let rtn = getTraining(train);
+        rtn.name = train;
+        return rtn;
     }  );
     console.log(rtnData);
     res.send(rtnData);
