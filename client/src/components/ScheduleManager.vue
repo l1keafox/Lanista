@@ -14,8 +14,7 @@
             </h3>
           </div>
           <!--body-->
-          <div v-if="gladiatorData">
-            
+          <div v-if="gladiatorData" class="relative p-6 flex-auto">
             <div v-for="(event,key) in gladiatorData.schedule[0]" :key="event">
                 {{key}}:00 Event  <select :name="key" class="bg-green-100 schedule">
                     <option value="fir">{{ event }}</option>

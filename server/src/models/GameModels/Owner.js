@@ -18,6 +18,7 @@ const ownerSchema = new Schema(
         structures:[],
         training:[],
 		gladiators:[],
+        inventory:[],
 	},
 	{
 		toJSON: {

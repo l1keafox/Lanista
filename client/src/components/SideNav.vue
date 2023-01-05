@@ -12,6 +12,7 @@
     <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','StructuresMain')" >Structures</div>
     <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','TrainingMain')" >Training</div>
     <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','CombatMain')" >Combat</div>
+    <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','StoreMain')" >Store</div>
     
   </div>
   
