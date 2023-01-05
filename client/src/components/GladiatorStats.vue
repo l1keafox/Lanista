@@ -26,7 +26,7 @@
                   <h2>sensitivity:{{gladiatorData.sensitivity}} luck:{{gladiatorData.luck}} </h2>
                   <h2>reputation:{{gladiatorData.reputation}}  charisma:{{gladiatorData.charisma}} </h2>
           
-                <button class="bg-slate-200" @click="$emit('closeStats')">
+                <button class="bg-slate-200" @click="$emit('closeModal')">
                   close
                 </button>
               </div>

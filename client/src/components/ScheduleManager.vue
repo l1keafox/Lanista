@@ -24,7 +24,7 @@
                 </div>
               </div>
               <button class="bg-yellow-200" @click="doSave" >Save</button>
-              <button class="bg-slate-200" @click="$emit('closeSchedule')">
+              <button class="bg-slate-200" @click="$emit('closeModal')">
                 close
               </button>
             </div>
@@ -66,7 +66,7 @@ export default {
             body: JSON.stringify({ "id": this.gladId, "day":saveObj }),
           }
         );
-        this.$emit('closeSchedule');
+        this.$emit('closeModal');
     }
   },
   async mounted() {

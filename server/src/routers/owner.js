@@ -9,13 +9,11 @@ const router = express.Router();
 
 router.post('/owner/structures', async(req, res) => {
     let owner2 = await Owner.findOne({ userAcct: req.body.id });
-    console.log(owner2.structures);
     res.send(owner2.structures)
 })
 
 router.post('/owner/structuresData', async(req, res) => {
     let owner2 = await Owner.findOne({ userAcct: req.body.id });
-    console.log(owner2.structures);
 
     let rtnData = owner2.structures.map( struct =>{
         let rtn = getStructureEffect(struct);

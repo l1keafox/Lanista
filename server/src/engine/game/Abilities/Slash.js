@@ -18,7 +18,7 @@
 module.exports = {
   abilityName: "swing",
   doAbility(casterChar, target) {
-    console.log(this.abilityName, "   ->This ability needs to do damage.");
+    console.log("  -Swng>This ability needs to do damage.");
     target.addEffect("damageTake", 5);
   },
 
