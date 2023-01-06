@@ -44,8 +44,8 @@ module.exports = {
             gladiator.save();
         });
 
-
-        await Object.keys(ownersGain).forEach(async (ownerid) => {
+        const keys = Object.keys(ownersGain);
+        await keys.forEach(async (ownerid) => {
             let owner = await Owner.findOne({ _id:ownerid });
             console.log('  -EN/TICK> Owner',owner.userAcct ,': gained  G:',ownersGain[ownerid].gold,"F:",ownersGain[ownerid].fame);
             owner.gold += ownersGain[ownerid].gold;

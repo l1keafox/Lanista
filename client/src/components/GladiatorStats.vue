@@ -1,41 +1,48 @@
 <template>
-    <div>
-      <div
-        class="py-12 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
-        id="modal"
-      >
-        <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
-          <div
-            class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400"
-          >
-            <div
-              class="flex flex-col border bg-white px-6 py-14 shadow-md rounded-[4px] items-center justify-center"
-            >
-              <div class="mb-8 flex justify-center flex flex-col">
-                <div v-if="gladiatorData">
-                  <h1>{{ gladiatorData.name }}</h1>
-                  <h2>hits:{{gladiatorData.hits}}/mana:{{gladiatorData.mana}} </h2>
-                  
-                  <h2>morale:{{gladiatorData.morale}}/stress:{{gladiatorData.stress}} </h2>
-                  <h2>strength:{{gladiatorData.strength}} | dexterity:{{gladiatorData.dexterity}} </h2>
-                  <h2>agility:{{gladiatorData.agility}} constitution:{{gladiatorData.constitution}}  </h2>
-                  <h2>vitality:{{gladiatorData.vitality}} </h2>
-          
-                  <h2>intelligence:{{gladiatorData.intelligence}} wisdom:{{gladiatorData.wisdom}} </h2>
-                  <h2>bravery:{{gladiatorData.bravery}} piety:{{gladiatorData.piety}} </h2>
-                  <h2>sensitivity:{{gladiatorData.sensitivity}} luck:{{gladiatorData.luck}} </h2>
-                  <h2>reputation:{{gladiatorData.reputation}}  charisma:{{gladiatorData.charisma}} </h2>
-          
-                <button class="bg-slate-200" @click="$emit('closeStats')">
-                  close
-                </button>
-              </div>
-            </div>
+  <div>
+    <!--Background-->
+    <div class="opacity-25 fixed inset-0 bg-black z-40"></div>
+  
+    <div class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex" data-id="bg"  v-on:click="bgClose($event)" >
+      <div class="relative w-auto my-6 mx-auto max-w-6xl">
+        <!--content-->
+        <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+          <!--header-->
+          <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+            <h3 class="text-3xl font-semibold">
+              Modal Title
+            </h3>
+          </div>
+          <!--body-->
+          <div class="relative p-6 flex-auto">
+  
+                  <div v-if="gladiatorData">
+                    <h1>{{ gladiatorData.name }}</h1>
+                    <h2>hits:{{gladiatorData.hits}}/mana:{{gladiatorData.mana}} </h2>
+                    
+                    <h2>morale:{{gladiatorData.morale}}/stress:{{gladiatorData.stress}} </h2>
+                    <h2>strength:{{gladiatorData.strength}} | dexterity:{{gladiatorData.dexterity}} </h2>
+                    <h2>agility:{{gladiatorData.agility}} constitution:{{gladiatorData.constitution}}  </h2>
+                    <h2>vitality:{{gladiatorData.vitality}} </h2>
+            
+                    <h2>intelligence:{{gladiatorData.intelligence}} wisdom:{{gladiatorData.wisdom}} </h2>
+                    <h2>bravery:{{gladiatorData.bravery}} piety:{{gladiatorData.piety}} </h2>
+                    <h2>sensitivity:{{gladiatorData.sensitivity}} luck:{{gladiatorData.luck}} </h2>
+                    <h2>reputation:{{gladiatorData.reputation}}  charisma:{{gladiatorData.charisma}} </h2>
+            
+                </div>
+  
+          </div>
+          <!--footer-->
+          <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+            <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" v-on:click="$emit('closeModal')">
+              Close
+            </button>
           </div>
         </div>
       </div>
     </div>
-    </div>
+  </div>
   </template>
   
   <script>
@@ -48,10 +55,14 @@
       };
     },
     methods:{
-    
+      bgClose(event){
+            if(event.target.getAttribute("data-id") === "bg"){
+              this.$emit('closeModal')
+            }
+          },
+
     },
     async mounted() {
-      console.log(this.gladId);
       const rpnse = await fetch(
         `http://${window.location.hostname}:3001/gladiator`,
         {

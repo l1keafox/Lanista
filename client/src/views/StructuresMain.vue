@@ -2,8 +2,15 @@
     <div>
       <h1>STRUCTUES PAGE</h1>
       <h2>{{ userData }}</h2>
-      <div v-if="ownerData">
-        <h2>{{ ownerData.structures }}</h2>
+      <div v-if="structureData">
+        <div v-for="struct in structureData" :key="struct" class="h-80 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700"> 
+          <h1 class="text-xl">{{struct.structure}} </h1>
+          <hr/>
+          <p> {{struct.description}}</p>
+          <p> {{struct.training}} </p>
+        </div>
+
+
       </div>
     </div>
   </template>
@@ -15,20 +22,21 @@
     data() {
       return {
         userData: auth.getUser(),
-        ownerData: null,
+        structureData: null,
       };
     },
     async mounted() {
       const rpnse = await fetch(
-        `http://${window.location.hostname}:3001/owner`,
+        `http://${window.location.hostname}:3001/owner/structuresData`,
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ "id": this.userData._id}),
           }      
       );
-      let ownerData = await rpnse.json();
-      this.ownerData =  ownerData;
+      let structureData = await rpnse.json();
+      this.structureData =  structureData;
+
     },
   };
   </script>

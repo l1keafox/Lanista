@@ -13,6 +13,12 @@ const gladiatorSchema = new Schema(
         },
         schedule:[],
 
+        winRecord:{
+            type:Number
+        },
+        loseRecord:{
+            type:Number
+        },
 
         // Character Points Stats
         hits:{ // Physical Hit points
@@ -79,8 +85,30 @@ const gladiatorSchema = new Schema(
             type:Number
         },
 
+        // Item slots
+        // Using a string to reference an item in the itemsIndex.
+
+        head:{
+            type:String
+        },
+        mainHand:{
+            type:String
+        },
+        offHand:{
+            type:String
+        },
+        body:{
+            type:String
+        },
+        boots:{
+            type:String
+        },
 
 
+        //  the difference between an skill and ability is that skills are in teh character abilities are given by items. 
+        // But these are both added in the clash/prepair/react.
+        skills:[],
+        abilities:[]
 	},
 );
 

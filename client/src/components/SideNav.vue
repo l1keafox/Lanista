@@ -11,6 +11,9 @@
     <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','GladiatorsMain')" >Gladiators</div>
     <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','StructuresMain')" >Structures</div>
     <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','TrainingMain')" >Training</div>
+    <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','CombatMain')" >Combat</div>
+    <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','StoreMain')" >Store</div>
+    
   </div>
   
   <div v-if="showLoginModal">
@@ -24,6 +27,7 @@ import LoginVue from "./LoginVue.vue";
 
 export default {
   name: "SideNav",
+  
   data() {
     return {
       showLoginModal: false,
@@ -34,7 +38,7 @@ export default {
     LoginVue,
   },
   mounted() {},
-  emits: ['logged'],
+  emits: ['logged','changeMain'],
   methods: {
     async doLogOut(){
         auth.logout();
