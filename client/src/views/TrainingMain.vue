@@ -3,8 +3,8 @@
       <h1>Training PAGE</h1>
       <!-- <h2>{{ trainingData.training }}</h2> -->
       <div v-if="trainingData" class="flex flex-wrap">
-        <div v-for="train in trainingData" :key="train" class="h-80 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700"> 
-          <h1 class="text-xl">{{train.training}} </h1>
+        <div v-for="train in trainingData" :key="train" :class="card"> 
+          <h1 :class="cardTitle">{{train.training}} </h1>
           <hr/>
           <p> {{train.description}}</p>
         </div>
@@ -16,6 +16,7 @@
   import auth from "./../mixins/auth";
   export default {
     name: "TrainingMain",
+    inject: ['card','cardTitle'],
     data() {
       return {
         userData: auth.getUser(),
