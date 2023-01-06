@@ -1,7 +1,8 @@
 {
     "shortSword":{
       "slot":"mainHand",
-      "abilities":["slash"]
+      "abilities":["slash"],
+      "cost": 100
     },
     "dagger":{
       "description":"short range weapon, but gives backstab react ability that will reward big wins",
@@ -10,7 +11,8 @@
       "stats":{
           "agility":10,
           "strength":-5
-      }
+      },
+      "cost": 75
     }
 }
 
