@@ -67,10 +67,10 @@ router.post('/owner/inventoryData', async(req, res) => {
     let owner = await Owner.findOne({ userAcct: req.body.id });
     await owner.getTraining();
 
-    let rtnData = owner.inventory.map( train =>{
-        let rtn = getItemEffect(train);
-        rtn.item = train.type;
-        rtn.amount = train.amount;
+    let rtnData = owner.inventory.map( item =>{
+        let rtn = getItemEffect(item.type);
+        rtn.item = item.type;
+        rtn.amount = item.amount;
         return rtn;
     }  );
     res.send(rtnData);

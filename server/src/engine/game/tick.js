@@ -60,13 +60,6 @@ module.exports = {
             });
         });
         await myPromise;
-        // await keys.forEach(async (ownerid) => {
-        //     let owner = await Owner.findOne({ _id:ownerid });
-        //     console.log('  -EN/TICK> Owner',owner.userAcct ,': gained  G:',ownersGain[ownerid].gold,"F:",ownersGain[ownerid].fame);
-        //     owner.gold += ownersGain[ownerid].gold;
-        //     owner.fame += ownersGain[ownerid].fame;
-        //     await owner.save();
-        // });
         
     },
     getDate: function(){
