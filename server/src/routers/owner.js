@@ -20,6 +20,7 @@ router.post('/owner/structuresData', async(req, res) => {
         rtn.structure = struct;
         return rtn;
     }  );
+    
     res.send(rtnData);
 
 })
