@@ -35,6 +35,7 @@
 <script>
     export default {
         name:"ClashSetting",
+        props: ["gladId"],
         methods:{
           bgClose(event){
             if(event.target.getAttribute("data-id") === "bg"){
@@ -43,16 +44,16 @@
           },
         },
         async mounted() {
-      // const rpnse = await fetch(
-      //   `http://${window.location.hostname}:3001/gladiator`,
-      //   {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" },
-      //     body: JSON.stringify({ "id": this.gladId }),
-      //   }
-      // );
-      // const ownerData = await rpnse.json();
-      // this.gladiatorData = ownerData;
+          const rpnse = await fetch(`http://${window.location.hostname}:3001/gladiator/clashInfo`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ "id": this.gladId }),
+            }
+          );
+
+          const gladData = await rpnse.json();
+          console.log( gladData );
     },
 
     }

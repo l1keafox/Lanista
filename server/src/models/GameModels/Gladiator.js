@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const Owner = require('./Owner');
+const { getItemEffect } = require('./../../engine/game/itemsIndex');
 
 const gladiatorSchema = new Schema(
 	{
@@ -107,11 +108,31 @@ const gladiatorSchema = new Schema(
 
         //  the difference between an skill and ability is that skills are in teh character abilities are given by items. 
         // But these are both added in the clash/prepair/react.
-        skills:[],
-        abilities:[]
+        skills:[], // Learned stuff
+        abilities:[], // Gained from items.
+
+        // These are what is assigned currently to these two sections
+        // Do not need a clash - that isn't controlled via
+        prepare:[],
+        react:[],
+
+
 	},
 );
-
+gladiatorSchema.methods.setSkills = async function() {
+    // This will go through equipment and give fill up skills
+    // or it will go through 
+    //getItemEffect
+    const slots = ["mainHand","offHand","head","body","boots"];
+    this.abilities = [];
+    slots.forEach(slot =>{
+        if(this[slot] && getItemEffect(this[slot]) ){
+//            console.log("set?",this[slot],getItemEffect(this[slot]));
+//            console.log(getItemEffect(this[slot]).abilities);
+            this.abilities = this.abilities.concat(getItemEffect(this[slot]).abilities);
+        }
+    });
+}
 
 const Gladiator = model("gladiator", gladiatorSchema);
 
