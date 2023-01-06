@@ -1,14 +1,13 @@
 <template>
-  <div class="flex h-full ">
+  <div class="flex h-full w-full">
     <!-- -->
-    <div class="bg-blue-900 w-48"> 
-        <SideNav @logged="update" @changeMain="changeStage"/>
+    <div class="bg-blue-900 px-3" id="sideBar">
+      <SideNav @logged="update" @changeMain="changeStage" />
     </div>
-    <div class="bg-slate-900 grow "> 
+    <div class="bg-slate-900 grow">
       <component :is="mainStage" />
     </div>
   </div>
-
 </template>
 
 <script>
@@ -18,12 +17,13 @@ import GladiatorsMain from "./views/GladiatorsMain.vue";
 import StructuresMain from "./views/StructuresMain.vue";
 import TrainingMain from "./views/TrainingMain.vue";
 import CombatMain from "./views/CombatMain.vue";
+import StoreMain from "./views/StoreMain.vue";
 
-import SideNav from '@/components/SideNav.vue';
+import SideNav from "@/components/SideNav.vue";
 import auth from "./mixins/auth";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     SideNav,
     ProfileMain,
@@ -31,41 +31,38 @@ export default {
     GladiatorsMain,
     TrainingMain,
     CombatMain,
-    StructuresMain
+    StoreMain,
+    StructuresMain,
   },
-  data(){
+  data() {
     return {
       isLoggedIn: auth.loggedIn(),
-      mainStage:"WelcomeMain"
-    }
+      mainStage: "WelcomeMain",
+    };
   },
-  methods:{
-    changeStage(newStage){
+  methods: {
+    changeStage(newStage) {
       this.mainStage = newStage;
     },
-            update(){
-                this.isLoggedIn = auth.loggedIn();
-            }
-        },  
-
-  mounted(){
+    update() {
+      this.isLoggedIn = auth.loggedIn();
+    },
   },
-  provide(){
-    return{
-    }
-  }
-}
+
+  mounted() {},
+  provide() {
+    return {};
+  },
+};
 </script>
 
 <style>
-body{
+body {
   background-color: rgb(30, 30, 30);
+  color: rgb(200, 200, 200);
+}
+#app {
   height: 100vh;
-  width: 100vw;
-  color:rgb(200, 200, 200)
-  }
-  #app{
-    height: 100vh;
-    width: 100vw;
-  }
+}
 </style>
+height: 100vh; width: 100vw;

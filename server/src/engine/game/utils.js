@@ -62,6 +62,7 @@ function createNewGladiator() {
       charisma:rollDice(30,60),
       luck:rollDice(30,60),
       reputation:rollDice(30,60),
+
   };
 }
 
