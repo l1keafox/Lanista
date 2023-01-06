@@ -14,11 +14,16 @@
             </h3>
           </div>
           <!--body-->
-          <div class="relative p-6 flex-auto flex">
+          <div v-if="skills" class="relative p-6 flex-auto flex">
             <div class="w-64 bg-yellow-100 h-48 m-2"> Prepare </div>
             <div class="w-64 bg-yellow-100 h-48 m-2"> Clash </div>
             <div class="w-64 bg-yellow-100 h-48 m-2"> React </div>
-            <div class="w-64 bg-yellow-100 h-48 m-2"> Unassigned </div>
+            <div class="w-64 bg-yellow-100 h-48 m-2"> 
+              <h1> Unassigned </h1>
+                <template v-for="(skill) in skills.unassigned" :key="skill">
+                  <h1>{{ skill }} </h1>
+                </template>
+            </div>
           </div>
           <!--footer-->
           <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
@@ -36,6 +41,11 @@
     export default {
         name:"ClashSetting",
         props: ["gladId"],
+        data(){
+          return {
+            skills:null
+          }
+        },
         methods:{
           bgClose(event){
             if(event.target.getAttribute("data-id") === "bg"){
@@ -53,6 +63,7 @@
           );
 
           const gladData = await rpnse.json();
+          this.skills = gladData;
           console.log( gladData );
     },
 
