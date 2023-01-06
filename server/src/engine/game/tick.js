@@ -10,6 +10,8 @@ let date = {
 }
 
 
+
+
 module.exports = { 
     doTick: async function() {
         let gameDate = await GameDate.find();
@@ -41,17 +43,26 @@ module.exports = {
             if(fameGrowth){
                 ownersGain[gladiator.owner].fame  += fameGrowth.amount;
             }
+            if(date.time === 8){
+                gladiator.age++;
+            }
             gladiator.save();
         });
 
         const keys = Object.keys(ownersGain);
-        await keys.forEach(async (ownerid) => {
+        const myPromise = new Promise((resolve, reject) => {
+            keys.forEach(async (ownerid,index) => {
             let owner = await Owner.findOne({ _id:ownerid });
             console.log('  -EN/TICK> Owner',owner.userAcct ,': gained  G:',ownersGain[ownerid].gold,"F:",ownersGain[ownerid].fame);
             owner.gold += ownersGain[ownerid].gold;
             owner.fame += ownersGain[ownerid].fame;
             await owner.save();
+            if(index === keys.length-1){
+                resolve("this");
+            }
+            });
         });
+        await myPromise;
         
     },
     getDate: function(){
