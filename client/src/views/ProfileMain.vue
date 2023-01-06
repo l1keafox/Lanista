@@ -16,7 +16,7 @@
         <h2>amount:{{ item.amount }}</h2>
         <h2>abilities:{{ item.abilities }}</h2>
         <h2>slot:{{ item.slot }}</h2>
-        <h2>cost:{{ item.cost }}</h2>
+        <h2>maintenance:{{ item.maintenance }}</h2>
       </div>
 
     </div>

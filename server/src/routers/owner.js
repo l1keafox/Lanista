@@ -4,6 +4,7 @@ const {User,Owner,Gladiator,DayEvents} = require('../models');
 const {getTraining} = require('./../engine/game/trainingEffects');
 const {getStructureEffect} = require('./../engine/game/structureIndex');
 const {getItemEffect} = require('./../engine/game/itemsIndex');
+const {getStoreItems} = require('./../engine/game/storeIndex');
 const auth = require('../middleware/auth');
 const router = express.Router();
 
@@ -92,6 +93,29 @@ router.post('/owner/trainingData', async(req, res) => {
     }  );
     res.send(rtnData);
 })
+
+router.post('/owner/store', async(req, res) => {
+    let owner2 = await Owner.findOne({ userAcct: req.body.id });
+    let storeItems = getStoreItems();
+
+    let rtn = {};
+    for(let type in storeItems){
+        rtn[type] = storeItems[type].map( ele =>{
+            if(type === "items"){
+                let item = getItemEffect(ele.type);
+                item.cost = ele.cost;
+                return item;
+            } else if(type ==="structures"){
+                let struct =getStructureEffect(ele.type)
+                struct.cost = ele.cost;
+                return struct;
+            }
+        });
+    }
+
+    res.send(rtn)
+})
+
 
 router.post('/owner', async(req, res) => {
     let owner2 = await Owner.findOne({ userAcct: req.body.id });

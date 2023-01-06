@@ -1,0 +1,14 @@
+{
+    "items":[
+        {
+            "type":"shortSword",
+            "cost":100
+        }
+    ],
+    "structures":[
+        {
+            "type":"weightRoom",
+            "cost":100
+        }
+    ]
+}
