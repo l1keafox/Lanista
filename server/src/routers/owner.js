@@ -112,11 +112,11 @@ router.post('/owner/store', async(req, res) => {
                 }
             } else if(type ==="structures"){
                 // Here we need to check if structure doesn't already exist.
-                let struct =getStructureEffect(ele.type)
-                if(owner2.fame >= ele.fame){
-                struct.type = ele.type;
-                struct.cost = ele.cost;
-                return struct;
+                let struct = getStructureEffect(ele.type)
+                if(owner2.fame >= ele.fame && owner2.structures.indexOf(ele.type) < 0){
+                    struct.type = ele.type;
+                    struct.cost = ele.cost;
+                    return struct;
                 }
             }
         }).filter(notUndefined => notUndefined !== undefined);
@@ -126,7 +126,7 @@ router.post('/owner/store', async(req, res) => {
 
 router.post('/owner/buyItem', async(req, res) => {
     let owner = await Owner.findOne({ userAcct: req.body.id });
-    console.log( owner.gold );
+    
     if(owner.gold < req.body.buyThisThing.cost){
         res.send(false);    
     }
@@ -144,8 +144,7 @@ router.post('/owner/buyItem', async(req, res) => {
         } else if(req.body.buyThisThing.structure){
             owner.structures.push(req.body.buyThisThing.structure);
         }
-        console.log(owner.inventory);
-        owner.markModified('inventory');
+    owner.markModified('inventory');
     owner.save();
     res.send(true);
 })

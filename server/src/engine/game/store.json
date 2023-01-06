@@ -9,8 +9,8 @@
     "structures":[
         {
             "type":"weightRoom",
-            "fame":2000,
-            "cost":100
+            "fame":1,
+            "cost":1
         }
     ]
 }
