@@ -2,12 +2,14 @@
     "items":[
         {
             "type":"shortSword",
-            "cost":100
+            "cost":1,
+            "fame":1
         }
     ],
     "structures":[
         {
             "type":"weightRoom",
+            "fame":2000,
             "cost":100
         }
     ]
