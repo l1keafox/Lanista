@@ -43,6 +43,9 @@ module.exports = {
             if(fameGrowth){
                 ownersGain[gladiator.owner].fame  += fameGrowth.amount;
             }
+            if(date.time === 8){
+                gladiator.age++;
+            }
             gladiator.save();
         });
 
