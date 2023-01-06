@@ -32,6 +32,17 @@ router.post('/owner/removeItems', async(req, res) => {
         let found = owner.inventory.find( ele => ele.type == item.newEquip );
         if(found) found.amount -= 1;
     });
+
+    // This will go through and clear out 0 and undefined items.
+    owner.inventory = owner.inventory.map(item=>{
+        if(item.amount){
+            return item;
+        }
+    }).filter( ele => {
+        return ele !== undefined
+    })
+
+    console.log(owner.inventory);
     owner.markModified('inventory');
     await owner.save();
     res.send(owner);
@@ -58,7 +69,8 @@ router.post('/owner/inventoryData', async(req, res) => {
 
     let rtnData = owner.inventory.map( train =>{
         let rtn = getItemEffect(train);
-        rtn.item = train;
+        rtn.item = train.type;
+        rtn.amount = train.amount;
         return rtn;
     }  );
     res.send(rtnData);
