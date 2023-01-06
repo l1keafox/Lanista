@@ -113,16 +113,39 @@ export default {
         this.$emit("closeModal");
       }
     },
-    doEquip(){
+    async doEquip(){
       const slots = ["head","mainHand","offHand","body","boots"];
       const equipObj = slots.map( slot =>{
         let sch = document.getElementById(slot);
         if(sch && sch.value !== 'empty'){
           return {slot,newEquip:sch.value}
         }
-      } )
+      }).filter( ele => {
+        return ele !== undefined
+      });
 
       console.log(equipObj);
+      if(equipObj.length){
+        await fetch(
+        `http://${window.location.hostname}:3001/owner/removeItems`,
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ "id": this.userData._id, "remove":equipObj }),
+          }
+        );
+
+        await fetch(
+        `http://${window.location.hostname}:3001/gladiator/updateEquipment`,
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ "id": this.gladId, "save":equipObj }),
+          }
+        );
+
+      }
+      this.$emit('closeModal');
     }
   },
   async mounted() {

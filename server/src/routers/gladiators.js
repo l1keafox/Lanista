@@ -9,6 +9,14 @@ router.post('/gladiator/', async(req, res) => {
     res.send(gladiator)
 })
 
+router.post('/gladiator/updateEquipment', async(req, res) => {
+    let gladiator = await Gladiator.findOne({ _id: req.body.id });
+    req.body.save.forEach(item => {
+        gladiator[item.slot] = item.newEquip;
+    });
+    await gladiator.save();
+    res.send(gladiator)
+})
 
 
 router.post('/gladiator/saveDay', async(req, res) => {

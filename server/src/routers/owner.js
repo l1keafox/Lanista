@@ -24,6 +24,19 @@ router.post('/owner/structuresData', async(req, res) => {
 
 })
 
+router.post('/owner/removeItems', async(req, res) => {
+    // So how we want to do this: is return an object that is organized by slot.
+    let owner = await Owner.findOne({ userAcct: req.body.id });
+    req.body.remove.forEach(item =>{
+        let found = owner.inventory.find( ele => ele.type == item.newEquip );
+        if(found) found.amount -= 1;
+    });
+    
+   let tdaz =  await owner.save();
+   console.log(owner,tdaz);
+    res.send(owner);
+})
+
 router.post('/owner/itemsSort', async(req, res) => {
     // So how we want to do this: is return an object that is organized by slot.
     let owner = await Owner.findOne({ userAcct: req.body.id });
