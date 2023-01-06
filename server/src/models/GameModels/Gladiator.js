@@ -88,7 +88,7 @@ const gladiatorSchema = new Schema(
         // Item slots
         // Using a string to reference an item in the itemsIndex.
 
-        headSlot:{
+        head:{
             type:String
         },
         mainHand:{
@@ -98,9 +98,6 @@ const gladiatorSchema = new Schema(
             type:String
         },
         body:{
-            type:String
-        },
-        leg:{
             type:String
         },
         boots:{

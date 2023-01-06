@@ -21,12 +21,12 @@
 
 
             <div class="flex justify-between"> 
-              <h2>Head :{{gladiatorData.headSlot}}</h2> 
-              <template v-if="inventoryData.headSlot">
-                <select name="headSlot" class="bg-cyan-100 w-28"> 
-                  <option value="fir">Select</option>
-                  <template v-for="(item,index) in inventoryData.headSlot" :key="index">
-                  <option  value="index"> {{item.type}}</option>
+              <h2>Head :{{gladiatorData.head}}</h2> 
+              <template v-if="inventoryData.head">
+                <select name="head" class="bg-cyan-100 w-28" id="head"> 
+                  <option value="empty">Select</option>
+                  <template v-for="(item,index) in inventoryData.head" :key="index">
+                  <option  :value="item.type"> {{item.type}}</option>
                   </template>
                 </select>
               </template>
@@ -35,10 +35,10 @@
             <div class="flex justify-between"> 
               <h2>Main Hand:{{gladiatorData.mainHand}}</h2> 
               <template v-if="inventoryData.mainHand">
-                <select name="mainHand" class="bg-cyan-100 w-28"> 
-                  <option value="fir">Select</option>
+                <select name="mainHand" class="bg-cyan-100 w-28" id="mainHand"> 
+                  <option value="empty">Select</option>
                   <template v-for="(item,index) in inventoryData.mainHand" :key="index">
-                  <option  value="index"> {{item.type}}</option>
+                  <option  :value="item.type"> {{item.type}}</option>
                   </template>
                 </select>
               </template>
@@ -47,10 +47,10 @@
             <div class="flex justify-between"> 
               <h2>Off Hand:{{gladiatorData.offHand}}</h2> 
               <template v-if="inventoryData.offHand">
-                <select name="offHand" class="bg-cyan-100 w-28"> 
-                  <option value="fir">Select</option>
+                <select name="offHand" class="bg-cyan-100 w-28" id="offHand"> 
+                  <option value="empty">Select</option>
                   <template v-for="(item,index) in inventoryData.offHand" :key="index">
-                  <option  value="index"> {{item.type}}</option>
+                  <option  :value="item.type"> {{item.type}}</option>
                   </template>
                 </select>
               </template>
@@ -59,22 +59,10 @@
             <div class="flex justify-between"> 
               <h2>Body:{{gladiatorData.body}}</h2> 
               <template v-if="inventoryData.body">
-                <select name="body" class="bg-cyan-100 w-28"> 
-                  <option value="fir">Select</option>
+                <select name="body" class="bg-cyan-100 w-28" id="body"> 
+                  <option value="empty">Select</option>
                   <template v-for="(item,index) in inventoryData.body" :key="index">
-                  <option  value="index"> {{item.type}}</option>
-                  </template>
-                </select>
-              </template>
-            </div>
-
-            <div class="flex justify-between"> 
-              <h2>Leg:{{gladiatorData.leg}}</h2> 
-              <template v-if="inventoryData.leg">
-                <select name="leg" class="bg-cyan-100 w-28"> 
-                  <option value="fir">Select</option>
-                  <template v-for="(item,index) in inventoryData.leg" :key="index">
-                  <option  value="index"> {{item.type}}</option>
+                  <option  :value="item.type"> {{item.type}}</option>
                   </template>
                 </select>
               </template>
@@ -83,10 +71,10 @@
             <div class="flex justify-between"> 
               <h2>Boots:{{gladiatorData.boots}}</h2> 
               <template v-if="inventoryData.boots">
-                <select name="boots" class="bg-cyan-100 w-28"> 
-                  <option value="fir">Select</option>
+                <select name="boots" class="bg-cyan-100 w-28" id="boots"> 
+                  <option value="empty">Select</option>
                   <template v-for="(item,index) in inventoryData.boots" :key="index">
-                  <option  value="index"> {{item.type}}</option>
+                  <option  :value="item.type" > {{item.type}}</option>
                   </template>
                 </select>
               </template>
@@ -126,7 +114,15 @@ export default {
       }
     },
     doEquip(){
-      
+      const slots = ["head","mainHand","offHand","body","boots"];
+      const equipObj = slots.map( slot =>{
+        let sch = document.getElementById(slot);
+        if(sch && sch.value !== 'empty'){
+          return {slot,newEquip:sch.value}
+        }
+      } )
+
+      console.log(equipObj);
     }
   },
   async mounted() {
