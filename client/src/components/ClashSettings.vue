@@ -10,18 +10,15 @@
           <!--header-->
           <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
             <h3 class="text-3xl font-semibold">
-              Clash
+              Clash Setup
             </h3>
           </div>
           <!--body-->
-          <div class="relative p-6 flex-auto">
-            <p class="my-4 text-slate-500 text-lg leading-relaxed">
-              I always felt like I could do anything. That’s the main
-              thing people are controlled by! Thoughts- their perception
-              of themselves! They're slowed down by their perception of
-              themselves. If you're taught you can’t do anything, you
-              won’t do anything. I was taught I could do everything.
-            </p>
+          <div class="relative p-6 flex-auto flex">
+            <div class="w-64 bg-yellow-100 h-48 m-2"> Prepare </div>
+            <div class="w-64 bg-yellow-100 h-48 m-2"> Clash </div>
+            <div class="w-64 bg-yellow-100 h-48 m-2"> React </div>
+            <div class="w-64 bg-yellow-100 h-48 m-2"> Unassigned </div>
           </div>
           <!--footer-->
           <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
@@ -44,8 +41,20 @@
               this.$emit('closeModal')
             }
           },
+        },
+        async mounted() {
+      // const rpnse = await fetch(
+      //   `http://${window.location.hostname}:3001/gladiator`,
+      //   {
+      //     method: "POST",
+      //     headers: { "Content-Type": "application/json" },
+      //     body: JSON.stringify({ "id": this.gladId }),
+      //   }
+      // );
+      // const ownerData = await rpnse.json();
+      // this.gladiatorData = ownerData;
+    },
 
-        }
     }
 </script>
 
