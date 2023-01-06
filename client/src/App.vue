@@ -38,6 +38,7 @@ export default {
     return {
       isLoggedIn: auth.loggedIn(),
       mainStage: "WelcomeMain",
+      
     };
   },
   methods: {
@@ -51,7 +52,10 @@ export default {
 
   mounted() {},
   provide() {
-    return {};
+    return {
+      card:"h-80 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
+      cardTitle:"text-xl text-sky-400"
+    };
   },
 };
 </script>
@@ -64,5 +68,6 @@ body {
 #app {
   height: 100vh;
 }
+
 </style>
 height: 100vh; width: 100vw;

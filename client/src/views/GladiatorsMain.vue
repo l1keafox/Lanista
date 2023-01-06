@@ -2,9 +2,9 @@
   <div>
     <h1>Gladiators</h1>
     <div  v-if="ownerData" class="flex justify-center items-center" > 
-        <div v-for="glad in ownerData.gladiators" :key="glad" class="h-80 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700"> 
+        <div v-for="glad in ownerData.gladiators" :key="glad" :class="card"> 
         
-        <h1>{{glad.name}} </h1>
+        <h1 :class="cardTitle">{{glad.name}} </h1>
         <hr/>
         <button class="bg-yellow-200 m-2 text-purple-900" @click="openModal($event,'ScheduleManager')" :data-id="glad._id">Schedule  </button>
         <button class="bg-blue-200 m-2 text-purple-700"   @click="openModal($event,'GladiatorStats')"  :data-id="glad._id">Stats  </button>
@@ -38,6 +38,7 @@ export default {
       ownerData: null,
     };
   },
+  inject: ['card','cardTitle'],
   methods:{
     openModal(event,modalName){
       this.gladiatorId = event.target.getAttribute("data-id");

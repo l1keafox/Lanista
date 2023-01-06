@@ -10,8 +10,8 @@
     <hr/>
     <div v-if="inventory">
       <h1>Inventory</h1>
-      <div v-for="item in inventory" :key="item" class="h-80 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700"> 
-        <h2 class="text-xl">{{ item.item }}</h2>
+      <div v-for="item in inventory" :key="item" :class="card"> 
+        <h2 :class="cardTitle">{{ item.item }}</h2>
         <hr/>
         <h2>amount:{{ item.amount }}</h2>
         <h2>abilities:{{ item.abilities }}</h2>
@@ -27,6 +27,7 @@
 import auth from "./../mixins/auth";
 export default {
   name: "ProfileMain",
+  inject: ['card','cardTitle'],
   data() {
     return {
       userData: auth.getUser(),

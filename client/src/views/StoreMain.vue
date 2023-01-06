@@ -6,6 +6,7 @@
 
 <script>
     export default {
+        inject: ['card','cardTitle'],
         name:"StoreMain",
         components:{
         },
