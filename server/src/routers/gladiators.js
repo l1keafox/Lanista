@@ -1,6 +1,7 @@
 const express = require('express');
 const {User,Owner,Gladiator,DayEvents} = require('../models');
 const auth = require('../middleware/auth');
+const { getAbilityEffect } = require("./../engine/game/abilityIndex");
 const router = express.Router();
 
 router.post('/gladiator/', async(req, res) => {
@@ -32,7 +33,24 @@ router.post('/gladiator/clashInfo', async(req, res) => {
         clash:[],
         react:[]
     };
+    allAbilities.forEach(abi => {
+//        console.log(getAbilityEffect(abi).type , abi);
+        // here we determine if it goes to the unassigned or not.
+        console.log( getAbilityEffect(abi).type , abi);
+        if( getAbilityEffect(abi).type  !== "clash"){
+            if( !glad[getAbilityEffect(abi).type].includes(abi) ){
+                console.log( abi , "is not in ",getAbilityEffect(abi).type,glad[getAbilityEffect(abi).type]);
+                rtn.unassigned.push(abi);
 
+            } else {
+                rtn[getAbilityEffect(abi).type].push(abi);
+            }
+        } else {
+            rtn[getAbilityEffect(abi).type].push(abi);
+        }
+
+    });
+    console.log(rtn);
     res.send(rtn)
 })
 
