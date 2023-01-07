@@ -18,6 +18,20 @@ router.post('/gladiator/updateEquipment', async(req, res) => {
     res.send(gladiator)
 })
 
+router.post('/gladiator/updateClash', async(req, res) => {
+    let gladiator = await Gladiator.findOne({ _id: req.body.id });
+    // validate
+    
+    console.log(req.body.save);
+    for(let slot in req.body.save){
+        if(gladiator[slot])
+        gladiator[slot] = req.body.save[slot];
+    }
+    await gladiator.save();
+
+    res.send(true);
+})
+
 router.post('/gladiator/clashInfo', async(req, res) => {
     let glad = await Gladiator.findOne({ _id: req.body.id });
     // So let's take all the skills and abilities put them in one array as unassigned
