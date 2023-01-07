@@ -28,10 +28,11 @@ router.post('/gladiator/clashInfo', async(req, res) => {
     const allAbilities = glad.skills.concat(glad.abilities);
     console.log(allAbilities);
     let rtn = {
-        unassigned:[],
         prepare:[],
+        unPrepare:[],
         clash:[],
-        react:[]
+        react:[],
+        unReact:[]
     };
     allAbilities.forEach(abi => {
 //        console.log(getAbilityEffect(abi).type , abi);
@@ -40,7 +41,12 @@ router.post('/gladiator/clashInfo', async(req, res) => {
         if( getAbilityEffect(abi).type  !== "clash"){
             if( !glad[getAbilityEffect(abi).type].includes(abi) ){
                 console.log( abi , "is not in ",getAbilityEffect(abi).type,glad[getAbilityEffect(abi).type]);
-                rtn.unassigned.push(abi);
+                if(getAbilityEffect(abi).type  === 'prepare'){
+                    rtn.unPrepare.push(abi);
+                }
+                if(getAbilityEffect(abi).type  === 'react'){
+                    rtn.unReact.push(abi);
+                }
 
             } else {
                 rtn[getAbilityEffect(abi).type].push(abi);

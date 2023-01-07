@@ -62,10 +62,15 @@
                 <div class="list-group-item">{{ element }} {{ index }}</div>
               </template>
             </draggable>
+          </div>
+          <div v-if="skills" class="relative p-6 flex-auto flex">
+            <!-- <div class="w-64 bg-yellow-100 h-48 m-2"> Prepare </div>
+            <div class="w-64 bg-yellow-100 h-48 m-2"> Clash </div>
+            <div class="w-64 bg-yellow-100 h-48 m-2"> React </div> -->
 
             <draggable
-              class="list-group w-64 bg-yellow-100 h-48 m-2"
-              :list="unassigned"
+              class="list-group w-64 bg-blue-100 h-48 m-2"
+              :list="unPrepare"
               sort="false"
               group="people"
               @change="log"
@@ -75,8 +80,24 @@
                 <div class="list-group-item">{{ element }} {{ index }}</div>
               </template>
             </draggable>
-            
-          </div>
+            <div
+              class="list-group w-64  h-48 m-2"
+            >
+            </div>
+
+            <draggable
+              class="list-group w-64 bg-blue-100 h-48 m-2"
+              :list="unReact"
+              sort="false"
+              group="people"
+              @change="log"
+              itemKey="name"
+            >
+              <template #item="{ element, index }">
+                <div class="list-group-item">{{ element }} {{ index }}</div>
+              </template>
+            </draggable>
+          </div>          
           <!--footer-->
           <div
             class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b"
@@ -107,21 +128,12 @@ export default {
   data() {
     return {
       skills: null,
-      unassigned: null,
+      unReact: null,
+      unPrepare: null,
       clash: null,
       prepare: null,
       react: null,
-      list1: [
-        { name: "John", id: 1 },
-        { name: "Joao", id: 2 },
-        { name: "Jean", id: 3 },
-        { name: "Gerard", id: 4 },
-      ],
-      list2: [
-        { name: "Juan", id: 5 },
-        { name: "Edgard", id: 6 },
-        { name: "Johnson", id: 7 },
-      ],
+
     };
   },
   methods: {
@@ -133,8 +145,8 @@ export default {
     log: function (evt) {
       window.console.log(evt);
       // access updated DOM
-      console.log(this.list1);
-      console.log(this.list2);
+      console.log(this.react);
+      console.log(this.prepare);
     },
   },
   async mounted() {
@@ -149,7 +161,8 @@ export default {
 
     const gladData = await rpnse.json();
     this.skills = gladData;
-    this.unassigned = gladData.unassigned;
+    this.unPrepare = gladData.unPrepare;
+    this.unReact = gladData.unReact;
     this.clash = gladData.clash;
     this.prepare = gladData.prepare;
     this.react = gladData.react;
