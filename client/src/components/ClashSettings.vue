@@ -15,15 +15,41 @@
           </div>
           <!--body-->
           <div v-if="skills" class="relative p-6 flex-auto flex">
-            <div class="w-64 bg-yellow-100 h-48 m-2"> Prepare </div>
+            <!-- <div class="w-64 bg-yellow-100 h-48 m-2"> Prepare </div>
             <div class="w-64 bg-yellow-100 h-48 m-2"> Clash </div>
-            <div class="w-64 bg-yellow-100 h-48 m-2"> React </div>
+            <div class="w-64 bg-yellow-100 h-48 m-2"> React </div> -->
+            <draggable
+            class="list-group"
+            :list="list1"
+            group="people"
+            @change="log"
+            itemKey="name"
+          >
+            <template #item="{ element, index }">
+              <div class="list-group-item">{{ element.name }} {{ index }}</div>
+            </template>
+          </draggable>
+
+
+          <draggable
+          class="list-group"
+          :list="list2"
+          group="people"
+          @change="log"
+          itemKey="name"
+        >
+          <template #item="{ element, index }">
+            <div class="list-group-item">{{ element.name }} {{ index }}</div>
+          </template>
+        </draggable>  
+
+<!--         
             <div class="w-64 bg-yellow-100 h-48 m-2"> 
               <h1> Unassigned </h1>
                 <template v-for="(skill) in skills.unassigned" :key="skill">
                   <h1>{{ skill }} </h1>
                 </template>
-            </div>
+            </div> -->
           </div>
           <!--footer-->
           <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
@@ -38,12 +64,29 @@
 </template>
 
 <script>
+import draggable from "vuedraggable";
     export default {
         name:"ClashSetting",
         props: ["gladId"],
+        components: {
+    draggable
+  },
+
+
         data(){
           return {
-            skills:null
+            skills:null,
+            list1: [
+        { name: "John", id: 1 },
+        { name: "Joao", id: 2 },
+        { name: "Jean", id: 3 },
+        { name: "Gerard", id: 4 }
+      ],
+      list2: [
+        { name: "Juan", id: 5 },
+        { name: "Edgard", id: 6 },
+        { name: "Johnson", id: 7 }
+      ]            
           }
         },
         methods:{
@@ -52,6 +95,9 @@
               this.$emit('closeModal')
             }
           },
+          log: function(evt) {
+      window.console.log(evt);
+    }          
         },
         async mounted() {
           const rpnse = await fetch(`http://${window.location.hostname}:3001/gladiator/clashInfo`,
