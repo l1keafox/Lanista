@@ -17,6 +17,7 @@
 
 module.exports = {
   abilityName: "swing",
+  type:"clash",
   doAbility(casterChar, target) {
     console.log("  -Swng>This ability needs to do damage.");
     target.addEffect("damageTake", 5);

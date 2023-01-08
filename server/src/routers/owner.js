@@ -132,7 +132,6 @@ router.post('/owner/buyItem', async(req, res) => {
     }
     owner.gold-=req.body.buyThisThing.cost;
 
-    console.log(req.body.buyThisThing,"amnt");
         if(req.body.buyThisThing.item){
             const exist = owner.inventory.find( ele => ele.type ==req.body.buyThisThing.item);
             console.log(exist,"exist?");

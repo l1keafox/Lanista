@@ -1,7 +1,8 @@
-
 const express = require('express');
 const {User,Owner,Gladiator,DayEvents} = require('../models');
 const auth = require('../middleware/auth');
+const { getAbilityEffect } = require("./../engine/game/abilityIndex");
+const { doDuel }= require("../engine/game/duel");
 const router = express.Router();
 
 router.post('/gladiator/', async(req, res) => {
@@ -18,6 +19,69 @@ router.post('/gladiator/updateEquipment', async(req, res) => {
     res.send(gladiator)
 })
 
+router.post('/gladiator/updateClash', async(req, res) => {
+    let gladiator = await Gladiator.findOne({ _id: req.body.id });
+    // validate
+    
+    console.log(req.body.save);
+    for(let slot in req.body.save){
+        if(gladiator[slot])
+        gladiator[slot] = req.body.save[slot];
+    }
+    await gladiator.save();
+
+    res.send(true);
+})
+
+router.post('/gladiator/doSpar', async(req, res) => {
+    let glad = await Gladiator.findOne({ _id: req.body.gladatorId });
+    let glad2 = await Gladiator.findOne({ _id: req.body.gladatorId2 });
+    doDuel(glad,glad2);
+    let report = {};
+    res.send(report)
+})
+
+
+
+router.post('/gladiator/clashInfo', async(req, res) => {
+    let glad = await Gladiator.findOne({ _id: req.body.id });
+    // So let's take all the skills and abilities put them in one array as unassigned
+    // Then we will organize it as needed, returning an object that will hold 
+    glad.setSkills();
+    
+    
+    const allAbilities = glad.skills.concat(glad.abilities);
+    console.log(allAbilities);
+    let rtn = {
+        prepare:[],
+        unPrepare:[],
+        clash:[],
+        react:[],
+        unReact:[]
+    };
+    allAbilities.forEach(abi => {
+//        console.log(getAbilityEffect(abi).type , abi);
+        // here we determine if it goes to the unassigned or not.
+        if( getAbilityEffect(abi).type  !== "clash"){
+            if( !glad[getAbilityEffect(abi).type].includes(abi) ){
+//                console.log( abi , "is not in ",getAbilityEffect(abi).type,glad[getAbilityEffect(abi).type]);
+                if(getAbilityEffect(abi).type  === 'prepare'){
+                    rtn.unPrepare.push(abi);
+                }
+                if(getAbilityEffect(abi).type  === 'react'){
+                    rtn.unReact.push(abi);
+                }
+
+            } else {
+                rtn[getAbilityEffect(abi).type].push(abi);
+            }
+        } else {
+            rtn[getAbilityEffect(abi).type].push(abi);
+        }
+
+    });
+    res.send(rtn)
+})
 
 router.post('/gladiator/saveDay', async(req, res) => {
     let glad = await Gladiator.findOne({ _id: req.body.id });
