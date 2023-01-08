@@ -122,13 +122,10 @@ const gladiatorSchema = new Schema(
 gladiatorSchema.methods.setSkills = async function() {
     // This will go through equipment and give fill up skills
     // or it will go through 
-    //getItemEffect
     const slots = ["mainHand","offHand","head","body","boots"];
     this.abilities = [];
     slots.forEach(slot =>{
         if(this[slot] && getItemEffect(this[slot]) ){
-//            console.log("set?",this[slot],getItemEffect(this[slot]));
-//            console.log(getItemEffect(this[slot]).abilities);
             this.abilities = this.abilities.concat(getItemEffect(this[slot]).abilities);
         }
     });

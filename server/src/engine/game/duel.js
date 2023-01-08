@@ -129,7 +129,7 @@ function clashPrepare(user,target) {
           switch (effect) {
             case "takeDamage":
             case "damageTake":
-              this.hitPoints -= this.effectToDo[effect];
+              this.hits -= this.effectToDo[effect];
               break;
             case "taunted":
               this.morale -= this.effectToDo[effect];
@@ -202,6 +202,9 @@ if (!thisClash.clashWinner) {
     gladOne.endOfRound(); //
     gladTwo.endOfRound(); //
 
+    console.log( gladOne.name,"    vs     ",gladTwo.name);
+    console.log("HP:",gladOne.hits,"/",gladOne.maxHits + "    HP:" + gladTwo.hits,"/",gladTwo.maxHits);
+    console.log("Morale:",gladOne.morale + "     Morale:" + gladTwo.morale);
 
     
 }while(1==2)
