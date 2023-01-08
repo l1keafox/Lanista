@@ -42,7 +42,6 @@ export default {
   methods:{
     openModal(event,modalName){
       this.gladiatorId = event.target.getAttribute("data-id");
-      
       this.isModalShown = true;
       this.modalShown = modalName;
     },
