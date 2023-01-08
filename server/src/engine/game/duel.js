@@ -1,4 +1,6 @@
-const { getAbilityEffect } = require(".//abilityIndex");
+const { getAbilityEffect } = require("./abilityIndex");
+const { getItemEffect } = require("./itemsIndex");
+
 function clashPrepare(user,target) {
     // for (let aPrepare of user.prepArray) {
     //   if (aPrepare.cooldown) continue;
@@ -87,6 +89,8 @@ function clashPrepare(user,target) {
     rtnGlad.prepare = gladiator.prepare.map(skill => getAbilityEffect(skill) )
     rtnGlad.react = gladiator.react.map(skill => getAbilityEffect(skill) )
 
+    gladiator.setSkills();
+
     rtnGlad.clash = gladiator.abilities.concat( gladiator.skills ).map(skill => {
         const effect = getAbilityEffect(skill);
         if(effect.type === 'clash'){
@@ -144,8 +148,8 @@ function clashPrepare(user,target) {
       }
       rtnGlad.clashPrepare = function (opponant) {
         for (let aPrepare of this.prepare) {
-          if (prepare.cooldown) continue;
-          prepare.forClash(this, opponant);
+          if (aPrepare.cooldown) continue;
+          aPrepare.forClash(this, opponant);
         }
       }
     
@@ -172,8 +176,8 @@ do{
     roundCnt++;
     console.log(`  -EN/Duel>___________________________PRE:${roundCnt}_________________________________`);
     // Do prepare
-  //  clashPrepare(gladOne,gladTwo);
-//    clashPrepare(gladTwo,gladOne);
+    gladOne.clashPrepare(gladTwo);
+    gladTwo.clashPrepare(gladOne);
     console.log(`  -EN/Duel>___________________________CLASH:${roundCnt}_______________________________`);
     // doClash clash returns result 
     let thisClash = new Clash().battle(gladOne, gladTwo);
@@ -181,8 +185,14 @@ do{
 
 
     // Do  react
-  //  clashReact(clashResult,user,target)
-//    clashReact(clashResult,user,target)
+if (!thisClash.clashWinner) {
+    console.log("TIE");
+    gladOne.clashReact('tie', gladTwo);
+    gladTwo.clashReact('tie', gladOne);
+  } else {
+    thisClash.clashWinner.clashReact('win', thisClash.clashLoser);
+    thisClash.clashLoser.clashReact('lose', thisClash.clashWinner);
+  }
 
     // see if it's tie, 
     // if it's not then do winner loser reacts

@@ -1,19 +1,14 @@
 module.exports = {
     abilityName: "Heal",
     type:"react",
-    maxCoolDown:5,
-    doAbility(casterChar, target) {
-      console.log("  -Swng>This ability needs to do damage.");
-      target.addEffect("damageTake", 5);
-    },
-  
-    winCondition(casterChar, target) {
-      let points = 0;
-      if (target.effectToDo.damageTake && !target.effectToDo.dodge) {
-        console.log("  winner Attack!");
-        points = 100;
+    maxCoolDown:4,
+    resultWanted:'lose',
+    doClash(result, caster, target) {
+      if (this.resultWanted === result) {
+        console.log(`   ${caster.name}-> DOING HEALING!`, caster.hitPoints);
+        caster.hitPoints++;
+        this.cooldown = this.maxCooldown;
       }
-      return points;
-    },
+    }
   };
   
