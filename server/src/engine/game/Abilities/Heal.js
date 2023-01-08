@@ -1,6 +1,7 @@
 module.exports = {
     abilityName: "Heal",
     type:"react",
+    maxCoolDown:5,
     doAbility(casterChar, target) {
       console.log("  -Swng>This ability needs to do damage.");
       target.addEffect("damageTake", 5);

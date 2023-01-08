@@ -2,7 +2,7 @@ module.exports = {
     abilityName: "dodge",
     type:"clash",
     doAbility(casterChar, target) {
-      console.log("  -Swng>This ability needs to do damage.");
+      console.log("  -Dodge>ERROR.");
       target.addEffect("damageTake", 5);
     },
   

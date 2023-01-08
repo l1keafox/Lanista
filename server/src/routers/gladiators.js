@@ -2,6 +2,7 @@ const express = require('express');
 const {User,Owner,Gladiator,DayEvents} = require('../models');
 const auth = require('../middleware/auth');
 const { getAbilityEffect } = require("./../engine/game/abilityIndex");
+const { doDuel }= require("../engine/game/duel");
 const router = express.Router();
 
 router.post('/gladiator/', async(req, res) => {
@@ -32,6 +33,16 @@ router.post('/gladiator/updateClash', async(req, res) => {
     res.send(true);
 })
 
+router.post('/gladiator/doSpar', async(req, res) => {
+    let glad = await Gladiator.findOne({ _id: req.body.gladatorId });
+    let glad2 = await Gladiator.findOne({ _id: req.body.gladatorId2 });
+    doDuel(glad,glad2);
+    let report = {};
+    res.send(report)
+})
+
+
+
 router.post('/gladiator/clashInfo', async(req, res) => {
     let glad = await Gladiator.findOne({ _id: req.body.id });
     // So let's take all the skills and abilities put them in one array as unassigned
@@ -51,10 +62,9 @@ router.post('/gladiator/clashInfo', async(req, res) => {
     allAbilities.forEach(abi => {
 //        console.log(getAbilityEffect(abi).type , abi);
         // here we determine if it goes to the unassigned or not.
-        console.log( getAbilityEffect(abi).type , abi);
         if( getAbilityEffect(abi).type  !== "clash"){
             if( !glad[getAbilityEffect(abi).type].includes(abi) ){
-                console.log( abi , "is not in ",getAbilityEffect(abi).type,glad[getAbilityEffect(abi).type]);
+//                console.log( abi , "is not in ",getAbilityEffect(abi).type,glad[getAbilityEffect(abi).type]);
                 if(getAbilityEffect(abi).type  === 'prepare'){
                     rtn.unPrepare.push(abi);
                 }
@@ -70,7 +80,6 @@ router.post('/gladiator/clashInfo', async(req, res) => {
         }
 
     });
-    console.log(rtn);
     res.send(rtn)
 })
 

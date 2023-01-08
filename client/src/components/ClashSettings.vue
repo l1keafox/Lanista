@@ -153,12 +153,6 @@ export default {
 				this.$emit("closeModal");
 			}
 		},
-// 		log: function (evt) {
-// //			window.console.log(evt);
-// 			// access updated DOM
-// 			// console.log(this.react);
-// 			// console.log(this.prepare);
-// 		},
 	},
 	async mounted() {
 		const rpnse = await fetch(
