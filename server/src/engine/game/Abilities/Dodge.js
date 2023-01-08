@@ -6,7 +6,7 @@ module.exports = {
         this.abilityName,
         "   ->So this ability needs to cancel out damage"
       );
-      casterChar.addEffect("dodge", 5);
+      casterChar.addEffect("missChance", 50);
     },
   
     winCondition(casterChar, target) {

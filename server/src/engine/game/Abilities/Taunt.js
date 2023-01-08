@@ -3,7 +3,8 @@ module.exports = {
     type:"clash",
     doAbility(casterChar, target) {
       console.log(this.abilityName, "   ->This ability does no damage but....");
-      casterChar.addEffect("taunt", 1);
+      casterChar.addEffect("moraleDamage", 10);
+
     },
   
     winCondition(casterChar, target) {
