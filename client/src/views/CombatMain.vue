@@ -5,7 +5,7 @@
 		<div v-if="ownerData" class="flex">
 			<select
 				name="gladiator"
-				class="bg-cyan-100 w-28 text-purple-800"
+				class="bg-cyan-100 w-28 text-purple-800  p-2 m-2"
 				id="gladiator">
 				<option value="empty">Select</option>
 				<template
@@ -17,7 +17,7 @@
 			vs
 			<select
 				name="gladiator2"
-				class="bg-cyan-100 w-28 text-purple-800"
+				class="bg-cyan-100 w-28 text-purple-800  p-2 m-2"
 				id="gladiator2">
 				<option value="empty">Select</option>
 				<template
@@ -26,19 +26,19 @@
 					<option :value="gladiator.name">{{ gladiator.name }}</option>
 				</template>
 			</select>
+            
+			<button class="bg-yellow-200 text-emerald-800 w-48 p-2 m-2" @click="doSpar">
+				Spar
+			</button>
+
 		</div>
 		<hr />
 
 		<div class="flex flex-col">
-			<div>Sparring</div>
-			<button class="bg-yellow-200 text-emerald-800" @click="doSpar">
-				Spar Self
-			</button>
-			<hr />
 			<div>Fighting History</div>
 		</div>
 		<div v-if="isModalShown">
-			<CombatReview :combatReport="combatReport" @closeModal="closeModal" />
+			<CombatReview :combatReport="combatReport" @closeModal="closeModal" :glads="glads"/>
 		</div>
 	</div>
 </template>
@@ -56,6 +56,7 @@ export default {
 			ownerData: null,
 			isModalShown: false,
 			combatReport: null,
+            glads:[],
 			userData: auth.getUser(),
 		};
 	},
@@ -88,6 +89,8 @@ export default {
 				);
 				let rpns = await rpnse.json();
 				//console.log(rpns);
+                this.glads= [gladData,glad2];
+                console.log(this.glads);
 				this.combatReport = rpns;
                 this.isModalShown= true;
 			}

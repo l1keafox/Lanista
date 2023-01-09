@@ -48,15 +48,15 @@ function compareEffects(gladiator,target){
             if( gladiator.effectToDo.hitDamage ){
                 gladiator.effectToDo.taunting = 0;
             } else {
-                gladiator.effectToDo.moraleDamage = 10;
+                target.effectToDo.moraleDamage = 10;
             }
             if(target.effectToDo.taunting){
                 // So if both are taunting.
                 // then we will compare both and 
                 if(target.effectToDo.taunting > gladiator.effectToDo.taunting){
-                    target.effectToDo.moraleDamage = target.effectToDo.taunting - gladiator.effectToDo.taunting
+                    gladiator.effectToDo.moraleDamage = target.effectToDo.taunting - gladiator.effectToDo.taunting
                 } else {
-                    gladiator.effectToDo.moraleDamage = gladiator.effectToDo.taunting - target.effectToDo.taunting
+                    target.effectToDo.moraleDamage = gladiator.effectToDo.taunting - target.effectToDo.taunting
                 }
                 target.effectToDo.taunting = 0;
                 gladiator.effectToDo.taunting = 0;
@@ -76,10 +76,12 @@ function doEffects(gladiator){
           case "hitDamage":
             gladiator.hits -= gladiator.effectToDo[effect];
             effectReport[effect] = gladiator.effectToDo[effect]
+            effectReport.hits = gladiator.hits;
             break;
           case "moraleDamage":
             gladiator.morale -= gladiator.effectToDo[effect];
             effectReport[effect] = gladiator.effectToDo[effect]
+            effectReport.morale = gladiator.morale;
             break;
         }
       }

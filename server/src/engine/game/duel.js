@@ -202,10 +202,10 @@ async function doDuel(one, two) {
 			if (SHOWBATTLE) console.log("  -EN/Duel>   TIE");
 			gladOne.clashReact("tie", gladTwo);
 			gladTwo.clashReact("tie", gladOne);
-			roundReport.result = { result: "tie", winner: null };
+			roundReport.clashResult = { result: "tie", winner: null };
 		} else {
 			thisClash.clashWinner.clashReact("win", thisClash.clashLoser);
-			roundReport.result = {
+			roundReport.clashResult = {
 				result: "win",
 				winner: thisClash.clashWinner.name,
 			};
