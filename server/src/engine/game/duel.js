@@ -56,9 +56,10 @@ function returnPreparedGladiator(gladiator) {
 	newGladObj.doAction = function (Ability, targetChar) {
 		console.log(
 			"  =EN/DUEL/ATTK>",
+			Ability.abilityName,
 			this.name,
 			"is the character attacking doing effect",
-			Ability.abilityName,
+			
 			"too target",
 			targetChar.name
 		);
@@ -84,7 +85,7 @@ function returnPreparedGladiator(gladiator) {
 	};
 
 	newGladObj.clashReact = function (clashResult, target) {
-		console.log("getting clashReSULt for,", this.name, "is", clashResult);
+//		console.log("  -En/DUEL>getting clashReSULt for,", this.name, "is", clashResult);
 		for (let aReaction of this.react) {
 			if (aReaction.cooldown) continue;
 			aReaction.doClash(clashResult, this, target);
@@ -116,8 +117,9 @@ class Clash {
 		// Determine winner
 		const difference = Math.abs(oneWinPoints - twoWinPoints);
 
-		console.log("  =>1:", oneWinPoints, "2:", twoWinPoints, difference);
-		if (difference < 20) {
+		let tieLine = (oneWinPoints+twoWinPoints)*.5 *.1;
+		console.log(`  =>${oneChar.name}: ${oneWinPoints}, ${twoChar.name}: ${twoWinPoints} =  ${difference} TIELINE:${tieLine}`);
+		if (difference < tieLine) {
 			EventResults.clashWinner = null; // tie
 		} else if (oneWinPoints > twoWinPoints) {
 			EventResults.clashWinner = oneChar;
@@ -126,6 +128,12 @@ class Clash {
 			EventResults.clashWinner = twoChar;
 			EventResults.clashLoser = oneChar;
 		}
+		if(EventResults.clashWinner){
+			console.log(`  -EN/DUEL>Winner is: ${EventResults.clashWinner.name} w/ ${oneClash.abilityName}, Loser is : ${EventResults.clashLoser.name} w ${twoClash.abilityName}`)
+		} else {
+			console.log(`  -EN/DUEL>TIE is: ${oneChar.name} w/ ${oneClash.abilityName}, TIE is : ${twoChar.name} w ${twoClash.abilityName}`)
+		}
+		
 
 		return EventResults;
 	}
@@ -134,12 +142,14 @@ class Clash {
 async function doDuel(one, two) {
 	// Import things to note - we need it recorded so we can send it back to the users.
 	// So, let's take the glads and rebuild the game object for a one time use.
+	let report = {};
 	let gladOne = returnPreparedGladiator(one);
 	let gladTwo = returnPreparedGladiator(two);
 	console.log("  -EN/Duel> ", gladOne.name,"Vs", gladTwo.name);
-
+	
 	let roundCnt = 0;
 	do {
+		let thisRound = {};
 		roundCnt++;
 		console.log(
 			`  -EN/Duel>___________________________PRE:${roundCnt}_________________________________`
@@ -165,7 +175,7 @@ async function doDuel(one, two) {
 
 		// Do  react
 		if (!thisClash.clashWinner) {
-			console.log("TIE");
+			console.log("  -EN/Duel>   TIE");
 			gladOne.clashReact("tie", gladTwo);
 			gladTwo.clashReact("tie", gladOne);
 		} else {
@@ -181,22 +191,25 @@ async function doDuel(one, two) {
 		gladOne.endOfRound(); //
 		gladTwo.endOfRound(); //
 
-		console.log(gladOne.name, "    vs     ", gladTwo.name);
+		console.log(`  -EN/Duel> ${gladOne.name}     vs     ${gladTwo.name}`);
 		console.log(
-			"HP:",
+			"  -EN/Duel> HP:",
 			gladOne.hits,
 			"/",
 			gladOne.maxHits + "    HP:" + gladTwo.hits,
 			"/",
 			gladTwo.maxHits
 		);
-		console.log("Morale:", gladOne.morale + "     Morale:" + gladTwo.morale);
+		console.log("  -EN/Duel> Morale:", gladOne.morale + "     Morale:" + gladTwo.morale);
+		console.log(thisRound);
+		report[roundCnt] = thisRound;
 	} while (1 == 2);
 	//console.log("finished");
 	// while(gladOne.hitPoints > 0 &&
 	//     gladTwo.hitPoints > 0 &&
 	//     gladOne.morale > 0 &&
 	//     gladTwo.morale > 0)
+	return report;
 }
 
 module.exports = { doDuel };

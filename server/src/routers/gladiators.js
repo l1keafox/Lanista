@@ -36,9 +36,12 @@ router.post('/gladiator/updateClash', async(req, res) => {
 router.post('/gladiator/doSpar', async(req, res) => {
     let glad = await Gladiator.findOne({ _id: req.body.gladatorId });
     let glad2 = await Gladiator.findOne({ _id: req.body.gladatorId2 });
-    doDuel(glad,glad2);
-    let report = {};
-    res.send(report)
+    if(glad && glad2){
+        let report = await doDuel(glad,glad2);
+        res.send(report)
+    } else {
+        res.send({"error":"Glad/Glad2 error"})
+    }
 })
 
 

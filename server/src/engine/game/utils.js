@@ -38,6 +38,11 @@ function getRandomAround(num,percent){
  return randomBetween(num-between,num+between);
 }
 
+function modStat4Effect(num,percent){
+ return getRandomAround(num/100,percent)
+}
+
+
 function getName(){
   let name;
   do{
@@ -80,4 +85,4 @@ function createNewGladiator() {
   };
 }
 
-module.exports = { createNewOwner, createNewGladiator,randomBetween,rollDice ,getRandomAround };
+module.exports = {modStat4Effect, createNewOwner, createNewGladiator,randomBetween,rollDice ,getRandomAround };
