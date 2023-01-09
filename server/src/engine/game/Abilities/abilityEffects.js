@@ -34,7 +34,6 @@ function compareEffects(gladiator,target){
     for(let effect in gladiator.effectToDo){
     switch(effect){
         case 'missChance':
-            //console.log('doing miss chance');
             if(gladiator.effectToDo.hitChance){
                 gladiator.effectToDo.hitChance -= gladiator.effectToDo.missChance;
             }
@@ -51,6 +50,17 @@ function compareEffects(gladiator,target){
             } else {
                 gladiator.effectToDo.moraleDamage = 10;
             }
+            if(target.effectToDo.taunting){
+                // So if both are taunting.
+                // then we will compare both and 
+                if(target.effectToDo.taunting > gladiator.effectToDo.taunting){
+                    target.effectToDo.moraleDamage = target.effectToDo.taunting - gladiator.effectToDo.taunting
+                } else {
+                    gladiator.effectToDo.moraleDamage = gladiator.effectToDo.taunting - target.effectToDo.taunting
+                }
+                target.effectToDo.taunting = 0;
+                gladiator.effectToDo.taunting = 0;
+            }
             break;
     }
 }
@@ -59,19 +69,23 @@ console.log(`  ->A4 ${gladiator.name}`,gladiator.effectToDo);
 }
 
 function doEffects(gladiator){
+    let effectReport = {};
     for (let effect in gladiator.effectToDo) {
         let num = gladiator.effectToDo[effect];
         switch (effect) {
           case "hitDamage":
             gladiator.hits -= gladiator.effectToDo[effect];
+            effectReport[effect] = gladiator.effectToDo[effect]
             break;
           case "moraleDamage":
             gladiator.morale -= gladiator.effectToDo[effect];
+            effectReport[effect] = gladiator.effectToDo[effect]
             break;
         }
       }
       // clearing out effects.
       gladiator.effectToDo = {};
+      return effectReport;
 }
 
 function addEffect(gladiator,effectName, effectStr) {

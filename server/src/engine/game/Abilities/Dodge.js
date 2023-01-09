@@ -3,11 +3,8 @@ module.exports = {
     abilityName: "dodge",
     type:"clash",
     doAbility(casterChar, target) {
-      // console.log(
-      //   this.abilityName,
-      //   "   ->So this ability needs to cancel out damage"
-      // );
-      
+        // Dodge has a bonus, because there's nothing to win it, doesn't do damage or morale damage, it just dodging.
+        // Might get an react from this.
       casterChar.addEffect("missChance", modStat4Effect(casterChar.agility*1.25,10));
       
     },

@@ -107,8 +107,8 @@ class Clash {
 		const EventResults = {};
 		// Here we need to cancel out effects based on actions
 		// dodge cancels out damage
-		compareEffects(oneChar);
-		compareEffects(twoChar);
+		compareEffects(oneChar,twoChar);
+		compareEffects(twoChar,oneChar);
 
 		// Determine win condidtion
 		const oneWinPoints = oneClash.winCondition(oneChar, twoChar); // win condidtions also do the effects too.
@@ -118,7 +118,7 @@ class Clash {
 		const difference = Math.abs(oneWinPoints - twoWinPoints);
 
 		let tieLine = (oneWinPoints+twoWinPoints)*.5 *.1;
-		console.log(`  =>${oneChar.name}: ${oneWinPoints}, ${twoChar.name}: ${twoWinPoints} =  ${difference} TIELINE:${tieLine}`);
+		//console.log(`  =>${oneChar.name}: ${oneWinPoints}, ${twoChar.name}: ${twoWinPoints} =  ${difference} TIELINE:${tieLine}`);
 		if (difference < tieLine) {
 			EventResults.clashWinner = null; // tie
 		} else if (oneWinPoints > twoWinPoints) {
@@ -128,12 +128,23 @@ class Clash {
 			EventResults.clashWinner = twoChar;
 			EventResults.clashLoser = oneChar;
 		}
-		if(EventResults.clashWinner){
-			console.log(`  -EN/DUEL>Winner is: ${EventResults.clashWinner.name} w/ ${oneClash.abilityName}, Loser is : ${EventResults.clashLoser.name} w ${twoClash.abilityName}`)
-		} else {
-			console.log(`  -EN/DUEL>TIE is: ${oneChar.name} w/ ${oneClash.abilityName}, TIE is : ${twoChar.name} w ${twoClash.abilityName}`)
-		}
-		
+		// if(EventResults.clashWinner){
+		// 	console.log(`  -EN/DUEL>Winner is: ${EventResults.clashWinner.name} w/ ${oneClash.abilityName}, Loser is : ${EventResults.clashLoser.name} w ${twoClash.abilityName}`)
+		// } else {
+		// 	console.log(`  -EN/DUEL>TIE is: ${oneChar.name} w/ ${oneClash.abilityName}, TIE is : ${twoChar.name} w ${twoClash.abilityName}`)
+		// }
+		const charOneName = oneChar.name;
+		const charTwoName = twoChar.name;
+		EventResults.report = {};
+		EventResults.report[charOneName] = {	
+			"winPoints": oneWinPoints,
+			"clashAbility": oneClash.abilityName
+		};
+		EventResults.report[charTwoName] = {	
+			"winPoints": twoWinPoints,
+			"clashAbility": twoClash.abilityName
+		};
+
 
 		return EventResults;
 	}
@@ -142,6 +153,8 @@ class Clash {
 async function doDuel(one, two) {
 	// Import things to note - we need it recorded so we can send it back to the users.
 	// So, let's take the glads and rebuild the game object for a one time use.
+	// Most things should return a report? Or should we pass the report to it so it can use it?
+
 	let report = {};
 	let gladOne = returnPreparedGladiator(one);
 	let gladTwo = returnPreparedGladiator(two);
@@ -149,7 +162,11 @@ async function doDuel(one, two) {
 	
 	let roundCnt = 0;
 	do {
-		let thisRound = {};
+		let roundReport = {};
+		roundReport[gladOne.name] = {}
+		roundReport[gladTwo.name] = {}
+//		let oneReport = {}; // each gladiator will have different reports
+//		let twoReport = {}; 
 		roundCnt++;
 		console.log(
 			`  -EN/Duel>___________________________PRE:${roundCnt}_________________________________`
@@ -161,8 +178,8 @@ async function doDuel(one, two) {
     // We do effects twice, once before the clash clears it out.
     // Do we compare effects again here? in general prepare shouldn't be about
     // doding, and if it is, it's more enhancing existing clash abilities. 
-		doEffects(gladOne);
-		doEffects(gladTwo);
+		// doEffects(gladOne);
+		// doEffects(gladTwo);
 
 		console.log(
 			`  -EN/Duel>___________________________CLASH:${roundCnt}_______________________________`
@@ -172,21 +189,26 @@ async function doDuel(one, two) {
 		console.log(
 			`  -EN/Duel>___________________________REACT:${roundCnt}_______________________________`
 		);
-
+		//console.log( thisClash.report );
+		roundReport[gladOne.name].clash = thisClash.report[gladOne.name];
+		roundReport[gladTwo.name].clash = thisClash.report[gladTwo.name];
 		// Do  react
 		if (!thisClash.clashWinner) {
 			console.log("  -EN/Duel>   TIE");
 			gladOne.clashReact("tie", gladTwo);
 			gladTwo.clashReact("tie", gladOne);
+			roundReport.result = {result:"tie",winner:null};
 		} else {
 			thisClash.clashWinner.clashReact("win", thisClash.clashLoser);
+			roundReport.result = {result:"win",winner:thisClash.clashWinner.name};
 			thisClash.clashLoser.clashReact("lose", thisClash.clashWinner);
 		}
 
 		// Do effects after the clash and before end of round.
-		doEffects(gladOne);
-		doEffects(gladTwo);
-
+		const reportEffectOne = doEffects(gladOne);
+		const reportEffectTwo = doEffects(gladTwo);
+		roundReport[gladOne.name].effect = reportEffectOne;
+		roundReport[gladTwo.name].effect = reportEffectTwo;
 		// Do end of round cooldown reduction, and resets skills if needed.
 		gladOne.endOfRound(); //
 		gladTwo.endOfRound(); //
@@ -201,14 +223,28 @@ async function doDuel(one, two) {
 			gladTwo.maxHits
 		);
 		console.log("  -EN/Duel> Morale:", gladOne.morale + "     Morale:" + gladTwo.morale);
-		console.log(thisRound);
-		report[roundCnt] = thisRound;
-	} while (1 == 2);
-	//console.log("finished");
-	// while(gladOne.hitPoints > 0 &&
-	//     gladTwo.hitPoints > 0 &&
-	//     gladOne.morale > 0 &&
-	//     gladTwo.morale > 0)
+
+		report[roundCnt] = roundReport ;
+	}while(gladOne.hits > 0 &&
+	    gladTwo.hits > 0 &&
+	    gladOne.morale > 0 &&
+	    gladTwo.morale > 0)
+
+		report.final = {};
+		if(!gladOne.hits || gladOne.morale){
+			report.final.winner = gladTwo.name;
+		} else {
+			report.final.winner = gladOne.name;
+		}
+		report.final[gladOne.name] = {
+			hits : gladOne.hits,
+			morale : gladOne.morale
+		}		
+		report.final[gladTwo.name] = {
+			hits : gladTwo.hits,
+			morale : gladTwo.morale
+		}		
+		console.log(report);
 	return report;
 }
 
