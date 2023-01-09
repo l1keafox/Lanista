@@ -1,3 +1,4 @@
+const SHOWBATTLE = false;
 const { getAbilityEffect } = require("./abilityIndex");
 const {
 	doEffects,
@@ -6,8 +7,8 @@ const {
 } = require("./Abilities/abilityEffects");
 const { getItemEffect } = require("./itemsIndex");
 function returnPreparedGladiator(gladiator) {
-  // gladiator prep stuff.
-  gladiator.setSkills();
+	// gladiator prep stuff.
+	gladiator.setSkills();
 
 	let newGladObj = {};
 	newGladObj.maxHits = gladiator.hits;
@@ -28,7 +29,7 @@ function returnPreparedGladiator(gladiator) {
 	newGladObj.sensitivity = gladiator.sensitivity;
 	newGladObj.charisma = gladiator.charisma;
 	newGladObj.luck = gladiator.luck;
-  newGladObj.reputation = gladiator.reputation;
+	newGladObj.reputation = gladiator.reputation;
 	newGladObj.name = gladiator.name;
 	newGladObj._id = gladiator._id;
 
@@ -54,15 +55,16 @@ function returnPreparedGladiator(gladiator) {
 		];
 	};
 	newGladObj.doAction = function (Ability, targetChar) {
-		console.log(
-			"  =EN/DUEL/ATTK>",
-			Ability.abilityName,
-			this.name,
-			"is the character attacking doing effect",
-			
-			"too target",
-			targetChar.name
-		);
+		if (SHOWBATTLE)
+			console.log(
+				"  =EN/DUEL/ATTK>",
+				Ability.abilityName,
+				this.name,
+				"is the character attacking doing effect",
+
+				"too target",
+				targetChar.name
+			);
 		Ability.doAbility(this, targetChar);
 	};
 
@@ -85,7 +87,7 @@ function returnPreparedGladiator(gladiator) {
 	};
 
 	newGladObj.clashReact = function (clashResult, target) {
-//		console.log("  -En/DUEL>getting clashReSULt for,", this.name, "is", clashResult);
+		//		console.log("  -En/DUEL>getting clashReSULt for,", this.name, "is", clashResult);
 		for (let aReaction of this.react) {
 			if (aReaction.cooldown) continue;
 			aReaction.doClash(clashResult, this, target);
@@ -99,7 +101,7 @@ class Clash {
 		// This will return a clash type instead of array
 		const oneClash = oneChar.getClash();
 		const twoClash = twoChar.getClash();
-		
+
 		// Do action and get results
 		oneChar.doAction(oneClash, twoChar);
 		twoChar.doAction(twoClash, oneChar);
@@ -107,8 +109,8 @@ class Clash {
 		const EventResults = {};
 		// Here we need to cancel out effects based on actions
 		// dodge cancels out damage
-		compareEffects(oneChar,twoChar);
-		compareEffects(twoChar,oneChar);
+		compareEffects(oneChar, twoChar);
+		compareEffects(twoChar, oneChar);
 
 		// Determine win condidtion
 		const oneWinPoints = oneClash.winCondition(oneChar, twoChar); // win condidtions also do the effects too.
@@ -117,7 +119,7 @@ class Clash {
 		// Determine winner
 		const difference = Math.abs(oneWinPoints - twoWinPoints);
 
-		let tieLine = (oneWinPoints+twoWinPoints)*.5 *.1;
+		let tieLine = (oneWinPoints + twoWinPoints) * 0.5 * 0.1;
 		//console.log(`  =>${oneChar.name}: ${oneWinPoints}, ${twoChar.name}: ${twoWinPoints} =  ${difference} TIELINE:${tieLine}`);
 		if (difference < tieLine) {
 			EventResults.clashWinner = null; // tie
@@ -136,15 +138,14 @@ class Clash {
 		const charOneName = oneChar.name;
 		const charTwoName = twoChar.name;
 		EventResults.report = {};
-		EventResults.report[charOneName] = {	
+		EventResults.report[charOneName] = {
 			"winPoints": oneWinPoints,
-			"clashAbility": oneClash.abilityName
+			"clashAbility": oneClash.abilityName,
 		};
-		EventResults.report[charTwoName] = {	
+		EventResults.report[charTwoName] = {
 			"winPoints": twoWinPoints,
-			"clashAbility": twoClash.abilityName
+			"clashAbility": twoClash.abilityName,
 		};
-
 
 		return EventResults;
 	}
@@ -154,53 +155,60 @@ async function doDuel(one, two) {
 	// Import things to note - we need it recorded so we can send it back to the users.
 	// So, let's take the glads and rebuild the game object for a one time use.
 	// Most things should return a report? Or should we pass the report to it so it can use it?
+	const startOfTick = new Date();
 
 	let report = {};
 	let gladOne = returnPreparedGladiator(one);
 	let gladTwo = returnPreparedGladiator(two);
-	console.log("  -EN/Duel> ", gladOne.name,"Vs", gladTwo.name);
-	
+	if (SHOWBATTLE) console.log("  -EN/Duel> ", gladOne.name, "Vs", gladTwo.name);
+
 	let roundCnt = 0;
 	do {
 		let roundReport = {};
-		roundReport[gladOne.name] = {}
-		roundReport[gladTwo.name] = {}
-//		let oneReport = {}; // each gladiator will have different reports
-//		let twoReport = {}; 
+		roundReport[gladOne.name] = {};
+		roundReport[gladTwo.name] = {};
+		//		let oneReport = {}; // each gladiator will have different reports
+		//		let twoReport = {};
 		roundCnt++;
-		console.log(
-			`  -EN/Duel>___________________________PRE:${roundCnt}_________________________________`
-		);
+		if (SHOWBATTLE)
+			console.log(
+				`  -EN/Duel>___________________________PRE:${roundCnt}_________________________________`
+			);
 		// Do prepare
 		gladOne.clashPrepare(gladTwo);
 		gladTwo.clashPrepare(gladOne);
 
-    // We do effects twice, once before the clash clears it out.
-    // Do we compare effects again here? in general prepare shouldn't be about
-    // doding, and if it is, it's more enhancing existing clash abilities. 
+		// We do effects twice, once before the clash clears it out.
+		// Do we compare effects again here? in general prepare shouldn't be about
+		// doding, and if it is, it's more enhancing existing clash abilities.
 		// doEffects(gladOne);
 		// doEffects(gladTwo);
 
-		console.log(
-			`  -EN/Duel>___________________________CLASH:${roundCnt}_______________________________`
-		);
+		if (SHOWBATTLE)
+			console.log(
+				`  -EN/Duel>___________________________CLASH:${roundCnt}_______________________________`
+			);
 		// doClash clash returns result
 		let thisClash = new Clash().battle(gladOne, gladTwo);
-		console.log(
-			`  -EN/Duel>___________________________REACT:${roundCnt}_______________________________`
-		);
+		if (SHOWBATTLE)
+			console.log(
+				`  -EN/Duel>___________________________REACT:${roundCnt}_______________________________`
+			);
 		//console.log( thisClash.report );
 		roundReport[gladOne.name].clash = thisClash.report[gladOne.name];
 		roundReport[gladTwo.name].clash = thisClash.report[gladTwo.name];
 		// Do  react
 		if (!thisClash.clashWinner) {
-			console.log("  -EN/Duel>   TIE");
+			if (SHOWBATTLE) console.log("  -EN/Duel>   TIE");
 			gladOne.clashReact("tie", gladTwo);
 			gladTwo.clashReact("tie", gladOne);
-			roundReport.result = {result:"tie",winner:null};
+			roundReport.result = { result: "tie", winner: null };
 		} else {
 			thisClash.clashWinner.clashReact("win", thisClash.clashLoser);
-			roundReport.result = {result:"win",winner:thisClash.clashWinner.name};
+			roundReport.result = {
+				result: "win",
+				winner: thisClash.clashWinner.name,
+			};
 			thisClash.clashLoser.clashReact("lose", thisClash.clashWinner);
 		}
 
@@ -213,38 +221,47 @@ async function doDuel(one, two) {
 		gladOne.endOfRound(); //
 		gladTwo.endOfRound(); //
 
-		console.log(`  -EN/Duel> ${gladOne.name}     vs     ${gladTwo.name}`);
-		console.log(
-			"  -EN/Duel> HP:",
-			gladOne.hits,
-			"/",
-			gladOne.maxHits + "    HP:" + gladTwo.hits,
-			"/",
-			gladTwo.maxHits
-		);
-		console.log("  -EN/Duel> Morale:", gladOne.morale + "     Morale:" + gladTwo.morale);
+		if (SHOWBATTLE)
+			console.log(`  -EN/Duel> ${gladOne.name}     vs     ${gladTwo.name}`);
+		if (SHOWBATTLE)
+			console.log(
+				"  -EN/Duel> HP:",
+				gladOne.hits,
+				"/",
+				gladOne.maxHits + "    HP:" + gladTwo.hits,
+				"/",
+				gladTwo.maxHits
+			);
+		if (SHOWBATTLE)
+			console.log(
+				"  -EN/Duel> Morale:",
+				gladOne.morale + "     Morale:" + gladTwo.morale
+			);
 
-		report[roundCnt] = roundReport ;
-	}while(gladOne.hits > 0 &&
-	    gladTwo.hits > 0 &&
-	    gladOne.morale > 0 &&
-	    gladTwo.morale > 0)
+		report[roundCnt] = roundReport;
+	} while (
+		gladOne.hits > 0 &&
+		gladTwo.hits > 0 &&
+		gladOne.morale > 0 &&
+		gladTwo.morale > 0
+	);
 
-		report.final = {};
-		if(!gladOne.hits || gladOne.morale){
-			report.final.winner = gladTwo.name;
-		} else {
-			report.final.winner = gladOne.name;
-		}
-		report.final[gladOne.name] = {
-			hits : gladOne.hits,
-			morale : gladOne.morale
-		}		
-		report.final[gladTwo.name] = {
-			hits : gladTwo.hits,
-			morale : gladTwo.morale
-		}		
-		console.log(report);
+	report.final = {};
+	if (!gladOne.hits || gladOne.morale) {
+		report.final.winner = gladTwo.name;
+	} else {
+		report.final.winner = gladOne.name;
+	}
+	report.final[gladOne.name] = {
+		hits: gladOne.hits,
+		morale: gladOne.morale,
+	};
+	report.final[gladTwo.name] = {
+		hits: gladTwo.hits,
+		morale: gladTwo.morale,
+	};
+
+	console.log(`  -EN> Game DUEL took: ${new Date() - startOfTick}ms `);
 	return report;
 }
 

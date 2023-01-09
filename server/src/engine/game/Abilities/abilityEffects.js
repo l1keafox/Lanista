@@ -30,7 +30,7 @@ amountBlock
 
 
 function compareEffects(gladiator,target){
-    console.log(`  ->B4 ${gladiator.name}`,gladiator.effectToDo);
+//    console.log(`  ->B4 ${gladiator.name}`,gladiator.effectToDo);
     for(let effect in gladiator.effectToDo){
     switch(effect){
         case 'missChance':
@@ -64,7 +64,7 @@ function compareEffects(gladiator,target){
             break;
     }
 }
-console.log(`  ->A4 ${gladiator.name}`,gladiator.effectToDo);
+//console.log(`  ->A4 ${gladiator.name}`,gladiator.effectToDo);
 
 }
 
