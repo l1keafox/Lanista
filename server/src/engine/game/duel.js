@@ -28,6 +28,7 @@ function returnPreparedGladiator(gladiator) {
 	newGladObj.sensitivity = gladiator.sensitivity;
 	newGladObj.charisma = gladiator.charisma;
 	newGladObj.luck = gladiator.luck;
+  newGladObj.reputation = gladiator.reputation;
 	newGladObj.name = gladiator.name;
 	newGladObj._id = gladiator._id;
 
@@ -97,7 +98,7 @@ class Clash {
 		// This will return a clash type instead of array
 		const oneClash = oneChar.getClash();
 		const twoClash = twoChar.getClash();
-		console.log(oneClash.abilityName, twoClash.abilityName);
+		
 		// Do action and get results
 		oneChar.doAction(oneClash, twoChar);
 		twoChar.doAction(twoClash, oneChar);
@@ -135,7 +136,7 @@ async function doDuel(one, two) {
 	// So, let's take the glads and rebuild the game object for a one time use.
 	let gladOne = returnPreparedGladiator(one);
 	let gladTwo = returnPreparedGladiator(two);
-	console.log("  -EN/Duel> ", gladOne.name, gladTwo.name);
+	console.log("  -EN/Duel> ", gladOne.name,"Vs", gladTwo.name);
 
 	let roundCnt = 0;
 	do {
@@ -150,8 +151,8 @@ async function doDuel(one, two) {
     // We do effects twice, once before the clash clears it out.
     // Do we compare effects again here? in general prepare shouldn't be about
     // doding, and if it is, it's more enhancing existing clash abilities. 
-		doEffects(oneChar);
-		doEffects(twoChar);
+		doEffects(gladOne);
+		doEffects(gladTwo);
 
 		console.log(
 			`  -EN/Duel>___________________________CLASH:${roundCnt}_______________________________`
@@ -173,8 +174,8 @@ async function doDuel(one, two) {
 		}
 
 		// Do effects after the clash and before end of round.
-		doEffects(oneChar);
-		doEffects(twoChar);
+		doEffects(gladOne);
+		doEffects(gladTwo);
 
 		// Do end of round cooldown reduction, and resets skills if needed.
 		gladOne.endOfRound(); //
@@ -191,7 +192,7 @@ async function doDuel(one, two) {
 		);
 		console.log("Morale:", gladOne.morale + "     Morale:" + gladTwo.morale);
 	} while (1 == 2);
-	console.log("finished");
+	//console.log("finished");
 	// while(gladOne.hitPoints > 0 &&
 	//     gladTwo.hitPoints > 0 &&
 	//     gladOne.morale > 0 &&

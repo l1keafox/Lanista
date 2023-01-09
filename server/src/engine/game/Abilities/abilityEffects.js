@@ -30,16 +30,26 @@ amountBlock
 
 
 function compareEffects(gladiator){
-    switch(gladiator.effectToDo){
+    for(let effect in gladiator.effectToDo){
+
+    switch(effect){
         case 'missChance':
+            //console.log('doing miss chance');
             if(gladiator.effectToDo.hitChance){
-                gladiator.effectToDo.hitChance -= missChance;
+                gladiator.effectToDo.hitChance -= gladiator.effectToDo.missChance;
             }
-            if(!gladiator.effectToDo.hitChance){
+            if(!gladiator.effectToDo.hitChance && gladiator.effectToDo.hitDamage){
                 gladiator.effectToDo.hitDamage = 0;
             }
         break;
+        case "taunt":
+            if( gladiator.effectToDo.hitDamage ){
+                gladiator.effectToDo.taunt = 0;
+            }
+            break;
     }
+}
+
 }
 
 function doEffects(gladiator){
@@ -58,12 +68,14 @@ function doEffects(gladiator){
       gladiator.effectToDo = {};
 }
 
-rtnGlad.addEffect = function (gladiator,effectName, effectStr) {
+function addEffect(gladiator,effectName, effectStr) {
     if (!gladiator.effectToDo) {
         gladiator.effectToDo = {};
     }
     if (gladiator.effectToDo[effectName]) {
+        console.log(effectName,gladiator.effectToDo[effectName],effectStr )
         if(effectStr){
+           
             gladiator.effectToDo[effectName] += effectStr;
         } else if( effectStr === null ){
             gladiator.effectToDo[effectName] = 0;

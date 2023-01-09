@@ -39,7 +39,7 @@
     },
     "reputation": {
       "min": 2,
-      "max": 10,
+      "max": 11,
       "growth": true
     },
     "fame": {
@@ -118,8 +118,8 @@
   "lookLost": {
     "description": "Looking for lost items, increase luck, bravery and gold",
     "luck": {
-      "min": 1,
-      "max": 5,
+      "min": 2,
+      "max": 12,
       "growth": true
     },
     "bravery": {

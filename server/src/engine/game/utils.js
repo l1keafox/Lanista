@@ -19,13 +19,25 @@ const gladNames = [
   "Mar",
   "Dar",
 ];
-function rollDice(numOfDice, numOfFaces){
+function randomBetween(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+function rollDice(numOfDice, numOfFaces) {
   let rtn = 0;
   while (numOfDice--) {
     rtn += Math.ceil(Math.random() * numOfFaces);
   }
   return rtn;
-};
+}
+
+function getRandomAround(num,percent){
+  if(percent > 1 ){
+    percent = percent / 100;
+  }
+  const between = Math.floor( num * percent );
+ return randomBetween(num-between,num+between);
+}
+
 function getName(){
   let name;
   do{
@@ -68,4 +80,4 @@ function createNewGladiator() {
   };
 }
 
-module.exports = { createNewOwner, createNewGladiator };
+module.exports = { createNewOwner, createNewGladiator,randomBetween,rollDice ,getRandomAround };
