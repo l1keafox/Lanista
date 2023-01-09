@@ -6,6 +6,7 @@ Each training will have an abbprivated name, and that training can have random e
 
 
 const trainingObj = require("./training.json");
+const {randomBetween,rollDice} = require('./utils');
 
 // Level 1
 //   "strength", - Chopping Firewood - increase gold
@@ -25,16 +26,6 @@ const trainingObj = require("./training.json");
 
 /* So how this will work this rough shit is that it will export an module for growth, it will take a character and an type of training
  */
-function randomBetween(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-function rollDice(numOfDice, numOfFaces) {
-  let rtn = 0;
-  while (numOfDice--) {
-    rtn += Math.ceil(Math.random() * numOfFaces);
-  }
-  return rtn;
-}
 
 
 function growthPenality(gladiator,amnt, stat) {

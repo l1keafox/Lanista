@@ -64,6 +64,8 @@ export default {
     },
 
     async mounted(){
+        try{
+
         const rpnse = await fetch(
           `http://${window.location.hostname}:3001/owner`,
             {
@@ -72,8 +74,13 @@ export default {
             body: JSON.stringify({ "id": this.userData._id }),
             }
         );
+        console.log(rpnse);
         let ownerData = await rpnse.json();
+        console.log(ownerData);
         this.ownerData = ownerData;
+        }catch(err){    
+            console.log(err);
+        }
     },
 
 
