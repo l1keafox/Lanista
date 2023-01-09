@@ -151,7 +151,9 @@ router.post('/owner/buyItem', async(req, res) => {
 
 
 router.post('/owner', async(req, res) => {
-    let owner2 = await Owner.findOne({ userAcct: req.body.id });
+    let owner2 = await Owner.findOne({ userAcct: req.body.id }).populate('gladiators');
+    
+    console.log(owner2);
     res.send(owner2)
 })
 

@@ -15,8 +15,7 @@ module.exports = {
     winCondition(casterChar, target) {
       let points = 0;
       if (casterChar.effectToDo.hitDamage <= 0) {
-        console.log("  winner Dodge!");
-        points = 50;
+        points = casterChar.effectToDo.missChance;
       }
   
       return points;
