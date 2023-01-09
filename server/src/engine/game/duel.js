@@ -261,7 +261,7 @@ async function doDuel(one, two) {
 		morale: gladTwo.morale,
 	};
 
-	console.log(`  -EN> Game DUEL took: ${new Date() - startOfTick}ms `);
+	console.log(`  -EN> Game DUEL : ${gladOne.name} Vs ${gladTwo.name} TIME: ${new Date() - startOfTick}ms Winner:${report.final.winner} `);
 	return report;
 }
 
