@@ -31,19 +31,21 @@
 </template>
 
 <script>
+import auth from "./../mixins/auth";
 export default {
     name:"CombatMain",
     components:{
     },
     data(){
         return {
-            ownerData:null
+            ownerData:null,
+            userData: auth.getUser(),
         }
     },
     computed:{
 
     },
-    inject: ['card','cardTitle','userData'],
+    inject: ['card','cardTitle'],
     methods:{
        async doSpar(){
             let sch = document.getElementById('gladiator');

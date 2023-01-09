@@ -1,4 +1,4 @@
-const {getRandomAround} = require('./../utils');
+const {modStat4Effect} = require('./../utils');
 module.exports = {
   abilityName: "swing",
   type:"clash",
@@ -6,8 +6,8 @@ module.exports = {
   doAbility(casterChar, target) {
   //  console.log("  -Swng>This ability needs to do damage.");
     // Strength and agility should do the damage.
-    target.addEffect("hitDamage",getRandomAround(casterChar.strength/100,10));
-    target.addEffect("hitChance",getRandomAround(casterChar.dexterity/100,10));// Dodge is based on this.
+    target.addEffect("hitDamage",modStat4Effect(casterChar.strength,10));
+    target.addEffect("hitChance",modStat4Effect(casterChar.dexterity,10));// Dodge is based on this.
   },
 
   winCondition(casterChar, target) {
@@ -15,10 +15,7 @@ module.exports = {
     // What I do not like about this, is that we have it setup based on
     // That it is looking for the dodge here. It should be just looking for damage.
   //console.log("Win Condidtions, swing",target.effectToDo.hitDamage);
-    if (target.effectToDo.hitDamage) {
-      //console.log("  winner Attack!");
-      points = target.effectToDo.hitDamage;
-    }
+    points = target.effectToDo.hitDamage;
     return points;
   },
 };

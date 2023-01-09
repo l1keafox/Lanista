@@ -1,4 +1,4 @@
-const {getRandomAround} = require('./../utils');
+const {modStat4Effect} = require('./../utils');
 module.exports = {
     abilityName: "dodge",
     type:"clash",
@@ -8,17 +8,13 @@ module.exports = {
       //   "   ->So this ability needs to cancel out damage"
       // );
       
-      casterChar.addEffect("missChance", getRandomAround(casterChar.agility/100,10));
+      casterChar.addEffect("missChance", modStat4Effect(casterChar.agility*1.25,10));
       
     },
   
     winCondition(casterChar, target) {
       let points = 0;
-      if (casterChar.effectToDo.hitDamage <= 0) {
-        console.log("  winner Dodge!");
-        points = 50;
-      }
-  
+        points = casterChar.effectToDo.missChance;
       return points;
     },
   };

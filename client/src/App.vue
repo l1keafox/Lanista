@@ -38,7 +38,7 @@ export default {
     return {
       isLoggedIn: auth.loggedIn(),
       mainStage: "WelcomeMain",
-      userData: auth.getUser(),
+      userData: auth.getUser()
     };
   },
   methods: {

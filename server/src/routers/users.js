@@ -41,15 +41,17 @@ router.post('/users/login', async(req, res) => {
             const glad = await new Gladiator( createNewGladiator() );
             console.log("  -EN> Creating Glad:",glad,owner._id);
             glad.schedule.push({1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:"tough"});
+            glad.mainHand="shortSword";
             glad.owner = owner._id;
-            owner.gladiators.push(glad);
+            owner.gladiators.push(glad.id);
             glad.save();
 
             const glad2 = await new Gladiator( createNewGladiator() );
             glad2.schedule.push({8:"chopWood",1:"community",2:"woodCarv",3:"hiking",4:"readBook",5:"pray",6:"lookLost",7:"tough"});
             console.log("  -EN> Creating Glad:",glad2);
+            glad2.mainHand="shortSword";
             glad2.owner = owner._id;
-            owner.gladiators.push(glad2);
+            owner.gladiators.push(glad2.id);
 
             glad2.save();
 
@@ -57,7 +59,9 @@ router.post('/users/login', async(req, res) => {
             glad3.schedule.push({7:"chopWood",8:"community",1:"woodCarv",2:"hiking",3:"readBook",4:"pray",5:"lookLost",6:"tough"});
             console.log("  -EN> Creating Glad:",glad3);
             glad3.owner = owner._id;
-            owner.gladiators.push(glad3);
+            glad3.mainHand="shortSword";
+
+            owner.gladiators.push(glad3.id);
             glad3.save();
 
             user.owner = owner._id;

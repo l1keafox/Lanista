@@ -12,6 +12,7 @@
     </div>
   </template>
   
+  
   <script>
   import auth from "./../mixins/auth";
   export default {

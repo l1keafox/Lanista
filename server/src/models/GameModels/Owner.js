@@ -17,7 +17,10 @@ const ownerSchema = new Schema(
         },
         structures:[],
         training:[],
-		gladiators:[],
+		gladiators:[      {
+            type: Schema.Types.ObjectId,
+            ref: "gladiator"
+          }],
         inventory:[],
 	},
 	{

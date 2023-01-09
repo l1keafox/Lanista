@@ -29,26 +29,32 @@ amountBlock
 
 
 
-function compareEffects(gladiator){
+function compareEffects(gladiator,target){
+    console.log(`  ->B4 ${gladiator.name}`,gladiator.effectToDo);
     for(let effect in gladiator.effectToDo){
-
     switch(effect){
         case 'missChance':
             //console.log('doing miss chance');
             if(gladiator.effectToDo.hitChance){
                 gladiator.effectToDo.hitChance -= gladiator.effectToDo.missChance;
             }
-            if(!gladiator.effectToDo.hitChance && gladiator.effectToDo.hitDamage){
+            if(gladiator.effectToDo.hitChance <= 0 && gladiator.effectToDo.hitDamage){
                 gladiator.effectToDo.hitDamage = 0;
             }
+            if( gladiator.effectToDo.taunting ){
+                gladiator.effectToDo.missChance -= gladiator.effectToDo.taunting;
+            }
         break;
-        case "taunt":
+        case "taunting":
             if( gladiator.effectToDo.hitDamage ){
-                gladiator.effectToDo.taunt = 0;
+                gladiator.effectToDo.taunting = 0;
+            } else {
+                gladiator.effectToDo.moraleDamage = 10;
             }
             break;
     }
 }
+console.log(`  ->A4 ${gladiator.name}`,gladiator.effectToDo);
 
 }
 
