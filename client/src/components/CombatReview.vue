@@ -19,7 +19,7 @@
 					<!--body-->
 					<div>
 						<div>
-							{{ this.combatIndex }}
+							ROUND: {{ this.combatIndex }}
 						</div>
 						<div class = "flex">
 							<div :class="card">
@@ -61,11 +61,19 @@
 					<!--footer-->
 					<div
 						class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                        <button
+                        class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                        v-on:click="this.combatIndex = 1;updateStats()">
+                            Restart
+                        </button>
+
+
 						<button
 							class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
 							type="button"
 							@click="backone">
-							$lt
+							&lt;&lt;
 						</button>
 						<button
 							class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -77,8 +85,9 @@
                         <button
 							class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
 							type="button"
-							v-on:click="$emit('closeModal')">
-							Quick finish
+
+							v-on:click="this.combatIndex = this.combatReport.maxRound;updateStats()">
+							End
 						</button>
 
 						<button
@@ -117,6 +126,9 @@ export default {
         },
         forwardOne(){
             this.combatIndex++;
+            if(this.combatIndex > this.combatReport.maxRound){
+                this.combatIndex = this.combatReport.maxRound;
+            }
             this.updateStats();
         },
 		bgClose(event) {
@@ -157,18 +169,16 @@ export default {
             morale: this.glads[1].morale
         };
 		console.log(this.combatReport);
-// 		console.log(
-// 			this.combatIndex,
-// 			this.glads,
-// //			this.combatReport[this.combatIndex]
-// 		);
 		this.interval = setInterval(() => {
 			this.combatIndex++;
+            if(this.combatIndex > this.combatReport.maxRound){
+                this.combatIndex = this.combatReport.maxRound;
+            }
             this.updateStats();
-            if( !this.combatReport[this.combatIndex+1] ){
+            if( this.combatIndex > this.combatReport.maxRound ){
                 clearInterval(this.interval);
                 console.log('REPORT WINNER');
-            }
+            } 
 		}, 10000);
 	},
 };

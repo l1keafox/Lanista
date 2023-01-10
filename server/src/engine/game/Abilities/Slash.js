@@ -6,8 +6,11 @@ module.exports = {
   doAbility(casterChar, target) {
   //  console.log("  -Swng>This ability needs to do damage.");
     // Strength and agility should do the damage.
-    target.addEffect("hitDamage",modStat4Effect(casterChar.strength,10));
-    target.addEffect("hitChance",modStat4Effect(casterChar.dexterity,10));// Dodge is based on this.
+    const dmg = modStat4Effect(casterChar.strength,10);
+    const hitChance = modStat4Effect(casterChar.dexterity,10);
+    target.addEffect("hitDamage",dmg);
+    target.addEffect("hitChance",hitChance);// Dodge is based on this.
+    return( { "hitDamage":dmg , "hitChance":hitChance }); 
   },
 
   winCondition(casterChar, target) {

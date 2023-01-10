@@ -45,19 +45,26 @@ function compareEffects(gladiator,target){
             }
         break;
         case "taunting":
-            if( gladiator.effectToDo.hitDamage ){
+            // So if this glad is taking damage, then 
+            if( gladiator.effectToDo.hitDamage && gladiator.effectToDo.taunting ){
                 gladiator.effectToDo.taunting = 0;
-            } else {
-                target.effectToDo.moraleDamage = 10;
+            } else if(!target.effectToDo.taunting) {
+                target.effectToDo.moraleDamage = gladiator.effectToDo.taunting;
+                if(target.effectToDo.moraleDamage > 15) target.effectToDo.moraleDamage = 15;
+                gladiator.effectToDo.taunting = 0;
             }
             if(target.effectToDo.taunting){
                 // So if both are taunting.
                 // then we will compare both and 
+                // If target taunting is greater than glad taunting.
                 if(target.effectToDo.taunting > gladiator.effectToDo.taunting){
+                    // gladiator takes damage 
                     gladiator.effectToDo.moraleDamage = target.effectToDo.taunting - gladiator.effectToDo.taunting
+                    if(gladiator.effectToDo.moraleDamage > 15)  gladiator.effectToDo.moraleDamage = 15;
                 } else {
                     target.effectToDo.moraleDamage = gladiator.effectToDo.taunting - target.effectToDo.taunting
-                }
+                    if(target.effectToDo.moraleDamage > 15)  target.effectToDo.moraleDamage = 15;
+                } 
                 target.effectToDo.taunting = 0;
                 gladiator.effectToDo.taunting = 0;
             }
@@ -71,22 +78,23 @@ function compareEffects(gladiator,target){
 function doEffects(gladiator){
     let effectReport = {};
     for (let effect in gladiator.effectToDo) {
-        let num = gladiator.effectToDo[effect];
+        let num = Math.round( gladiator.effectToDo[effect] );
         switch (effect) {
           case "hitDamage":
-            gladiator.hits -= gladiator.effectToDo[effect];
-            effectReport[effect] = gladiator.effectToDo[effect]
-            effectReport.hits = gladiator.hits;
+            gladiator.hits -= num;
+            effectReport[effect] = num;
             break;
           case "moraleDamage":
-            gladiator.morale -= gladiator.effectToDo[effect];
-            effectReport[effect] = gladiator.effectToDo[effect]
-            effectReport.morale = gladiator.morale;
+            gladiator.morale -= num;
+            effectReport[effect] = num
             break;
         }
       }
       // clearing out effects.
       gladiator.effectToDo = {};
+
+      effectReport.hits = gladiator.hits;
+      effectReport.morale = gladiator.morale;
       return effectReport;
 }
 

@@ -65,7 +65,7 @@ function returnPreparedGladiator(gladiator) {
 				"too target",
 				targetChar.name
 			);
-		Ability.doAbility(this, targetChar);
+		return Ability.doAbility(this, targetChar);
 	};
 
 	newGladObj.addEffect = function (effectName, effectStr) {
@@ -103,8 +103,8 @@ class Clash {
 		const twoClash = twoChar.getClash();
 
 		// Do action and get results
-		oneChar.doAction(oneClash, twoChar);
-		twoChar.doAction(twoClash, oneChar);
+		const oneEffect = oneChar.doAction(oneClash, twoChar);
+		const twoEffect = twoChar.doAction(twoClash, oneChar);
 
 		const EventResults = {};
 		// Here we need to cancel out effects based on actions
@@ -135,16 +135,16 @@ class Clash {
 		// } else {
 		// 	console.log(`  -EN/DUEL>TIE is: ${oneChar.name} w/ ${oneClash.abilityName}, TIE is : ${twoChar.name} w ${twoClash.abilityName}`)
 		// }
-		const charOneName = oneChar.name;
-		const charTwoName = twoChar.name;
 		EventResults.report = {};
-		EventResults.report[charOneName] = {
+		EventResults.report[oneChar.name] = {
 			"winPoints": oneWinPoints,
 			"clashAbility": oneClash.abilityName,
+			"effect": oneEffect
 		};
-		EventResults.report[charTwoName] = {
+		EventResults.report[twoChar.name] = {
 			"winPoints": twoWinPoints,
 			"clashAbility": twoClash.abilityName,
+			"effect": twoEffect
 		};
 
 		return EventResults;
@@ -239,6 +239,7 @@ async function doDuel(one, two) {
 			);
 
 		report[roundCnt] = roundReport;
+		report.maxRound = roundCnt;
 	} while (
 		gladOne.hits > 0 &&
 		gladTwo.hits > 0 &&
