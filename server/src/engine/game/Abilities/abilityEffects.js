@@ -40,19 +40,30 @@ function compareEffects(gladiator,target){
             if(gladiator.effectToDo.hitChance <= 0 && gladiator.effectToDo.hitDamage){
                 gladiator.effectToDo.hitDamage = 0;
             }
-            if( gladiator.effectToDo.taunting ){
-                gladiator.effectToDo.missChance -= gladiator.effectToDo.taunting;
+            // if( gladiator.effectToDo.taunting ){
+            //     gladiator.effectToDo.missChance -= gladiator.effectToDo.taunting;
+            // }
+            if(target.effectToDo.missChance){
+                target.effectToDo.missChance = 0;
+                gladiator.effectToDo.missChance = 0;
             }
         break;
         case "taunting":
             // So if this glad is taking damage, then 
             if( gladiator.effectToDo.hitDamage && gladiator.effectToDo.taunting ){
                 gladiator.effectToDo.taunting = 0;
-            } else if(!target.effectToDo.taunting) {
+             } 
+             
+             if(target.effectToDo.missChance) {
+                target.effectToDo.missChance = 0;
                 target.effectToDo.moraleDamage = gladiator.effectToDo.taunting;
                 if(target.effectToDo.moraleDamage > 15) target.effectToDo.moraleDamage = 15;
-                gladiator.effectToDo.taunting = 0;
             }
+            //else if(!target.effectToDo.taunting) {
+            //     target.effectToDo.moraleDamage = gladiator.effectToDo.taunting;
+            //     if(target.effectToDo.moraleDamage > 15) target.effectToDo.moraleDamage = 15;
+            //     gladiator.effectToDo.taunting = 0;
+            // }
             if(target.effectToDo.taunting){
                 // So if both are taunting.
                 // then we will compare both and 

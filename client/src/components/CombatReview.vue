@@ -24,21 +24,24 @@
 							<div :class="card">
 								<h1 :class="cardTitle">{{ glads[0].name }}</h1>
 								<hr />
+								<h1 class="text-red-300 text-xl">
+								Action:
+								{{
+									combatReport[combatIndex][glads[0].name].clash.clashAbility
+								}}	
+								</h1>							
+								<hr />
 								<template v-if="firstGlad">
 									<h2>Hp:{{ firstGlad.hits }}</h2>
 									<h2>Morale:{{ firstGlad.morale }}</h2>
 								</template>
 								<hr />
-
-								Action:
-								{{
-									combatReport[combatIndex][glads[0].name].clash.clashAbility
-								}}
+								<h2>winPoints :{{ combatReport[combatIndex][glads[0].name].clash.winPoints }}</h2>
 								<template
 									v-for="(eff, key) in combatReport[combatIndex][glads[0].name]
-										.effect"
+										.clash.effect"
 									:key="key">
-									<h2>{{ key }}:{{ eff }}</h2>
+									<h2 v-if="key !=='clashAbility' ">{{ key }}:{{ eff }}</h2>
 								</template>
 							</div>
 							<div :class="card">
@@ -47,21 +50,24 @@
 							<div :class="card">
 								<h1 :class="cardTitle">{{ glads[1].name }}</h1>
 								<hr />
+								<h1 class="text-red-300 text-xl">
+								Action:
+								{{
+									combatReport[combatIndex][glads[1].name].clash.clashAbility
+								}}	
+								</h1>							
+								<hr />
 								<template v-if="secondGlad">
 									<h2>Hp:{{ secondGlad.hits }}</h2>
 									<h2>Morale:{{ secondGlad.morale }}</h2>
 								</template>
 								<hr />
-
-								Action:
-								{{
-									combatReport[combatIndex][glads[1].name].clash.clashAbility
-								}}
+								<h2>winPoints :{{ combatReport[combatIndex][glads[1].name].clash.winPoints }}</h2>
 								<template
 									v-for="(eff, key) in combatReport[combatIndex][glads[1].name]
-										.effect"
+										.clash.effect"
 									:key="key">
-									<h2>{{ key }}:{{ eff }}</h2>
+									<h2 v-if="key !=='clashAbility' ">{{ key }}:{{ eff }}</h2>
 								</template>
 							</div>
 						</div>
