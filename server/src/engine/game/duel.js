@@ -67,6 +67,20 @@ function returnPreparedGladiator(gladiator) {
 			);
 		return Ability.doAbility(this, targetChar);
 	};
+	newGladObj.abilityMix = function (statObj){
+		// input is
+		// num is an whole num * .01;
+		// { "stat":num, }
+		let total = 0;
+		for(let stat in statObj){
+		  if(statObj[stat] > 1){
+			statObj[stat] = statObj[stat] * 0.01;
+		  }
+		  total += this[stat] * [statObj[stat]];
+		}
+		return total;
+	  }
+	  
 
 	newGladObj.addEffect = function (effectName, effectStr) {
 		addEffect(this, effectName, effectStr);

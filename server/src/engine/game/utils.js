@@ -85,4 +85,4 @@ function createNewGladiator() {
   };
 }
 
-module.exports = {modStat4Effect, createNewOwner, createNewGladiator,randomBetween,rollDice ,getRandomAround };
+module.exports = { modStat4Effect, createNewOwner, createNewGladiator,randomBetween,rollDice ,getRandomAround };
