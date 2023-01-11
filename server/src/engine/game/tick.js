@@ -28,7 +28,7 @@ module.exports = {
         let ownersGain = {};
         await allGladiators.forEach(async gladiator => {
             const growth = await doGrowth(gladiator,gladiator.schedule[0][date.time]);
-       //     console.log(`  -EN/Tick> ${gladiator.name} is training`, gladiator.schedule[0][date.time]);
+           console.log(`  -EN/Tick> ${gladiator.name} is training`, gladiator.schedule[0][date.time]);
             if(!ownersGain[gladiator.owner]){
                 ownersGain[gladiator.owner] = {
                     gold:0,
@@ -53,7 +53,7 @@ module.exports = {
         const myPromise = new Promise((resolve, reject) => {
             keys.forEach(async (ownerid,index) => {
             let owner = await Owner.findOne({ _id:ownerid });
-//            console.log('  -EN/TICK> Owner',owner.userAcct ,': gained  G:',ownersGain[ownerid].gold,"F:",ownersGain[ownerid].fame);
+           console.log('  -EN/TICK> Owner',owner.userAcct ,': gained  G:',ownersGain[ownerid].gold,"F:",ownersGain[ownerid].fame);
             owner.gold += ownersGain[ownerid].gold;
             owner.fame += ownersGain[ownerid].fame;
             await owner.save();
