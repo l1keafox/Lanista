@@ -57,7 +57,7 @@ function compareEffects(gladiator,target){
              if(target.effectToDo.missChance) {
                 target.effectToDo.missChance = 0;
                 target.effectToDo.moraleDamage = gladiator.effectToDo.taunting;
-                if(target.effectToDo.moraleDamage > 15) target.effectToDo.moraleDamage = 15;
+              //  if(target.effectToDo.moraleDamage > 15) target.effectToDo.moraleDamage = 15;
             }
             //else if(!target.effectToDo.taunting) {
             //     target.effectToDo.moraleDamage = gladiator.effectToDo.taunting;
@@ -71,10 +71,10 @@ function compareEffects(gladiator,target){
                 if(target.effectToDo.taunting > gladiator.effectToDo.taunting){
                     // gladiator takes damage 
                     gladiator.effectToDo.moraleDamage = target.effectToDo.taunting - gladiator.effectToDo.taunting
-                    if(gladiator.effectToDo.moraleDamage > 15)  gladiator.effectToDo.moraleDamage = 15;
+                  //  if(gladiator.effectToDo.moraleDamage > 15)  gladiator.effectToDo.moraleDamage = 15;
                 } else {
                     target.effectToDo.moraleDamage = gladiator.effectToDo.taunting - target.effectToDo.taunting
-                    if(target.effectToDo.moraleDamage > 15)  target.effectToDo.moraleDamage = 15;
+               //     if(target.effectToDo.moraleDamage > 15)  target.effectToDo.moraleDamage = 15;
                 } 
                 target.effectToDo.taunting = 0;
                 gladiator.effectToDo.taunting = 0;
