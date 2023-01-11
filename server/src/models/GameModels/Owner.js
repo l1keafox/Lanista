@@ -22,6 +22,7 @@ const ownerSchema = new Schema(
             ref: "gladiator"
           }],
         inventory:[],
+        history:[],
 	},
 	{
 		toJSON: {
