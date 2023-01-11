@@ -22,8 +22,9 @@ module.exports = {
             day: gameDate.day,
             month: gameDate.month,
             year: gameDate.year,
+            weekDay: gameDate.weekDay
         };
-
+        console.log(`  -EN/Tick> Current Date: time:${date.time}, day:${date.day}, weekDay:${daye.weekDay},month:${date.month},year:${date.year}`);
         let allGladiators = await Gladiator.find(); 
         let ownersGain = {};
         await allGladiators.forEach(async gladiator => {
@@ -45,6 +46,7 @@ module.exports = {
             }
             if(date.time === 8){
                 gladiator.age++;
+
             }
             gladiator.save();
         });

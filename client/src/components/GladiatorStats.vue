@@ -9,26 +9,39 @@
         <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
           <!--header-->
           <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-            <h3 class="text-3xl font-semibold">
-              Modal Title
+            <h3 v-if="gladiatorData" class="text-3xl font-semibold">
+              {{ gladiatorData.name }}
             </h3>
           </div>
           <!--body-->
           <div class="relative p-6 flex-auto">
   
-                  <div v-if="gladiatorData">
-                    <h1>{{ gladiatorData.name }}</h1>
-                    <h2>hits:{{gladiatorData.hits}}/mana:{{gladiatorData.mana}} </h2>
-                    
-                    <h2>morale:{{gladiatorData.morale}}/stress:{{gladiatorData.stress}} </h2>
-                    <h2>strength:{{gladiatorData.strength}} | dexterity:{{gladiatorData.dexterity}} </h2>
-                    <h2>agility:{{gladiatorData.agility}} constitution:{{gladiatorData.constitution}}  </h2>
-                    <h2>vitality:{{gladiatorData.vitality}} </h2>
-            
-                    <h2>intelligence:{{gladiatorData.intelligence}} wisdom:{{gladiatorData.wisdom}} </h2>
-                    <h2>bravery:{{gladiatorData.bravery}} piety:{{gladiatorData.piety}} </h2>
-                    <h2>sensitivity:{{gladiatorData.sensitivity}} luck:{{gladiatorData.luck}} </h2>
-                    <h2>reputation:{{gladiatorData.reputation}}  charisma:{{gladiatorData.charisma}} </h2>
+                  <div v-if="gladiatorData" class="flex">
+                    <div class="flex  flex-col h-48 w-48 bg-slate-400">
+                      <h2>hits:{{gladiatorData.hits}}</h2>
+                      <h2>mana:{{gladiatorData.mana}} </h2>
+                      <h2>morale:{{gladiatorData.morale}} </h2>
+                      <h2>stress:{{gladiatorData.stress}}</h2>
+                    </div>
+                    <div class="flex  flex-col h-48 w-48 bg-slate-400">
+                      <h2>strength:{{gladiatorData.strength}}</h2>
+                      <h2>dexterity:{{gladiatorData.dexterity}}</h2>
+                      <h2>agility:{{gladiatorData.agility}} </h2>
+                      <h2>constitution:{{gladiatorData.constitution}}</h2>
+                      <h2>vitality:{{gladiatorData.vitality}}</h2>
+                    </div>
+                    <div class="flex  flex-col h-48 w-48 bg-slate-400">
+                      <h2>intelligence:{{gladiatorData.intelligence}} </h2>
+                      <h2>wisdom:{{gladiatorData.wisdom}}</h2>
+                      <h2>bravery:{{gladiatorData.bravery}} </h2>
+                      <h2>piety:{{gladiatorData.piety}}</h2>
+                     <h2> sensitivity:{{gladiatorData.sensitivity}}</h2>
+                    </div>
+                    <div class="flex  flex-col h-48 w-48 bg-slate-400">
+                      <h2>luck:{{gladiatorData.luck}}</h2>
+                      <h2>reputation:{{gladiatorData.reputation}} </h2>
+                      <h2>charisma:{{gladiatorData.charisma}}</h2>
+                    </div>
             
                 </div>
   
