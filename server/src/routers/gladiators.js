@@ -1,5 +1,5 @@
 const express = require('express');
-const {User,Owner,Gladiator,DayEvents} = require('../models');
+const {User,Owner,Gladiator,DayEvents,saveDuel} = require('../models');
 const auth = require('../middleware/auth');
 const { getAbilityEffect } = require("./../engine/game/abilityIndex");
 const { doDuel }= require("../engine/game/duel");
@@ -38,12 +38,31 @@ router.post('/gladiator/doSpar', async(req, res) => {
     let glad2 = await Gladiator.findOne({ _id: req.body.gladatorId2 });
     if(glad && glad2){
         let report = await doDuel(glad,glad2);
+
+
+        // Here we save it.
+        let owner = await Owner.findOne({ userAcct: req.body.ownerId });
+        //saveDuel
+        const savedDuel = await new saveDuel({ "gladiatorOne":req.body.gladatorId ,"gladiatorTwo":req.body.gladatorId2 ,duel: JSON.stringify(report) } );
+        //console.log(savedDuel);
+        // owner.history.push(savedDuel);
+        // if(owner.history.length > 10){
+        //     const deleted = owner.history.pop();
+        //     console.log('We should also go through saveDuels and delete this',deleted);
+        // }
+        owner.save();
+        savedDuel.save();
         res.send(report)
     } else {
         res.send({"error":"Glad/Glad2 error"})
     }
 })
 
+router.post('/gladiator/getDuelHistory', async(req, res) => {
+    let savedDuel = await saveDuel.findOne({ _id: req.body.historyId });
+    // console.log(savedDuel);
+    return(savedDuel);
+});
 
 
 router.post('/gladiator/clashInfo', async(req, res) => {

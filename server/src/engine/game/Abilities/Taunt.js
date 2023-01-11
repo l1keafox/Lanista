@@ -3,10 +3,11 @@ module.exports = {
     abilityName: "taunt",
     type:"clash",
     doAbility(casterChar, target) {
-      let amnt = modStat4Effect(casterChar.charisma + casterChar.reputation ,10);
+
+      let amnt = modStat4Effect( casterChar.abilityMix({"charisma":50,"reputation":50 }) ,10);
       //console.log(this.abilityName, "   ->This ability does no damage but....",amnt);
       casterChar.addEffect("taunting", amnt);
-
+      return {"taunting":amnt};
     },
   
     winCondition(casterChar, target) {

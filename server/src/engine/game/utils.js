@@ -52,37 +52,40 @@ function getName(){
 }
 
 function createNewGladiator() {
-  return { name: getName(), hits: 100 ,
-   
+  return { 
+      name: getName(), 
       // Character Points Stats
+      hits: 50, // Easily trained stat.
+      morale:100, // Morale is high because it's stable stat? Mmm maybe later add ways to train it up.
       mana:100,
       stress:100,
-      morale:100,
       exp:0,
       age:0,
 
+      // Looking for average of 1,000 start stat. as starting average.
+
       // Physical Stats
-      strength:rollDice(30,60),
-      dexterity:rollDice(30,60),
-      agility:rollDice(30,60),
-      constitution:rollDice(30,60),
-      vitality:rollDice(30,60),
+      strength:rollDice(35,55),
+      dexterity:rollDice(35,55),
+      agility:rollDice(35,55),
+      constitution:rollDice(35,55),
+      vitality:rollDice(35,55),
       
       // Mental Stats
-      intelligence:rollDice(30,60),
-      wisdom:rollDice(30,60),
-      bravery:rollDice(30,60),
-      piety:rollDice(30,60),
-      sensitivity:rollDice(30,60),
+      intelligence:rollDice(35,55),
+      wisdom:rollDice(35,55),
+      bravery:rollDice(35,55),
+      piety:rollDice(35,55),
+      sensitivity:rollDice(35,55),
 
       // Social Stats
-      charisma:rollDice(30,60),
-      luck:rollDice(30,60),
-      reputation:rollDice(30,60),
+      charisma:rollDice(35,55),
+      luck:rollDice(35,55),
+      reputation:rollDice(35,55),
 
       skills:["dodge","taunt","quickSlash","heal"],
       
   };
 }
 
-module.exports = {modStat4Effect, createNewOwner, createNewGladiator,randomBetween,rollDice ,getRandomAround };
+module.exports = { modStat4Effect, createNewOwner, createNewGladiator,randomBetween,rollDice ,getRandomAround };

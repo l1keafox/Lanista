@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
 const User = require('./../User');
 const Gladiator = require('./Gladiator');
+const saveDuel = require('./saveDuel');
 const {getStructureEffect} = require("./../../engine/game/structureIndex");
 
 const ownerSchema = new Schema(
@@ -22,6 +23,10 @@ const ownerSchema = new Schema(
             ref: "gladiator"
           }],
         inventory:[],
+        history:[{
+            type: Schema.Types.ObjectId,
+            ref: "gladiator"
+          }],
 	},
 	{
 		toJSON: {
