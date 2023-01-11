@@ -50,7 +50,19 @@ export default {
     closeModal(){
       this.isModalShown = false;
     },
-
+    async updateOwnerInfo(){
+      const rpnse = await fetch(
+      `http://${window.location.hostname}:3001/owner`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ "id": this.userData._id }),
+      }
+    );
+    let ownerData = await rpnse.json();
+    this.ownerData = ownerData;     
+    console.log('updated info') ;
+    }
 
   },
   components:{
@@ -60,16 +72,8 @@ export default {
     ClashSettings,
   },
   async mounted() {
-    const rpnse = await fetch(
-      `http://${window.location.hostname}:3001/owner`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ "id": this.userData._id }),
-      }
-    );
-    let ownerData = await rpnse.json();
-    this.ownerData = ownerData;
+    this.updateOwnerInfo();
+//    setInterval(this.updateOwnerInfo, 15000);
   },
 };
 </script>

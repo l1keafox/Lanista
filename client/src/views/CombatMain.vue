@@ -5,7 +5,7 @@
 		<div v-if="ownerData" class="flex">
 			<select
 				name="gladiator"
-				class="bg-cyan-100 w-28 text-purple-800  p-2 m-2"
+				class="bg-cyan-100 w-28 text-purple-800 p-2 m-2"
 				id="gladiator">
 				<option value="empty">Select</option>
 				<template
@@ -17,7 +17,7 @@
 			vs
 			<select
 				name="gladiator2"
-				class="bg-cyan-100 w-28 text-purple-800  p-2 m-2"
+				class="bg-cyan-100 w-28 text-purple-800 p-2 m-2"
 				id="gladiator2">
 				<option value="empty">Select</option>
 				<template
@@ -26,19 +26,24 @@
 					<option :value="gladiator.name">{{ gladiator.name }}</option>
 				</template>
 			</select>
-            
-			<button class="bg-yellow-200 text-emerald-800 w-48 p-2 m-2" @click="doSpar">
+
+			<button
+				class="bg-yellow-200 text-emerald-800 w-48 p-2 m-2"
+				@click="doSpar">
 				Spar
 			</button>
-
 		</div>
 		<hr />
 
 		<div class="flex flex-col">
 			<div>Fighting History</div>
 		</div>
+		<div v-if="ownerData" class="flex"></div>
 		<div v-if="isModalShown">
-			<CombatReview :combatReport="combatReport" @closeModal="closeModal" :glads="glads"/>
+			<CombatReview
+				:combatReport="combatReport"
+				@closeModal="closeModal"
+				:glads="glads" />
 		</div>
 	</div>
 </template>
@@ -56,16 +61,17 @@ export default {
 			ownerData: null,
 			isModalShown: false,
 			combatReport: null,
-            glads:[],
+			history: null,
+			glads: [],
 			userData: auth.getUser(),
 		};
 	},
 	computed: {},
 	inject: ["card", "cardTitle"],
 	methods: {
-        closeModal(){
-            this.isModalShown = false;
-        },
+		closeModal() {
+			this.isModalShown = false;
+		},
 		async doSpar() {
 			let sch = document.getElementById("gladiator");
 			let sch2 = document.getElementById("gladiator2");
@@ -84,15 +90,16 @@ export default {
 						body: JSON.stringify({
 							"gladatorId2": glad2._id,
 							"gladatorId": gladData._id,
+							"ownerId": this.userData._id,
 						}),
 					}
 				);
 				let rpns = await rpnse.json();
 				//console.log(rpns);
-                this.glads= [gladData,glad2];
-                console.log(this.glads);
+				this.glads = [gladData, glad2];
+				console.log(this.glads);
 				this.combatReport = rpns;
-                this.isModalShown= true;
+				this.isModalShown = true;
 			}
 		},
 	},
@@ -107,10 +114,24 @@ export default {
 					body: JSON.stringify({ "id": this.userData._id }),
 				}
 			);
-			console.log(rpnse);
+//			console.log(rpnse);
 			let ownerData = await rpnse.json();
-			console.log(ownerData);
+//			console.log(ownerData);
 			this.ownerData = ownerData;
+			// if (ownerData.history.length > 0) {
+			// 	console.log(ownerData.history[0]);
+			// 	const history = await fetch(
+			// 		`http://${window.location.hostname}:3001/gladiator/getDuelHistory`,
+			// 		{
+			// 			method: "POST",
+			// 			headers: { "Content-Type": "application/json" },
+			// 			body: JSON.stringify({ "historyId": ownerData.history[0] }),
+			// 		}
+			// 	);
+			// 	console.log(history);
+			// 	let ddtd = await history.json();
+			// 	console.log("Wat",ddtd);
+			// }
 		} catch (err) {
 			console.log(err);
 		}
