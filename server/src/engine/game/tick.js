@@ -25,13 +25,30 @@ module.exports = {
             weekDay: gameDate.weekDay
         };
 
-        //console.log(`  -EN/Tick> Current Date: time:${date.time}:00, day:${date.day}, weekDay:${date.weekDay},month:${date.month},year:${date.year}`);
+        // Determine tournament date.
+        console.log(date.weekDay, date.time ,date.weekDay === 7 , date.time === 1 )
+        if(date.weekDay === 7 && date.time === 1){
+            console.log('Tournament Day');
+            console.log('Tournament Day');
+            console.log('Tournament Day');
+            console.log('Tournament Day');
+            // So now we determine if the local,regional,quarter,national.
+            if(date.month === 12){ // national is the last month, and 28th 
+                console.log('National TOURNAMENT');
+            } else if(date.month === 3 || date.month === 6 || date.month === 9 ){
+                console.log('Grand TOURNAMENT');
+            } else if(date.day = 28){
+                console.log('Regional TOURNAMENT');
+            } else{
+                console.log('Local TOURNAMENT');
+            }
+        }
         let allGladiators = await Gladiator.find(); 
         let ownersGain = {};
         await allGladiators.forEach(async gladiator => {
 
             const growth = await doGrowth(gladiator,gladiator.schedule[0][date.weekDay][date.time]);
-            console.log(`  -EN/Tick> ${gladiator.name} is training`, gladiator.schedule[0][date.weekDay][date.time]);
+           // console.log(`  -EN/Tick> ${gladiator.name} is training`, gladiator.schedule[0][date.weekDay][date.time]);
             if(!ownersGain[gladiator.owner]){
                 ownersGain[gladiator.owner] = {
                     gold:0,
@@ -57,7 +74,7 @@ module.exports = {
         const myPromise = new Promise((resolve, reject) => {
             keys.forEach(async (ownerid,index) => {
             let owner = await Owner.findOne({ _id:ownerid });
-           console.log('  -EN/TICK> Owner',owner.userAcct ,': gained  G:',ownersGain[ownerid].gold,"F:",ownersGain[ownerid].fame);
+          // console.log('  -EN/TICK> Owner',owner.userAcct ,': gained  G:',ownersGain[ownerid].gold,"F:",ownersGain[ownerid].fame);
             owner.gold += ownersGain[ownerid].gold;
             owner.fame += ownersGain[ownerid].fame;
             await owner.save();

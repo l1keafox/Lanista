@@ -14,23 +14,11 @@
 					<!--header-->
 					<div
 						class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-						<h3 class="text-3xl font-semibold">Schedule </h3>
+						<h3 class="text-3xl font-semibold"> Week Schedule </h3>
 					</div>
 					<!--body-->
 					<div v-if="gladiatorData" class="flex overflow-x-scroll">
-						<!-- <div class="flex flex-col p-2 w-28">
-							<h1>DAY </h1>
-							<div v-for="(day, index) in daysOfWeek" :key="index">
-								<div v-if="index === daySelected" :key="daySelected">
-									<button class="text-center bg-blue-200 fill" >{{ day }}!</button>
-								</div>
-								<div v-else >
-									<button class="text-center" @click="switchDay(index)">
-										!{{ day }}
-									</button>
-								</div>
-							</div>
-						</div> -->
+
             <div v-for="(day, key2) in gladiatorData.schedule[0]"
             :key="key2" >
             <h1> Day {{key2}}</h1>
@@ -52,6 +40,26 @@
 						</div>
           </div>
 					</div>
+          <div class="bg-slate-200">
+            <h1> Skills Upgrade</h1>
+            <select>
+              <option> Skill </option>
+            </select>
+          </div>
+          <div class="bg-green-700">
+            <h1> Seventh Day Tournaments</h1>
+            <div>
+            <input type="checkbox" id="weekly" name="weekly" value="weekly">
+            <label for="weekly"> Local (weekly)</label><br>
+            <input type="checkbox" id="monthly" name="monthly" value="monthly">
+            <label for="monthly"> Regional (monthly)</label><br>
+            <input type="checkbox" id="quarter" name="quarter" value="quarter">
+            <label for="quarter"> Grand (quarter)</label><br>
+            <input type="checkbox" id="year" name="year" value="year">
+            <label for="year"> National (yearly)</label><br><br>
+          </div>
+            <p> Tournaments take up a sunday. Local take every sunday that doesn't have another tournament, Regional will take the last week's sunday that doesn't have another tournament, Grand tournaments are every three months that doesn't have another tournament, and National is once a year the very last week.</p>
+          </div>
 					<!--footer-->
 					<div
 						class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
