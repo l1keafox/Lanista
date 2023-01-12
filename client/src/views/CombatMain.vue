@@ -50,7 +50,7 @@
 
 <script>
 import CombatReview from "@/components/CombatReview";
-import auth from "./../mixins/auth";
+//import auth from "./../mixins/auth";
 export default {
 	name: "CombatMain",
 	components: {
@@ -63,11 +63,11 @@ export default {
 			combatReport: null,
 			history: null,
 			glads: [],
-			userData: auth.getUser(),
+		//	userData: auth.getUser(),
 		};
 	},
 	computed: {},
-	inject: ["card", "cardTitle"],
+	inject: ["card", "cardTitle",'getOwnerData','userData'],
 	methods: {
 		closeModal() {
 			this.isModalShown = false;
@@ -106,18 +106,18 @@ export default {
 
 	async mounted() {
 		try {
-			const rpnse = await fetch(
-				`http://${window.location.hostname}:3001/owner`,
-				{
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({ "id": this.userData._id }),
-				}
-			);
-//			console.log(rpnse);
-			let ownerData = await rpnse.json();
+// 			const rpnse = await fetch(
+// 				`http://${window.location.hostname}:3001/owner`,
+// 				{
+// 					method: "POST",
+// 					headers: { "Content-Type": "application/json" },
+// 					body: JSON.stringify({ "id": this.userData._id }),
+// 				}
+// 			);
+// //			console.log(rpnse);
+// 			let ownerData = await rpnse.json();
 //			console.log(ownerData);
-			this.ownerData = ownerData;
+			this.ownerData = this.getOwnerData();
 			// if (ownerData.history.length > 0) {
 			// 	console.log(ownerData.history[0]);
 			// 	const history = await fetch(

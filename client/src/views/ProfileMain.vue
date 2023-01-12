@@ -24,31 +24,17 @@
 </template>
 
 <script>
-//import auth from "./../mixins/auth";
 export default {
   name: "ProfileMain",
   inject: ['card','cardTitle','getOwnerData','userData'],
   data() {
     return {
-//      userData: auth.getUser(),
       ownerData: null,
       inventory:null
     };
   },
   async mounted() {
-    // const rpnse = await fetch(
-    //   `http://${window.location.hostname}:3001/owner`,
-    //   {
-    //       method: "POST",
-    //       headers: { "Content-Type": "application/json" },
-    //       body: JSON.stringify({ "id": this.userData._id}),
-    //     }      
-    // );
-    // let ownerData = await rpnse.json();
-    // this.ownerData =  ownerData;
-//      console.log("??",this.getOwnerData());
       this.ownerData = this.getOwnerData();
-  //    console.log(this.ownerData);
 
     const inventory = await fetch(
       `http://${window.location.hostname}:3001/owner/inventoryData`,
