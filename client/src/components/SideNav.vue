@@ -39,20 +39,32 @@ export default {
     return {
       showLoginModal: false,
       showCreateModal: false,
+      userData: auth.getUser(),
       isLoggedIn: auth.loggedIn(),
     };
+  },
+  computed:{
+   // ownerDataInterval:null
   },
   components: {
     LoginVue,
     CreateAccount
   },
-  mounted() {},
+  provide(){
+    return{
+      
+    }
+  },
+  mounted(){
+  },  
+  
   emits: ['logged','changeMain'],
   methods: {
     async doLogOut(){
         auth.logout();
         this.$emit('logged');
     },
+
     async createAcct({username,password,email}){
       console.log('trying create');
       if(!username || !password || !email){

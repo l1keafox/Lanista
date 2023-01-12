@@ -37,7 +37,7 @@ module.exports = {
                 console.log('National TOURNAMENT');
             } else if(date.month === 3 || date.month === 6 || date.month === 9 ){
                 console.log('Grand TOURNAMENT');
-            } else if(date.day = 28){
+            } else if(date.day == 28){
                 console.log('Regional TOURNAMENT');
             } else{
                 console.log('Local TOURNAMENT');
