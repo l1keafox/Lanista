@@ -8,6 +8,9 @@ const gameDateSchema = new Schema(
 		day: {
 			type: Number,
 		},
+		weekDay:{
+			type: String,
+		},
 		month: {
 			type: Number,
 		},
@@ -33,6 +36,10 @@ gameDateSchema.methods.addTime = async function () {
 	if(this.time > 8 ) {
 		this.time = 1;
 		this.day++;
+		this.weekDay++;
+		if(this.weekDay > 7){
+			this.weekDay = 1;
+		}
 	}
 	if(this.day > 28){
 		this.day = 1;
@@ -42,6 +49,7 @@ gameDateSchema.methods.addTime = async function () {
 		this.month = 1;
 		this.year++;
 	}
+
 
 	this.save();
 	return true;
