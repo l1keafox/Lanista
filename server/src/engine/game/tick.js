@@ -24,12 +24,14 @@ module.exports = {
             year: gameDate.year,
             weekDay: gameDate.weekDay
         };
-        console.log(`  -EN/Tick> Current Date: time:${date.time}, day:${date.day}, weekDay:${daye.weekDay},month:${date.month},year:${date.year}`);
+
+        //console.log(`  -EN/Tick> Current Date: time:${date.time}:00, day:${date.day}, weekDay:${date.weekDay},month:${date.month},year:${date.year}`);
         let allGladiators = await Gladiator.find(); 
         let ownersGain = {};
         await allGladiators.forEach(async gladiator => {
-            const growth = await doGrowth(gladiator,gladiator.schedule[0][date.time]);
-           console.log(`  -EN/Tick> ${gladiator.name} is training`, gladiator.schedule[0][date.time]);
+
+            const growth = await doGrowth(gladiator,gladiator.schedule[0][date.weekDay][date.time]);
+            console.log(`  -EN/Tick> ${gladiator.name} is training`, gladiator.schedule[0][date.weekDay][date.time]);
             if(!ownersGain[gladiator.owner]){
                 ownersGain[gladiator.owner] = {
                     gold:0,
@@ -68,7 +70,7 @@ module.exports = {
         
     },
     getDate: function(){
-        return `Time: ${date.time}:00  ${date.month}/${date.day}/${date.year}`
+        return `Time: ${date.time}:00  ${date.month}/${date.day}/${date.year} weekday:${ date.weekDay}`
     }
 
  };

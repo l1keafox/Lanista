@@ -7,18 +7,18 @@
 			class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex"
 			data-id="bg"
 			v-on:click="bgClose($event)">
-			<div class="relative w-auto my-6 mx-auto max-w-6xl">
+			<div class="relative w-auto my-6 mx-auto max-w-6xl ">
 				<!--content-->
 				<div
 					class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
 					<!--header-->
 					<div
 						class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-						<h3 class="text-3xl font-semibold">Schedule :: Day {{daysOfWeek[daySelected] }} </h3>
+						<h3 class="text-3xl font-semibold">Schedule </h3>
 					</div>
 					<!--body-->
-					<div v-if="gladiatorData" class="flex">
-						<div class="flex flex-col p-2 w-28">
+					<div v-if="gladiatorData" class="flex overflow-x-scroll">
+						<!-- <div class="flex flex-col p-2 w-28">
 							<h1>DAY </h1>
 							<div v-for="(day, index) in daysOfWeek" :key="index">
 								<div v-if="index === daySelected" :key="daySelected">
@@ -29,15 +29,16 @@
 										!{{ day }}
 									</button>
 								</div>
-
 							</div>
-						</div>
-
-						<div class="relative p-4 flex-auto bg-slate-200">
-							<!-- <div
-								v-for="(event, key) in gladiatorData.schedule[0]"
-								:key="event"
-								class="bg-blue-200">
+						</div> -->
+            <div v-for="(day, key2) in gladiatorData.schedule[0]"
+            :key="key2" >
+            <h1> Day {{key2}}</h1>
+						<div class="relative p-1 flex-auto bg-slate-200">
+							<div
+								v-for="(event, key) in day"
+								:key="key"
+								class="bg-blue-200 w-48">
 								{{ key }}:00 Event
 								<select :name="key" class="bg-green-100 schedule">
 									<option value="fir">{{ event }}</option>
@@ -47,8 +48,9 @@
 										<option value="index">{{ training }}</option>
 									</template>
 								</select>
-							</div> -->
+							</div>
 						</div>
+          </div>
 					</div>
 					<!--footer-->
 					<div
@@ -93,8 +95,17 @@ export default {
 				this.$emit("closeModal");
 			}
 		},
-		switchDay(index) {
+		async switchDay(index) {
+
+      // save before we switch.
+      console.log('Do save');
+      console.log('after save');
 			this.daySelected = index;
+
+      console.log(this.daySelected+1,"current day selected?");
+      console.log(this.gladiatorData.schedule[0][this.daySelected+1] );
+      // Should we save the previous day when we are switching
+      // that seems to be the best case for now.
 		},
 		async doSave() {
 			let sch = document.getElementsByTagName("select");
@@ -104,6 +115,7 @@ export default {
 					saveObj[parseInt(i) + 1] = sch[i].selectedOptions[0].innerText;
 				}
 			}
+ 
 			console.log(saveObj, "Saving week Events",this.daySelected);
 			// here we should do a post to save it.
 			// fetch(`http://${window.location.hostname}:3001/gladiator/saveDay`, {
@@ -111,7 +123,7 @@ export default {
 			// 	headers: { "Content-Type": "application/json" },
 			// 	body: JSON.stringify({ "id": this.gladId, "day": saveObj }),
 			// });
-			this.$emit("closeModal");
+			//this.$emit("closeModal");
 		},
 	},
 	async mounted() {

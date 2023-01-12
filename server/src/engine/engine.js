@@ -13,7 +13,7 @@ async function doGameTick(){
 async function startLoop(){
     const currentTick = new Date();
     
-    // console.log('  -> Time Sense Last Tick:',currentTick - timeToLastTick);
+//     console.log('  -> Time Sense Last Tick:',currentTick - timeToLastTick);
     if((currentTick - timeToLastTick) > timeBetweenTicks){
         timeToLastTick = new Date();
         doGameTick();
