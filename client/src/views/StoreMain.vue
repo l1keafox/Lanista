@@ -36,9 +36,9 @@
 </template>
 
 <script>
-import auth from "./../mixins/auth";
+//import auth from "./../mixins/auth";
 export default {
-  inject: ["card", "cardTitle"],
+  inject: ["card", "cardTitle",'userData'],
   name: "StoreMain",
   methods: {
     async buyThing(type, index) {
@@ -88,7 +88,7 @@ export default {
   components: {},
   data() {
     return {
-      userData: auth.getUser(),
+//      userData: auth.getUser(),
       itemData: null,
       structData: null,
     };
