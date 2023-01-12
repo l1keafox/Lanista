@@ -110,20 +110,40 @@ export default {
 		async doSave() {
 			let sch = document.getElementsByTagName("select");
 			let saveObj = {};
+//      console.log(sch);
 			for (let i in sch) {
 				if (sch[i] && sch[i].selectedOptions) {
 					saveObj[parseInt(i) + 1] = sch[i].selectedOptions[0].innerText;
 				}
 			}
  
-			console.log(saveObj, "Saving week Events",this.daySelected);
-			// here we should do a post to save it.
-			// fetch(`http://${window.location.hostname}:3001/gladiator/saveDay`, {
-			// 	method: "POST",
-			// 	headers: { "Content-Type": "application/json" },
-			// 	body: JSON.stringify({ "id": this.gladId, "day": saveObj }),
-			// });
-			//this.$emit("closeModal");
+			//console.log(Object.keys( saveObj ).length, "Saving week Events");
+      let timeCount = 0;
+      let currentDay = {};
+      let dayCount = 1;
+      let rtnObj = {};
+      for(let index in saveObj){
+        timeCount++;
+        if(timeCount > 8) {
+          timeCount = 1;
+        //  console.log( currentDay );
+          rtnObj[dayCount] = currentDay;
+          dayCount++;
+          currentDay = {};
+        }
+        currentDay[timeCount] = saveObj[index];
+        //console.log(saveObj[index],dayCount);
+      }
+      //console.log( currentDay );
+      rtnObj[dayCount] = currentDay;
+      console.log(rtnObj);
+			//here we should do a post to save it.
+			fetch(`http://${window.location.hostname}:3001/gladiator/saveWeek`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ "id": this.gladId, "week": rtnObj }),
+			});
+			this.$emit("closeModal");
 		},
 	},
 	async mounted() {
