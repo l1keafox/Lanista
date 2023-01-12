@@ -40,11 +40,19 @@
 						</div>
           </div>
 					</div>
-          <div class="bg-slate-200">
+          <div class="bg-slate-700">
             <h1> Skills Upgrade</h1>
+			<div class="flex">
             <select>
               <option> Skill </option>
             </select>
+			<h1> When done turns into: </h1>
+            <select>
+              <option> Task </option>
+            </select>
+
+			</div>
+			<p> Pick the "Learn" in the schedule, the select the skill you would like to learn in the dropdown. Select the task you would like it to turn into afterwards.</p>
           </div>
           <div class="bg-green-700">
             <h1> Seventh Day Tournaments</h1>

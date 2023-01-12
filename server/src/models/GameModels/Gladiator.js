@@ -34,6 +34,17 @@ const gladiatorSchema = new Schema(
             type:Number
         },
 
+        exp:{ // experience
+            type:Number
+        },
+        level:{
+            type:Number
+        },
+        age:{ //This might be how many days passed sense start of training. Will be used later on.
+            type:Number
+        },
+
+
         // Character Points Stats
         hits:{ // Physical Hit points
             type:Number
@@ -47,9 +58,10 @@ const gladiatorSchema = new Schema(
         morale:{ // Morale in fighting.
             type:Number
         },
-        exp:{ // experience
+        stamina:{
             type:Number
         },
+
 
         // Physical Stats
         strength:{ // Muscle - how strong one is. 
@@ -65,9 +77,6 @@ const gladiatorSchema = new Schema(
             type:Number
         },
         vitality:{ //Energy - state of being strong/active - hit points
-            type:Number
-        },
-        age:{ //This might be how many days passed sense start of training. Will be used later on.
             type:Number
         },
         

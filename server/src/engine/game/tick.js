@@ -41,6 +41,8 @@ module.exports = {
                 console.log('Regional TOURNAMENT');
             } else{
                 console.log('Local TOURNAMENT');
+                // So we grab all gladiators that are selected via schedule to do this tournament.
+                // We will then make sure they do not do any training that day.
             }
         }
         let allGladiators = await Gladiator.find(); 
