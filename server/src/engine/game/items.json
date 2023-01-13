@@ -10,7 +10,7 @@
       "abilities": ["stab","backstab"],
       "stats":{
           "agility":10,
-          "strength":-5
+          "strength":-10
       },
       "maintenance": 75
     }

@@ -3,8 +3,8 @@
     <div class="bg-slate-900">Store</div>
     <hr />
     <h1>ITEMS:</h1>
-    <div v-if="itemData">
-      <div v-for="(item, index) in itemData" :key="item" :class="card">
+    <div v-if="itemData" class="flex">
+      <div v-for="(item, index) in itemData" :key="item" :class="smallCard">
         <h1 :class="cardTitle">{{ item.type }}</h1>
         <hr />
 
@@ -38,7 +38,7 @@
 <script>
 import auth from "./../mixins/auth";
 export default {
-  inject: ["card", "cardTitle"],
+  inject: ["card", "cardTitle","smallCard"],
   name: "StoreMain",
   methods: {
     async buyThing(type, index) {

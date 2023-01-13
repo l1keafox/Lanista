@@ -113,7 +113,10 @@ router.post('/owner/store', async(req, res) => {
             } else if(type ==="structures"){
                 // Here we need to check if structure doesn't already exist.
                 let struct = getStructureEffect(ele.type)
-                if(owner2.fame >= ele.fame && owner2.structures.indexOf(ele.type) < 0){
+                if(!struct){
+                    console.log(ele.type, "structure not available, need to be created");
+                } else 
+                if( owner2.fame >= ele.fame && owner2.structures.indexOf(ele.type) < 0){
                     struct.type = ele.type;
                     struct.cost = ele.cost;
                     return struct;

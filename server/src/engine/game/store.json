@@ -4,11 +4,22 @@
             "type":"shortSword",
             "cost":1,
             "fame":1
+        },
+        {
+            "type":"dagger",
+            "cost":1,
+            "fame":1
         }
+
     ],
     "structures":[
         {
             "type":"weightRoom",
+            "fame":1,
+            "cost":1
+        },
+        {
+            "type":"shrine",
             "fame":1,
             "cost":1
         }

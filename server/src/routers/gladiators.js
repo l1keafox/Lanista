@@ -84,7 +84,9 @@ router.post('/gladiator/clashInfo', async(req, res) => {
     allAbilities.forEach(abi => {
 //        console.log(getAbilityEffect(abi).type , abi);
         // here we determine if it goes to the unassigned or not.
-        if( getAbilityEffect(abi).type  !== "clash"){
+        if(!getAbilityEffect(abi) ){
+            console.log( `  -> no ${abi} Availbae, needs to be added`);
+        } else if( getAbilityEffect(abi).type  !== "clash"){
             if( !glad[getAbilityEffect(abi).type].includes(abi) ){
 //                console.log( abi , "is not in ",getAbilityEffect(abi).type,glad[getAbilityEffect(abi).type]);
                 if(getAbilityEffect(abi).type  === 'prepare'){

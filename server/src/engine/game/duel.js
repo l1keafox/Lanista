@@ -33,6 +33,22 @@ function returnPreparedGladiator(gladiator) {
 	newGladObj.name = gladiator.name;
 	newGladObj._id = gladiator._id;
 
+	// Here we will go through items and adjust stats based on items.
+	const slots = ["mainHand","offHand","head","body","boots"];
+	slots.forEach(slot =>{
+		if (gladiator[slot] !== null){
+			console.log( );
+			let item = getItemEffect( gladiator[slot]);
+			if( item.stats ){
+				for(let stat in item.stats){
+					console.log(stat,"b4:",newGladObj[stat]);
+					newGladObj[stat] = newGladObj[stat] * ( item.stats[stat] * 0.01 );
+					console.log(stat,"after:",newGladObj[stat]);
+				}
+			}
+		}
+	} )
+
 	newGladObj.prepare = gladiator.prepare.map((skill) =>
 		getAbilityEffect(skill)
 	);
@@ -48,6 +64,8 @@ function returnPreparedGladiator(gladiator) {
 			}
 		})
 		.filter((notUndefined) => notUndefined !== undefined);
+
+	// Prototypes for clashing
 
 	newGladObj.getClash = function () {
 		return newGladObj.clash[
