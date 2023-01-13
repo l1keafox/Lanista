@@ -3,8 +3,8 @@ module.exports = {
     type:"react",
     maxCoolDown:4,
     resultWanted:'lose',
-    doClash(result, caster, target) {
-      if (this.resultWanted === result) {
+    doClash(caster, target) {
+      if (caster.clashResult === resultWanted) {
         console.log(`   ${caster.name}-> DOING HEALING!`, caster.hitPoints);
         caster.hitPoints++;
         this.cooldown = this.maxCooldown;

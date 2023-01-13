@@ -100,11 +100,11 @@ function returnPreparedGladiator(gladiator) {
 		}
 	};
 
-	newGladObj.clashReact = function (clashResult, target) {
-		//		console.log("  -En/DUEL>getting clashReSULt for,", this.name, "is", clashResult);
+	newGladObj.clashReact = function ( target) {
+		console.log("  -En/DUEL>getting clashReSULt for,", this.name, "is",this.clashResult,"abilityWanted:",this.clashAbility,"Is effects",this.effectToDo);
 		for (let aReaction of this.react) {
 			if (aReaction.cooldown) continue;
-			aReaction.doClash(clashResult, this, target);
+			aReaction.doClash(this, target);
 		}
 	};
 	return newGladObj;
@@ -115,7 +115,8 @@ class Clash {
 		// This will return a clash type instead of array
 		const oneClash = oneChar.getClash();
 		const twoClash = twoChar.getClash();
-
+		oneChar.clashAbility = oneClash.abilityName;
+		twoChar.clashAbility = twoClash.abilityName;
 		// Do action and get results
 		const oneEffect = oneChar.doAction(oneClash, twoChar);
 		const twoEffect = twoChar.doAction(twoClash, oneChar);
@@ -214,16 +215,22 @@ async function doDuel(one, two) {
 		// Do  react
 		if (!thisClash.clashWinner) {
 			if (SHOWBATTLE) console.log("  -EN/Duel>   TIE");
-			gladOne.clashReact("tie", gladTwo);
-			gladTwo.clashReact("tie", gladOne);
+			gladTwo.clashResult = "tie";
+			gladOne.clashResult = "tie";
+			gladOne.clashReact(gladTwo);
+			gladTwo.clashReact(gladOne);
 			roundReport.clashResult = { result: "tie", winner: null };
 		} else {
-			thisClash.clashWinner.clashReact("win", thisClash.clashLoser);
+			thisClash.clashWinner.clashResult = "win";
+			thisClash.clashLoser.clashResult = "lose";
+			thisClash.clashWinner.clashReact( thisClash.clashLoser);
+			thisClash.clashLoser.clashReact(thisClash.clashWinner);
+
 			roundReport.clashResult = {
 				result: "win",
 				winner: thisClash.clashWinner.name,
 			};
-			thisClash.clashLoser.clashReact("lose", thisClash.clashWinner);
+
 		}
 
 		// Do effects after the clash and before end of round.
