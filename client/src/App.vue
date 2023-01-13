@@ -38,10 +38,7 @@ export default {
     return {
       isLoggedIn: auth.loggedIn(),
       mainStage: "WelcomeMain",
-      userData: auth.getUser(),
-      ownerData:null,
-      
-      ownerDataInterval:null
+      userData: auth.getUser()
     };
   },
   methods: {
@@ -50,40 +47,15 @@ export default {
     },
     update() {
       this.isLoggedIn = auth.loggedIn();
-      console.log('udpate?',this.isLoggedIn);
-      if( this.isLoggedIn ) this.startOwnerInterval();
     },
-    startOwnerInterval(){
-      this.getOwnerData();
-      this.ownerDataInterval = setInterval(
-        this.getOwnerData,15000
-      );
-    },    
-    async getOwnerData(){
-      const rpnse = await fetch(
-      `http://${window.location.hostname}:3001/owner`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ "id": this.userData._id }),
-      }
-      );
-      this.ownerData = await rpnse.json();
-      console.log('getting owner data',this.ownerData);
-    },
-
   },
 
-  mounted() {
-    //console.log('mntd?',this.isLoggedIn);
-    if( this.isLoggedIn ) this.startOwnerInterval();
-  },
+  mounted() {},
   provide() {
     return {
       card:"h-80 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
       cardTitle:"text-xl text-sky-400",
-      userData:this.userData,
-      getOwnerData: ()=> this.ownerData
+      userData:this.userData
     };
   },
 };

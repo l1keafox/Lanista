@@ -16,15 +16,16 @@
   </template>
   
   <script>
-//  import auth from "./../mixins/auth";
+  import auth from "./../mixins/auth";
   export default {
     name: "StructuresMain",
     data() {
       return {
+        userData: auth.getUser(),
         structureData: null,
       };
     },
-    inject: ['card','cardTitle','userData'],
+    inject: ['card','cardTitle'],
     async mounted() {
       const rpnse = await fetch(
         `http://${window.location.hostname}:3001/owner/structuresData`,

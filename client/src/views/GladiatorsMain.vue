@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import auth from "./../mixins/auth";
 import ScheduleManager from "./../components/ScheduleManager.vue";
 import GladiatorStats from "./../components/GladiatorStats.vue";
 import EquipmentScreen from "./../components/EquipmentScreen.vue";
@@ -32,13 +33,14 @@ export default {
   name: "GladiatorMain",
   data() {
     return {
+      userData: auth.getUser(),
       modalShown:null,
       isModalShown:null,
       gladiatorId: null,
       ownerData: null,
     };
   },
-  inject: ['card','cardTitle','userData','getOwnerData'],
+  inject: ['card','cardTitle'],
   methods:{
     openModal(event,modalName){
       this.gladiatorId = event.target.getAttribute("data-id");
@@ -48,7 +50,19 @@ export default {
     closeModal(){
       this.isModalShown = false;
     },
-
+    async updateOwnerInfo(){
+      const rpnse = await fetch(
+      `http://${window.location.hostname}:3001/owner`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ "id": this.userData._id }),
+      }
+    );
+    let ownerData = await rpnse.json();
+    this.ownerData = ownerData;     
+    console.log('updated info') ;
+    }
 
   },
   components:{
@@ -58,7 +72,8 @@ export default {
     ClashSettings,
   },
   async mounted() {
-    this.ownerData = this.getOwnerData();
+    this.updateOwnerInfo();
+//    setInterval(this.updateOwnerInfo, 15000);
   },
 };
 </script>
