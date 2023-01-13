@@ -1,10 +1,18 @@
 {
-    "shortSword":{
-      "slot":"mainHand",
-      "abilities":["slash"],
-      "maintenance": 100
+  "shortSword":{
+    "slot":"mainHand",
+    "abilities":["slash","backstab"],
+    "maintenance": 100
+  },
+  "longSword":{
+    "slot":"mainHand",
+    "abilities":["slash"],
+    "stats":{
+        "strength":10
     },
-    "dagger":{
+    "maintenance": 100
+  },
+  "dagger":{
       "description":"short range weapon, but gives backstab react ability that will reward big wins",
       "slot": "mainHand",
       "abilities": ["stab","backstab"],

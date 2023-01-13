@@ -122,6 +122,7 @@ router.post('/owner/store', async(req, res) => {
                     return struct;
                 }
             }
+        
         }).filter(notUndefined => notUndefined !== undefined);
     }
     res.send(rtn)

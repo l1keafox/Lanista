@@ -37,12 +37,13 @@ function returnPreparedGladiator(gladiator) {
 	const slots = ["mainHand","offHand","head","body","boots"];
 	slots.forEach(slot =>{
 		if (gladiator[slot] !== null){
-			console.log( );
 			let item = getItemEffect( gladiator[slot]);
-			if( item.stats ){
+			if(!item && gladiator[slot]){
+				console.log(' Error no item return', gladiator[slot]);
+			} else if(item &&  item.stats ){
 				for(let stat in item.stats){
 					console.log(stat,"b4:",newGladObj[stat]);
-					newGladObj[stat] = newGladObj[stat] * ( item.stats[stat] * 0.01 );
+					newGladObj[stat] = newGladObj[stat] +=  newGladObj[stat] * ( item.stats[stat] * 0.01 );
 					console.log(stat,"after:",newGladObj[stat]);
 				}
 			}
@@ -59,7 +60,10 @@ function returnPreparedGladiator(gladiator) {
 		.concat(gladiator.skills)
 		.map((skill) => {
 			const effect = getAbilityEffect(skill);
-			if (effect.type === "clash") {
+			if(!effect){
+				console.log(' No effect for ',skill);
+			}
+			 else if (effect.type === "clash") {
 				return effect;
 			}
 		})
