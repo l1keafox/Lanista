@@ -4,9 +4,9 @@ module.exports = {
     maxCoolDown:4,
     resultWanted:'lose',
     doClash(caster, target) {
-      if (caster.clashResult === resultWanted) {
-        console.log(`   ${caster.name}-> DOING HEALING!`, caster.hitPoints);
-        caster.hitPoints++;
+      if (caster.clashResult === this.resultWanted) {
+        console.log(`   ${caster.name}-> DOING HEALING! because : ${caster.clashResult}`, caster.hits);
+        caster.hits++;
         this.cooldown = this.maxCooldown;
       }
     }

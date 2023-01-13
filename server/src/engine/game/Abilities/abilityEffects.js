@@ -96,6 +96,7 @@ function doEffects(gladiator){
             effectReport[effect] = num;
             break;
           case "moraleDamage":
+            if(num > 15) num = 15;
             gladiator.morale -= num;
             effectReport[effect] = num
             break;
