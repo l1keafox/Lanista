@@ -14,13 +14,13 @@
   
   
   <script>
-  //import auth from "./../mixins/auth";
+  import auth from "./../mixins/auth";
   export default {
     name: "TrainingMain",
-    inject: ['card','cardTitle','userData'],
+    inject: ['card','cardTitle'],
     data() {
       return {
-//        userData: auth.getUser(),
+        userData: auth.getUser(),
         trainingData: null,
       };
     },
