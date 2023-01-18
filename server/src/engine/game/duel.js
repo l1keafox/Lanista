@@ -109,7 +109,9 @@ function returnPreparedGladiator(gladiator) {
 	};
 	newGladObj.endOfRound = function () {
 		for (let aReaction of this.react) {
-			if (aReaction.cooldown) aReaction.cooldown--;
+			if (aReaction.cooldown) {
+				aReaction.cooldown--;
+			}
 		}
 		for (let thisGuy of this.prepare) {
 			if (thisGuy.cooldown) thisGuy.cooldown--;
@@ -125,7 +127,13 @@ function returnPreparedGladiator(gladiator) {
 	newGladObj.clashReact = function ( target) {
 		console.log("  -En/DUEL>getting clashReSULt for,", this.name, "is",this.clashResult,"abilityWanted:",this.clashAbility,"Is effects",this.effectToDo);
 		for (let aReaction of this.react) {
-			if (aReaction.cooldown) continue;
+			if (aReaction.cooldown) {
+//				console.log(aReaction)
+				continue;
+			}
+//			console.log(aReaction.cooldown , aReaction.maxCooldown)
+			//aReaction.cooldown = aReaction.maxCooldown;
+//			console.log("REACT ABILITY",aReaction)
 			return aReaction.doClash(this, target);
 		}
 	};

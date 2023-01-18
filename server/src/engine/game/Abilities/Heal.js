@@ -1,14 +1,15 @@
 module.exports = {
     abilityName: "Heal",
     type:"react",
-    maxCoolDown:4,
+    maxCooldown:4,
+    cooldown:0,
     resultWanted:'lose',
     doClash(caster, target) {
       if (caster.clashResult === this.resultWanted) {
         console.log(`   ${caster.name}-> DOING HEALING! because : ${caster.clashResult}`, caster.hits);
         caster.hits++;
         this.cooldown = this.maxCooldown;
-        return {react:this.abilityName, effect:"hits: +1" }
+        return {name:this.abilityName, effect:"hits: +1" }
       }
     }
   };
