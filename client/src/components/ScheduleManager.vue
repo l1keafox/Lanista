@@ -145,7 +145,9 @@ export default {
       let dayCount = 1;
       let rtnObj = {};
       for(let index in saveObj){
+		
         timeCount++;
+
         if(timeCount > 8) {
           timeCount = 1;
         //  console.log( currentDay );

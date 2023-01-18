@@ -47,6 +47,10 @@ const gladiatorSchema = new Schema(
         learning:{
             type:Number
         },
+        afterLearning:{
+            type:String
+        },
+
 
 
         // Character Points Stats

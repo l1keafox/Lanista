@@ -183,10 +183,10 @@ router.post('/owner', async(req, res) => {
     let owner2 = await Owner.findOne({ userAcct: req.body.id }).populate('gladiators');
     res.send(owner2)
 })
-router.post('/owner', async(req, res) => {
-    let owner2 = await Owner.findOne({ userAcct: req.body.id }).populate('gladiators',['name','age']);
-    res.send(owner2)
-})
+// router.post('/owner', async(req, res) => {
+//     let owner2 = await Owner.findOne({ userAcct: req.body.id }).populate('gladiators',['name','age']);
+//     res.send(owner2)
+// })
 
 
 module.exports = router

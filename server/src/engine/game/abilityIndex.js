@@ -29,11 +29,13 @@ function getAbilityEffect(skillName) {
 }
 async function doLearn(gladiator,skillName){
   const newSkill = abilityObj[skillName];
+  if(newSkill){
   console.log(gladiator.name,"learning",skillName,newSkill.learnSpeed,gladiator.learning);
   if(gladiator.learning === undefined){
     gladiator.learning = 0;
   }
   gladiator.learning+=newSkill.learnSpeed;
+}
   await gladiator.save();
 }
 
