@@ -13,7 +13,7 @@
 					class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
 					<!--header-->
 					<div
-						class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+						class="flex items-start justify-between p-5 border-b border-solid border-slate-700 rounded-t">
 						<h3 class="text-3xl font-semibold">Week Schedule</h3>
 					</div>
 					<!--body-->
@@ -24,9 +24,9 @@
 								<div
 									v-for="(event, key) in day"
 									:key="key"
-									class="bg-blue-200 w-48">
+									class="bg-blue-500 w-48">
 									{{ key }}:00 Event
-									<select :name="key" class="bg-green-100 schedule">
+									<select :name="key" class="bg-green-800 schedule">
 										<option value="fir">{{ event }}</option>
 										<template
 											v-for="(training, index) in trainingData"
@@ -38,12 +38,12 @@
 							</div>
 						</div>
 					</div>
-					<div class="bg-slate-700">
-						<h1>Skills Upgrade</h1>
+					<div class="bg-slate-700 p-2">
+						<h1>Skills Learning</h1>
 						<div class="flex">
 							<template v-if="this.gladiatorData && this.gladiatorData.learnSkill[0]">
 								
-								<h1>Learn :</h1>
+								<h1>Learn this :</h1>
 								<select name="skill1" id="skill1">
 									<option>{{ this.gladiatorData.learnSkill[0] }}</option>
 									<template
@@ -67,7 +67,7 @@
 								<p> {{ this.gladiatorData.progressSkill[ this.gladiatorData.learnSkill[0] ] }} </p>
 							</template>
 							<template v-else>
-								<h1>Learn :</h1>
+								<h1>Learn this :</h1>
 								<select name="skill1" id="skill1">
 									<option>Skill</option>
 									<template
