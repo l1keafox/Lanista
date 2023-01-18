@@ -8,6 +8,7 @@ module.exports = {
         console.log(`   ${caster.name}-> DOING HEALING! because : ${caster.clashResult}`, caster.hits);
         caster.hits++;
         this.cooldown = this.maxCooldown;
+        return {react:this.abilityName, effect:"hits: +1" }
       }
     }
   };

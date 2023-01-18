@@ -126,7 +126,7 @@ function returnPreparedGladiator(gladiator) {
 		console.log("  -En/DUEL>getting clashReSULt for,", this.name, "is",this.clashResult,"abilityWanted:",this.clashAbility,"Is effects",this.effectToDo);
 		for (let aReaction of this.react) {
 			if (aReaction.cooldown) continue;
-			aReaction.doClash(this, target);
+			return aReaction.doClash(this, target);
 		}
 	};
 	return newGladObj;
@@ -239,14 +239,14 @@ async function doDuel(one, two) {
 			if (SHOWBATTLE) console.log("  -EN/Duel>   TIE");
 			gladTwo.clashResult = "tie";
 			gladOne.clashResult = "tie";
-			gladOne.clashReact(gladTwo);
-			gladTwo.clashReact(gladOne);
+			roundReport[gladOne.name].react = gladOne.clashReact(gladTwo);
+			roundReport[gladTwo.name].react = gladTwo.clashReact(gladOne);
 			roundReport.clashResult = { result: "tie", winner: null };
 		} else {
 			thisClash.clashWinner.clashResult = "win";
 			thisClash.clashLoser.clashResult = "lose";
-			thisClash.clashWinner.clashReact( thisClash.clashLoser);
-			thisClash.clashLoser.clashReact(thisClash.clashWinner);
+			roundReport[thisClash.clashWinner.name].react =  thisClash.clashWinner.clashReact( thisClash.clashLoser);
+			roundReport[thisClash.clashLoser.name].react = thisClash.clashLoser.clashReact(thisClash.clashWinner);
 
 			roundReport.clashResult = {
 				result: "win",
