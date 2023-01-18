@@ -48,13 +48,13 @@
           <div class="bg-slate-700">
             <h1> Skills Upgrade</h1>
 			<div class="flex">
-            <select>
-              <option> Skill </option>
-            </select>
+            <!-- <select>
+              <option>Skill </option>
+            </select> -->
 			<h1> When done turns into: </h1>
-            <select>
-              <option> Task </option>
-            </select>
+            <!-- <select>
+              <option>Task </option>
+            </select> -->
 
 			</div>
 			<p> Pick the "Learn" in the schedule, the select the skill you would like to learn in the dropdown. Select the task you would like it to turn into afterwards.</p>
@@ -145,7 +145,6 @@ export default {
       let dayCount = 1;
       let rtnObj = {};
       for(let index in saveObj){
-		
         timeCount++;
 
         if(timeCount > 8) {
@@ -193,17 +192,17 @@ export default {
 		const trainingData = await training.json();
 		this.trainingData = trainingData;
 
-		const learning = await fetch(
-			`http://${window.location.hostname}:3001/owner/learning`,
-			{
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ "id": this.userData._id }),
-			}
-		);
-		const learningData = await learning.json();
-		this.learningData = learningData;
-			console.log(learningData);
+		// const learning = await fetch(
+		// 	`http://${window.location.hostname}:3001/owner/learning`,
+		// 	{
+		// 		method: "POST",
+		// 		headers: { "Content-Type": "application/json" },
+		// 		body: JSON.stringify({ "id": this.userData._id }),
+		// 	}
+		// );
+		// const learningData = await learning.json();
+		// this.learningData = learningData;
+		// 	console.log(learningData);
 	},
 };
 </script>
