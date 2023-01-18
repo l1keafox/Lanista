@@ -33,6 +33,23 @@ function returnPreparedGladiator(gladiator) {
 	newGladObj.name = gladiator.name;
 	newGladObj._id = gladiator._id;
 
+	// Here we will go through items and adjust stats based on items.
+	const slots = ["mainHand","offHand","head","body","boots"];
+	slots.forEach(slot =>{
+		if (gladiator[slot] !== null){
+			let item = getItemEffect( gladiator[slot]);
+			if(!item && gladiator[slot]){
+				console.log(' Error no item return', gladiator[slot]);
+			} else if(item &&  item.stats ){
+				for(let stat in item.stats){
+					console.log(stat,"b4:",newGladObj[stat]);
+					newGladObj[stat] = newGladObj[stat] +=  newGladObj[stat] * ( item.stats[stat] * 0.01 );
+					console.log(stat,"after:",newGladObj[stat]);
+				}
+			}
+		}
+	} )
+
 	newGladObj.prepare = gladiator.prepare.map((skill) =>
 		getAbilityEffect(skill)
 	);
@@ -43,11 +60,16 @@ function returnPreparedGladiator(gladiator) {
 		.concat(gladiator.skills)
 		.map((skill) => {
 			const effect = getAbilityEffect(skill);
-			if (effect.type === "clash") {
+			if(!effect){
+				console.log(' No effect for ',skill);
+			}
+			 else if (effect.type === "clash") {
 				return effect;
 			}
 		})
 		.filter((notUndefined) => notUndefined !== undefined);
+
+	// Prototypes for clashing
 
 	newGladObj.getClash = function () {
 		return newGladObj.clash[
@@ -87,7 +109,10 @@ function returnPreparedGladiator(gladiator) {
 	};
 	newGladObj.endOfRound = function () {
 		for (let aReaction of this.react) {
-			if (aReaction.cooldown) aReaction.cooldown--;
+			if (aReaction.cooldown) {
+				console.log(aReaction.abilityName, aReaction.cooldown,this.name)
+				aReaction.cooldown--;
+			}
 		}
 		for (let thisGuy of this.prepare) {
 			if (thisGuy.cooldown) thisGuy.cooldown--;
@@ -100,11 +125,18 @@ function returnPreparedGladiator(gladiator) {
 		}
 	};
 
-	newGladObj.clashReact = function (clashResult, target) {
-		//		console.log("  -En/DUEL>getting clashReSULt for,", this.name, "is", clashResult);
+	newGladObj.clashReact = function ( target) {
+		console.log("  -En/DUEL>getting clashReSULt for,", this.name, "is",this.clashResult,"abilityWanted:",this.clashAbility,"Is effects",this.effectToDo);
 		for (let aReaction of this.react) {
-			if (aReaction.cooldown) continue;
-			aReaction.doClash(clashResult, this, target);
+			
+			if (aReaction.cooldown) {
+//				console.log(aReaction)
+				continue;
+			}
+//			console.log(aReaction.cooldown , aReaction.maxCooldown)
+			//aReaction.cooldown = aReaction.maxCooldown;
+//			console.log("REACT ABILITY",aReaction)
+			return aReaction.doClash(this, target);
 		}
 	};
 	return newGladObj;
@@ -115,7 +147,8 @@ class Clash {
 		// This will return a clash type instead of array
 		const oneClash = oneChar.getClash();
 		const twoClash = twoChar.getClash();
-
+		oneChar.clashAbility = oneClash.abilityName;
+		twoChar.clashAbility = twoClash.abilityName;
 		// Do action and get results
 		const oneEffect = oneChar.doAction(oneClash, twoChar);
 		const twoEffect = twoChar.doAction(twoClash, oneChar);
@@ -178,6 +211,7 @@ async function doDuel(one, two) {
 
 	let roundCnt = 0;
 	do {
+		console.log("NEW ROUND -------------------------------")
 		let roundReport = {};
 		roundReport[gladOne.name] = {};
 		roundReport[gladTwo.name] = {};
@@ -214,16 +248,22 @@ async function doDuel(one, two) {
 		// Do  react
 		if (!thisClash.clashWinner) {
 			if (SHOWBATTLE) console.log("  -EN/Duel>   TIE");
-			gladOne.clashReact("tie", gladTwo);
-			gladTwo.clashReact("tie", gladOne);
+			gladTwo.clashResult = "tie";
+			gladOne.clashResult = "tie";
+			roundReport[gladOne.name].react = gladOne.clashReact(gladTwo);
+			roundReport[gladTwo.name].react = gladTwo.clashReact(gladOne);
 			roundReport.clashResult = { result: "tie", winner: null };
 		} else {
-			thisClash.clashWinner.clashReact("win", thisClash.clashLoser);
+			thisClash.clashWinner.clashResult = "win";
+			thisClash.clashLoser.clashResult = "lose";
+			roundReport[thisClash.clashWinner.name].react =  thisClash.clashWinner.clashReact( thisClash.clashLoser);
+			roundReport[thisClash.clashLoser.name].react = thisClash.clashLoser.clashReact(thisClash.clashWinner);
+
 			roundReport.clashResult = {
 				result: "win",
 				winner: thisClash.clashWinner.name,
 			};
-			thisClash.clashLoser.clashReact("lose", thisClash.clashWinner);
+
 		}
 
 		// Do effects after the clash and before end of round.

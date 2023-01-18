@@ -5,6 +5,7 @@ const {getTraining} = require('./../engine/game/trainingEffects');
 const {getStructureEffect} = require('./../engine/game/structureIndex');
 const {getItemEffect} = require('./../engine/game/itemsIndex');
 const {getStoreItems} = require('./../engine/game/storeIndex');
+const { getAbilityEffect } = require('./../engine/game/abilityIndex');
 const auth = require('../middleware/auth');
 const router = express.Router();
 
@@ -82,6 +83,11 @@ router.post('/owner/training', async(req, res) => {
     let rtn = await owner.getTraining();
     res.send(rtn);
 })
+router.post('/owner/learning', async(req, res) => {
+    let owner = await Owner.findOne({ userAcct: req.body.id });
+    let rtn = await owner.getLearning();
+    res.send(rtn);
+})
 
 router.post('/owner/trainingData', async(req, res) => {
     let owner = await Owner.findOne({ userAcct: req.body.id });
@@ -89,8 +95,27 @@ router.post('/owner/trainingData', async(req, res) => {
 
     let rtnData = owner.training.map( train =>{
         let rtn = getTraining(train);
-        rtn.training = train;
-        return rtn;
+        if(rtn){
+            rtn.training = train;
+            return rtn;
+        }else {
+            console.log("trainfailure?",train);
+        }
+    }  );
+    res.send(rtnData);
+})
+router.post('/owner/learningData', async(req, res) => {
+    let owner = await Owner.findOne({ userAcct: req.body.id });
+    await owner.getLearning();
+  
+    let rtnData = owner.learning.map( skill =>{
+        let rtn = getAbilityEffect(skill);
+        if(rtn){
+            rtn.learning = skill;
+            return rtn;
+        } else {
+            console.log('leanring data?',skill);
+        }
     }  );
     res.send(rtnData);
 })
@@ -113,12 +138,16 @@ router.post('/owner/store', async(req, res) => {
             } else if(type ==="structures"){
                 // Here we need to check if structure doesn't already exist.
                 let struct = getStructureEffect(ele.type)
-                if(owner2.fame >= ele.fame && owner2.structures.indexOf(ele.type) < 0){
+                if(!struct){
+                    console.log("  -Missing>",ele.type, "structure not available, need to be created");
+                } else 
+                if( owner2.fame >= ele.fame && owner2.structures.indexOf(ele.type) < 0){
                     struct.type = ele.type;
                     struct.cost = ele.cost;
                     return struct;
                 }
             }
+        
         }).filter(notUndefined => notUndefined !== undefined);
     }
     res.send(rtn)
@@ -154,6 +183,10 @@ router.post('/owner', async(req, res) => {
     let owner2 = await Owner.findOne({ userAcct: req.body.id }).populate('gladiators');
     res.send(owner2)
 })
+// router.post('/owner', async(req, res) => {
+//     let owner2 = await Owner.findOne({ userAcct: req.body.id }).populate('gladiators',['name','age']);
+//     res.send(owner2)
+// })
 
 
 module.exports = router

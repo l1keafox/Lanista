@@ -9,6 +9,19 @@
           <p> {{train.description}}</p>
         </div>
       </div>
+      <hr/>
+      <h1> Skill to Learn</h1>
+
+      <div v-if="learningData" class="flex flex-wrap">
+        <div v-for="skill in learningData" :key="skill" :class="card"> 
+          <h1 :class="cardTitle">{{skill.learning}} </h1>
+          <hr/>
+          <p> {{skill.description}}</p>
+          <p> learning speed: {{skill.learnSpeed}}</p>
+        </div>
+      </div>
+
+      
     </div>
   </template>
   
@@ -22,6 +35,7 @@
       return {
         userData: auth.getUser(),
         trainingData: null,
+        learningData:null
       };
     },
     async mounted() {
@@ -35,6 +49,18 @@
       );
       let trainingData = await rpnse.json();
       this.trainingData =  trainingData;
+
+      const rpnse2 = await fetch(
+        `http://${window.location.hostname}:3001/owner/learningData`,
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ "id": this.userData._id}),
+          }      
+      );
+      let learningData = await rpnse2.json();
+      this.learningData =  learningData;
+      console.log(learningData,"Learning");
 
     },
   };

@@ -44,6 +44,14 @@ const gladiatorSchema = new Schema(
             type:Number
         },
 
+        learning:{
+            type:Number
+        },
+        afterLearning:{
+            type:String
+        },
+
+
 
         // Character Points Stats
         hits:{ // Physical Hit points

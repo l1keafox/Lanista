@@ -35,6 +35,11 @@
 										:key="index">
 										<option value="index">{{ training }}</option>
 									</template>
+									<template
+										v-for="(learning, index) in learningData"
+										:key="index*2">
+										<option value="index"  class="bg-red-100 schedule">{{ learning }}</option>
+									</template>
 								</select>
 							</div>
 						</div>
@@ -43,13 +48,13 @@
           <div class="bg-slate-700">
             <h1> Skills Upgrade</h1>
 			<div class="flex">
-            <select>
-              <option> Skill </option>
-            </select>
+            <!-- <select>
+              <option>Skill </option>
+            </select> -->
 			<h1> When done turns into: </h1>
-            <select>
-              <option> Task </option>
-            </select>
+            <!-- <select>
+              <option>Task </option>
+            </select> -->
 
 			</div>
 			<p> Pick the "Learn" in the schedule, the select the skill you would like to learn in the dropdown. Select the task you would like it to turn into afterwards.</p>
@@ -100,6 +105,7 @@ export default {
 			gladiatorData: null,
 			userData: auth.getUser(),
 			trainingData: null,
+			learningData:null,
 			daySelected: 0,
 			daysOfWeek: ["One", "Two", "Three", "Four", "Five", "Six", "Seven"],
 		};
@@ -140,6 +146,7 @@ export default {
       let rtnObj = {};
       for(let index in saveObj){
         timeCount++;
+
         if(timeCount > 8) {
           timeCount = 1;
         //  console.log( currentDay );
@@ -172,7 +179,7 @@ export default {
 			}
 		);
 		this.gladiatorData = await rpnse.json();
-    console.log(this.gladiatorData.schedule);
+    
 
 		const training = await fetch(
 			`http://${window.location.hostname}:3001/owner/training`,
@@ -184,6 +191,18 @@ export default {
 		);
 		const trainingData = await training.json();
 		this.trainingData = trainingData;
+
+		// const learning = await fetch(
+		// 	`http://${window.location.hostname}:3001/owner/learning`,
+		// 	{
+		// 		method: "POST",
+		// 		headers: { "Content-Type": "application/json" },
+		// 		body: JSON.stringify({ "id": this.userData._id }),
+		// 	}
+		// );
+		// const learningData = await learning.json();
+		// this.learningData = learningData;
+		// 	console.log(learningData);
 	},
 };
 </script>

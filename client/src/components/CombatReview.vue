@@ -43,6 +43,11 @@
 									:key="key">
 									<h2 v-if="key !=='clashAbility' ">{{ key }}:{{ eff }}</h2>
 								</template>
+								<template v-if=" combatReport[combatIndex][glads[0].name].react"> 
+										<hr/>
+										<h1 class="text-red-300 text-xl"> {{ combatReport[combatIndex][glads[0].name].react.name }} </h1>
+										<p>  {{ combatReport[combatIndex][glads[0].name].react.effect }} </p>
+									</template>
 							</div>
 							<div :class="card">
 								{{ combatReport[combatIndex].clashResult.winner }}

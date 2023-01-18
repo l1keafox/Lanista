@@ -60,6 +60,10 @@ function createNewGladiator() {
       mana:100,
       stress:100,
       exp:0,
+      level:0,
+      winRecord:0,
+      loseRecord:0,
+      stamina:0,
       age:0,
 
       // Looking for average of 1,000 start stat. as starting average.
