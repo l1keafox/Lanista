@@ -236,8 +236,10 @@ export default {
 			}
 		);
 		this.gladiatorData = await rpnse.json();
-		this.gladiatorData.progressSkill = JSON.parse( this.gladiatorData.progressSkill )
-		console.log(this.gladiatorData.progressSkill, "PRogress");
+		if(this.gladiatorData.progressSkill){
+			this.gladiatorData.progressSkill = JSON.parse( this.gladiatorData.progressSkill )
+
+		}
 
 		const training = await fetch(
 			`http://${window.location.hostname}:3001/owner/training`,
@@ -259,8 +261,18 @@ export default {
 			}
 		);
 		const learningData = await learning.json();
+//		console.log(learningData, "Learning",this.gladiatorData.skills);
+		for(let skill of this.gladiatorData.skills){
+//			console.log(learningData.includes(skill),skill)
+			if( learningData.includes(skill) ){
+//				console.log("FOUND, so it needs to be removed from learning data,",learningData.indexOf(skill ))
+				learningData.splice( learningData.indexOf(skill )   );
+//				console.log(learningData);
+				break;
+			}
+		}
 		this.learningData = learningData;
-		console.log(learningData);
+		
 	},
 };
 </script>

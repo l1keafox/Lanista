@@ -51,9 +51,8 @@ module.exports = {
 		await allGladiators.forEach(async (gladiator) => {
 
 
-			console.log(gladiator.schedule[0][date.weekDay][date.time], gladiator.name,"learning",gladiator.learnSkill,gladiator.taskSkill,gladiator.progressSkill);
+//			console.log(gladiator.schedule[0][date.weekDay][date.time], gladiator.name,"learning",gladiator.learnSkill,gladiator.taskSkill,gladiator.progressSkill);
 			// before we do growth we need to check too see if this is current a skill replacement.
-
 			if(gladiator.taskSkill[0] ==  gladiator.schedule[0][date.weekDay][date.time] )			{
 				console.log("SKILL REPLACE");
 				// now it's replaces we need to 				
@@ -62,7 +61,7 @@ module.exports = {
 
 				progress[ gladiator.learnSkill[0] ] +=  skill.learnSpeed;
 
-				if(progress[ gladiator.learnSkill[0] ] >= 1){
+				if(progress[ gladiator.learnSkill[0] ] >= 100){
 					// Learned this skill!
 					// we add it to skills
 					gladiator.skills.push(  gladiator.learnSkill[0]  );
