@@ -5,7 +5,7 @@
             <div class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
               <div class="flex flex-col border bg-white px-6 py-14 shadow-md rounded-[4px] items-center justify-center">
                 <div class="mb-8 flex justify-center">
-                    <h1>Lanista</h1>
+                    <h1>Login To Lanista</h1>
                 </div>
                 <div class="flex flex-col text-sm rounded-md">
                   <input class="mb-5 rounded-[4px] border p-3 hover:outline-none focus:outline-none hover:border-yellow-500 " type="text" placeholder="Username or Email id" v-model="username"/>

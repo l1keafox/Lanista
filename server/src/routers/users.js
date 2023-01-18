@@ -5,6 +5,77 @@ const auth = require('../middleware/auth');
 const {createNewOwner,createNewGladiator} = require('./../engine/game/utils');
 const router = express.Router();
 
+
+async function createOwner(user){
+    const owner = await new Owner( createNewOwner() )
+            console.log("  -EN> User creating Owner Model. Starting Default Training");
+            owner.structures = [ "School" ];
+            owner.inventory = [{type:"shortSword",amount:2} ];
+            
+            const glad = await new Gladiator( createNewGladiator() );
+            console.log("  -EN> Creating Glad:",glad,owner._id);
+            glad1.schedule.push(
+    {
+    1:{1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:"tough"},
+    2:{1:"community",2:"woodCarv",3:"hiking",4:"readBook",5:"pray",6:"lookLost",7:"tough",8:"chopWood"},
+    3:{1:"woodCarv",2:"hiking",3:"readBook",4:"pray",5:"lookLost",6:"tough",7:"chopWood",8:"tough"},
+    4:{1:"hiking",2:"readBook",3:"pray",4:"lookLost",5:"tough",6:"chopWood",7:"lookLost",8:"community"},
+    5:{1:"readBook",2:"pray",3:"lookLost",4:"tough",5:"chopWood",6:"pray",7:"community",8:"woodCarv"},
+    6:{1:"pray",2:"lookLost",3:"tough",4:"chopWood",5:"readBook",6:"community",7:"woodCarv",8:"hiking"},
+    7:{1:"lookLost",2:"tough",3:"chopWood",4:"hiking",5:"community",6:"woodCarv",7:"hiking",8:"readBook"},
+    }
+);
+
+            glad.mainHand="shortSword";
+            glad.owner = owner._id;
+            owner.gladiators.push(glad.id);
+            glad.save();
+
+            const glad2 = await new Gladiator( createNewGladiator() );
+            glad2.schedule.push(
+    {
+    1:{1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:"tough"},
+    2:{1:"community",2:"woodCarv",3:"hiking",4:"readBook",5:"pray",6:"lookLost",7:"tough",8:"chopWood"},
+    3:{1:"woodCarv",2:"hiking",3:"readBook",4:"pray",5:"lookLost",6:"tough",7:"chopWood",8:"tough"},
+    4:{1:"hiking",2:"readBook",3:"pray",4:"lookLost",5:"tough",6:"chopWood",7:"lookLost",8:"community"},
+    5:{1:"readBook",2:"pray",3:"lookLost",4:"tough",5:"chopWood",6:"pray",7:"community",8:"woodCarv"},
+    6:{1:"pray",2:"lookLost",3:"tough",4:"chopWood",5:"readBook",6:"community",7:"woodCarv",8:"hiking"},
+    7:{1:"lookLost",2:"tough",3:"chopWood",4:"hiking",5:"community",6:"woodCarv",7:"hiking",8:"readBook"},
+    }
+);
+
+            console.log("  -EN> Creating Glad:",glad2);
+            glad2.mainHand="shortSword";
+            glad2.owner = owner._id;
+            owner.gladiators.push(glad2.id);
+
+            glad2.save();
+
+            const glad3 = await new Gladiator( createNewGladiator() );
+            glad3.schedule.push(
+    {
+    1:{1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:"tough"},
+    2:{1:"community",2:"woodCarv",3:"hiking",4:"readBook",5:"pray",6:"lookLost",7:"tough",8:"chopWood"},
+    3:{1:"woodCarv",2:"hiking",3:"readBook",4:"pray",5:"lookLost",6:"tough",7:"chopWood",8:"tough"},
+    4:{1:"hiking",2:"readBook",3:"pray",4:"lookLost",5:"tough",6:"chopWood",7:"lookLost",8:"community"},
+    5:{1:"readBook",2:"pray",3:"lookLost",4:"tough",5:"chopWood",6:"pray",7:"community",8:"woodCarv"},
+    6:{1:"pray",2:"lookLost",3:"tough",4:"chopWood",5:"readBook",6:"community",7:"woodCarv",8:"hiking"},
+    7:{1:"lookLost",2:"tough",3:"chopWood",4:"hiking",5:"community",6:"woodCarv",7:"hiking",8:"readBook"},
+    }
+);
+
+            console.log("  -EN> Creating Glad:",glad3);
+            glad3.owner = owner._id;
+            glad3.mainHand="shortSword";
+
+            owner.gladiators.push(glad3.id);
+            glad3.save();
+
+            owner.userAcct = user._id;
+            user.owner = owner._id;
+            return owner;
+}
+
 router.post('/users', async (req, res) => {
     // Create a new user
     try {
@@ -18,9 +89,24 @@ router.post('/users', async (req, res) => {
         res.status(400).send(error)
     }
 })
+router.post('/users/createAcct', async(req, res) => {
+    const { username, password, email } = req.body;
+    let userExist = await User.findOne({ username: username });
+    if(userExist){
+        return res.status(401).send({error: 'User already created'}) 
+    }
+    const newUser = await new User( {username,email,password} );
+    console.log(newUser);
+    let newOwner = await createOwner(newUser);
+    await newOwner.save();
+    await newUser.save();
+    const token = await newUser.generateAuthToken();
+    res.send({ newUser, token })
+});
 
 router.post('/users/login', async(req, res) => {
     //Login a registered user
+    
     try {
         const { username, password } = req.body;
         if(!username){
@@ -40,24 +126,66 @@ router.post('/users/login', async(req, res) => {
             
             const glad = await new Gladiator( createNewGladiator() );
             console.log("  -EN> Creating Glad:",glad,owner._id);
-            glad.schedule.push({1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:"tough"});
+            glad.schedule.push(
+                {
+                1:{1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:"tough"},
+                2:{1:"community",2:"woodCarv",3:"hiking",4:"readBook",5:"pray",6:"lookLost",7:"tough",8:"chopWood"},
+                3:{1:"woodCarv",2:"hiking",3:"readBook",4:"pray",5:"lookLost",6:"tough",7:"chopWood",8:"tough"},
+                4:{1:"hiking",2:"readBook",3:"pray",4:"lookLost",5:"tough",6:"chopWood",7:"lookLost",8:"community"},
+                5:{1:"readBook",2:"pray",3:"lookLost",4:"tough",5:"chopWood",6:"pray",7:"community",8:"woodCarv"},
+                6:{1:"pray",2:"lookLost",3:"tough",4:"chopWood",5:"readBook",6:"community",7:"woodCarv",8:"hiking"},
+                7:{1:"lookLost",2:"tough",3:"chopWood",4:"hiking",5:"community",6:"woodCarv",7:"hiking",8:"readBook"},
+                }
+            );
+            
+
+            //glad.schedule.push({1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:"tough"});
+
+            glad.mainHand="shortSword";
             glad.owner = owner._id;
-            owner.gladiators.push(glad);
+            owner.gladiators.push(glad.id);
             glad.save();
 
             const glad2 = await new Gladiator( createNewGladiator() );
-            glad2.schedule.push({8:"chopWood",1:"community",2:"woodCarv",3:"hiking",4:"readBook",5:"pray",6:"lookLost",7:"tough"});
+//            glad2.schedule.push({8:"chopWood",1:"community",2:"woodCarv",3:"hiking",4:"readBook",5:"pray",6:"lookLost",7:"tough"});
+glad2.schedule.push(
+    {
+    1:{1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:"tough"},
+    2:{1:"community",2:"woodCarv",3:"hiking",4:"readBook",5:"pray",6:"lookLost",7:"tough",8:"chopWood"},
+    3:{1:"woodCarv",2:"hiking",3:"readBook",4:"pray",5:"lookLost",6:"tough",7:"chopWood",8:"tough"},
+    4:{1:"hiking",2:"readBook",3:"pray",4:"lookLost",5:"tough",6:"chopWood",7:"lookLost",8:"community"},
+    5:{1:"readBook",2:"pray",3:"lookLost",4:"tough",5:"chopWood",6:"pray",7:"community",8:"woodCarv"},
+    6:{1:"pray",2:"lookLost",3:"tough",4:"chopWood",5:"readBook",6:"community",7:"woodCarv",8:"hiking"},
+    7:{1:"lookLost",2:"tough",3:"chopWood",4:"hiking",5:"community",6:"woodCarv",7:"hiking",8:"readBook"},
+    }
+);
+
             console.log("  -EN> Creating Glad:",glad2);
+            glad2.mainHand="shortSword";
             glad2.owner = owner._id;
-            owner.gladiators.push(glad2);
+            owner.gladiators.push(glad2.id);
 
             glad2.save();
 
             const glad3 = await new Gladiator( createNewGladiator() );
-            glad3.schedule.push({7:"chopWood",8:"community",1:"woodCarv",2:"hiking",3:"readBook",4:"pray",5:"lookLost",6:"tough"});
+           // glad3.schedule.push({7:"chopWood",8:"community",1:"woodCarv",2:"hiking",3:"readBook",4:"pray",5:"lookLost",6:"tough"});
+           glad3.schedule.push(
+            {
+            1:{1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:"tough"},
+            2:{1:"community",2:"woodCarv",3:"hiking",4:"readBook",5:"pray",6:"lookLost",7:"tough",8:"chopWood"},
+            3:{1:"woodCarv",2:"hiking",3:"readBook",4:"pray",5:"lookLost",6:"tough",7:"chopWood",8:"tough"},
+            4:{1:"hiking",2:"readBook",3:"pray",4:"lookLost",5:"tough",6:"chopWood",7:"lookLost",8:"community"},
+            5:{1:"readBook",2:"pray",3:"lookLost",4:"tough",5:"chopWood",6:"pray",7:"community",8:"woodCarv"},
+            6:{1:"pray",2:"lookLost",3:"tough",4:"chopWood",5:"readBook",6:"community",7:"woodCarv",8:"hiking"},
+            7:{1:"lookLost",2:"tough",3:"chopWood",4:"hiking",5:"community",6:"woodCarv",7:"hiking",8:"readBook"},
+            }
+        );
+
             console.log("  -EN> Creating Glad:",glad3);
             glad3.owner = owner._id;
-            owner.gladiators.push(glad3);
+            glad3.mainHand="shortSword";
+
+            owner.gladiators.push(glad3.id);
             glad3.save();
 
             user.owner = owner._id;

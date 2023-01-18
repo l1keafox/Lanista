@@ -6,7 +6,7 @@ db.once("open", async () => {
 		console.log("Starting Restart:");
 		console.log("  > GameDate");
 		await GameDate.deleteMany({});
-        await GameDate.create({day:1,month:1,year:1,time:1  } );
+        await GameDate.create({day:1,month:1,year:1,time:1,weekDay:1  } );
 
 		console.log("  > User");
 		await User.deleteMany({});

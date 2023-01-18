@@ -38,7 +38,7 @@ export default {
     return {
       isLoggedIn: auth.loggedIn(),
       mainStage: "WelcomeMain",
-      userData: auth.getUser(),
+      userData: auth.getUser()
     };
   },
   methods: {
@@ -54,6 +54,7 @@ export default {
   provide() {
     return {
       card:"h-80 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
+      smallCard:"h-64 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
       cardTitle:"text-xl text-sky-400",
       userData:this.userData
     };

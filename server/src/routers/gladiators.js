@@ -1,5 +1,5 @@
 const express = require('express');
-const {User,Owner,Gladiator,DayEvents} = require('../models');
+const {User,Owner,Gladiator,DayEvents,saveDuel} = require('../models');
 const auth = require('../middleware/auth');
 const { getAbilityEffect } = require("./../engine/game/abilityIndex");
 const { doDuel }= require("../engine/game/duel");
@@ -36,11 +36,33 @@ router.post('/gladiator/updateClash', async(req, res) => {
 router.post('/gladiator/doSpar', async(req, res) => {
     let glad = await Gladiator.findOne({ _id: req.body.gladatorId });
     let glad2 = await Gladiator.findOne({ _id: req.body.gladatorId2 });
-    doDuel(glad,glad2);
-    let report = {};
-    res.send(report)
+    if(glad && glad2){
+        let report = await doDuel(glad,glad2);
+
+
+        // Here we save it.
+        let owner = await Owner.findOne({ userAcct: req.body.ownerId });
+        //saveDuel
+        const savedDuel = await new saveDuel({ "gladiatorOne":req.body.gladatorId ,"gladiatorTwo":req.body.gladatorId2 ,duel: JSON.stringify(report) } );
+        //console.log(savedDuel);
+        // owner.history.push(savedDuel);
+        // if(owner.history.length > 10){
+        //     const deleted = owner.history.pop();
+        //     console.log('We should also go through saveDuels and delete this',deleted);
+        // }
+        owner.save();
+        savedDuel.save();
+        res.send(report)
+    } else {
+        res.send({"error":"Glad/Glad2 error"})
+    }
 })
 
+router.post('/gladiator/getDuelHistory', async(req, res) => {
+    let savedDuel = await saveDuel.findOne({ _id: req.body.historyId });
+    // console.log(savedDuel);
+    return(savedDuel);
+});
 
 
 router.post('/gladiator/clashInfo', async(req, res) => {
@@ -62,7 +84,9 @@ router.post('/gladiator/clashInfo', async(req, res) => {
     allAbilities.forEach(abi => {
 //        console.log(getAbilityEffect(abi).type , abi);
         // here we determine if it goes to the unassigned or not.
-        if( getAbilityEffect(abi).type  !== "clash"){
+        if(!getAbilityEffect(abi) ){
+            console.log( `  -> no ${abi} Availbae, needs to be added`);
+        } else if( getAbilityEffect(abi).type  !== "clash"){
             if( !glad[getAbilityEffect(abi).type].includes(abi) ){
 //                console.log( abi , "is not in ",getAbilityEffect(abi).type,glad[getAbilityEffect(abi).type]);
                 if(getAbilityEffect(abi).type  === 'prepare'){
@@ -83,13 +107,23 @@ router.post('/gladiator/clashInfo', async(req, res) => {
     res.send(rtn)
 })
 
-router.post('/gladiator/saveDay', async(req, res) => {
+// router.post('/gladiator/saveDay', async(req, res) => {
+//     let glad = await Gladiator.findOne({ _id: req.body.id });
+    
+//     glad.schedule = [req.body.day];
+//     // So given that this is now an week array we need req.body.weekDay
+//     glad.save();
+//     console.log('  -EN> savingDay',glad.name);
+//     res.send(glad)
+// })
+router.post('/gladiator/saveWeek', async(req, res) => {
     let glad = await Gladiator.findOne({ _id: req.body.id });
-    glad.schedule = [req.body.day];
+    
+    glad.schedule = [req.body.week];
+    // So given that this is now an week array we need req.body.weekDay
     glad.save();
-    console.log('  -EN> savingDay',glad.name);
+    console.log('  -EN> savingWeek',glad.name);
     res.send(glad)
 })
-
 
 module.exports = router

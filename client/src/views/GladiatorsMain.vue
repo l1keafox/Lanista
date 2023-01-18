@@ -5,6 +5,8 @@
         <div v-for="glad in ownerData.gladiators" :key="glad" :class="card"> 
         
         <h1 :class="cardTitle">{{glad.name}} </h1>
+        <h2> Age:{{glad.age}}</h2>
+
         <hr/>
         <button class="bg-yellow-200 m-2 text-purple-900" @click="openModal($event,'ScheduleManager')" :data-id="glad._id">Schedule  </button>
         <button class="bg-blue-200 m-2 text-purple-700"   @click="openModal($event,'GladiatorStats')"  :data-id="glad._id">Stats  </button>
@@ -48,7 +50,19 @@ export default {
     closeModal(){
       this.isModalShown = false;
     },
-
+    async updateOwnerInfo(){
+      const rpnse = await fetch(
+      `http://${window.location.hostname}:3001/owner`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ "id": this.userData._id }),
+      }
+    );
+    let ownerData = await rpnse.json();
+    this.ownerData = ownerData;     
+    console.log('updated info') ;
+    }
 
   },
   components:{
@@ -58,16 +72,8 @@ export default {
     ClashSettings,
   },
   async mounted() {
-    const rpnse = await fetch(
-      `http://${window.location.hostname}:3001/owner`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ "id": this.userData._id }),
-      }
-    );
-    let ownerData = await rpnse.json();
-    this.ownerData = ownerData;
+    this.updateOwnerInfo();
+//    setInterval(this.updateOwnerInfo, 15000);
   },
 };
 </script>

@@ -1,218 +1,323 @@
+const SHOWBATTLE = false;
 const { getAbilityEffect } = require("./abilityIndex");
+const {
+	doEffects,
+	compareEffects,
+	addEffect,
+} = require("./Abilities/abilityEffects");
 const { getItemEffect } = require("./itemsIndex");
+function returnPreparedGladiator(gladiator) {
+	// gladiator prep stuff.
+	gladiator.setSkills();
 
-function clashPrepare(user,target) {
-    // for (let aPrepare of user.prepArray) {
-    //   if (aPrepare.cooldown) continue;
-    //   aPrepare.forClash(user, target);
-    // }
-  }
-  function clashReact(clashResult,user,target) {
-    // console.log("getting clashReSULt for,", this.name, "is", clashResult);
-    // for (let aReaction of this.reactArray) {
-    //   if (aReaction.cooldown) continue;
-    //   aReaction.doClash(clashResult, this, opponant);
-    // }
-  }
-  function endOfRound() {
-    // for (let aReaction of this.reactArray) {
-    //   if (aReaction.cooldown) aReaction.cooldown--;
-    // }
-    // for (let thisGuy of this.prepArray) {
-    //   if (thisGuy.cooldown) thisGuy.cooldown--;
-    // }
-  }
+	let newGladObj = {};
+	newGladObj.maxHits = gladiator.hits;
+	newGladObj.maxMana = gladiator.mana;
+	newGladObj.maxMorale = gladiator.morale;
+	newGladObj.hits = gladiator.hits;
+	newGladObj.mana = gladiator.mana;
+	newGladObj.morale = gladiator.morale;
+	newGladObj.strength = gladiator.strength;
+	newGladObj.dexterity = gladiator.dexterity;
+	newGladObj.agility = gladiator.agility;
+	newGladObj.constitution = gladiator.constitution;
+	newGladObj.vitality = gladiator.vitality;
+	newGladObj.intelligence = gladiator.intelligence;
+	newGladObj.wisdom = gladiator.wisdom;
+	newGladObj.bravery = gladiator.bravery;
+	newGladObj.piety = gladiator.piety;
+	newGladObj.sensitivity = gladiator.sensitivity;
+	newGladObj.charisma = gladiator.charisma;
+	newGladObj.luck = gladiator.luck;
+	newGladObj.reputation = gladiator.reputation;
+	newGladObj.name = gladiator.name;
+	newGladObj._id = gladiator._id;
 
-  class Clash {
-    battle(oneChar, twoChar) {
-      // Clash Arrays
-      // This will return a clash type instead of array
-      const oneClash = oneChar.getClash();
-      const twoClash = twoChar.getClash();
-        console.log(oneClash.abilityName,twoClash.abilityName);
-      // Do action and get results
-       oneChar.doAction(oneClash, twoChar);
-       twoChar.doAction(twoClash, oneChar);
+	// Here we will go through items and adjust stats based on items.
+	const slots = ["mainHand","offHand","head","body","boots"];
+	slots.forEach(slot =>{
+		if (gladiator[slot] !== null){
+			let item = getItemEffect( gladiator[slot]);
+			if(!item && gladiator[slot]){
+				console.log(' Error no item return', gladiator[slot]);
+			} else if(item &&  item.stats ){
+				for(let stat in item.stats){
+					console.log(stat,"b4:",newGladObj[stat]);
+					newGladObj[stat] = newGladObj[stat] +=  newGladObj[stat] * ( item.stats[stat] * 0.01 );
+					console.log(stat,"after:",newGladObj[stat]);
+				}
+			}
+		}
+	} )
 
-      const EventResults = {};
-  
-      // Determine win condidtion
-      const oneWinPoints = oneClash.winCondition(oneChar, twoChar); // win condidtions also do the effects too.
-      const twoWinPoints = twoClash.winCondition(twoChar, oneChar); // win condidtions also do the effects too.
+	newGladObj.prepare = gladiator.prepare.map((skill) =>
+		getAbilityEffect(skill)
+	);
+	newGladObj.react = gladiator.react.map((skill) => getAbilityEffect(skill));
+	newGladObj.effectToDo = {};
 
+	newGladObj.clash = gladiator.abilities
+		.concat(gladiator.skills)
+		.map((skill) => {
+			const effect = getAbilityEffect(skill);
+			if(!effect){
+				console.log(' No effect for ',skill);
+			}
+			 else if (effect.type === "clash") {
+				return effect;
+			}
+		})
+		.filter((notUndefined) => notUndefined !== undefined);
 
-      // Determine winner
-       const difference = Math.abs(oneWinPoints - twoWinPoints);
-  
-       console.log("  =>1:", oneWinPoints, "2:", twoWinPoints, difference);
-      if (difference < 20) {
-        EventResults.clashWinner = null; // tie
-      } else if (oneWinPoints > twoWinPoints) {
-        EventResults.clashWinner = oneChar;
-        EventResults.clashLoser = twoChar;
-      } else {
-        EventResults.clashWinner = twoChar;
-        EventResults.clashLoser = oneChar;
-      }
-      
-      // Do effects
-       twoChar.doEffects();
-       oneChar.doEffects();
-      return EventResults;
-    }
-  }
+	// Prototypes for clashing
 
-  function returnPreparedGladiator(gladiator){
-    let rtnGlad ={};
-    rtnGlad.maxHits = gladiator.hits;
-    rtnGlad.maxMana = gladiator.mana;
-    rtnGlad.maxMorale = gladiator.morale;
-    rtnGlad.hits = gladiator.hits
-    rtnGlad.mana = gladiator.mana
-    rtnGlad.morale = gladiator.morale
-    rtnGlad.strength  = gladiator.strength
-    rtnGlad.dexterity  = gladiator.dexterity
-    rtnGlad.agility  = gladiator.agility
-    rtnGlad.constitution  = gladiator.constitution
-    rtnGlad.vitality  = gladiator.vitality
-    rtnGlad.intelligence  = gladiator.intelligence
-    rtnGlad.wisdom  = gladiator.wisdom
-    rtnGlad.bravery  = gladiator.bravery
-    rtnGlad.piety  = gladiator.piety
-    rtnGlad.sensitivity  = gladiator.sensitivity
-    rtnGlad.charisma  = gladiator.charisma
-    rtnGlad.luck  = gladiator.luck
-    rtnGlad.name  = gladiator.name
-    rtnGlad._id  = gladiator._id
-    // need to create clash array;
-    // need to create max hits/mana/morale
-    rtnGlad.prepare = gladiator.prepare.map(skill => getAbilityEffect(skill) )
-    rtnGlad.react = gladiator.react.map(skill => getAbilityEffect(skill) )
+	newGladObj.getClash = function () {
+		return newGladObj.clash[
+			Math.floor(Math.random() * newGladObj.clash.length)
+		];
+	};
+	newGladObj.doAction = function (Ability, targetChar) {
+		if (SHOWBATTLE)
+			console.log(
+				"  =EN/DUEL/ATTK>",
+				Ability.abilityName,
+				this.name,
+				"is the character attacking doing effect",
 
-    gladiator.setSkills();
+				"too target",
+				targetChar.name
+			);
+		return Ability.doAbility(this, targetChar);
+	};
+	newGladObj.abilityMix = function (statObj){
+		// input is
+		// num is an whole num * .01;
+		// { "stat":num, }
+		let total = 0;
+		for(let stat in statObj){
+		  if(statObj[stat] > 1){
+			statObj[stat] = statObj[stat] * 0.01;
+		  }
+		  total += this[stat] * [statObj[stat]];
+		}
+		return total;
+	  }
+	  
 
-    rtnGlad.clash = gladiator.abilities.concat( gladiator.skills ).map(skill => {
-        const effect = getAbilityEffect(skill);
-        if(effect.type === 'clash'){
-            return effect;
-        }
-    }).filter(notUndefined => notUndefined !== undefined) ;
+	newGladObj.addEffect = function (effectName, effectStr) {
+		addEffect(this, effectName, effectStr);
+	};
+	newGladObj.endOfRound = function () {
+		for (let aReaction of this.react) {
+			if (aReaction.cooldown) {
+				console.log(aReaction.abilityName, aReaction.cooldown,this.name)
+				aReaction.cooldown--;
+			}
+		}
+		for (let thisGuy of this.prepare) {
+			if (thisGuy.cooldown) thisGuy.cooldown--;
+		}
+	};
+	newGladObj.clashPrepare = function (target) {
+		for (let aPrepare of this.prepare) {
+			if (aPrepare.cooldown) continue;
+			aPrepare.forClash(this, target);
+		}
+	};
 
-    rtnGlad.getClash = function (){
-        return rtnGlad.clash [ Math.floor(Math.random()* rtnGlad.clash.length ) ];
-    };
-    rtnGlad.doAction = function(Ability, targetChar) {
-        console.log("  =EN/DUEL/ATTK>",
-          this.name,
-          "is the character attacking doing effect",
-          Ability.abilityName,
-          "too target",
-          targetChar.name
-        );
-        Ability.doAbility(this, targetChar);
-      }
-    
-      rtnGlad.addEffect = function (effectName, effectStr) {
-        if (!this.effectToDo) {
-          this.effectToDo = {};
-        }
-        if (this.effectToDo[effectName]) {
-          this.effectToDo[effectName] += effectStr;
-        } else {
-          this.effectToDo[effectName] = effectStr;
-        }
-      }
-      rtnGlad.doEffects  = function() {
-        // This is called after the clash to see what changes in this charater.
-        for (let effect in this.effectToDo) {
-          let num = this.effectToDo[effect];
-          switch (effect) {
-            case "takeDamage":
-            case "damageTake":
-              this.hits -= this.effectToDo[effect];
-              break;
-            case "taunted":
-              this.morale -= this.effectToDo[effect];
-              break;
-          }
-        }
-        this.effectToDo = {};
-      }
-      rtnGlad.endOfRound =function() {
-        for (let aReaction of this.react) {
-          if (aReaction.cooldown) aReaction.cooldown--;
-        }
-        for (let thisGuy of this.prepare) {
-          if (thisGuy.cooldown) thisGuy.cooldown--;
-        }
-      }
-      rtnGlad.clashPrepare = function (opponant) {
-        for (let aPrepare of this.prepare) {
-          if (aPrepare.cooldown) continue;
-          aPrepare.forClash(this, opponant);
-        }
-      }
-    
-      rtnGlad.clashReact = function (clashResult, opponant) {
-        console.log("getting clashReSULt for,", this.name, "is", clashResult);
-        for (let aReaction of this.react) {
-          if (aReaction.cooldown) continue;
-          aReaction.doClash(clashResult, this, opponant);
-        }
-      }
-    return rtnGlad;
-  }
+	newGladObj.clashReact = function ( target) {
+		console.log("  -En/DUEL>getting clashReSULt for,", this.name, "is",this.clashResult,"abilityWanted:",this.clashAbility,"Is effects",this.effectToDo);
+		for (let aReaction of this.react) {
+			
+			if (aReaction.cooldown) {
+//				console.log(aReaction)
+				continue;
+			}
+//			console.log(aReaction.cooldown , aReaction.maxCooldown)
+			//aReaction.cooldown = aReaction.maxCooldown;
+//			console.log("REACT ABILITY",aReaction)
+			return aReaction.doClash(this, target);
+		}
+	};
+	return newGladObj;
+}
+class Clash {
+	battle(oneChar, twoChar) {
+		// Clash Arrays
+		// This will return a clash type instead of array
+		const oneClash = oneChar.getClash();
+		const twoClash = twoChar.getClash();
+		oneChar.clashAbility = oneClash.abilityName;
+		twoChar.clashAbility = twoClash.abilityName;
+		// Do action and get results
+		const oneEffect = oneChar.doAction(oneClash, twoChar);
+		const twoEffect = twoChar.doAction(twoClash, oneChar);
 
-async function doDuel(one,two){
+		const EventResults = {};
+		// Here we need to cancel out effects based on actions
+		// dodge cancels out damage
+		compareEffects(oneChar, twoChar);
+		compareEffects(twoChar, oneChar);
 
-    // Import things to note - we need it recorded so we can send it back to the users.
-    // So, let's take the glads and rebuild the game object for a one time use. 
-    let gladOne = returnPreparedGladiator(one);
-    let gladTwo = returnPreparedGladiator(two);
-    console.log("  -EN/Duel> ",gladOne.name,gladTwo.name);
+		// Determine win condidtion
+		const oneWinPoints = oneClash.winCondition(oneChar, twoChar); // win condidtions also do the effects too.
+		const twoWinPoints = twoClash.winCondition(twoChar, oneChar); // win condidtions also do the effects too.
 
-let roundCnt = 0;
-do{
-    roundCnt++;
-    console.log(`  -EN/Duel>___________________________PRE:${roundCnt}_________________________________`);
-    // Do prepare
-    gladOne.clashPrepare(gladTwo);
-    gladTwo.clashPrepare(gladOne);
-    console.log(`  -EN/Duel>___________________________CLASH:${roundCnt}_______________________________`);
-    // doClash clash returns result 
-    let thisClash = new Clash().battle(gladOne, gladTwo);
-    console.log(`  -EN/Duel>___________________________REACT:${roundCnt}_______________________________`);
+		// Determine winner
+		const difference = Math.abs(oneWinPoints - twoWinPoints);
 
+		let tieLine = (oneWinPoints + twoWinPoints) * 0.5 * 0.1;
+		//console.log(`  =>${oneChar.name}: ${oneWinPoints}, ${twoChar.name}: ${twoWinPoints} =  ${difference} TIELINE:${tieLine}`);
+		if (difference < tieLine) {
+			EventResults.clashWinner = null; // tie
+		} else if (oneWinPoints > twoWinPoints) {
+			EventResults.clashWinner = oneChar;
+			EventResults.clashLoser = twoChar;
+		} else {
+			EventResults.clashWinner = twoChar;
+			EventResults.clashLoser = oneChar;
+		}
+		// if(EventResults.clashWinner){
+		// 	console.log(`  -EN/DUEL>Winner is: ${EventResults.clashWinner.name} w/ ${oneClash.abilityName}, Loser is : ${EventResults.clashLoser.name} w ${twoClash.abilityName}`)
+		// } else {
+		// 	console.log(`  -EN/DUEL>TIE is: ${oneChar.name} w/ ${oneClash.abilityName}, TIE is : ${twoChar.name} w ${twoClash.abilityName}`)
+		// }
+		EventResults.report = {};
+		EventResults.report[oneChar.name] = {
+			"winPoints": oneWinPoints,
+			"clashAbility": oneClash.abilityName,
+			"effect": oneEffect
+		};
+		EventResults.report[twoChar.name] = {
+			"winPoints": twoWinPoints,
+			"clashAbility": twoClash.abilityName,
+			"effect": twoEffect
+		};
 
-    // Do  react
-if (!thisClash.clashWinner) {
-    console.log("TIE");
-    gladOne.clashReact('tie', gladTwo);
-    gladTwo.clashReact('tie', gladOne);
-  } else {
-    thisClash.clashWinner.clashReact('win', thisClash.clashLoser);
-    thisClash.clashLoser.clashReact('lose', thisClash.clashWinner);
-  }
-
-    // see if it's tie, 
-    // if it's not then do winner loser reacts
-
-
-    // Do end of round cooldown reduction
-    gladOne.endOfRound(); //
-    gladTwo.endOfRound(); //
-
-    console.log( gladOne.name,"    vs     ",gladTwo.name);
-    console.log("HP:",gladOne.hits,"/",gladOne.maxHits + "    HP:" + gladTwo.hits,"/",gladTwo.maxHits);
-    console.log("Morale:",gladOne.morale + "     Morale:" + gladTwo.morale);
-
-    
-}while(1==2)
-console.log('finished');
-// while(gladOne.hitPoints > 0 &&
-//     gladTwo.hitPoints > 0 &&
-//     gladOne.morale > 0 &&
-//     gladTwo.morale > 0)
+		return EventResults;
+	}
 }
 
-module.exports = {doDuel}
+async function doDuel(one, two) {
+	// Import things to note - we need it recorded so we can send it back to the users.
+	// So, let's take the glads and rebuild the game object for a one time use.
+	// Most things should return a report? Or should we pass the report to it so it can use it?
+	const startOfTick = new Date();
+
+	let report = {};
+	let gladOne = returnPreparedGladiator(one);
+	let gladTwo = returnPreparedGladiator(two);
+	if (SHOWBATTLE) console.log("  -EN/Duel> ", gladOne.name, "Vs", gladTwo.name);
+
+	let roundCnt = 0;
+	do {
+		console.log("NEW ROUND -------------------------------")
+		let roundReport = {};
+		roundReport[gladOne.name] = {};
+		roundReport[gladTwo.name] = {};
+		//		let oneReport = {}; // each gladiator will have different reports
+		//		let twoReport = {};
+		roundCnt++;
+		if (SHOWBATTLE)
+			console.log(
+				`  -EN/Duel>___________________________PRE:${roundCnt}_________________________________`
+			);
+		// Do prepare
+		gladOne.clashPrepare(gladTwo);
+		gladTwo.clashPrepare(gladOne);
+
+		// We do effects twice, once before the clash clears it out.
+		// Do we compare effects again here? in general prepare shouldn't be about
+		// doding, and if it is, it's more enhancing existing clash abilities.
+		// doEffects(gladOne);
+		// doEffects(gladTwo);
+
+		if (SHOWBATTLE)
+			console.log(
+				`  -EN/Duel>___________________________CLASH:${roundCnt}_______________________________`
+			);
+		// doClash clash returns result
+		let thisClash = new Clash().battle(gladOne, gladTwo);
+		if (SHOWBATTLE)
+			console.log(
+				`  -EN/Duel>___________________________REACT:${roundCnt}_______________________________`
+			);
+		//console.log( thisClash.report );
+		roundReport[gladOne.name].clash = thisClash.report[gladOne.name];
+		roundReport[gladTwo.name].clash = thisClash.report[gladTwo.name];
+		// Do  react
+		if (!thisClash.clashWinner) {
+			if (SHOWBATTLE) console.log("  -EN/Duel>   TIE");
+			gladTwo.clashResult = "tie";
+			gladOne.clashResult = "tie";
+			roundReport[gladOne.name].react = gladOne.clashReact(gladTwo);
+			roundReport[gladTwo.name].react = gladTwo.clashReact(gladOne);
+			roundReport.clashResult = { result: "tie", winner: null };
+		} else {
+			thisClash.clashWinner.clashResult = "win";
+			thisClash.clashLoser.clashResult = "lose";
+			roundReport[thisClash.clashWinner.name].react =  thisClash.clashWinner.clashReact( thisClash.clashLoser);
+			roundReport[thisClash.clashLoser.name].react = thisClash.clashLoser.clashReact(thisClash.clashWinner);
+
+			roundReport.clashResult = {
+				result: "win",
+				winner: thisClash.clashWinner.name,
+			};
+
+		}
+
+		// Do effects after the clash and before end of round.
+		const reportEffectOne = doEffects(gladOne);
+		const reportEffectTwo = doEffects(gladTwo);
+		roundReport[gladOne.name].effect = reportEffectOne;
+		roundReport[gladTwo.name].effect = reportEffectTwo;
+		// Do end of round cooldown reduction, and resets skills if needed.
+		gladOne.endOfRound(); //
+		gladTwo.endOfRound(); //
+
+		if (SHOWBATTLE)
+			console.log(`  -EN/Duel> ${gladOne.name}     vs     ${gladTwo.name}`);
+		if (SHOWBATTLE)
+			console.log(
+				"  -EN/Duel> HP:",
+				gladOne.hits,
+				"/",
+				gladOne.maxHits + "    HP:" + gladTwo.hits,
+				"/",
+				gladTwo.maxHits
+			);
+		if (SHOWBATTLE)
+			console.log(
+				"  -EN/Duel> Morale:",
+				gladOne.morale + "     Morale:" + gladTwo.morale
+			);
+
+		report[roundCnt] = roundReport;
+		report.maxRound = roundCnt;
+	} while (
+		gladOne.hits > 0 &&
+		gladTwo.hits > 0 &&
+		gladOne.morale > 0 &&
+		gladTwo.morale > 0
+	);
+
+	report.final = {};
+	if (!gladOne.hits || gladOne.morale) {
+		report.final.winner = gladTwo.name;
+	} else {
+		report.final.winner = gladOne.name;
+	}
+	report.final[gladOne.name] = {
+		hits: gladOne.hits,
+		morale: gladOne.morale,
+	};
+	report.final[gladTwo.name] = {
+		hits: gladTwo.hits,
+		morale: gladTwo.morale,
+	};
+
+	console.log(`  -EN> Game DUEL : ${gladOne.name} Vs ${gladTwo.name} TIME: ${new Date() - startOfTick}ms Winner:${report.final.winner} `);
+	return report;
+}
+
+module.exports = { doDuel };
