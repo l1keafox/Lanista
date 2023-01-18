@@ -110,6 +110,7 @@ function returnPreparedGladiator(gladiator) {
 	newGladObj.endOfRound = function () {
 		for (let aReaction of this.react) {
 			if (aReaction.cooldown) {
+				console.log(aReaction.abilityName, aReaction.cooldown,this.name)
 				aReaction.cooldown--;
 			}
 		}
@@ -127,6 +128,7 @@ function returnPreparedGladiator(gladiator) {
 	newGladObj.clashReact = function ( target) {
 		console.log("  -En/DUEL>getting clashReSULt for,", this.name, "is",this.clashResult,"abilityWanted:",this.clashAbility,"Is effects",this.effectToDo);
 		for (let aReaction of this.react) {
+			
 			if (aReaction.cooldown) {
 //				console.log(aReaction)
 				continue;
@@ -209,6 +211,7 @@ async function doDuel(one, two) {
 
 	let roundCnt = 0;
 	do {
+		console.log("NEW ROUND -------------------------------")
 		let roundReport = {};
 		roundReport[gladOne.name] = {};
 		roundReport[gladTwo.name] = {};

@@ -27,5 +27,14 @@ const abilityObj = {
 function getAbilityEffect(skillName) {
   return abilityObj[skillName];
 }
+async function doLearn(gladiator,skillName){
+  const newSkill = abilityObj[skillName];
+  console.log(gladiator.name,"learning",skillName,newSkill.learnSpeed,gladiator.learning);
+  if(gladiator.learning === undefined){
+    gladiator.learning = 0;
+  }
+  gladiator.learning+=newSkill.learnSpeed;
+  await gladiator.save();
+}
 
-module.exports = { getAbilityEffect };
+module.exports = { getAbilityEffect ,doLearn };

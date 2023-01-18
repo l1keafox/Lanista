@@ -5,6 +5,10 @@
   },
   "weightRoom":{
     "description":"Provides an better way to gain strength.",
-    "training":[]
+    "training":["weights"]
+  },
+  "altar":{
+    "description":"Can learn Heal from the gods.",
+    "learning":["heal"]
   }
 }

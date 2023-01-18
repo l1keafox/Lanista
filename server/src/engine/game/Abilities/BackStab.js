@@ -4,11 +4,11 @@ module.exports = {
     cooldown:0,
     maxCooldown:7,
     resultWanted:'win',
-    //abilityWanted:'dodge',
-    effectWanted:'missChance',
+    abilityWanted:'dodge',
+    //effectWanted:'missChance',
     doClash(caster, target) {
-        console.log(' BACK STAB ',caster.effectToDo );
-      if (caster.clashResult === this.resultWanted  && caster.effectToDo.missChance ) {
+        console.log(' BACK STAB wants to win a dodge clash.',caster.effectToDo );
+      if (caster.clashResult === this.resultWanted  && caster.clashAbility === "dodge" ) {
         
         //caster.hits++;
         target.hits -= 10;

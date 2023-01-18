@@ -35,6 +35,11 @@
 										:key="index">
 										<option value="index">{{ training }}</option>
 									</template>
+									<template
+										v-for="(learning, index) in learningData"
+										:key="index*2">
+										<option value="index"  class="bg-red-100 schedule">{{ learning }}</option>
+									</template>
 								</select>
 							</div>
 						</div>
@@ -100,6 +105,7 @@ export default {
 			gladiatorData: null,
 			userData: auth.getUser(),
 			trainingData: null,
+			learningData:null,
 			daySelected: 0,
 			daysOfWeek: ["One", "Two", "Three", "Four", "Five", "Six", "Seven"],
 		};
@@ -172,7 +178,7 @@ export default {
 			}
 		);
 		this.gladiatorData = await rpnse.json();
-    console.log(this.gladiatorData.schedule);
+    
 
 		const training = await fetch(
 			`http://${window.location.hostname}:3001/owner/training`,
@@ -184,6 +190,18 @@ export default {
 		);
 		const trainingData = await training.json();
 		this.trainingData = trainingData;
+
+		const learning = await fetch(
+			`http://${window.location.hostname}:3001/owner/learning`,
+			{
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ "id": this.userData._id }),
+			}
+		);
+		const learningData = await learning.json();
+		this.learningData = learningData;
+			console.log(learningData);
 	},
 };
 </script>

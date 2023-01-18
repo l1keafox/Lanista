@@ -18,6 +18,7 @@ const ownerSchema = new Schema(
         },
         structures:[],
         training:[],
+        learning:[],
 		gladiators:[      {
             type: Schema.Types.ObjectId,
             ref: "gladiator"
@@ -38,11 +39,24 @@ const ownerSchema = new Schema(
 ownerSchema.methods.getTraining = async function() {
     // This will look at structures available and update training array and return that.
     this.training = this.structures.map( struct =>{
-        return getStructureEffect(struct).training;
-    } );
+        if(getStructureEffect(struct).training){
+            return getStructureEffect(struct).training;
+        } 
+    } ).filter((notUndefined) => notUndefined !== undefined);
     this.training = this.training.flat();
     await this.save();
     return this.training;
+}
+ownerSchema.methods.getLearning = async function() {
+    // This will look at structures available and update learning array and return that.
+    this.learning = this.structures.map( struct =>{
+        if(getStructureEffect(struct).learning){
+            return getStructureEffect(struct).learning;
+        } 
+    } ).filter((notUndefined) => notUndefined !== undefined);
+    this.learning = this.learning.flat();
+    await this.save();
+    return this.learning;
 }
 
 const Owner = model("owner", ownerSchema);
