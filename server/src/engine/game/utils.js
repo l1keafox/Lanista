@@ -87,7 +87,7 @@ function createNewGladiator() {
       luck:rollDice(35,55),
       reputation:rollDice(35,55),
 
-      skills:["dodge","taunt","quickSlash","heal"],
+      skills:["dodge","taunt","quickSlash"],
       
   };
 }

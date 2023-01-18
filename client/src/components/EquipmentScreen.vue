@@ -124,7 +124,6 @@ export default {
         return ele !== undefined
       });
 
-      console.log(equipObj);
       if(equipObj.length){
         await fetch(
         `http://${window.location.hostname}:3001/owner/removeItems`,
