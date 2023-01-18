@@ -19,8 +19,8 @@
 
     <hr />
     <h1>Structures:</h1>
-    <div v-if="structData">
-      <div v-for="(struct, index) in structData" :key="struct" :class="card">
+    <div v-if="structData"  class="flex">
+      <div v-for="(struct, index) in structData" :key="struct" :class="smallCard">
         <h1 :class="cardTitle">{{ struct.type }}</h1>
         <hr />
 

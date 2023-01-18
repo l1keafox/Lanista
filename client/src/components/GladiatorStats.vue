@@ -22,13 +22,13 @@
                       <h2>hits:{{gladiatorData.hits}}</h2>
                       <h2>mana:{{gladiatorData.mana}} </h2>
                       <h2>morale:{{gladiatorData.morale}} </h2>
-                      <h2>stress:{{gladiatorData.stress}}</h2>
-                      <h2>stamina:{{gladiatorData.stamina}}</h2>
+                      <!-- <h2>stress:{{gladiatorData.stress}}</h2>
+                      <h2>stamina:{{gladiatorData.stamina}}</h2> -->
                     </div>
                     <div class="flex p-2 flex-col h-48 w-48 bg-green-800">
                       <h1> Record </h1>
                       <h2> Age: {{ gladiatorData.age }} </h2>
-                      <h2> Exp: {{ gladiatorData.exp }} </h2>
+                      <!-- <h2> Exp: {{ gladiatorData.exp }} </h2> -->
                       <h2> Level: {{ gladiatorData.level }} </h2>
                       <h2> Wins: {{ gladiatorData.winRecord }} </h2>
                       <h2> Losses: {{ gladiatorData.loseRecord }} </h2>

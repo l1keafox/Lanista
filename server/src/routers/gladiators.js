@@ -126,4 +126,29 @@ router.post('/gladiator/saveWeek', async(req, res) => {
     res.send(glad)
 })
 
+router.post('/gladiator/saveLearning', async(req, res) => {
+    let glad = await Gladiator.findOne({ _id: req.body.id });
+    
+    glad.learnSkill = [req.body.skill];
+    glad.taskSkill = [req.body.task];
+
+    if(!glad.progressSkill){
+        let newProgressSkillObj = {};
+        newProgressSkillObj[req.body.skill] = 0;
+        glad.progressSkill  = JSON.stringify(newProgressSkillObj)
+    } else {
+        let progress = JSON.parse(glad.progressSkill);
+        if(progress[req.body.skill] === undefined){
+            progress[req.body.skill] = 0;
+        }
+        glad.progressSkill  = JSON.stringify(progress)
+    }
+    
+    // So given that this is now an week array we need req.body.weekDay
+    glad.save();
+    console.log('  -EN> SaveLearning',glad.name);
+    res.send(glad)
+})
+
+
 module.exports = router

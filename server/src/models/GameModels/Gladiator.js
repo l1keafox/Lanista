@@ -44,14 +44,17 @@ const gladiatorSchema = new Schema(
             type:Number
         },
 
-        learning:{
-            type:Number
-        },
-        afterLearning:{
+
+        // The following three arrays are linked, learnSkill is the skill learned
+        // task Skill is what is replaced
+        // Progress Skill is going to be a string that needs to be JSON/Strinify so it tracks
+        // how much each skill is being progressed.
+        learnSkill:[], 
+        
+        taskSkill:[],
+        progressSkill:{
             type:String
         },
-
-
 
         // Character Points Stats
         hits:{ // Physical Hit points

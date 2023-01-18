@@ -59,9 +59,6 @@ function growthPenality(gladiator, amnt, stat) {
 
 async function doGrowth(gladiator, training) {
 	let rtnGrowth = [];
-  if(!trainingObj[training]){
-    return null;
-  } else 
 	if (trainingObj[training]) {
 		Object.keys(trainingObj[training]).forEach((stat) => {
 			let growthAmnt;
