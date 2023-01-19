@@ -1,13 +1,5 @@
 <template>
   <div>
-    <h1>PROFILE PAGE</h1>
-    <hr/>
-    <h2>Username:  {{ userData.username }}</h2>
-    <div v-if="ownerData">
-      <h2>GOLD: {{ ownerData.gold }}</h2>
-      <h2>FAME: {{ ownerData.fame }}</h2>
-    </div>
-    <hr/>
     <div v-if="inventory">
       <h1>Inventory</h1>
       <div  class = "flex">

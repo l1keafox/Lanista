@@ -7,11 +7,24 @@
     <button class="m-2 cursor-pointer sideOptions" @click="showCreateAcct" :key="isLoggedIn"> Create Account </button>
   </div>
   <div v-else>
+
+    <div :class="smallCard"> 
+      <template v-if="userData">
+      <h2>Username:  {{ userData.username }}</h2>
+      </template>
+      <hr/>
+      <div v-if="ownerData">
+        <h2>GOLD: {{ ownerData.gold }}</h2>
+        <h2>FAME: {{ ownerData.fame }}</h2>
+      </div>
+      <hr/>
+  
+    </div>
     <div class="m-2 cursor-pointer sideOptions" @click="doLogOut">Logout</div>
-    <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','ProfileMain')" >Profile</div>
+    <!-- <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','ProfileMain')" >Profile</div> -->
     <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','GladiatorsMain')" >Gladiators</div>
-    <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','StructuresMain')" >Structures</div>
-    <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','TrainingMain')" >Training</div>
+    <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','StructuresMain')" >School</div>
+    <!-- <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','TrainingMain')" >Training</div> -->
     <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','CombatMain')" >Combat</div>
     <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','StoreMain')" >Store</div>
     
@@ -34,10 +47,12 @@ import CreateAccount from "./CreateAccount.vue";
 
 export default {
   name: "SideNav",
-  
+  inject: ["card", "cardTitle","smallCard"],
   data() {
     return {
       showLoginModal: false,
+      ownerData: null,
+      userData: auth.getUser(),
       showCreateModal: false,
       isLoggedIn: auth.loggedIn(),
     };
@@ -46,7 +61,21 @@ export default {
     LoginVue,
     CreateAccount
   },
-  mounted() {},
+  async mounted() {
+    if(this.isLoggedIn){
+    const rpnse = await fetch(
+      `http://${window.location.hostname}:3001/owner`,
+      {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ "id": auth.getUser()._id}),
+        }      
+    );
+    let ownerData = await rpnse.json();
+    this.ownerData =  ownerData;
+
+      }
+  },
   emits: ['logged','changeMain'],
   methods: {
     async doLogOut(){
