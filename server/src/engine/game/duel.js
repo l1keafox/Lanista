@@ -148,21 +148,21 @@ async function saveMemory(gladiator){
 		memory = JSON.stringify( memory );
 	let age = gladiator.age;
 	const gMemory = await new Memory( {name,level,age,memory } );	
+	console.log(`  -> SAVING GLAD ${name} age:${age} level:${level}`)
 	gMemory.save();
 }
 
-async function doDuel(one, two) {
+async function doDuel(gladOne, gladTwo) {
 	// Import things to note - we need it recorded so we can send it back to the users.
 	// So, let's take the glads and rebuild the game object for a one time use.
 	// Most things should return a report? Or should we pass the report to it so it can use it?
 	const startOfTick = new Date();
-
 	let report = {};
-	let gladOne = await returnPreparedGladiator(one);
-	let gladTwo = await returnPreparedGladiator(two);
+//	let gladOne = await returnPreparedGladiator(one);
+//	let gladTwo = await returnPreparedGladiator(two);
 	
-	saveMemory(one);
-	saveMemory(two);
+	//saveMemory(one);
+	//saveMemory(two);
 
 	if (SHOWBATTLE) console.log("  -EN/Duel> ", gladOne.name, "Vs", gladTwo.name);
 
@@ -277,4 +277,4 @@ async function doDuel(one, two) {
 	return report;
 }
 
-module.exports = { doDuel };
+module.exports = { doDuel ,returnPreparedGladiator , saveMemory };
