@@ -14,7 +14,7 @@ module.exports = {
 	doTick: async function () {
 		let gameDate = await GameDate.find();
 		gameDate = gameDate[0]; // Because there should only be 1 gameDate ever!;
-		await gameDate.addTime();
+		await gameDate.addTick();
 		date = {
 			time: gameDate.time,
 			day: gameDate.day,
@@ -27,8 +27,9 @@ module.exports = {
 		// So, Tournament days just do not have gladiator growth, all gladiators are required to do this
 		// Why not have it optional?
 		let allGladiators = await Gladiator.find();
+		let ownersGain = {};
 
-		if (date.weekDay == 7 && date.time == 1) {
+		if (date.weekDay == 7 ) {
 			console.log("Tournament Day");
 			console.log("Tournament Day");
 			console.log("Tournament Day");
@@ -50,21 +51,13 @@ module.exports = {
 				// So we grab all gladiators that are selected via schedule to do this tournament.
 				// We will then make sure they do not do any training that day.
 			}
-			
-			// if (date.time === 8) {
+
+			await gameDate.addDay(); // This will set it to the next day.
+
 			// 	gladiator.age++;
-			// 	if(gladiator.age > 2000000){
-			// 		console.log(" FORWARD THINKING AGE, add more memoriy arries or not!");
-			// 	}
-			// 	gladiator.doLevel();
-			// }
-			// //
 			// gladiator.save();			
-		}
-		let ownersGain = {};
-		await allGladiators.forEach(async (gladiator) => {
-
-
+		} else {
+			await allGladiators.forEach(async (gladiator) => {
 //			console.log(gladiator.schedule[0][date.weekDay][date.time], gladiator.name,"learning",gladiator.learnSkill,gladiator.taskSkill,gladiator.progressSkill);
 			// before we do growth we need to check too see if this is current a skill replacement.
 			if(gladiator.taskSkill[0] ==  gladiator.schedule[0][date.weekDay][date.time] )			{
@@ -123,7 +116,8 @@ module.exports = {
 			}
 			//
 			gladiator.save();
-		});
+			});
+		}
 
 		const keys = Object.keys(ownersGain);
 		const myPromise = new Promise((resolve, reject) => {

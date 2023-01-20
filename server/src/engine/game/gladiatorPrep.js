@@ -31,7 +31,7 @@ function setupClash(glad){
     .map((skill) => {
         const effect = getAbilityEffect(skill);
         if(!effect){
-            console.log(' No effect for ',skill);
+            console.log('  -ERROR>   No effect for ',skill);
         }
          else if (effect.type === "clash") {
             return effect;

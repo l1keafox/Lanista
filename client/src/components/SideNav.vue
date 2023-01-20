@@ -83,7 +83,7 @@ export default {
         this.$emit('logged');
     },
     async createAcct({username,password,email}){
-      console.log('trying create');
+//      console.log('trying create');
       if(!username || !password || !email){
         this.showCreateModal = false;
         return;
@@ -113,7 +113,7 @@ export default {
         this.showLoginModal = false;
         return;
       }
-      console.log("Trying login", username, password);
+//      console.log("Trying login", username, password);
       const rpnse = await fetch(
         `http://${window.location.hostname}:3001/users/login`,
         {
@@ -138,11 +138,11 @@ export default {
     },
     showLogin() {
       this.showLoginModal = !this.showLoginModal;
-      console.log(this.showLoginModal);
+//      console.log(this.showLoginModal);
     },
     showCreateAcct() {
       this.showCreateModal = !this.showCreateModal;
-      console.log(this.showLoginModal);
+  //    console.log(this.showLoginModal);
     },
   },
 };

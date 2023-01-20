@@ -22,7 +22,7 @@ async function createOwner(user){
     4:{1:"hiking",2:"readBook",3:"pray",4:"lookLost",5:"tough",6:"chopWood",7:"lookLost",8:"community"},
     5:{1:"readBook",2:"pray",3:"lookLost",4:"tough",5:"chopWood",6:"pray",7:"community",8:"woodCarv"},
     6:{1:"pray",2:"lookLost",3:"tough",4:"chopWood",5:"readBook",6:"community",7:"woodCarv",8:"hiking"},
-    7:{1:"lookLost",2:"tough",3:"chopWood",4:"hiking",5:"community",6:"woodCarv",7:"hiking",8:"readBook"},
+    
     }
 );
 
@@ -40,7 +40,7 @@ async function createOwner(user){
     4:{1:"hiking",2:"readBook",3:"pray",4:"lookLost",5:"tough",6:"chopWood",7:"lookLost",8:"community"},
     5:{1:"readBook",2:"pray",3:"lookLost",4:"tough",5:"chopWood",6:"pray",7:"community",8:"woodCarv"},
     6:{1:"pray",2:"lookLost",3:"tough",4:"chopWood",5:"readBook",6:"community",7:"woodCarv",8:"hiking"},
-    7:{1:"lookLost",2:"tough",3:"chopWood",4:"hiking",5:"community",6:"woodCarv",7:"hiking",8:"readBook"},
+    
     }
 );
 
@@ -60,7 +60,7 @@ async function createOwner(user){
     4:{1:"hiking",2:"readBook",3:"pray",4:"lookLost",5:"tough",6:"chopWood",7:"lookLost",8:"community"},
     5:{1:"readBook",2:"pray",3:"lookLost",4:"tough",5:"chopWood",6:"pray",7:"community",8:"woodCarv"},
     6:{1:"pray",2:"lookLost",3:"tough",4:"chopWood",5:"readBook",6:"community",7:"woodCarv",8:"hiking"},
-    7:{1:"lookLost",2:"tough",3:"chopWood",4:"hiking",5:"community",6:"woodCarv",7:"hiking",8:"readBook"},
+
     }
 );
 
@@ -156,7 +156,6 @@ glad2.schedule.push(
     4:{1:"hiking",2:"readBook",3:"pray",4:"lookLost",5:"tough",6:"chopWood",7:"lookLost",8:"community"},
     5:{1:"readBook",2:"pray",3:"lookLost",4:"tough",5:"chopWood",6:"pray",7:"community",8:"woodCarv"},
     6:{1:"pray",2:"lookLost",3:"tough",4:"chopWood",5:"readBook",6:"community",7:"woodCarv",8:"hiking"},
-    7:{1:"lookLost",2:"tough",3:"chopWood",4:"hiking",5:"community",6:"woodCarv",7:"hiking",8:"readBook"},
     }
 );
 
@@ -177,7 +176,7 @@ glad2.schedule.push(
             4:{1:"hiking",2:"readBook",3:"pray",4:"lookLost",5:"tough",6:"chopWood",7:"lookLost",8:"community"},
             5:{1:"readBook",2:"pray",3:"lookLost",4:"tough",5:"chopWood",6:"pray",7:"community",8:"woodCarv"},
             6:{1:"pray",2:"lookLost",3:"tough",4:"chopWood",5:"readBook",6:"community",7:"woodCarv",8:"hiking"},
-            7:{1:"lookLost",2:"tough",3:"chopWood",4:"hiking",5:"community",6:"woodCarv",7:"hiking",8:"readBook"},
+
             }
         );
 

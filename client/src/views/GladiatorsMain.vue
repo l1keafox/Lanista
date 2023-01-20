@@ -61,7 +61,7 @@ export default {
     );
     let ownerData = await rpnse.json();
     this.ownerData = ownerData;     
-    console.log('updated info') ;
+//    console.log('updated info') ;
     }
 
   },
