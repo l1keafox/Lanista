@@ -93,7 +93,7 @@ export default {
 			let gladData = this.ownerData.gladiators.find(
 				(glad) => glad.name == sch.value
 			);
-			console.log("Doing memory fight",gladData,sch.value);
+//			console.log("Doing memory fight",gladData,sch.value);
 			if(gladData){
 				const rpnse = await fetch(
 					`http://${window.location.hostname}:3001/gladiator/fightMemory`,
@@ -139,7 +139,7 @@ export default {
 				//console.log(rpns);
 				//this.glads = [gladData.name, glad2.name];
 				this.glads = rpns.fighters;				
-				console.log(this.glads);
+//				console.log(this.glads);
 				this.combatReport = rpns;
 				this.isModalShown = true;
 			}

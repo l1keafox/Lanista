@@ -55,8 +55,11 @@ function createNewGladiator() {
   return { 
       name: getName(), 
       // Character Points Stats
-      hits: 50, // Easily trained stat.
+      // The three main stats for living. 
+      hits: 100, // Easily trained stat.
       morale:100, // Morale is high because it's stable stat? Mmm maybe later add ways to train it up.
+      stamina:100,
+
       mana:100,
       level:1,
       winRecord:0,

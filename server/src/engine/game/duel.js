@@ -52,7 +52,7 @@ async function returnPreparedGladiator(gladiator) {
 	gladiator.endOfRound = function () {
 		for (let aReaction of this.react) {
 			if (aReaction.cooldown) {
-				console.log(aReaction.abilityName, aReaction.cooldown,this.name)
+//				console.log(aReaction.abilityName, aReaction.cooldown,this.name)
 				aReaction.cooldown--;
 			}
 		}
@@ -244,6 +244,8 @@ async function doDuel(one, two) {
 	} while (
 		gladOne.hits > 0 &&
 		gladTwo.hits > 0 &&
+		gladOne.stamina > 0 &&
+		gladTwo.stamina > 0 &&
 		gladOne.morale > 0 &&
 		gladTwo.morale > 0
 	);
@@ -257,12 +259,14 @@ async function doDuel(one, two) {
 	report.final[gladOne.name] = {
 		hits: gladOne.hits,
 		morale: gladOne.morale,
+		stamina: gladOne.stamina 
 	};
 	report.final[gladTwo.name] = {
 		hits: gladTwo.hits,
 		morale: gladTwo.morale,
+		stamina: gladTwo.stamina 
 	};
-	report.fighters = [gladOne.name,gladTwo.name ];
+	report.fighters = [gladOne.name , gladTwo.name];
 
 	console.log(`  -EN> Game DUEL : ${gladOne.name} Vs ${gladTwo.name} TIME: ${new Date() - startOfTick}ms Winner:${report.final.winner} `);
 	return report;

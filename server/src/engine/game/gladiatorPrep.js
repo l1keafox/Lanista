@@ -31,7 +31,7 @@ function setupClash(glad){
     .map((skill) => {
         const effect = getAbilityEffect(skill);
         if(!effect){
-            console.log(' No effect for ',skill);
+            console.log('  -ERROR>   No effect for ',skill);
         }
          else if (effect.type === "clash") {
             return effect;
@@ -45,6 +45,7 @@ function setupStats(glad){
 	rtnObj.hits = glad.hits;
 	rtnObj.mana = glad.mana;
 	rtnObj.morale = glad.morale;
+	rtnObj.stamina = glad.stamina;
 	rtnObj.strength = glad.strength;
 	rtnObj.dexterity = glad.dexterity;
 	rtnObj.agility = glad.agility;
@@ -102,6 +103,8 @@ function prepModelForFight(glad) {
 	rtnObj.maxHits = glad.hits;
 	rtnObj.maxMana = glad.mana;
 	rtnObj.maxMorale = glad.morale;
+	rtnObj.maxStamina = glad.stamina;
+	
 
     modifyStatsFromItems(glad);
 	// Here we will go through items and adjust stats based on items.
@@ -122,7 +125,9 @@ async function prepMemoryForFight(gladMem){
 	rtnObj.name = gladMem.name;
 	rtnObj.maxHits = rtnObj.hits;
 	rtnObj.maxMana = rtnObj.mana;
+	
 	rtnObj.maxMorale = rtnObj.morale;
+	rtnObj.maxStamina = rtnObj.stamina;
 	// modifyStatsFromItems(glad); No modifty because it's all saved.
 	// now it needs to go through prepare/react/clash and get the acutal abilities.
 	rtnObj.prepare = rtnObj.prepare.map((skill) => getAbilityEffect(skill));

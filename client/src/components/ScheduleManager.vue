@@ -17,10 +17,10 @@
 						<h3 class="text-3xl font-semibold">Week Schedule</h3>
 					</div>
 					<!--body-->
-					<div v-if="gladiatorData" class="flex overflow-x-scroll">
+					<div v-if="gladiatorData" class="flex overflow-x-auto">
 						<div v-for="(day, key2) in gladiatorData.schedule[0]" :key="key2">
 							<h1>Day {{ key2 }}</h1>
-							<div class="relative p-1 flex-auto bg-slate-200">
+							<div class="relative flex-auto bg-slate-200">
 								<div
 									v-for="(event, key) in day"
 									:key="key"
@@ -95,32 +95,12 @@
 							gladiator will go and learn this skill.
 						</p>
 					</div>
-					<div class="bg-green-700">
+					<div class="bg-green-700 p-2">
 						<h1>Seventh Day Tournaments</h1>
-						<div>
-							<input type="checkbox" id="weekly" name="weekly" value="weekly" />
-							<label for="weekly"> Local (weekly)</label><br />
-							<input
-								type="checkbox"
-								id="monthly"
-								name="monthly"
-								value="monthly" />
-							<label for="monthly"> Regional (monthly)</label><br />
-							<input
-								type="checkbox"
-								id="quarter"
-								name="quarter"
-								value="quarter" />
-							<label for="quarter"> Grand (quarter)</label><br />
-							<input type="checkbox" id="year" name="year" value="year" />
-							<label for="year"> National (yearly)</label><br /><br />
-						</div>
 						<p>
-							Tournaments take up a sunday. Local take every sunday that doesn't
-							have another tournament, Regional will take the last week's sunday
-							that doesn't have another tournament, Grand tournaments are every
-							three months that doesn't have another tournament, and National is
-							once a year the very last week.
+							Tournaments take up a sunday. If its the last week of the year, it is an National tournament with the biggest prize,
+							If it is the last week every 3 months it is the 2nd biggest Tournament. Last Week of a month is regional, and every week that doesn't have any of the above is local. 
+							
 						</p>
 					</div>
 					<!--footer-->
@@ -238,7 +218,6 @@ export default {
 		this.gladiatorData = await rpnse.json();
 		if(this.gladiatorData.progressSkill){
 			this.gladiatorData.progressSkill = JSON.parse( this.gladiatorData.progressSkill )
-
 		}
 
 		const training = await fetch(
