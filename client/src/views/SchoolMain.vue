@@ -1,7 +1,5 @@
 <template>
-    <div class = "overflow-y-scroll">
-      <!-- <h1>STRUCTUES PAGE</h1>
-      <h2>{{ userData }}</h2> -->
+    <div class = "w-full overflow-x-hidden">
       <div v-if="structureData" class ="flex">
         <div v-for="struct in structureData" :key="struct" :class="smallCard"> 
           <h1 :class="cardTitle">{{struct.structure}} </h1>
@@ -9,7 +7,7 @@
           <p> {{struct.description}}</p>
           <p> {{struct.training}} </p>
         </div>
-      </div>
+      </div>      
       <div v-if="trainingData" class="flex overflow-x-auto">
         <div v-for="train in trainingData" :key="train" :class="card"> 
           <h1 :class="cardTitle">{{train.training}} </h1>
@@ -18,6 +16,11 @@
         </div>
       </div>
 
+      <!-- <h1>STRUCTUES PAGE</h1>
+      <h2>{{ userData }}</h2> -->
+      
+     
+     
       <hr/>
       <h1> Skill to Learn</h1>
 
@@ -48,7 +51,7 @@
   </template>
   
   <script>
-  import auth from "./../mixins/auth";
+  import auth from "../mixins/auth";
   export default {
     name: "StructuresMain",
     data() {

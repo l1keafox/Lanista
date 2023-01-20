@@ -1,5 +1,5 @@
 <template>
-	<div class="flex flex-col h-full">
+	<div class="flex flex-col w-full overflow-x-hidden">
 		<h1 class="bg-slate-900">Combat</h1>
 		<h2>Pick gladiator</h2>
 		<div v-if="ownerData" class="flex">

@@ -1,5 +1,5 @@
 <template>
-  <div  class="flex flex-col">
+  <div  class="flex flex-col w-full overflow-x-hidden">
     <h1>Gladiators</h1>
     <div  v-if="ownerData" class="flex" > 
         <div v-for="glad in ownerData.gladiators" :key="glad" :class="card"> 

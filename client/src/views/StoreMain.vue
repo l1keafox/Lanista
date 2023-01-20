@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-full flex-col">
+  <div class="flex flex-col w-full overflow-x-hidden">
     <div class="bg-slate-900">Store</div>
     <hr />
     <h1>ITEMS:</h1>
