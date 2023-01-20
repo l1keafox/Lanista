@@ -17,10 +17,10 @@
 						<h3 class="text-3xl font-semibold">Week Schedule</h3>
 					</div>
 					<!--body-->
-					<div v-if="gladiatorData" class="flex overflow-x-scroll">
+					<div v-if="gladiatorData" class="flex overflow-x-auto">
 						<div v-for="(day, key2) in gladiatorData.schedule[0]" :key="key2">
 							<h1>Day {{ key2 }}</h1>
-							<div class="relative p-1 flex-auto bg-slate-200">
+							<div class="relative flex-auto bg-slate-200">
 								<div
 									v-for="(event, key) in day"
 									:key="key"
@@ -218,7 +218,6 @@ export default {
 		this.gladiatorData = await rpnse.json();
 		if(this.gladiatorData.progressSkill){
 			this.gladiatorData.progressSkill = JSON.parse( this.gladiatorData.progressSkill )
-
 		}
 
 		const training = await fetch(
