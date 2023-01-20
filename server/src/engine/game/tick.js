@@ -110,6 +110,7 @@ module.exports = {
 		const keys = Object.keys(ownersGain);
 		const myPromise = new Promise((resolve, reject) => {
 			keys.forEach(async (ownerid, index) => {
+				
 				let owner = await Owner.findOne({ _id: ownerid });
 				// console.log('  -EN/TICK> Owner',owner.userAcct ,': gained  G:',ownersGain[ownerid].gold,"F:",ownersGain[ownerid].fame);
 				owner.gold += ownersGain[ownerid].gold;
