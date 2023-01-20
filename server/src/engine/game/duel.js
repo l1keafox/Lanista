@@ -152,6 +152,9 @@ async function saveMemory(gladiator){
 	gMemory.save();
 }
 
+async function prepMemory(Memory){
+	console.log(Memory,"tds");
+}
 async function doDuel(gladOne, gladTwo) {
 	// Import things to note - we need it recorded so we can send it back to the users.
 	// So, let's take the glads and rebuild the game object for a one time use.
@@ -277,4 +280,4 @@ async function doDuel(gladOne, gladTwo) {
 	return report;
 }
 
-module.exports = { doDuel ,returnPreparedGladiator , saveMemory };
+module.exports = { doDuel ,returnPreparedGladiator , saveMemory,prepMemory };

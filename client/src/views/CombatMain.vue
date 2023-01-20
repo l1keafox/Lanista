@@ -33,8 +33,29 @@
 				Spar
 			</button>
 		</div>
-		<hr />
 
+		<hr />
+		<h2>Fight against a Memory</h2>
+		<div v-if="ownerData" class="flex">
+			<select
+				name="gladiator"
+				class="bg-cyan-100 w-28 text-purple-800 p-2 m-2"
+				id="memoryGlad">
+				<option value="empty">Select</option>
+				<template
+					v-for="(gladiator, index) in ownerData.gladiators"
+					:key="index">
+					<option :value="gladiator.name">{{ gladiator.name }}</option>
+				</template>
+			</select>
+
+			<button
+				class="bg-yellow-200 text-emerald-800 w-48 p-2 m-2"
+				@click="doMemory">
+				Fight Memory
+			</button>
+		</div>
+		
 		<div class="flex flex-col">
 			<div>Fighting History</div>
 		</div>
@@ -72,6 +93,31 @@ export default {
 		closeModal() {
 			this.isModalShown = false;
 		},
+		async doMemory(){
+			let sch = document.getElementById("memoryGlad");
+			let gladData = this.ownerData.gladiators.find(
+				(glad) => glad.name == sch.value
+			);
+			if(gladData){
+				const rpnse = await fetch(
+					`http://${window.location.hostname}:3001/gladiator/fightMemory`,
+					{
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							"gladatorId": gladData._id,
+							"ownerId": this.userData._id,
+						}),
+					}
+				);
+				let rpns = await rpnse.json();
+				//console.log(rpns);
+//				this.glads = [gladData, glad2];
+//				console.log(this.glads);
+				this.combatReport = rpns;
+				this.isModalShown = true;				
+			}
+		},	
 		async doSpar() {
 			let sch = document.getElementById("gladiator");
 			let sch2 = document.getElementById("gladiator2");
