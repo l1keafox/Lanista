@@ -102,6 +102,9 @@ module.exports = {
 
 			if (date.time === 8) {
 				gladiator.age++;
+				if(gladiator.age > 2000000){
+					console.log(" FORWARD THINKING AGE, add more memoriy arries or not!");
+				}
 				gladiator.doLevel();
 			}
 			gladiator.save();
@@ -110,7 +113,6 @@ module.exports = {
 		const keys = Object.keys(ownersGain);
 		const myPromise = new Promise((resolve, reject) => {
 			keys.forEach(async (ownerid, index) => {
-				
 				let owner = await Owner.findOne({ _id: ownerid });
 				// console.log('  -EN/TICK> Owner',owner.userAcct ,': gained  G:',ownersGain[ownerid].gold,"F:",ownersGain[ownerid].fame);
 				owner.gold += ownersGain[ownerid].gold;
