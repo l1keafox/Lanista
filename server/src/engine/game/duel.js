@@ -241,9 +241,12 @@ async function doDuel(one, two) {
 
 		report[roundCnt] = roundReport;
 		report.maxRound = roundCnt;
+		console.log(gladOne);
 	} while (
 		gladOne.hits > 0 &&
 		gladTwo.hits > 0 &&
+		gladOne.stamina > 0 &&
+		gladTwo.stamina > 0 &&
 		gladOne.morale > 0 &&
 		gladTwo.morale > 0
 	);
@@ -257,10 +260,12 @@ async function doDuel(one, two) {
 	report.final[gladOne.name] = {
 		hits: gladOne.hits,
 		morale: gladOne.morale,
+		stamina: gladOne.stamina 
 	};
 	report.final[gladTwo.name] = {
 		hits: gladTwo.hits,
 		morale: gladTwo.morale,
+		stamina: gladTwo.stamina 
 	};
 	report.fighters = [gladOne.name,gladTwo.name ];
 

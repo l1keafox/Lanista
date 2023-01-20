@@ -34,6 +34,7 @@
 								<template v-if="firstGlad">
 									<h2>Hp:{{ firstGlad.hits }}</h2>
 									<h2>Morale:{{ firstGlad.morale }}</h2>
+									<h2>Stamina:{{ firstGlad.stamina }}</h2>
 								</template>
 								<hr />
 								<h2>winPoints :{{ combatReport[combatIndex][glads[0]].clash.winPoints }}</h2>
@@ -65,6 +66,7 @@
 								<template v-if="secondGlad">
 									<h2>Hp:{{ secondGlad.hits }}</h2>
 									<h2>Morale:{{ secondGlad.morale }}</h2>
+									<h2>Stamina:{{ secondGlad.stamina }}</h2>
 								</template>
 								<hr />
 								<h2>winPoints :{{ combatReport[combatIndex][glads[1]].clash.winPoints }}</h2>
@@ -168,24 +170,26 @@ export default {
 			if (this.combatReport[this.combatIndex][this.glads[0]].effect.hits) {
 				this.firstGlad.hits = this.combatReport[this.combatIndex][this.glads[0]].effect.hits;
 			}
-			if (
-				this.combatReport[this.combatIndex][this.glads[0]].effect.morale
-			) {
+			if (this.combatReport[this.combatIndex][this.glads[0]].effect.morale) {
 				this.firstGlad.morale = this.combatReport[this.combatIndex][this.glads[0]].effect.morale;
+			}
+			if (this.combatReport[this.combatIndex][this.glads[0]].effect.stamina) {
+				this.firstGlad.stamina = this.combatReport[this.combatIndex][this.glads[0]].effect.stamina;
 			}
 
 			if (this.combatReport[this.combatIndex][this.glads[1]].effect.hits) {
 				this.secondGlad.hits = this.combatReport[this.combatIndex][this.glads[1]].effect.hits;
 			}
-			if (
-				this.combatReport[this.combatIndex][this.glads[1]].effect.morale
-			) {
+			if (this.combatReport[this.combatIndex][this.glads[1]].effect.morale) {
 				this.secondGlad.morale = this.combatReport[this.combatIndex][this.glads[1]].effect.morale;
 			}
-			if (!this.firstGlad.hits || !this.firstGlad.morale) {
+			if (this.combatReport[this.combatIndex][this.glads[1]].effect.stamina) {
+				this.secondGlad.stamina = this.combatReport[this.combatIndex][this.glads[1]].effect.stamina;
+			}
+			if (!this.firstGlad.hits || !this.firstGlad.morale || !this.firstGlad.stamina) {
 				this.winner =  this.secondGlad.name;
 			}
-			if (!this.secondGlad.hits || this.secondGlad.morale < 0) {
+			if (!this.secondGlad.hits || this.secondGlad.morale < 0 || !this.secondGlad.stamina) {
 				this.winner = this.firstGlad.name;
 			}
 		},
@@ -196,11 +200,13 @@ export default {
 		this.firstGlad = {
 			hits: 100, //this.glads[0].hits,
 			morale: 100, // this.glads[0].morale,
+			stamina: 100,
 			name: this.glads[0],
 		};
 		this.secondGlad = {
 			hits: 100,// this.glads[1].hits,
 			morale: 100,//this.glads[1].morale,
+			stamina: 100,
 			name: this.glads[1],
 		};
 		console.log(this.combatReport);

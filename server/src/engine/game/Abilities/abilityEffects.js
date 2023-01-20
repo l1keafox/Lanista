@@ -37,7 +37,10 @@ function compareEffects(gladiator,target){
             if(gladiator.effectToDo.hitChance){
                 gladiator.effectToDo.hitChance -= gladiator.effectToDo.missChance;
             }
+            // If the hit chance is bad, then the target that did the swing gets staminaDamage.
             if(gladiator.effectToDo.hitChance <= 0 && gladiator.effectToDo.hitDamage){
+
+                target.effectToDo.staminaDamage = gladiator.effectToDo.hitDamage * 0.5;
                 gladiator.effectToDo.hitDamage = 0;
             }
             // if( gladiator.effectToDo.taunting ){
@@ -95,10 +98,14 @@ function doEffects(gladiator){
             gladiator.hits -= num;
             effectReport[effect] = num;
             break;
-          case "moraleDamage":
+        case "moraleDamage":
             if(num > 15) num = 15;
             gladiator.morale -= num;
             effectReport[effect] = num
+            break;
+        case "staminaDamage":
+                gladiator.stamina -= num
+                effectReport[effect] = num
             break;
         }
       }
@@ -107,6 +114,7 @@ function doEffects(gladiator){
 
       effectReport.hits = gladiator.hits;
       effectReport.morale = gladiator.morale;
+      effectReport.stamina = gladiator.stamina;
       return effectReport;
 }
 
@@ -115,7 +123,7 @@ function addEffect(gladiator,effectName, effectStr) {
         gladiator.effectToDo = {};
     }
     if (gladiator.effectToDo[effectName]) {
-        console.log(effectName,gladiator.effectToDo[effectName],effectStr )
+//        console.log(effectName,gladiator.effectToDo[effectName],effectStr )
         if(effectStr){
            
             gladiator.effectToDo[effectName] += effectStr;
