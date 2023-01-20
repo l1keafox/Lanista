@@ -40,7 +40,7 @@ router.post('/gladiator/doSpar', async(req, res) => {
         let report = await doDuel(glad,glad2);
 
 
-        // Here we save it.
+        // Here we save it? 
         let owner = await Owner.findOne({ userAcct: req.body.ownerId });
         //saveDuel
         const savedDuel = await new saveDuel({ "gladiatorOne":req.body.gladatorId ,"gladiatorTwo":req.body.gladatorId2 ,duel: JSON.stringify(report) } );

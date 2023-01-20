@@ -10,64 +10,68 @@ function returnPreparedGladiator(gladiator) {
 	// gladiator prep stuff.
 	gladiator.setSkills();
 
-	let newGladObj = {};
-	newGladObj.maxHits = gladiator.hits;
-	newGladObj.maxMana = gladiator.mana;
-	newGladObj.maxMorale = gladiator.morale;
-	newGladObj.hits = gladiator.hits;
-	newGladObj.mana = gladiator.mana;
-	newGladObj.morale = gladiator.morale;
-	newGladObj.strength = gladiator.strength;
-	newGladObj.dexterity = gladiator.dexterity;
-	newGladObj.agility = gladiator.agility;
-	newGladObj.constitution = gladiator.constitution;
-	newGladObj.vitality = gladiator.vitality;
-	newGladObj.intelligence = gladiator.intelligence;
-	newGladObj.wisdom = gladiator.wisdom;
-	newGladObj.bravery = gladiator.bravery;
-	newGladObj.piety = gladiator.piety;
-	newGladObj.sensitivity = gladiator.sensitivity;
-	newGladObj.charisma = gladiator.charisma;
-	newGladObj.luck = gladiator.luck;
-	newGladObj.reputation = gladiator.reputation;
-	newGladObj.name = gladiator.name;
-	newGladObj._id = gladiator._id;
+	let newGladObj = gladiator.prepareForFight();
 
-	// Here we will go through items and adjust stats based on items.
-	const slots = ["mainHand","offHand","head","body","boots"];
-	slots.forEach(slot =>{
-		if (gladiator[slot] !== null){
-			let item = getItemEffect( gladiator[slot]);
-			if(!item && gladiator[slot]){
-				console.log(' Error no item return', gladiator[slot]);
-			} else if(item &&  item.stats ){
-				for(let stat in item.stats){
-					console.log(stat,"b4:",newGladObj[stat]);
-					newGladObj[stat] = newGladObj[stat] +=  newGladObj[stat] * ( item.stats[stat] * 0.01 );
-					console.log(stat,"after:",newGladObj[stat]);
-				}
-			}
-		}
-	} )
 
-	newGladObj.prepare = gladiator.prepare.map((skill) =>
-		getAbilityEffect(skill)
-	);
-	newGladObj.react = gladiator.react.map((skill) => getAbilityEffect(skill));
-	newGladObj.effectToDo = {};
+	// newGladObj.maxHits = gladiator.hits;
+	// newGladObj.maxMana = gladiator.mana;
+	// newGladObj.maxMorale = gladiator.morale;
+	// newGladObj.hits = gladiator.hits;
+	// newGladObj.mana = gladiator.mana;
+	// newGladObj.morale = gladiator.morale;
+	// newGladObj.strength = gladiator.strength;
+	// newGladObj.dexterity = gladiator.dexterity;
+	// newGladObj.agility = gladiator.agility;
+	// newGladObj.constitution = gladiator.constitution;
+	// newGladObj.vitality = gladiator.vitality;
+	// newGladObj.intelligence = gladiator.intelligence;
+	// newGladObj.wisdom = gladiator.wisdom;
+	// newGladObj.bravery = gladiator.bravery;
+	// newGladObj.piety = gladiator.piety;
+	// newGladObj.sensitivity = gladiator.sensitivity;
+	// newGladObj.charisma = gladiator.charisma;
+	// newGladObj.luck = gladiator.luck;
+	// newGladObj.reputation = gladiator.reputation;
+	// newGladObj.name = gladiator.name;
+	// newGladObj._id = gladiator._id;
 
-	newGladObj.clash = gladiator.abilities
-		.concat(gladiator.skills)
-		.map((skill) => {
-			const effect = getAbilityEffect(skill);
-			if(!effect){
-				console.log(' No effect for ',skill);
-			}
-			 else if (effect.type === "clash") {
-				return effect;
-			}
-		})
-		.filter((notUndefined) => notUndefined !== undefined);
+	// // Here we will go through items and adjust stats based on items.
+	// const slots = ["mainHand","offHand","head","body","boots"];
+	// slots.forEach(slot =>{
+	// 	if (gladiator[slot] !== null){
+	// 		let item = getItemEffect( gladiator[slot]);
+	// 		if(!item && gladiator[slot]){
+	// 			console.log(' Error no item return', gladiator[slot]);
+	// 		} else if(item &&  item.stats ){
+	// 			for(let stat in item.stats){
+	// 				console.log(stat,"b4:",newGladObj[stat]);
+	// 				newGladObj[stat] = newGladObj[stat] +=  newGladObj[stat] * ( item.stats[stat] * 0.01 );
+	// 				console.log(stat,"after:",newGladObj[stat]);
+	// 			}
+	// 		}
+	// 	}
+	// } )
+
+	// newGladObj.prepare = gladiator.prepare.map((skill) =>
+	// 	getAbilityEffect(skill)
+	// );
+	// newGladObj.react = gladiator.react.map((skill) => getAbilityEffect(skill));
+	// newGladObj.effectToDo = {};
+
+	// newGladObj.clash = gladiator.abilities
+	// 	.concat(gladiator.skills)
+	// 	.map((skill) => {
+	// 		const effect = getAbilityEffect(skill);
+	// 		if(!effect){
+	// 			console.log(' No effect for ',skill);
+	// 		}
+	// 		 else if (effect.type === "clash") {
+	// 			return effect;
+	// 		}
+	// 	})
+	// 	.filter((notUndefined) => notUndefined !== undefined);
+
+
 
 	// Prototypes for clashing
 
@@ -198,6 +202,11 @@ class Clash {
 	}
 }
 
+function saveMemory(gladiator){
+	// This needs to take preparedGladiator
+	
+}
+
 async function doDuel(one, two) {
 	// Import things to note - we need it recorded so we can send it back to the users.
 	// So, let's take the glads and rebuild the game object for a one time use.
@@ -207,6 +216,9 @@ async function doDuel(one, two) {
 	let report = {};
 	let gladOne = returnPreparedGladiator(one);
 	let gladTwo = returnPreparedGladiator(two);
+
+	saveMemory(gladOne);
+
 	if (SHOWBATTLE) console.log("  -EN/Duel> ", gladOne.name, "Vs", gladTwo.name);
 
 	let roundCnt = 0;
