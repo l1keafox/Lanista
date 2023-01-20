@@ -6,74 +6,12 @@ const {
 	addEffect,
 } = require("./Abilities/abilityEffects");
 const { getItemEffect } = require("./itemsIndex");
-function returnPreparedGladiator(gladiator) {
+
+const {Memory} = require('./../../models');
+async function returnPreparedGladiator(gladiator) {
 	// gladiator prep stuff.
-	gladiator.setSkills();
-
-	let newGladObj = gladiator.prepareForFight();
-
-
-	// newGladObj.maxHits = gladiator.hits;
-	// newGladObj.maxMana = gladiator.mana;
-	// newGladObj.maxMorale = gladiator.morale;
-	// newGladObj.hits = gladiator.hits;
-	// newGladObj.mana = gladiator.mana;
-	// newGladObj.morale = gladiator.morale;
-	// newGladObj.strength = gladiator.strength;
-	// newGladObj.dexterity = gladiator.dexterity;
-	// newGladObj.agility = gladiator.agility;
-	// newGladObj.constitution = gladiator.constitution;
-	// newGladObj.vitality = gladiator.vitality;
-	// newGladObj.intelligence = gladiator.intelligence;
-	// newGladObj.wisdom = gladiator.wisdom;
-	// newGladObj.bravery = gladiator.bravery;
-	// newGladObj.piety = gladiator.piety;
-	// newGladObj.sensitivity = gladiator.sensitivity;
-	// newGladObj.charisma = gladiator.charisma;
-	// newGladObj.luck = gladiator.luck;
-	// newGladObj.reputation = gladiator.reputation;
-	// newGladObj.name = gladiator.name;
-	// newGladObj._id = gladiator._id;
-
-	// // Here we will go through items and adjust stats based on items.
-	// const slots = ["mainHand","offHand","head","body","boots"];
-	// slots.forEach(slot =>{
-	// 	if (gladiator[slot] !== null){
-	// 		let item = getItemEffect( gladiator[slot]);
-	// 		if(!item && gladiator[slot]){
-	// 			console.log(' Error no item return', gladiator[slot]);
-	// 		} else if(item &&  item.stats ){
-	// 			for(let stat in item.stats){
-	// 				console.log(stat,"b4:",newGladObj[stat]);
-	// 				newGladObj[stat] = newGladObj[stat] +=  newGladObj[stat] * ( item.stats[stat] * 0.01 );
-	// 				console.log(stat,"after:",newGladObj[stat]);
-	// 			}
-	// 		}
-	// 	}
-	// } )
-
-	// newGladObj.prepare = gladiator.prepare.map((skill) =>
-	// 	getAbilityEffect(skill)
-	// );
-	// newGladObj.react = gladiator.react.map((skill) => getAbilityEffect(skill));
-	// newGladObj.effectToDo = {};
-
-	// newGladObj.clash = gladiator.abilities
-	// 	.concat(gladiator.skills)
-	// 	.map((skill) => {
-	// 		const effect = getAbilityEffect(skill);
-	// 		if(!effect){
-	// 			console.log(' No effect for ',skill);
-	// 		}
-	// 		 else if (effect.type === "clash") {
-	// 			return effect;
-	// 		}
-	// 	})
-	// 	.filter((notUndefined) => notUndefined !== undefined);
-
-
-
-	// Prototypes for clashing
+	await gladiator.setSkills();
+	let newGladObj = await gladiator.prepareForFight();
 
 	newGladObj.getClash = function () {
 		return newGladObj.clash[
@@ -143,6 +81,7 @@ function returnPreparedGladiator(gladiator) {
 			return aReaction.doClash(this, target);
 		}
 	};
+//	console.log(newGladObj);
 	return newGladObj;
 }
 class Clash {
@@ -202,9 +141,14 @@ class Clash {
 	}
 }
 
-function saveMemory(gladiator){
-	// This needs to take preparedGladiator
-	
+async function saveMemory(gladiator){
+	let name = gladiator.name;
+	let level = gladiator.level;
+	let memory = await gladiator.prepareForMemory();
+		memory = JSON.stringify( memory );
+	let age = gladiator.age;
+	const gMemory = await new Memory( {name,level,age,memory } );	
+	gMemory.save();
 }
 
 async function doDuel(one, two) {
@@ -214,10 +158,11 @@ async function doDuel(one, two) {
 	const startOfTick = new Date();
 
 	let report = {};
-	let gladOne = returnPreparedGladiator(one);
-	let gladTwo = returnPreparedGladiator(two);
-
-	saveMemory(gladOne);
+	let gladOne = await returnPreparedGladiator(one);
+	let gladTwo = await returnPreparedGladiator(two);
+	
+	saveMemory(one);
+	saveMemory(two);
 
 	if (SHOWBATTLE) console.log("  -EN/Duel> ", gladOne.name, "Vs", gladTwo.name);
 
