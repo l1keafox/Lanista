@@ -1,7 +1,5 @@
 <template>
-  <div class="flex h-full flex-col">
-    <div class="bg-slate-900">Store</div>
-    <hr />
+  <div class="flex flex-col w-full overflow-x-hidden">
     <h1>ITEMS:</h1>
     <div v-if="itemData" class="flex">
       <div v-for="(item, index) in itemData" :key="item" :class="smallCard">

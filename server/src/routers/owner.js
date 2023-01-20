@@ -44,7 +44,7 @@ router.post('/owner/removeItems', async(req, res) => {
         return ele !== undefined
     })
 
-    console.log(owner.inventory);
+
     owner.markModified('inventory');
     await owner.save();
     res.send(owner);
@@ -71,7 +71,6 @@ router.post('/owner/inventoryData', async(req, res) => {
 
     let rtnData = owner.inventory.map( item =>{
         let rtn = getItemEffect(item.type);
-        console.log(item);
         rtn.item = item.type;
         rtn.amount = item.amount;
         return rtn;
@@ -101,7 +100,7 @@ router.post('/owner/trainingData', async(req, res) => {
         }else {
             console.log("trainfailure?",train);
         }
-    }  );
+    }  ) .filter((notUndefined) => notUndefined !== undefined);
     res.send(rtnData);
 })
 router.post('/owner/learningData', async(req, res) => {
@@ -163,7 +162,7 @@ router.post('/owner/buyItem', async(req, res) => {
 
         if(req.body.buyThisThing.item){
             const exist = owner.inventory.find( ele => ele.type ==req.body.buyThisThing.item);
-            console.log(exist,"exist?");
+
             if(exist){
                 exist.amount++;
             } else {

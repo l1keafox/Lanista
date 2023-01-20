@@ -1,6 +1,5 @@
 <template>
-	<div class="flex flex-col h-full">
-		<h1 class="bg-slate-900">Combat</h1>
+	<div class="flex flex-col w-full overflow-x-hidden">
 		<h2>Pick gladiator</h2>
 		<div v-if="ownerData" class="flex">
 			<select
@@ -56,10 +55,6 @@
 			</button>
 		</div>
 		
-		<div class="flex flex-col">
-			<div>Fighting History</div>
-		</div>
-		<div v-if="ownerData" class="flex"></div>
 		<div v-if="isModalShown">
 			<CombatReview
 				:combatReport="combatReport"

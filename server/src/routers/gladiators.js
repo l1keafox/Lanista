@@ -73,12 +73,13 @@ router.post('/gladiator/fightMemory', async(req, res) => {
         // This is where we get the memory and prepare it as  two;
         let allMemories = await Memory.find();
 //        console.log(allMemories.length);
+        if(allMemories.length === 0 ){
+            res.send({});
+        }
         let randoMemory = allMemories[ Math.floor( Math.random() & allMemories.length ) ] ;
 //        console.log(randoMemory);
         let one = await prepModelForFight(glad);
         let two = await prepMemoryForFight(randoMemory);
-        // console.log(one);
-        // console.log(two);
         let report = await doDuel(one,two);
         res.send(report)
 
@@ -104,7 +105,7 @@ router.post('/gladiator/clashInfo', async(req, res) => {
     
     
     const allAbilities = glad.skills.concat(glad.abilities);
-    console.log(allAbilities);
+//    console.log(allAbilities);
     let rtn = {
         prepare:[],
         unPrepare:[],
@@ -175,7 +176,6 @@ router.post('/gladiator/saveLearning', async(req, res) => {
         glad.progressSkill  = JSON.stringify(progress)
     }
     
-    // So given that this is now an week array we need req.body.weekDay
     glad.save();
     console.log('  -EN> SaveLearning',glad.name);
     res.send(glad)

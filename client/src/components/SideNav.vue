@@ -1,4 +1,5 @@
 <template>
+  <div  class = "overflow-y-auto   max-h-screen bg-blue-900 px-3 w-48">
   <br/>
   <h1  @click="$emit('changeMain','WelcomeMain')" class="cursor-pointer text-3xl text-center font-bold"> LANISTA </h1>
   <br/>
@@ -8,7 +9,7 @@
   </div>
   <div v-else>
 
-    <div :class="smallCard"> 
+    <div > 
       <template v-if="userData">
       <h2>Username:  {{ userData.username }}</h2>
       </template>
@@ -18,12 +19,11 @@
         <h2>FAME: {{ ownerData.fame }}</h2>
       </div>
       <hr/>
-  
     </div>
     <div class="m-2 cursor-pointer sideOptions" @click="doLogOut">Logout</div>
     <!-- <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','ProfileMain')" >Profile</div> -->
     <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','GladiatorsMain')" >Gladiators</div>
-    <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','StructuresMain')" >School</div>
+    <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','SchoolMain')" >School</div>
     <!-- <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','TrainingMain')" >Training</div> -->
     <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','CombatMain')" >Combat</div>
     <div class="m-2 cursor-pointer sideOptions" @click="$emit('changeMain','StoreMain')" >Store</div>
@@ -36,7 +36,7 @@
   <div v-if="showCreateModal">
     <CreateAccount id="vue" @close="closePopup" @createAcct="createAcct" />
   </div>
-  
+</div>
 </template>
 
 <script>

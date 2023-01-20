@@ -24,6 +24,10 @@ module.exports = {
 		};
 
 		// Determine tournament date.
+		// So, Tournament days just do not have gladiator growth, all gladiators are required to do this
+		// Why not have it optional?
+		let allGladiators = await Gladiator.find();
+
 		if (date.weekDay == 7 && date.time == 1) {
 			console.log("Tournament Day");
 			console.log("Tournament Day");
@@ -46,8 +50,17 @@ module.exports = {
 				// So we grab all gladiators that are selected via schedule to do this tournament.
 				// We will then make sure they do not do any training that day.
 			}
+			
+			// if (date.time === 8) {
+			// 	gladiator.age++;
+			// 	if(gladiator.age > 2000000){
+			// 		console.log(" FORWARD THINKING AGE, add more memoriy arries or not!");
+			// 	}
+			// 	gladiator.doLevel();
+			// }
+			// //
+			// gladiator.save();			
 		}
-		let allGladiators = await Gladiator.find();
 		let ownersGain = {};
 		await allGladiators.forEach(async (gladiator) => {
 

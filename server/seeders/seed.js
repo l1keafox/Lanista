@@ -22,6 +22,8 @@ db.once("open", async () => {
 		console.log("  > Gladiator Deleteing all");
 		await Gladiator.deleteMany({});
 
+		//console.log("  > Creating Seed Acct")
+
 		console.log("all done!");
 		process.exit(0);
 	} catch (err) {

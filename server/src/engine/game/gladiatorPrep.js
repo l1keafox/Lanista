@@ -23,9 +23,8 @@ function modifyStatsFromItems(glad){
 
 function setupClash(glad){
 	// console.log(glad.abilities);
-	// console.log(glad.skills);
-	if(!glad.abilities){
-		glad.abilities = [];
+	if(!glad.abilities){ // This is a Memory
+		glad.abilities = glad.clash;
 	}
     return glad.abilities
     .concat(glad.skills)
@@ -89,7 +88,7 @@ function prepModelForMemory(glad){
     rtnObj.prepare = glad.prepare;
     rtnObj.react = glad.react;
 
-    rtnObj.clash = setupClash(glad);
+    rtnObj.clash = setupClash(glad).map( clash => clash.abilityName);
 
     return rtnObj;
 }
@@ -128,10 +127,9 @@ async function prepMemoryForFight(gladMem){
 	// now it needs to go through prepare/react/clash and get the acutal abilities.
 	rtnObj.prepare = rtnObj.prepare.map((skill) => getAbilityEffect(skill));
 	rtnObj.react = rtnObj.react.map((skill) => getAbilityEffect(skill));
-//	console.log(rtnObj)
+
 	rtnObj.clash = setupClash(rtnObj);
 	rtnObj.effectToDo = {};
-
 	// now we should take this Memory Object, and recreate prepModelForMemory 
 //	console.log(rtnObj);
 	return rtnObj;
