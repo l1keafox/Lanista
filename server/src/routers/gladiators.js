@@ -105,7 +105,7 @@ router.post('/gladiator/clashInfo', async(req, res) => {
     
     
     const allAbilities = glad.skills.concat(glad.abilities);
-    console.log(allAbilities);
+//    console.log(allAbilities);
     let rtn = {
         prepare:[],
         unPrepare:[],
@@ -176,7 +176,6 @@ router.post('/gladiator/saveLearning', async(req, res) => {
         glad.progressSkill  = JSON.stringify(progress)
     }
     
-    // So given that this is now an week array we need req.body.weekDay
     glad.save();
     console.log('  -EN> SaveLearning',glad.name);
     res.send(glad)
