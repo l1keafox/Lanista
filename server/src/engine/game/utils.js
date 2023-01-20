@@ -58,13 +58,10 @@ function createNewGladiator() {
       hits: 50, // Easily trained stat.
       morale:100, // Morale is high because it's stable stat? Mmm maybe later add ways to train it up.
       mana:100,
-      stress:100,
-      exp:0,
-      level:0,
+      level:1,
       winRecord:0,
       loseRecord:0,
-      stamina:0,
-      age:0,
+      age:1,
 
       // Looking for average of 1,000 start stat. as starting average.
 

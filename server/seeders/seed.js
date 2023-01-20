@@ -1,5 +1,5 @@
 const db = require("../src/config/connection");
-const { User, GameDate,Owner,Gladiator } = require("./../src/models");
+const { User, GameDate,Owner,Gladiator,saveDuel,Memories } = require("./../src/models");
 
 db.once("open", async () => {
 	try {
@@ -8,6 +8,11 @@ db.once("open", async () => {
 		await GameDate.deleteMany({});
         await GameDate.create({day:1,month:1,year:1,time:1,weekDay:1  } );
 
+		console.log("  > Deleting saved Duels");
+		await saveDuel.deleteMany({});
+		console.log("  > Deleting saved Memories");
+		await Memories.deleteMany({});
+		await Memories.create( );
 		console.log("  > User");
 		await User.deleteMany({});
 		let users = await User.create(  require('./userSeeds.json') );
