@@ -1,12 +1,7 @@
 <template>
-  <div class="flex h-full w-full">
-    <!-- -->
-    <div class="bg-blue-900 px-3" id="sideBar">
+  <div class="flex h-full w-full overflow-hidden">
       <SideNav @logged="update" @changeMain="changeStage" />
-    </div>
-    <div class="bg-slate-900 grow">
       <component :is="mainStage" />
-    </div>
   </div>
 </template>
 

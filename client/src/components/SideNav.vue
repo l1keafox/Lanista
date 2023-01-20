@@ -1,4 +1,5 @@
 <template>
+  <div  class = "overflow-y-auto  max-h-screen bg-blue-900 px-3">
   <br/>
   <h1  @click="$emit('changeMain','WelcomeMain')" class="cursor-pointer text-3xl text-center font-bold"> LANISTA </h1>
   <br/>
@@ -36,7 +37,7 @@
   <div v-if="showCreateModal">
     <CreateAccount id="vue" @close="closePopup" @createAcct="createAcct" />
   </div>
-  
+</div>
 </template>
 
 <script>

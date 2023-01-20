@@ -3,7 +3,7 @@
 
 const {modStat4Effect} = require('./../utils');
 module.exports = {
-  abilityName: "swing",
+  abilityName: "slash",
   type:"clash",
   description:"",
   doAbility(casterChar, target) {

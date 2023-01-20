@@ -13,6 +13,12 @@
       "username": "test",
       "email": "test@email.com",
       "password": "testtest"
-    }
+    },
+    {
+      "username": "seed",
+      "email": "seed@seed.com",
+      "password": "seed"
+    },
+
   ]
   

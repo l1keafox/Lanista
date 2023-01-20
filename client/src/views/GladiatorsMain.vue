@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div  class="flex flex-col">
     <h1>Gladiators</h1>
-    <div  v-if="ownerData" class="flex justify-center items-center" > 
+    <div  v-if="ownerData" class="flex" > 
         <div v-for="glad in ownerData.gladiators" :key="glad" :class="card"> 
         
         <h1 :class="cardTitle">{{glad.name}} </h1>

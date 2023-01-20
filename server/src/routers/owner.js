@@ -101,7 +101,7 @@ router.post('/owner/trainingData', async(req, res) => {
         }else {
             console.log("trainfailure?",train);
         }
-    }  );
+    }  ) .filter((notUndefined) => notUndefined !== undefined);
     res.send(rtnData);
 })
 router.post('/owner/learningData', async(req, res) => {
