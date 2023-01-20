@@ -3,7 +3,7 @@ const {User,Owner,Gladiator,DayEvents,saveDuel,Memory} = require('../models');
 const auth = require('../middleware/auth');
 const { getAbilityEffect } = require("./../engine/game/abilityIndex");
 const { doDuel }= require("../engine/game/duel");
-const {saveModelMemory, prepMemoryForFight} = require('./../engine/game/gladiatorPrep')
+const {saveModelMemory, prepMemoryForFight,prepModelForFight} = require('./../engine/game/gladiatorPrep')
 const router = express.Router();
 
 router.post('/gladiator/', async(req, res) => {
@@ -38,6 +38,11 @@ router.post('/gladiator/doSpar', async(req, res) => {
     let glad = await Gladiator.findOne({ _id: req.body.gladatorId });
     let glad2 = await Gladiator.findOne({ _id: req.body.gladatorId2 });
     if(glad && glad2){
+        await glad.setSkills();
+        await glad2.setSkills();
+
+        let one = await prepModelForFight(glad);
+        let two = await prepModelForFight(glad);
 
         let report = await doDuel(one,two);
 
@@ -63,16 +68,19 @@ router.post('/gladiator/doSpar', async(req, res) => {
 
 router.post('/gladiator/fightMemory', async(req, res) => {
     let glad = await Gladiator.findOne({ _id: req.body.gladatorId });
+
     if(glad){
         // This is where we get the memory and prepare it as  two;
         let allMemories = await Memory.find();
 //        console.log(allMemories.length);
         let randoMemory = allMemories[ Math.floor( Math.random() & allMemories.length ) ] ;
-
-//        let one = await prep(glad);
-  //      let two = await prepMemoryForFight(randoMemory);
-  //      let report = await doDuel(one,two);
-//        res.send(report)
+//        console.log(randoMemory);
+        let one = await prepModelForFight(glad);
+        let two = await prepMemoryForFight(randoMemory);
+        // console.log(one);
+        // console.log(two);
+        let report = await doDuel(one,two);
+        res.send(report)
 
     }
     // with memory have age and level,

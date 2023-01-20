@@ -11,15 +11,14 @@ const { prepModelForMemory, prepModelForFight  } = require('./gladiatorPrep')
 
 async function returnPreparedGladiator(gladiator) {
 	// gladiator prep stuff.
-	await gladiator.setSkills();
-	let newGladObj = prepModelForFight(gladiator);
+	
 
-	newGladObj.getClash = function () {
-		return newGladObj.clash[
-			Math.floor(Math.random() * newGladObj.clash.length)
+	gladiator.getClash = function () {
+		return gladiator.clash[
+			Math.floor(Math.random() * gladiator.clash.length)
 		];
 	};
-	newGladObj.doAction = function (Ability, targetChar) {
+	gladiator.doAction = function (Ability, targetChar) {
 		if (SHOWBATTLE)
 			console.log(
 				"  =EN/DUEL/ATTK>",
@@ -32,7 +31,7 @@ async function returnPreparedGladiator(gladiator) {
 			);
 		return Ability.doAbility(this, targetChar);
 	};
-	newGladObj.abilityMix = function (statObj){
+	gladiator.abilityMix = function (statObj){
 		// input is
 		// num is an whole num * .01;
 		// { "stat":num, }
@@ -47,10 +46,10 @@ async function returnPreparedGladiator(gladiator) {
 	  }
 	  
 
-	newGladObj.addEffect = function (effectName, effectStr) {
+	gladiator.addEffect = function (effectName, effectStr) {
 		addEffect(this, effectName, effectStr);
 	};
-	newGladObj.endOfRound = function () {
+	gladiator.endOfRound = function () {
 		for (let aReaction of this.react) {
 			if (aReaction.cooldown) {
 				console.log(aReaction.abilityName, aReaction.cooldown,this.name)
@@ -61,14 +60,14 @@ async function returnPreparedGladiator(gladiator) {
 			if (thisGuy.cooldown) thisGuy.cooldown--;
 		}
 	};
-	newGladObj.clashPrepare = function (target) {
+	gladiator.clashPrepare = function (target) {
 		for (let aPrepare of this.prepare) {
 			if (aPrepare.cooldown) continue;
 			aPrepare.forClash(this, target);
 		}
 	};
 
-	newGladObj.clashReact = function ( target) {
+	gladiator.clashReact = function ( target) {
 		console.log("  -En/DUEL>getting clashReSULt for,", this.name, "is",this.clashResult,"abilityWanted:",this.clashAbility,"Is effects",this.effectToDo);
 		for (let aReaction of this.react) {
 			
@@ -82,8 +81,8 @@ async function returnPreparedGladiator(gladiator) {
 			return aReaction.doClash(this, target);
 		}
 	};
-//	console.log(newGladObj);
-	return newGladObj;
+//	console.log(gladiator);
+	return gladiator;
 }
 class Clash {
 	battle(oneChar, twoChar) {
@@ -150,11 +149,12 @@ async function doDuel(one, two) {
 	let report = {};
 	let gladOne = await returnPreparedGladiator(one);
 	let gladTwo = await returnPreparedGladiator(two);
-	
 	//saveModelMemory(one);
 	//saveModelMemory(two);
-
-	if (SHOWBATTLE) console.log("  -EN/Duel> ", gladOne.name, "Vs", gladTwo.name);
+	console.log(gladOne);
+	console.log(gladTwo);
+	if (SHOWBATTLE) 
+	console.log("  -EN/Duel> ", gladOne.name, "Vs", gladTwo.name);
 
 	let roundCnt = 0;
 	do {

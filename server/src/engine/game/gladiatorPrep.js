@@ -1,6 +1,6 @@
 const { getItemEffect } = require('./itemsIndex');
 const { getAbilityEffect } = require('./abilityIndex');
-
+const {Memory } = require('./../../models')
 
 function modifyStatsFromItems(glad){
 	// Here we will go through items and adjust stats based on items.
@@ -22,6 +22,11 @@ function modifyStatsFromItems(glad){
 }
 
 function setupClash(glad){
+	// console.log(glad.abilities);
+	// console.log(glad.skills);
+	if(!glad.abilities){
+		glad.abilities = [];
+	}
     return glad.abilities
     .concat(glad.skills)
     .map((skill) => {
@@ -75,20 +80,6 @@ async function saveModelMemory(gladiator){
 	gMemory.save();
 }
 
-// prepMemoryForFight
-async function prepMemoryForFight(gladMem){
-	console.log(gladMem,"tds");
-	let rtnObj = JSON.parse(gladMem.memory);
-	rtnObj.name = gladMem.name;
-	
-	// now it needs to go through prepare/react/clash and get the acutal abilities.
-	rtnObj.prepare = rtnObj.prepare.map((skill) => getAbilityEffect(skill));
-	rtnObj.react = rtnObj.react.map((skill) => getAbilityEffect(skill));
-
-	// now we should take this Memory Object, and recreate prepModelForMemory 
-	console.log(rtnObj);
-	return rtnObj;
-}
 // prepModelForMemory
 function prepModelForMemory(glad){
     // glad is to create an object that is prepared for save.
@@ -108,7 +99,7 @@ function prepModelForFight(glad) {
     // This will go through equipment and give fill up skills
     // or it will go through 
     let rtnObj = setupStats(glad);
-
+	rtnObj.name = glad.name;
 	rtnObj.maxHits = glad.hits;
 	rtnObj.maxMana = glad.mana;
 	rtnObj.maxMorale = glad.morale;
@@ -122,10 +113,30 @@ function prepModelForFight(glad) {
 	rtnObj.effectToDo = {};
 
 	rtnObj.clash = setupClash(glad);
-
+	console.log(rtnObj.clash,"WHAT IS THIS?");
     return rtnObj;
 }
 
+// prepMemoryForFight
+async function prepMemoryForFight(gladMem){
+//	console.log(gladMem,"tds");
+	let rtnObj = JSON.parse(gladMem.memory);
+	rtnObj.name = gladMem.name;
+	rtnObj.maxHits = rtnObj.hits;
+	rtnObj.maxMana = rtnObj.mana;
+	rtnObj.maxMorale = rtnObj.morale;
+	// modifyStatsFromItems(glad); No modifty because it's all saved.
+	// now it needs to go through prepare/react/clash and get the acutal abilities.
+	rtnObj.prepare = rtnObj.prepare.map((skill) => getAbilityEffect(skill));
+	rtnObj.react = rtnObj.react.map((skill) => getAbilityEffect(skill));
+//	console.log(rtnObj)
+	rtnObj.clash = setupClash(rtnObj);
+	rtnObj.effectToDo = {};
+
+	// now we should take this Memory Object, and recreate prepModelForMemory 
+//	console.log(rtnObj);
+	return rtnObj;
+}
 
 
 module.exports = {prepModelForMemory, prepModelForFight, saveModelMemory,prepMemoryForFight}
