@@ -29,6 +29,7 @@ module.exports = {
 			console.log("Tournament Day");
 			console.log("Tournament Day");
 			console.log("Tournament Day");
+			
 			// So now we determine if the local,regional,quarter,national.
 			if (date.month === 12 && date.day == 28) {
 				// national is the last month, and 28th
@@ -107,6 +108,7 @@ module.exports = {
 				}
 				gladiator.doLevel();
 			}
+			//
 			gladiator.save();
 		});
 

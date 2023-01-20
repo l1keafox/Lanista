@@ -1,8 +1,9 @@
 const express = require('express');
-const {User,Owner,Gladiator,DayEvents,saveDuel} = require('../models');
+const {User,Owner,Gladiator,DayEvents,saveDuel,Memory} = require('../models');
 const auth = require('../middleware/auth');
 const { getAbilityEffect } = require("./../engine/game/abilityIndex");
 const { doDuel }= require("../engine/game/duel");
+const {saveModelMemory, prepMemoryForFight,prepModelForFight} = require('./../engine/game/gladiatorPrep')
 const router = express.Router();
 
 router.post('/gladiator/', async(req, res) => {
@@ -37,31 +38,61 @@ router.post('/gladiator/doSpar', async(req, res) => {
     let glad = await Gladiator.findOne({ _id: req.body.gladatorId });
     let glad2 = await Gladiator.findOne({ _id: req.body.gladatorId2 });
     if(glad && glad2){
-        let report = await doDuel(glad,glad2);
+        await glad.setSkills();
+        await glad2.setSkills();
 
+        let one = await prepModelForFight(glad);
+        let two = await prepModelForFight(glad);
 
-        // Here we save it.
-        let owner = await Owner.findOne({ userAcct: req.body.ownerId });
+        let report = await doDuel(one,two);
+
+        await saveModelMemory(glad);
+        await saveModelMemory(glad2);
+        // Here we save it? 
+//        let owner = await Owner.findOne({ userAcct: req.body.ownerId });
         //saveDuel
-        const savedDuel = await new saveDuel({ "gladiatorOne":req.body.gladatorId ,"gladiatorTwo":req.body.gladatorId2 ,duel: JSON.stringify(report) } );
+       // const savedDuel = await new saveDuel({ "gladiatorOne":req.body.gladatorId ,"gladiatorTwo":req.body.gladatorId2 ,duel: JSON.stringify(report) } );
         //console.log(savedDuel);
         // owner.history.push(savedDuel);
         // if(owner.history.length > 10){
         //     const deleted = owner.history.pop();
         //     console.log('We should also go through saveDuels and delete this',deleted);
         // }
-        owner.save();
-        savedDuel.save();
+      //  owner.save();
+        //savedDuel.save();
         res.send(report)
     } else {
         res.send({"error":"Glad/Glad2 error"})
     }
 })
 
-router.post('/gladiator/getDuelHistory', async(req, res) => {
-    let savedDuel = await saveDuel.findOne({ _id: req.body.historyId });
+router.post('/gladiator/fightMemory', async(req, res) => {
+    let glad = await Gladiator.findOne({ _id: req.body.gladatorId });
+
+    if(glad){
+        // This is where we get the memory and prepare it as  two;
+        let allMemories = await Memory.find();
+//        console.log(allMemories.length);
+        let randoMemory = allMemories[ Math.floor( Math.random() & allMemories.length ) ] ;
+//        console.log(randoMemory);
+        let one = await prepModelForFight(glad);
+        let two = await prepMemoryForFight(randoMemory);
+        // console.log(one);
+        // console.log(two);
+        let report = await doDuel(one,two);
+        res.send(report)
+
+    }
+    // with memory have age and level,
+    // level, 
+    // and later on you will need to get close age to get the right memory.
+    /*let savedDuel = await Memory.find({ 
+        //age : {$gt: , %lt:}
+        level : req.body.level
+     });
+     */
     // console.log(savedDuel);
-    return(savedDuel);
+    //return(savedDuel);
 });
 
 
