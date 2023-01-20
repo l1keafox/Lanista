@@ -112,9 +112,8 @@ export default {
 					}
 				);
 				let rpns = await rpnse.json();
-				console.log(rpns);
-//				this.glads = [gladData, glad2];
-//				console.log(this.glads);
+			
+				this.glads = rpns.fighters;
 				this.combatReport = rpns;
 				this.isModalShown = true;				
 			}
@@ -143,7 +142,8 @@ export default {
 				);
 				let rpns = await rpnse.json();
 				//console.log(rpns);
-				this.glads = [gladData.name, glad2.name];
+				//this.glads = [gladData.name, glad2.name];
+				this.glads = rpns.fighters;				
 				console.log(this.glads);
 				this.combatReport = rpns;
 				this.isModalShown = true;

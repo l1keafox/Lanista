@@ -113,7 +113,6 @@ function prepModelForFight(glad) {
 	rtnObj.effectToDo = {};
 
 	rtnObj.clash = setupClash(glad);
-	console.log(rtnObj.clash,"WHAT IS THIS?");
     return rtnObj;
 }
 

@@ -68,7 +68,7 @@ async function returnPreparedGladiator(gladiator) {
 	};
 
 	gladiator.clashReact = function ( target) {
-		console.log("  -En/DUEL>getting clashReSULt for,", this.name, "is",this.clashResult,"abilityWanted:",this.clashAbility,"Is effects",this.effectToDo);
+		if (SHOWBATTLE) 		console.log("  -En/DUEL>getting clashReSULt for,", this.name, "is",this.clashResult,"abilityWanted:",this.clashAbility,"Is effects",this.effectToDo);
 		for (let aReaction of this.react) {
 			
 			if (aReaction.cooldown) {
@@ -149,16 +149,16 @@ async function doDuel(one, two) {
 	let report = {};
 	let gladOne = await returnPreparedGladiator(one);
 	let gladTwo = await returnPreparedGladiator(two);
-	//saveModelMemory(one);
-	//saveModelMemory(two);
-	console.log(gladOne);
-	console.log(gladTwo);
-	if (SHOWBATTLE) 
+	if(gladOne.name == gladTwo.name){
+		gladOne.name = gladOne.name + '1';
+		gladTwo.name = gladTwo.name + '2';
+	}
+	
 	console.log("  -EN/Duel> ", gladOne.name, "Vs", gladTwo.name);
 
 	let roundCnt = 0;
 	do {
-		console.log("NEW ROUND -------------------------------")
+		if (SHOWBATTLE) console.log("NEW ROUND -------------------------------")
 		let roundReport = {};
 		roundReport[gladOne.name] = {};
 		roundReport[gladTwo.name] = {};
@@ -262,6 +262,7 @@ async function doDuel(one, two) {
 		hits: gladTwo.hits,
 		morale: gladTwo.morale,
 	};
+	report.fighters = [gladOne.name,gladTwo.name ];
 
 	console.log(`  -EN> Game DUEL : ${gladOne.name} Vs ${gladTwo.name} TIME: ${new Date() - startOfTick}ms Winner:${report.final.winner} `);
 	return report;
