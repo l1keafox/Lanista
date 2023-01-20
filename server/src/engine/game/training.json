@@ -1,4 +1,18 @@
 {
+  "weights": {
+    "description": "Weight Training in weightRoom",
+    "strength": {
+      "min": 10,
+      "max": 20,
+      "growth": true
+    },
+    "charisma": {
+      "min": 5,
+      "max": 10,
+      "growth": true
+    }
+
+  },  
   "chopWood": {
     "description": "Chopping Wood to increase strength, constiution and gold",
     "strength": {
