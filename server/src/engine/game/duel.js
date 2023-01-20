@@ -6,12 +6,13 @@ const {
 	addEffect,
 } = require("./Abilities/abilityEffects");
 const { getItemEffect } = require("./itemsIndex");
-
 const {Memory} = require('./../../models');
+const { prepareForMemory, prepareForFight  } = require('./gladiatorPrep')
+
 async function returnPreparedGladiator(gladiator) {
 	// gladiator prep stuff.
 	await gladiator.setSkills();
-	let newGladObj = await gladiator.prepareForFight();
+	let newGladObj = prepareForFight(gladiator);
 
 	newGladObj.getClash = function () {
 		return newGladObj.clash[
@@ -144,16 +145,28 @@ class Clash {
 async function saveMemory(gladiator){
 	let name = gladiator.name;
 	let level = gladiator.level;
-	let memory = await gladiator.prepareForMemory();
+	let memory = prepareForMemory(gladiator);
 		memory = JSON.stringify( memory );
 	let age = gladiator.age;
-	const gMemory = await new Memory( {name,level,age,memory } );	
+	let gladiatorID = gladiator._id;
+	let ownerID = gladiator.owner;
+	let win = 0;
+	let loss = 0;
+	const gMemory = await new Memory( {name,level,age,memory,gladiatorID,ownerID } );	
 	console.log(`  -> SAVING GLAD ${name} age:${age} level:${level}`)
 	gMemory.save();
 }
 
-async function prepMemory(Memory){
-	console.log(Memory,"tds");
+async function prepMemory(gladMem){
+	console.log(gladMem,"tds");
+	let rtnObj = JSON.parse(gladMem.memory);
+	console.log(rtnObj);
+	rtnObj.name = gladMem.name;
+	
+	// now it needs to go through prepare/react/clash and get the acutal abilities.
+
+	// now we should take this Memory Object, and recreate prepareForMemory 
+
 }
 async function doDuel(gladOne, gladTwo) {
 	// Import things to note - we need it recorded so we can send it back to the users.

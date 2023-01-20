@@ -1,0 +1,103 @@
+const { getItemEffect } = require('./itemsIndex');
+const { getAbilityEffect } = require('./abilityIndex');
+
+
+function modifyStatsFromItems(glad){
+	// Here we will go through items and adjust stats based on items.
+	const slots = ["mainHand","offHand","head","body","boots"];
+	slots.forEach(slot =>{
+		if (glad[slot] !== null){
+			let item = getItemEffect( glad[slot]);
+			if(!item && glad[slot]){
+				console.log(' Error no item return', glad[slot]);
+			} else if(item &&  item.stats ){
+				for(let stat in item.stats){
+					console.log(stat,"b4:",rtnObj[stat]);
+					rtnObj[stat] = rtnObj[stat] +=  rtnObj[stat] * ( item.stats[stat] * 0.01 );
+					console.log(stat,"after:",rtnObj[stat]);
+				}
+			}
+		}
+	} )
+}
+
+function setupClash(glad){
+    return glad.abilities
+    .concat(glad.skills)
+    .map((skill) => {
+        const effect = getAbilityEffect(skill);
+        if(!effect){
+            console.log(' No effect for ',skill);
+        }
+         else if (effect.type === "clash") {
+            return effect;
+        }
+    })
+    .filter((notUndefined) => notUndefined !== undefined);
+}
+
+function setupStats(glad){
+    let rtnObj = {};
+	rtnObj.hits = glad.hits;
+	rtnObj.mana = glad.mana;
+	rtnObj.morale = glad.morale;
+	rtnObj.strength = glad.strength;
+	rtnObj.dexterity = glad.dexterity;
+	rtnObj.agility = glad.agility;
+	rtnObj.constitution = glad.constitution;
+	rtnObj.vitality = glad.vitality;
+	rtnObj.intelligence = glad.intelligence;
+	rtnObj.wisdom = glad.wisdom;
+	rtnObj.bravery = glad.bravery;
+	rtnObj.piety = glad.piety;
+	rtnObj.sensitivity = glad.sensitivity;
+	rtnObj.charisma = glad.charisma;
+	rtnObj.luck = glad.luck;
+	rtnObj.reputation = glad.reputation;
+	rtnObj._id = glad._id;
+    return rtnObj;
+}
+
+function mapReactPrepare(){
+
+}
+
+function prepareForMemory(glad){
+    // glad is to create an object that is prepared for save.
+    let rtnObj = setupStats(glad);
+    modifyStatsFromItems(glad)
+
+    rtnObj.prepare = glad.prepare;
+    rtnObj.react = glad.react;
+
+    rtnObj.clash = setupClash(glad);
+
+    return rtnObj;
+}
+
+
+function prepareForFight(glad) {
+    // This will go through equipment and give fill up skills
+    // or it will go through 
+    let rtnObj = setupStats(glad);
+
+	rtnObj.maxHits = glad.hits;
+	rtnObj.maxMana = glad.mana;
+	rtnObj.maxMorale = glad.morale;
+
+    modifyStatsFromItems(glad);
+	// Here we will go through items and adjust stats based on items.
+
+	rtnObj.prepare = glad.prepare.map((skill) => getAbilityEffect(skill));
+	rtnObj.react = glad.react.map((skill) => getAbilityEffect(skill));
+
+	rtnObj.effectToDo = {};
+
+	rtnObj.clash = setupClash(glad);
+
+    return rtnObj;
+}
+
+
+
+module.exports = {prepareForMemory, prepareForFight}

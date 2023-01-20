@@ -16,6 +16,18 @@ const MemorySchema = new Schema(
         level:{ 
             type:Number
         },
+        win:{
+            type:Number
+        },
+        loss:{
+            type:Number
+        },
+        gladiatorID:{
+            type:String
+        },
+        ownerID:{
+            type:String
+        },
         memory:{
             type:String
         }

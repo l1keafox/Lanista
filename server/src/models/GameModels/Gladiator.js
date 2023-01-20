@@ -172,115 +172,71 @@ gladiatorSchema.methods.doLevel = async function() {
     }
 }
 
+// gladiatorSchema.methods.prepareForFight = async function() {
+//     // This will go through equipment and give fill up skills
+//     // or it will go through 
+//     let rtnObj = {};
 
-gladiatorSchema.methods.prepareForMemory = async function() {
-    let rtnObj = {};
-    // this is to create an object that is prepared for save.
-	rtnObj.hits = this.hits;
-	rtnObj.hits = this.mana;
-	rtnObj.morale = this.morale;
-	rtnObj.strength = this.strength;
-	rtnObj.dexterity = this.dexterity;
-	rtnObj.agility = this.agility;
-	rtnObj.constitution = this.constitution;
-	rtnObj.vitality = this.vitality;
-	rtnObj.intelligence = this.intelligence;
-	rtnObj.wisdom = this.wisdom;
-	rtnObj.bravery = this.bravery;
-	rtnObj.piety = this.piety;
-	rtnObj.sensitivity = this.sensitivity;
-	rtnObj.charisma = this.charisma;
-	rtnObj.luck = this.luck;
-	rtnObj.reputation = this.reputation;
-	rtnObj._id = this._id;
+// 	rtnObj.maxHits = this.hits;
+// 	rtnObj.maxMana = this.mana;
+// 	rtnObj.maxMorale = this.morale;
+// 	rtnObj.hits = this.hits;
+// 	rtnObj.mana = this.mana;
+// 	rtnObj.morale = this.morale;
+// 	rtnObj.strength = this.strength;
+// 	rtnObj.dexterity = this.dexterity;
+// 	rtnObj.agility = this.agility;
+// 	rtnObj.constitution = this.constitution;
+// 	rtnObj.vitality = this.vitality;
+// 	rtnObj.intelligence = this.intelligence;
+// 	rtnObj.wisdom = this.wisdom;
+// 	rtnObj.bravery = this.bravery;
+// 	rtnObj.piety = this.piety;
+// 	rtnObj.sensitivity = this.sensitivity;
+// 	rtnObj.charisma = this.charisma;
+// 	rtnObj.luck = this.luck;
+// 	rtnObj.reputation = this.reputation;
+// 	rtnObj.name = this.name;
+// 	rtnObj._id = this._id;
 
-	// Here we will go through items and adjust stats based on items.
-	const slots = ["mainHand","offHand","head","body","boots"];
-	slots.forEach(slot =>{
-		if (this[slot] !== null){
-			let item = getItemEffect( this[slot]);
-			if(!item && this[slot]){
-				console.log(' Error no item return', this[slot]);
-			} else if(item &&  item.stats ){
-				for(let stat in item.stats){
-					console.log(stat,"b4:",rtnObj[stat]);
-					rtnObj[stat] = rtnObj[stat] +=  rtnObj[stat] * ( item.stats[stat] * 0.01 );
-					console.log(stat,"after:",rtnObj[stat]);
-				}
-			}
-		}
-	} )
-    rtnObj.prepare = this.prepare;
-    rtnObj.react = this.react;
-    rtnObj.skills = this.skills;
-    return rtnObj;
-}
+// 	// Here we will go through items and adjust stats based on items.
+// 	const slots = ["mainHand","offHand","head","body","boots"];
+// 	slots.forEach(slot =>{
+// 		if (this[slot] !== null){
+// 			let item = getItemEffect( this[slot]);
+// 			if(!item && this[slot]){
+// 				console.log(' Error no item return', this[slot]);
+// 			} else if(item &&  item.stats ){
+// 				for(let stat in item.stats){
+// 					console.log(stat,"b4:",rtnObj[stat]);
+// 					rtnObj[stat] = rtnObj[stat] +=  rtnObj[stat] * ( item.stats[stat] * 0.01 );
+// 					console.log(stat,"after:",rtnObj[stat]);
+// 				}
+// 			}
+// 		}
+// 	} )
 
-gladiatorSchema.methods.prepareForFight = async function() {
-    // This will go through equipment and give fill up skills
-    // or it will go through 
-    let rtnObj = {};
+// 	rtnObj.prepare = this.prepare.map((skill) =>
+// 		getAbilityEffect(skill)
+// 	);
+// 	rtnObj.react = this.react.map((skill) => getAbilityEffect(skill));
+// 	rtnObj.effectToDo = {};
 
-	rtnObj.maxHits = this.hits;
-	rtnObj.maxMana = this.mana;
-	rtnObj.maxMorale = this.morale;
-	rtnObj.hits = this.hits;
-	rtnObj.mana = this.mana;
-	rtnObj.morale = this.morale;
-	rtnObj.strength = this.strength;
-	rtnObj.dexterity = this.dexterity;
-	rtnObj.agility = this.agility;
-	rtnObj.constitution = this.constitution;
-	rtnObj.vitality = this.vitality;
-	rtnObj.intelligence = this.intelligence;
-	rtnObj.wisdom = this.wisdom;
-	rtnObj.bravery = this.bravery;
-	rtnObj.piety = this.piety;
-	rtnObj.sensitivity = this.sensitivity;
-	rtnObj.charisma = this.charisma;
-	rtnObj.luck = this.luck;
-	rtnObj.reputation = this.reputation;
-	rtnObj.name = this.name;
-	rtnObj._id = this._id;
+// 	rtnObj.clash = this.abilities
+// 		.concat(this.skills)
+// 		.map((skill) => {
+// 			const effect = getAbilityEffect(skill);
+// 			if(!effect){
+// 				console.log(' No effect for ',skill);
+// 			}
+// 			 else if (effect.type === "clash") {
+// 				return effect;
+// 			}
+// 		})
+// 		.filter((notUndefined) => notUndefined !== undefined);
 
-	// Here we will go through items and adjust stats based on items.
-	const slots = ["mainHand","offHand","head","body","boots"];
-	slots.forEach(slot =>{
-		if (this[slot] !== null){
-			let item = getItemEffect( this[slot]);
-			if(!item && this[slot]){
-				console.log(' Error no item return', this[slot]);
-			} else if(item &&  item.stats ){
-				for(let stat in item.stats){
-					console.log(stat,"b4:",rtnObj[stat]);
-					rtnObj[stat] = rtnObj[stat] +=  rtnObj[stat] * ( item.stats[stat] * 0.01 );
-					console.log(stat,"after:",rtnObj[stat]);
-				}
-			}
-		}
-	} )
-
-	rtnObj.prepare = this.prepare.map((skill) =>
-		getAbilityEffect(skill)
-	);
-	rtnObj.react = this.react.map((skill) => getAbilityEffect(skill));
-	rtnObj.effectToDo = {};
-
-	rtnObj.clash = this.abilities
-		.concat(this.skills)
-		.map((skill) => {
-			const effect = getAbilityEffect(skill);
-			if(!effect){
-				console.log(' No effect for ',skill);
-			}
-			 else if (effect.type === "clash") {
-				return effect;
-			}
-		})
-		.filter((notUndefined) => notUndefined !== undefined);
-
-    return rtnObj;
-}
+//     return rtnObj;
+// }
 
 
 const Gladiator = model("gladiator", gladiatorSchema);
