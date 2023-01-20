@@ -163,6 +163,15 @@ gladiatorSchema.methods.setSkills = async function() {
         }
     });
 }
+gladiatorSchema.methods.doLevel = async function() {
+    // This will go through equipment and give fill up skills
+    // or it will go through 
+    if(this.age > Math.pow(2,this.level)){
+        this.level++;
+    }
+}
+
+
 
 const Gladiator = model("gladiator", gladiatorSchema);
 

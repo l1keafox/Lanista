@@ -102,6 +102,7 @@ module.exports = {
 
 			if (date.time === 8) {
 				gladiator.age++;
+				gladiator.doLevel();
 			}
 			gladiator.save();
 		});
