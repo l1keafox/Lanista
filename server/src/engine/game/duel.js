@@ -7,12 +7,12 @@ const {
 } = require("./Abilities/abilityEffects");
 const { getItemEffect } = require("./itemsIndex");
 const {Memory} = require('./../../models');
-const { prepareForMemory, prepareForFight  } = require('./gladiatorPrep')
+const { prepModelForMemory, prepModelForFight  } = require('./gladiatorPrep')
 
 async function returnPreparedGladiator(gladiator) {
 	// gladiator prep stuff.
 	await gladiator.setSkills();
-	let newGladObj = prepareForFight(gladiator);
+	let newGladObj = prepModelForFight(gladiator);
 
 	newGladObj.getClash = function () {
 		return newGladObj.clash[
@@ -142,43 +142,17 @@ class Clash {
 	}
 }
 
-async function saveMemory(gladiator){
-	let name = gladiator.name;
-	let level = gladiator.level;
-	let memory = prepareForMemory(gladiator);
-		memory = JSON.stringify( memory );
-	let age = gladiator.age;
-	let gladiatorID = gladiator._id;
-	let ownerID = gladiator.owner;
-	let win = 0;
-	let loss = 0;
-	const gMemory = await new Memory( {name,level,age,memory,gladiatorID,ownerID } );	
-	console.log(`  -> SAVING GLAD ${name} age:${age} level:${level}`)
-	gMemory.save();
-}
-
-async function prepMemory(gladMem){
-	console.log(gladMem,"tds");
-	let rtnObj = JSON.parse(gladMem.memory);
-	console.log(rtnObj);
-	rtnObj.name = gladMem.name;
-	
-	// now it needs to go through prepare/react/clash and get the acutal abilities.
-
-	// now we should take this Memory Object, and recreate prepareForMemory 
-
-}
-async function doDuel(gladOne, gladTwo) {
+async function doDuel(one, two) {
 	// Import things to note - we need it recorded so we can send it back to the users.
 	// So, let's take the glads and rebuild the game object for a one time use.
 	// Most things should return a report? Or should we pass the report to it so it can use it?
 	const startOfTick = new Date();
 	let report = {};
-//	let gladOne = await returnPreparedGladiator(one);
-//	let gladTwo = await returnPreparedGladiator(two);
+	let gladOne = await returnPreparedGladiator(one);
+	let gladTwo = await returnPreparedGladiator(two);
 	
-	//saveMemory(one);
-	//saveMemory(two);
+	//saveModelMemory(one);
+	//saveModelMemory(two);
 
 	if (SHOWBATTLE) console.log("  -EN/Duel> ", gladOne.name, "Vs", gladTwo.name);
 
@@ -293,4 +267,4 @@ async function doDuel(gladOne, gladTwo) {
 	return report;
 }
 
-module.exports = { doDuel ,returnPreparedGladiator , saveMemory,prepMemory };
+module.exports = { doDuel };

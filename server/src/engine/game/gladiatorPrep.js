@@ -58,11 +58,39 @@ function setupStats(glad){
     return rtnObj;
 }
 
-function mapReactPrepare(){
 
+//saveModelMemory
+async function saveModelMemory(gladiator){
+	let name = gladiator.name;
+	let level = gladiator.level;
+	let memory = prepModelForMemory(gladiator);
+		memory = JSON.stringify( memory );
+	let age = gladiator.age;
+	let gladiatorID = gladiator._id;
+	let ownerID = gladiator.owner;
+	let win = 0;
+	let loss = 0;
+	const gMemory = await new Memory( {name,level,age,memory,gladiatorID,ownerID } );	
+	console.log(`  -> SAVING GLAD ${name} age:${age} level:${level}`)
+	gMemory.save();
 }
 
-function prepareForMemory(glad){
+// prepMemoryForFight
+async function prepMemoryForFight(gladMem){
+	console.log(gladMem,"tds");
+	let rtnObj = JSON.parse(gladMem.memory);
+	rtnObj.name = gladMem.name;
+	
+	// now it needs to go through prepare/react/clash and get the acutal abilities.
+	rtnObj.prepare = rtnObj.prepare.map((skill) => getAbilityEffect(skill));
+	rtnObj.react = rtnObj.react.map((skill) => getAbilityEffect(skill));
+
+	// now we should take this Memory Object, and recreate prepModelForMemory 
+	console.log(rtnObj);
+	return rtnObj;
+}
+// prepModelForMemory
+function prepModelForMemory(glad){
     // glad is to create an object that is prepared for save.
     let rtnObj = setupStats(glad);
     modifyStatsFromItems(glad)
@@ -75,8 +103,8 @@ function prepareForMemory(glad){
     return rtnObj;
 }
 
-
-function prepareForFight(glad) {
+// prepModelForFight
+function prepModelForFight(glad) {
     // This will go through equipment and give fill up skills
     // or it will go through 
     let rtnObj = setupStats(glad);
@@ -100,4 +128,4 @@ function prepareForFight(glad) {
 
 
 
-module.exports = {prepareForMemory, prepareForFight}
+module.exports = {prepModelForMemory, prepModelForFight, saveModelMemory,prepMemoryForFight}

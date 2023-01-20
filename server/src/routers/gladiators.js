@@ -2,7 +2,8 @@ const express = require('express');
 const {User,Owner,Gladiator,DayEvents,saveDuel,Memory} = require('../models');
 const auth = require('../middleware/auth');
 const { getAbilityEffect } = require("./../engine/game/abilityIndex");
-const { doDuel , returnPreparedGladiator , saveMemory, prepMemory }= require("../engine/game/duel");
+const { doDuel }= require("../engine/game/duel");
+const {saveModelMemory, prepMemoryForFight} = require('./../engine/game/gladiatorPrep')
 const router = express.Router();
 
 router.post('/gladiator/', async(req, res) => {
@@ -38,13 +39,10 @@ router.post('/gladiator/doSpar', async(req, res) => {
     let glad2 = await Gladiator.findOne({ _id: req.body.gladatorId2 });
     if(glad && glad2){
 
-        let one = await returnPreparedGladiator(glad);
-        let two = await returnPreparedGladiator(glad2);
-
         let report = await doDuel(one,two);
 
-        await saveMemory(glad);
-        await saveMemory(glad2);
+        await saveModelMemory(glad);
+        await saveModelMemory(glad2);
         // Here we save it? 
 //        let owner = await Owner.findOne({ userAcct: req.body.ownerId });
         //saveDuel
@@ -71,8 +69,8 @@ router.post('/gladiator/fightMemory', async(req, res) => {
 //        console.log(allMemories.length);
         let randoMemory = allMemories[ Math.floor( Math.random() & allMemories.length ) ] ;
 
-        let one = await returnPreparedGladiator(glad);
-        let two = await prepMemory(randoMemory);
+//        let one = await prep(glad);
+  //      let two = await prepMemoryForFight(randoMemory);
   //      let report = await doDuel(one,two);
 //        res.send(report)
 
