@@ -1,10 +1,10 @@
 const { getItemEffect } = require('./itemsIndex');
 const { getAbilityEffect } = require('./abilityIndex');
 const {Memory } = require('./../../models')
-
+const slots = ["mainHand","offHand","head","body","boots"];
 function modifyStatsFromItems(glad){
 	// Here we will go through items and adjust stats based on items.
-	const slots = ["mainHand","offHand","head","body","boots"];
+	
 	slots.forEach(slot =>{
 		if (glad[slot] !== null){
 			let item = getItemEffect( glad[slot]);
@@ -91,6 +91,11 @@ function prepModelForMemory(glad){
 
     rtnObj.clash = setupClash(glad).map( clash => clash.abilityName);
 
+	slots.forEach(slot =>{
+		if (glad[slot] !== null){
+			rtnObj[slot] = glad[slot];
+		}
+	} )	
     return rtnObj;
 }
 

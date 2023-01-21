@@ -14,7 +14,6 @@ let date = {
 
 module.exports = {
 	doTick: async function () {
-		console.log('  -TICK> doTick -> Advance Day / Tournament / Do Growth')
 
 		let gameDate = await GameDate.find();
 		gameDate = gameDate[0]; // Because there should only be 1 gameDate ever!;
@@ -65,6 +64,8 @@ module.exports = {
 			// 	gladiator.age++;
 			// gladiator.save();			
 		} else {
+			console.log('  -TICK> Do Growth')
+
 			await allGladiators.forEach(async (gladiator) => {
 //			console.log(gladiator.schedule[0][date.weekDay][date.time], gladiator.name,"learning",gladiator.learnSkill,gladiator.taskSkill,gladiator.progressSkill);
 			// before we do growth we need to check too see if this is current a skill replacement.
