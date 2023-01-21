@@ -1,7 +1,7 @@
 <template>
   <div  class = "overflow-y-auto   max-h-screen bg-blue-900 px-3 w-48">
   <br/>
-  <h1  @click="$emit('changeMain','WelcomeMain')" class="cursor-pointer text-3xl text-center font-bold"> LANISTA </h1>
+  <h1  @click="$emit('changeMain','WelcomeMain')" class="cursor-pointer text-4xl text-center font-bold font-lux"> LANISTA </h1>
   <br/>
   <div v-if="!isLoggedIn" class = "flex flex-col">
     <button class="m-2 cursor-pointer sideOptions" @click="showLogin" :key="isLoggedIn"> Login </button>

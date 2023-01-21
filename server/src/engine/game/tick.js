@@ -33,7 +33,7 @@ module.exports = {
 		date.gladNum = allGladiators.length;
 
 		let ownersGain = {};
-		if (date.weekDay == 7  ) {
+		if (date.weekDay == 7 ) {
 			console.log("  -EN>Tournament Day");
 			let allNonSeedGlad = [];
  			allGladiators.forEach(async (gladiator) => {
@@ -77,8 +77,9 @@ module.exports = {
 
 			
 				// Should be 8 fighters
-				localTournament(allNonSeedGlad,memoryByLvl );
-				console.log("Local TOURNAMENT",allNonSeedGlad.length);
+				console.log("Local TOURNAMENT Start",allNonSeedGlad.length);
+				await localTournament(allNonSeedGlad,memoryByLvl );
+				console.log("Local TOURNAMENT END",allNonSeedGlad.length);
 				// So we grab all gladiators that are selected via schedule to do this tournament.
 				// We will then make sure they do not do any training that day.
 			//}
