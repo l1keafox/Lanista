@@ -43,6 +43,8 @@ module.exports = {
 			// So now we determine if the local,regional,quarter,national.
 			if (date.month === 12 && date.day == 28) {
 				// national is the last month, and 28th
+				// So now we grab an random Memories and add our guy to it.
+				// and do a tournament!
 				console.log("National TOURNAMENT");
 			} else if (
 				(date.month === 3 || date.month === 6 || date.month === 9) &&

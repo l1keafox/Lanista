@@ -1,7 +1,7 @@
 <template>
   <div  class="flex flex-col w-full overflow-x-hidden">
     <h1>Gladiators</h1>
-    <div  v-if="ownerData" class="flex" > 
+    <div  v-if="ownerData" class="flex overflow-x-auto" > 
         <div v-for="glad in ownerData.gladiators" :key="glad" :class="card"> 
         
         <h1 :class="cardTitle">{{glad.name}} </h1>

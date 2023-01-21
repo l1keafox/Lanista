@@ -56,7 +56,7 @@ async function SeedAccount(){
                 }
                 if(weekDay > 6){
                     // Here we should save them.
-                    console.log('  -> Saving Memory');
+                    console.log('  -SEED> Seeding Memory for Gladiators');
                     allGladiators.forEach(async (gladiator) => {
                         await saveModelMemory(gladiator);
                      });

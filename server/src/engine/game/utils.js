@@ -1,25 +1,12 @@
 // This returns an object that is used by the model.
+const namesArray = require('./names');
+
 function createNewOwner() {
   
   return { gold: 100, fame:0, structures:[ "School" ] ,inventory : [] };
 }
 
-const gladNames = [
-  "Tat",
-  "Fat",
-  "Cat",
-  "Bat",
-  "Rat",
-  "Mat",
-  "Dat",
-  "Tar",
-  "Far",
-  "Car",
-  "Bar",
-  "Rar",
-  "Mar",
-  "Dar",
-];
+const gladNames = require('./names');
 function randomBetween(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }

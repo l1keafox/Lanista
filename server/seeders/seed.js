@@ -4,7 +4,7 @@ const seedAcct = require('./../src/engine/game/SeedAccount')
 
 db.once("open", async () => {
 	try {
-		console.log("Starting Restart:");
+		console.log("Starting Database ReFRESH:");
 		console.log("  > GameDate");
 		await GameDate.deleteMany({});
         await GameDate.create({day:1,month:1,year:1,time:1,weekDay:1  } );
@@ -25,8 +25,6 @@ db.once("open", async () => {
 
 		console.log("  > Creating Seed Acct")
 		await seedAcct();
-		
-
 		console.log("all done!");
 		process.exit(0);
 	} catch (err) {
