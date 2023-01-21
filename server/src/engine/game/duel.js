@@ -7,7 +7,7 @@ const {
 } = require("./Abilities/abilityEffects");
 const { getItemEffect } = require("./itemsIndex");
 const {Memory} = require('./../../models');
-const { prepModelForMemory, prepModelForFight  } = require('./gladiatorPrep')
+//const {  prepModelForFight  } = require('./gladiatorPrep')
 
 async function returnPreparedGladiator(gladiator) {
 	// gladiator prep stuff.
@@ -154,7 +154,7 @@ async function doDuel(one, two) {
 		gladTwo.name = gladTwo.name + '2';
 	}
 	
-	console.log("  -EN/Duel> ", gladOne.name, "Vs", gladTwo.name);
+	//console.log("  -EN/Duel> ", gladOne.name, "Vs", gladTwo.name);
 
 	let roundCnt = 0;
 	do {
@@ -251,7 +251,7 @@ async function doDuel(one, two) {
 	);
 
 	report.final = {};
-	if (!gladOne.hits || gladOne.morale) {
+	if (!gladOne.hits || !gladOne.morale) {
 		report.final.winner = gladTwo.name;
 	} else {
 		report.final.winner = gladOne.name;

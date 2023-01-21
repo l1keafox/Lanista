@@ -1,0 +1,130 @@
+/*
+
+Tournaments take two things, gladiators and Memories;
+
+*/
+const { doDuel } = require("./duel");
+const { prepMemoryForFight, prepModelForFight } = require("./gladiatorPrep");
+
+function getRandomMemorys(memoryGroup, size) {
+	let rtnArray = [];
+	for (let i = 0; i < size; i++) {
+		rtnArray.push(memoryGroup[Math.floor(Math.random() * memoryGroup.length)]);
+	}
+	return rtnArray;
+}
+
+async function prepGlad(glad) {
+	if (glad.memory) {
+		return await prepMemoryForFight(glad);
+	} else {
+		return await prepModelForFight(glad);
+	}
+}
+
+async function tournamentRound(group) {
+	// now we should create an function that takes any number of gladiators and returns half the number after a clash.
+	return new Promise(async (resolve, reject) => {
+	let winnerArray = [];
+	for (let i = 0; i < group.length; i += 2) {
+		if (!group[i + 1]) {
+			winnerArray.push(group[i]);
+		} else {
+            let one = await prepGlad(group[i]);
+            let two = await prepGlad(group[i + 1]);
+			let report = await doDuel(one,two);
+			// console.log(` ${group[i].name} vs ${group[i + 1].name} : Winner: ${	report.final.winner	} ` );
+			if (report.final.winner == group[i].name) {
+                group[i].winRecord++;
+                group[i+1].loseRecord++;
+				winnerArray.push(group[i]);
+                
+			} else if (report.final.winner == group[i + 1].name) {
+                group[i+1].winRecord++;
+                group[i].loseRecord++;
+				winnerArray.push(group[i + 1]);
+			} else {
+				// draw so.
+			}
+		}
+	}
+    //winnerArray.forEach( glad => glad.save());
+	resolve (winnerArray);
+	});
+}
+
+async function doTournament(group,name) {
+	return new Promise(async (resolve, reject) => {
+    	let roundCount = 0;
+		do {
+        	roundCount++;
+        	console.log("  -TOURN>Start Round ",roundCount,name, group.length);
+			group = await tournamentRound(group);
+        	console.log("  -TOURN>End Round",roundCount,name, group.length);
+		
+		} while (group.length > 1);
+		resolve (group[0]);
+	});
+}
+
+async function doRoundRobin(group,name){
+	// Round robin means that each member of the group will face off against each member
+	// the one with the most 
+	let winObj = {};
+	for(let i = 0; i < group.length; i++){
+		const mainGlad = group[i];
+		for(let e = i+1; e< group.length;e++){
+			const oppGlad = group[e];
+			// do duel
+			// winner gets winObj++;
+		}
+	}
+	// The one with the most wins gets returned;
+
+}
+
+
+
+async function localTournament(allGladiators, memoryByLvl) {
+	const groupSize = 8;
+	// Go through each gladiators
+	// find 7 other Memories that is the same level and +/- 6 days in age.
+	let usedGlads = [];
+	return new Promise(async (resolve, reject) => {
+		for(let i in allGladiators){
+			const mainGlad = allGladiators[i];
+			if (mainGlad.level >= 3) {
+				const startOfTick = new Date();
+				let added = [];
+				const MemoryByAge = memoryByLvl[mainGlad.level].filter((memory) => {
+					// Issue is that previously added Memories need
+					if ( Math.abs(memory.age - mainGlad.age) <= 6 && memory.name !== mainGlad.name && !added.includes(memory.name)) {
+						added.push(memory.name);
+						return memory;
+					}
+				});
+
+                let tournyName = mainGlad.name[0]+mainGlad.name[1]+mainGlad.name[4];
+				console.log("  -TOURN>>< Starting Tournament><",tournyName,mainGlad.level, mainGlad.age, MemoryByAge.length,'/',memoryByLvl[mainGlad.level].length);
+				let localGroup = getRandomMemorys(MemoryByAge, groupSize-1);
+				localGroup.push(mainGlad);
+				// So here we will randomize the group before we start the roundRobin
+				localGroup.sort(() => Math.random() - 0.5);
+				let winner = await doTournament(localGroup,tournyName);
+				if(winner){
+					console.log(`-EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: ${winner.name}`);
+					winner.weekWin++;
+				} else {
+					console.log(`-EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: NONE?!`);
+				}
+				// and it will repeat over and over again.
+                usedGlads = usedGlads.concat(localGroup);
+				
+
+			}
+		}
+		resolve(usedGlads);
+	});
+}
+
+module.exports = { localTournament };

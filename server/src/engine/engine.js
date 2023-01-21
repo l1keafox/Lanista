@@ -3,7 +3,7 @@ const Tick = require('./game/tick');
 let timeToLastTick;
 
 async function doGameTick(){
-    console.log('  -EN> Starting Tick:');
+//    console.log('  -EN> Starting Tick:');
     const startOfTick = new Date();
     await Tick.doTick();
     const endOfTick = new Date();

@@ -4,6 +4,7 @@ const auth = require('../middleware/auth');
 const { getAbilityEffect } = require("./../engine/game/abilityIndex");
 const { doDuel }= require("../engine/game/duel");
 const {saveModelMemory, prepMemoryForFight,prepModelForFight} = require('./../engine/game/gladiatorPrep')
+
 const router = express.Router();
 
 router.post('/gladiator/', async(req, res) => {
@@ -38,16 +39,12 @@ router.post('/gladiator/doSpar', async(req, res) => {
     let glad = await Gladiator.findOne({ _id: req.body.gladatorId });
     let glad2 = await Gladiator.findOne({ _id: req.body.gladatorId2 });
     if(glad && glad2){
-        await glad.setSkills();
-        await glad2.setSkills();
 
         let one = await prepModelForFight(glad);
         let two = await prepModelForFight(glad);
 
         let report = await doDuel(one,two);
 
-        await saveModelMemory(glad);
-        await saveModelMemory(glad2);
         // Here we save it? 
 //        let owner = await Owner.findOne({ userAcct: req.body.ownerId });
         //saveDuel

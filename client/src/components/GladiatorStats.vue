@@ -31,7 +31,7 @@
                       <!-- <h2> Exp: {{ gladiatorData.exp }} </h2> -->
                       <h2> Level: {{ gladiatorData.level }} </h2>
                       <h2> Wins: {{ gladiatorData.winRecord }} </h2>
-                      <h2> Losses: {{ gladiatorData.loseRecord }} </h2>
+                      <h2> Losses: {{ gladiatorData.lossRecord }} </h2>
 
                     </div>
 

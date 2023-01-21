@@ -51,7 +51,7 @@ gameDateSchema.methods.addTick = async function () {
 	}
 
 
-	this.save();
+//	this.save();
 	return true;
 };
 gameDateSchema.methods.addDay = async function () {
@@ -75,7 +75,7 @@ gameDateSchema.methods.addDay = async function () {
 	}
 
 
-	this.save();
+//	this.save();
 	return true;
 };
 

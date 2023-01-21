@@ -210,17 +210,17 @@ export default {
 			name: this.glads[1],
 		};
 		console.log(this.combatReport);
-		this.interval = setInterval(() => {
-			this.combatIndex++;
-			if (this.combatIndex > this.combatReport.maxRound) {
-				this.combatIndex = this.combatReport.maxRound;
-			}
-			this.updateStats();
-			if (this.combatIndex > this.combatReport.maxRound) {
-				clearInterval(this.interval);
-				console.log("REPORT WINNER");
-			}
-		}, 10000);
+		// this.interval = setInterval(() => {
+		// 	this.combatIndex++;
+		// 	if (this.combatIndex > this.combatReport.maxRound) {
+		// 		this.combatIndex = this.combatReport.maxRound;
+		// 	}
+		// 	this.updateStats();
+		// 	if (this.combatIndex > this.combatReport.maxRound) {
+		// 		clearInterval(this.interval);
+		// 		console.log("REPORT WINNER");
+		// 	}
+		// }, 10000);
 	},
 };
 </script>

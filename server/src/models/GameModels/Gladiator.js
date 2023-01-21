@@ -13,31 +13,31 @@ const gladiatorSchema = new Schema(
             type:Schema.Types.ObjectId,
             ref:"Owner"
         },
+        seed:{
+            type:Boolean
+        },
         schedule:[],
-
-        localTournament:{
-            type:Boolean
-        },
-        regionalTournament:{
-            type:Boolean
-        },
-        grandTournament:{
-            type:Boolean
-        },
-        nationalTournament:{
-            type:Boolean
-        },
 
         winRecord:{
             type:Number
         },
-        loseRecord:{
+        lossRecord:{
             type:Number
         },
 
-        exp:{ // experience
+        weekWin:{
             type:Number
         },
+        monthWin:{
+            type:Number
+        },
+        quarterWin:{
+            type:Number
+        },
+        yearWin:{
+            type:Number
+        },
+
         level:{
             type:Number
         },
@@ -64,9 +64,6 @@ const gladiatorSchema = new Schema(
         mana:{ // Mental Mana Points
             type:Number
         },
-        stress:{ // Stress - not certain how this should be used yet.
-            type:Number
-        }, 
         morale:{ // Morale in fighting.
             type:Number
         },
