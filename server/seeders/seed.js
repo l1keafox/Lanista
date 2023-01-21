@@ -13,7 +13,6 @@ db.once("open", async () => {
 		await saveDuel.deleteMany({});
 		console.log("  > Deleting saved Memories");
 		await Memory.deleteMany({});
-		//await Memory.create({ 4:[]} );
 		console.log("  > Deleting Existing Users");
 		await User.deleteMany({});
 		let users = await User.create(  require('./userSeeds.json') );

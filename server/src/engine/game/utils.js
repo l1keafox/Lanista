@@ -30,22 +30,13 @@ function modStat4Effect(num,percent){
  return getRandomAround(num/100,percent)
 }
 
-
-function getName(){
-  let name;
-  do{
-    name = gladNames[rollDice(1, gladNames.length)];
-  }while(!name)
-  return name;
-}
-
 function createNewGladiator(gladType) {
   
   //console.log("  -EN> Creating Glad:",gladType);
   switch(gladType){
     default:
     return { 
-        name: getName(), 
+        name: gladNames[rollDice(1, gladNames.length)] + ' '+gladNames[rollDice(1, gladNames.length)], 
         // Character Points Stats
         // The three main stats for living. 
         hits: 100, // Easily trained stat.

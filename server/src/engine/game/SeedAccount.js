@@ -21,7 +21,7 @@ async function SeedAccount(){
 	//let newOwner = await createOwner(newUser);
     const newOwner = await new Owner(createNewOwner());
 	console.log("  -EN> New Owner with new USER Acct created");
-    const gladAmount = 100;
+    const gladAmount = 124;
     console.log("  -EN> Starting to create ",gladAmount," gladiators");
 	for (let i = 0; i < gladAmount; i++) {
 		const glad = await new Gladiator(createNewGladiator("default"));
@@ -33,35 +33,49 @@ async function SeedAccount(){
     let allGladiators = await Gladiator.find();
     let weekDay = 1;
     let dateTime = 1;
-    const doTicks = 100;
+    const doTicks = 200;
     console.log('  -SEED> Tick Growth Start Doing ',doTicks,"ticks for ",allGladiators.length,"gladiators");
 
 		const myPromise = new Promise(async (resolve, reject) => {
 			if(allGladiators.length === 0) resolve("this");
             for(let t = 0; t < doTicks ; t++){
-                await allGladiators.forEach(async (gladiator) => {
-                    const growth = await doGrowth(
-                        gladiator, // This is the glad
-                        gladiator.schedule[0][weekDay][dateTime] // This is the growth.
-                        );        
-                    if (dateTime === 8) {
-                        gladiator.age++;
-                        gladiator.doLevel();
-                        }
-                });
                 dateTime++;
                 if(dateTime > 8){
                     dateTime = 1;
                     weekDay++;
+                    if(weekDay > 7){
+                        weekDay = 1;
+                    }
                 }
-                if(weekDay > 6){
-                    // Here we should save them.
-                    console.log('  -SEED> Seeding Memory for Gladiators');
-                    allGladiators.forEach(async (gladiator) => {
+
+//                console.log(dateTime,weekDay);
+                await allGladiators.forEach(async (gladiator) => {
+
+                    if(weekDay === 7){
+                        gladiator.age++;
+                        gladiator.doLevel();
+                        
                         await saveModelMemory(gladiator);
-                     });
+                    } else {
+                        const growth = await doGrowth( gladiator, // This is the glad
+                                                       gladiator.schedule[0][weekDay][dateTime] // This is the growth.
+                                                       );        
+                    }
+
+                    if (dateTime === 8) {
+                        gladiator.age++;
+                        gladiator.doLevel();
+                    }
+
+                });
+                if(weekDay == 7){
                     weekDay = 1;
-                }
+                } 
+
+                    // Here we should save them.
+//                    console.log('  -SEED> Seeding Memory for Gladiators');
+                    
+                
                 
             }
             resolve("this");

@@ -1,8 +1,7 @@
 <template>
-  <div  class="flex flex-col w-full overflow-x-hidden">
-    <h1>Gladiators</h1>
-    <div  v-if="ownerData" class="flex overflow-x-auto" > 
-        <div v-for="glad in ownerData.gladiators" :key="glad" :class="card"> 
+  <div  class="flex flex-col w-full overflow-y-hidden">
+    <div  v-if="ownerData" class="flex flex-wrap overflow-x-auto" > 
+        <div v-for="glad in ownerData.gladiators" :key="glad" :class="largeCard"> 
         
         <h1 :class="cardTitle">{{glad.name}} </h1>
         <h2> Age:{{glad.age}}</h2>
@@ -40,7 +39,7 @@ export default {
       ownerData: null,
     };
   },
-  inject: ['card','cardTitle'],
+  inject: ['largeCard','cardTitle','card'],
   methods:{
     openModal(event,modalName){
       this.gladiatorId = event.target.getAttribute("data-id");

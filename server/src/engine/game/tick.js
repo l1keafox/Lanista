@@ -9,10 +9,13 @@ let date = {
 	day: 1, // Days maxed at 30
 	month: 1, // maxed at 12
 	year: 1, // never maxed?
+	gladNum:0
 };
 
 module.exports = {
 	doTick: async function () {
+		console.log('  -TICK> doTick -> Advance Day / Tournament / Do Growth')
+
 		let gameDate = await GameDate.find();
 		gameDate = gameDate[0]; // Because there should only be 1 gameDate ever!;
 		await gameDate.addTick();
@@ -27,17 +30,15 @@ module.exports = {
 		// So, Tournament days just do not have gladiator growth, all gladiators are required to do this
 		// Why not have it optional?
 		let allGladiators = await Gladiator.find();
+		date.gladNum = allGladiators.length;
 		let ownersGain = {};
 
 		if (date.weekDay == 7 ) {
-			console.log("Tournament Day");
-			console.log("Tournament Day");
-			console.log("Tournament Day");
-			console.log("Tournament Day");
-
+			console.log("  -EN>Tournament Day");
+			console.log("  -EN> Memories ::",allGladiators.length);
  			allGladiators.forEach(async (gladiator) => {
 				await saveModelMemory(gladiator);
-				console.log(`  -> SAVING GLAD ${gladiator.name} age:${gladiator.age} level:${gladiator.level}`)
+				//console.log(`  -EN> SAVING GLAD ${gladiator.name} age:${gladiator.age} level:${gladiator.level}`)
  			});
 			
 			// So now we determine if the local,regional,quarter,national.
@@ -45,15 +46,16 @@ module.exports = {
 				// national is the last month, and 28th
 				// So now we grab an random Memories and add our guy to it.
 				// and do a tournament!
+				// Should be 124
 				console.log("National TOURNAMENT");
-			} else if (
-				(date.month === 3 || date.month === 6 || date.month === 9) &&
-				date.day == 28
-			) {
+			} else if ((date.month === 3 || date.month === 6 || date.month === 9) && date.day == 28	) {
+				// Should be 64
 				console.log("Grand TOURNAMENT");
 			} else if (date.day == 28) {
+				// Should be 32 fighters
 				console.log("Regional TOURNAMENT");
 			} else {
+				// Should be 8 fighters
 				console.log("Local TOURNAMENT");
 				// So we grab all gladiators that are selected via schedule to do this tournament.
 				// We will then make sure they do not do any training that day.
@@ -132,9 +134,11 @@ module.exports = {
 			keys.forEach(async (ownerid, index) => {
 				let owner = await Owner.findOne({ _id: ownerid });
 				// console.log('  -EN/TICK> Owner',owner.userAcct ,': gained  G:',ownersGain[ownerid].gold,"F:",ownersGain[ownerid].fame);
+				if(owner){
 				owner.gold += ownersGain[ownerid].gold;
 				owner.fame += ownersGain[ownerid].fame;
 				await owner.save();
+				}
 				if (index === keys.length - 1) {
 					resolve("this");
 				}
@@ -146,6 +150,6 @@ module.exports = {
 
 	},
 	getDate: function () {
-		return `Time: ${date.time}:00  ${date.month}/${date.day}/${date.year} weekday:${date.weekDay}`;
+		return `Gladiator Count: ${date.gladNum}  Time: ${date.time}:00  ${date.month}/${date.day}/${date.year} weekday:${date.weekDay}`;
 	},
 };
