@@ -76,7 +76,7 @@ async function saveModelMemory(gladiator){
 	let win = 0;
 	let loss = 0;
 	const gMemory = await new Memory( {name,level,age,memory,gladiatorID,ownerID } );	
-	console.log(`  -> SAVING GLAD ${name} age:${age} level:${level}`)
+//	console.log(`  -> SAVING GLAD ${name} age:${age} level:${level}`)
 	gMemory.save();
 }
 

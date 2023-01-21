@@ -3,6 +3,7 @@
 const { GameDate, Gladiator, Owner } = require("./../../models");
 const { doGrowth } = require("./trainingEffects");
 const { getAbilityEffect } = require("./abilityIndex");
+const { saveModelMemory } = require('./gladiatorPrep')
 let date = {
 	time: 1, // This is # of events per day maxed at 8
 	day: 1, // Days maxed at 30
@@ -22,7 +23,6 @@ module.exports = {
 			year: gameDate.year,
 			weekDay: gameDate.weekDay,
 		};
-
 		// Determine tournament date.
 		// So, Tournament days just do not have gladiator growth, all gladiators are required to do this
 		// Why not have it optional?
@@ -34,6 +34,11 @@ module.exports = {
 			console.log("Tournament Day");
 			console.log("Tournament Day");
 			console.log("Tournament Day");
+
+ 			allGladiators.forEach(async (gladiator) => {
+				await saveModelMemory(gladiator);
+				console.log(`  -> SAVING GLAD ${gladiator.name} age:${gladiator.age} level:${gladiator.level}`)
+ 			});
 			
 			// So now we determine if the local,regional,quarter,national.
 			if (date.month === 12 && date.day == 28) {
@@ -51,7 +56,6 @@ module.exports = {
 				// So we grab all gladiators that are selected via schedule to do this tournament.
 				// We will then make sure they do not do any training that day.
 			}
-
 			await gameDate.addDay(); // This will set it to the next day.
 
 			// 	gladiator.age++;
@@ -118,9 +122,11 @@ module.exports = {
 			gladiator.save();
 			});
 		}
+		
 
 		const keys = Object.keys(ownersGain);
 		const myPromise = new Promise((resolve, reject) => {
+			if(keys.length === 0) resolve("this");
 			keys.forEach(async (ownerid, index) => {
 				let owner = await Owner.findOne({ _id: ownerid });
 				// console.log('  -EN/TICK> Owner',owner.userAcct ,': gained  G:',ownersGain[ownerid].gold,"F:",ownersGain[ownerid].fame);
@@ -131,8 +137,11 @@ module.exports = {
 					resolve("this");
 				}
 			});
+
 		});
 		await myPromise;
+		await gameDate.save();
+
 	},
 	getDate: function () {
 		return `Time: ${date.time}:00  ${date.month}/${date.day}/${date.year} weekday:${date.weekDay}`;

@@ -46,8 +46,6 @@ router.post('/gladiator/doSpar', async(req, res) => {
 
         let report = await doDuel(one,two);
 
-        await saveModelMemory(glad);
-        await saveModelMemory(glad2);
         // Here we save it? 
 //        let owner = await Owner.findOne({ userAcct: req.body.ownerId });
         //saveDuel

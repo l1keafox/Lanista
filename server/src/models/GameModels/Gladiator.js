@@ -15,19 +15,6 @@ const gladiatorSchema = new Schema(
         },
         schedule:[],
 
-        localTournament:{
-            type:Boolean
-        },
-        regionalTournament:{
-            type:Boolean
-        },
-        grandTournament:{
-            type:Boolean
-        },
-        nationalTournament:{
-            type:Boolean
-        },
-
         winRecord:{
             type:Number
         },
