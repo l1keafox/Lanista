@@ -4,6 +4,7 @@ const auth = require('../middleware/auth');
 const { getAbilityEffect } = require("./../engine/game/abilityIndex");
 const { doDuel }= require("../engine/game/duel");
 const {saveModelMemory, prepMemoryForFight,prepModelForFight} = require('./../engine/game/gladiatorPrep')
+
 const router = express.Router();
 
 router.post('/gladiator/', async(req, res) => {

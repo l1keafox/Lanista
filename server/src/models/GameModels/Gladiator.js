@@ -13,6 +13,9 @@ const gladiatorSchema = new Schema(
             type:Schema.Types.ObjectId,
             ref:"Owner"
         },
+        seed:{
+            type:Boolean
+        },
         schedule:[],
 
         winRecord:{

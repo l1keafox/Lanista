@@ -1,9 +1,10 @@
 // This is what happens in a tick.
 // Game will start on
-const { GameDate, Gladiator, Owner } = require("./../../models");
+const { GameDate, Gladiator, Owner, Memory } = require("./../../models");
 const { doGrowth } = require("./trainingEffects");
 const { getAbilityEffect } = require("./abilityIndex");
-const { saveModelMemory } = require('./gladiatorPrep')
+const { saveModelMemory } = require('./gladiatorPrep');
+const { localTournament } = require('./tournament');
 let date = {
 	time: 1, // This is # of events per day maxed at 8
 	day: 1, // Days maxed at 30
@@ -31,17 +32,36 @@ module.exports = {
 		let allGladiators = await Gladiator.find();
 		date.gladNum = allGladiators.length;
 		let ownersGain = {};
-
-		if (date.weekDay == 7 ) {
+		// let SeedOwner = await Owner.find({name:"seed"})
+		// let seedId = SeedOwner[0]._id;
+		// console.log(seedId);
+		// let allNonSeedGlad = [];
+		//console.log(allNonSeedGlad);
+		if (date.weekDay == 7 || date.weekDay == 3 ) {
 			console.log("  -EN>Tournament Day");
 			console.log("  -EN> Memories ::",allGladiators.length);
+			let allNonSeedGlad = [];
  			allGladiators.forEach(async (gladiator) => {
 				await saveModelMemory(gladiator);
 				//console.log(`  -EN> SAVING GLAD ${gladiator.name} age:${gladiator.age} level:${gladiator.level}`)
+				if(!gladiator.seed){
+					allNonSeedGlad.push(gladiator);
+				}
  			});
 			
+			let memoryByLvl = {};
+			let allMemory = await Memory.find();
+			allMemory.forEach( mem =>{
+				if(!memoryByLvl[ mem.level ]){
+					memoryByLvl[ mem.level ] = [];
+				}
+				memoryByLvl[ mem.level ].push(mem);
+			} );
+			for(let lvl in memoryByLvl){
+				console.log(lvl, "s and Memory in them:", memoryByLvl[lvl].length );
+			}
 			// So now we determine if the local,regional,quarter,national.
-			if (date.month === 12 && date.day == 28) {
+			/*if (date.month === 12 && date.day == 28) {
 				// national is the last month, and 28th
 				// So now we grab an random Memories and add our guy to it.
 				// and do a tournament!
@@ -53,12 +73,15 @@ module.exports = {
 			} else if (date.day == 28) {
 				// Should be 32 fighters
 				console.log("Regional TOURNAMENT");
-			} else {
+
+
+			} else {*/
 				// Should be 8 fighters
+				localTournament(allNonSeedGlad,memoryByLvl );
 				console.log("Local TOURNAMENT");
 				// So we grab all gladiators that are selected via schedule to do this tournament.
 				// We will then make sure they do not do any training that day.
-			}
+			//}
 			await gameDate.addDay(); // This will set it to the next day.
 
 			// 	gladiator.age++;
