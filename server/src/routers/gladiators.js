@@ -39,8 +39,6 @@ router.post('/gladiator/doSpar', async(req, res) => {
     let glad = await Gladiator.findOne({ _id: req.body.gladatorId });
     let glad2 = await Gladiator.findOne({ _id: req.body.gladatorId2 });
     if(glad && glad2){
-        await glad.setSkills();
-        await glad2.setSkills();
 
         let one = await prepModelForFight(glad);
         let two = await prepModelForFight(glad);

@@ -7,7 +7,7 @@ const {
 } = require("./Abilities/abilityEffects");
 const { getItemEffect } = require("./itemsIndex");
 const {Memory} = require('./../../models');
-const { prepModelForMemory, prepModelForFight  } = require('./gladiatorPrep')
+//const {  prepModelForFight  } = require('./gladiatorPrep')
 
 async function returnPreparedGladiator(gladiator) {
 	// gladiator prep stuff.

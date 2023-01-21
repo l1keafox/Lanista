@@ -55,7 +55,7 @@ async function SeedAccount(){
                     if(weekDay === 7){
                         gladiator.age++;
                         gladiator.doLevel();
-                        
+//                        console.log(gladiator);
                         await saveModelMemory(gladiator);
                     } else {
                         const growth = await doGrowth( gladiator, // This is the glad

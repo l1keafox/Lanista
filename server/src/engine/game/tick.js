@@ -31,23 +31,21 @@ module.exports = {
 		// Why not have it optional?
 		let allGladiators = await Gladiator.find();
 		date.gladNum = allGladiators.length;
+
 		let ownersGain = {};
-		// let SeedOwner = await Owner.find({name:"seed"})
-		// let seedId = SeedOwner[0]._id;
-		// console.log(seedId);
-		// let allNonSeedGlad = [];
-		//console.log(allNonSeedGlad);
-		if (date.weekDay == 7 || date.weekDay == 3 ) {
+		if (date.weekDay == 7  ) {
 			console.log("  -EN>Tournament Day");
-			console.log("  -EN> Memories ::",allGladiators.length);
 			let allNonSeedGlad = [];
  			allGladiators.forEach(async (gladiator) => {
-				await saveModelMemory(gladiator);
+				if(gladiator.level >= 3){
+					await saveModelMemory(gladiator);
+				}
 				//console.log(`  -EN> SAVING GLAD ${gladiator.name} age:${gladiator.age} level:${gladiator.level}`)
 				if(!gladiator.seed){
 					allNonSeedGlad.push(gladiator);
 				}
  			});
+			console.log("  -EN>Tourny> Gladiators ::",allNonSeedGlad.length);
 			
 			let memoryByLvl = {};
 			let allMemory = await Memory.find();
@@ -57,9 +55,9 @@ module.exports = {
 				}
 				memoryByLvl[ mem.level ].push(mem);
 			} );
-			for(let lvl in memoryByLvl){
-				console.log(lvl, "s and Memory in them:", memoryByLvl[lvl].length );
-			}
+			// for(let lvl in memoryByLvl){
+			// 	console.log(lvl, "s and Memory in them:", memoryByLvl[lvl].length );
+			// }
 			// So now we determine if the local,regional,quarter,national.
 			/*if (date.month === 12 && date.day == 28) {
 				// national is the last month, and 28th
@@ -74,11 +72,13 @@ module.exports = {
 				// Should be 32 fighters
 				console.log("Regional TOURNAMENT");
 
-
+				
 			} else {*/
+
+			
 				// Should be 8 fighters
 				localTournament(allNonSeedGlad,memoryByLvl );
-				console.log("Local TOURNAMENT");
+				console.log("Local TOURNAMENT",allNonSeedGlad.length);
 				// So we grab all gladiators that are selected via schedule to do this tournament.
 				// We will then make sure they do not do any training that day.
 			//}
@@ -87,7 +87,7 @@ module.exports = {
 			// 	gladiator.age++;
 			// gladiator.save();			
 		} else {
-			console.log('  -TICK> Do Growth')
+			//console.log('  -TICK> Do Growth')
 
 			await allGladiators.forEach(async (gladiator) => {
 //			console.log(gladiator.schedule[0][date.weekDay][date.time], gladiator.name,"learning",gladiator.learnSkill,gladiator.taskSkill,gladiator.progressSkill);

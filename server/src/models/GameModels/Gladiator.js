@@ -21,13 +21,23 @@ const gladiatorSchema = new Schema(
         winRecord:{
             type:Number
         },
-        loseRecord:{
+        lossRecord:{
             type:Number
         },
 
-        exp:{ // experience
+        weekWin:{
             type:Number
         },
+        monthWin:{
+            type:Number
+        },
+        quarterWin:{
+            type:Number
+        },
+        yearWin:{
+            type:Number
+        },
+
         level:{
             type:Number
         },
@@ -54,9 +64,6 @@ const gladiatorSchema = new Schema(
         mana:{ // Mental Mana Points
             type:Number
         },
-        stress:{ // Stress - not certain how this should be used yet.
-            type:Number
-        }, 
         morale:{ // Morale in fighting.
             type:Number
         },

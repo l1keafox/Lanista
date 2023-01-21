@@ -68,23 +68,30 @@ function setupStats(glad){
 async function saveModelMemory(gladiator){
 	let name = gladiator.name;
 	let level = gladiator.level;
-	let memory = prepModelForMemory(gladiator);
+	let memory = await prepModelForMemory(gladiator);
 		memory = JSON.stringify( memory );
-	let age = gladiator.age;
+		let age = gladiator.age;
 	let gladiatorID = gladiator._id;
 	let ownerID = gladiator.owner;
-	let win = 0;
-	let loss = 0;
+	//console.log( memory );
 	const gMemory = await new Memory( {name,level,age,memory,gladiatorID,ownerID } );	
 //	console.log(`  -> SAVING GLAD ${name} age:${age} level:${level}`)
 	gMemory.save();
 }
 
 // prepModelForMemory
-function prepModelForMemory(glad){
+async function prepModelForMemory(glad){
     // glad is to create an object that is prepared for save.
+	await glad.setSkills();
     let rtnObj = setupStats(glad);
     modifyStatsFromItems(glad)
+
+	rtnObj.winRecord = 0;
+	rtnObj.lossRecord = 0;
+	rtnObj.weekWin =0;
+	rtnObj.monthWin =0;
+	rtnObj.quarterWin=0;
+	rtnObj.yearWin=0;
 
     rtnObj.prepare = glad.prepare;
     rtnObj.react = glad.react;
@@ -96,13 +103,15 @@ function prepModelForMemory(glad){
 			rtnObj[slot] = glad[slot];
 		}
 	} )	
+
     return rtnObj;
 }
 
 // prepModelForFight
-function prepModelForFight(glad) {
+async function prepModelForFight(glad) {
     // This will go through equipment and give fill up skills
     // or it will go through 
+	await glad.setSkills();
     let rtnObj = setupStats(glad);
 	rtnObj.name = glad.name;
 	rtnObj.maxHits = glad.hits;

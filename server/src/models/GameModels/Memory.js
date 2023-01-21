@@ -16,12 +16,26 @@ const MemorySchema = new Schema(
         level:{ 
             type:Number
         },
-        win:{
+        
+        winRecord:{
             type:Number
         },
-        loss:{
+        lossRecord:{
             type:Number
         },
+        weekWin:{
+            type:Number
+        },
+        monthWin:{
+            type:Number
+        },
+        quarterWin:{
+            type:Number
+        },
+        yearWin:{
+            type:Number
+        },
+
         gladiatorID:{
             type:String
         },

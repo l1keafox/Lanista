@@ -46,7 +46,11 @@ function createNewGladiator(gladType) {
         mana:100,
         level:1,
         winRecord:0,
-        loseRecord:0,
+        lossRecord:0,
+        weekWin:0,
+        monthWin:0,
+        quarterWin:0,
+        yearWin:0,
         age:1,
   
         // Looking for average of 1,000 start stat. as starting average.
