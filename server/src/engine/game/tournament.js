@@ -26,6 +26,7 @@ async function tournamentRound(group) {
 	// now we should create an function that takes any number of gladiators and returns half the number after a clash.
 	return new Promise(async (resolve, reject) => {
 	let winnerArray = [];
+	let loserArray = [];
 	for (let i = 0; i < group.length; i += 2) {
 		if (!group[i + 1]) {
 			winnerArray.push(group[i]);
@@ -38,10 +39,12 @@ async function tournamentRound(group) {
                 group[i].winRecord++;
                 group[i+1].loseRecord++;
 				winnerArray.push(group[i]);
+				loserArray.push(group[i+1]);
                 
 			} else if (report.final.winner == group[i + 1].name) {
                 group[i+1].winRecord++;
                 group[i].loseRecord++;
+				loserArray.push(group[i]);
 				winnerArray.push(group[i + 1]);
 			} else {
 				// draw so.
@@ -49,17 +52,18 @@ async function tournamentRound(group) {
 		}
 	}
     //winnerArray.forEach( glad => glad.save());
-	resolve (winnerArray);
+	resolve ({winnerArray,loserArray});
 	});
 }
 
-async function doTournament(group,name) {
+async function singleElimination(group,name) {
 	return new Promise(async (resolve, reject) => {
     	let roundCount = 0;
 		do {
         	roundCount++;
         	console.log("  -TOURN>Start Round ",roundCount,name, group.length);
 			group = await tournamentRound(group);
+			group = group.winnerArray;
         	console.log("  -TOURN>End Round",roundCount,name, group.length);
 		
 		} while (group.length > 1);
@@ -110,7 +114,11 @@ async function localTournament(allGladiators, memoryByLvl) {
 				localGroup.push(mainGlad);
 				// So here we will randomize the group before we start the roundRobin
 				localGroup.sort(() => Math.random() - 0.5);
-				let winner = await doTournament(localGroup,tournyName);
+
+
+				let winner = await singleElimination(localGroup,tournyName);
+
+
 				if(winner){
 					console.log(`-EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: ${winner.name}`);
 					winner.weekWin++;
