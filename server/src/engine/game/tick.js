@@ -34,9 +34,11 @@ module.exports = {
 
 		let ownersGain = {};
 		if (date.weekDay == 7 ) {
+
 			console.log("  -EN>Tournament Day");
 			let allNonSeedGlad = [];
- 			allGladiators.forEach(async (gladiator) => {
+// 			allGladiators.forEach(async (gladiator) => {
+			for(let gladiator of allGladiators){
 				if(gladiator.level >= 3){
 					await saveModelMemory(gladiator);
 				}
@@ -44,7 +46,8 @@ module.exports = {
 				if(!gladiator.seed){
 					allNonSeedGlad.push(gladiator);
 				}
- 			});
+			}
+ //			});
 			console.log("  -EN>Tourny> Gladiators ::",allNonSeedGlad.length);
 			
 			let memoryByLvl = {};
@@ -78,8 +81,11 @@ module.exports = {
 			
 				// Should be 8 fighters
 				console.log("Local TOURNAMENT Start",allNonSeedGlad.length);
-				await localTournament(allNonSeedGlad,memoryByLvl );
-				console.log("Local TOURNAMENT END",allNonSeedGlad.length);
+				let ditto = await localTournament(allNonSeedGlad,memoryByLvl ); 
+				console.log(ditto.length,"Local TOURNAMENT END",allNonSeedGlad.length);
+				for(let i in ditto){
+					await ditto[i].save();
+				}
 				// So we grab all gladiators that are selected via schedule to do this tournament.
 				// We will then make sure they do not do any training that day.
 			//}
