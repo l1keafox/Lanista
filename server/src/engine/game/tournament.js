@@ -37,13 +37,13 @@ async function tournamentRound(group) {
 			// console.log(` ${group[i].name} vs ${group[i + 1].name} : Winner: ${	report.final.winner	} ` );
 			if (report.final.winner == group[i].name) {
                 group[i].winRecord++;
-                group[i+1].loseRecord++;
+                group[i+1].lossRecord++;
 				winnerArray.push(group[i]);
 				loserArray.push(group[i+1]);
                 
 			} else if (report.final.winner == group[i + 1].name) {
                 group[i+1].winRecord++;
-                group[i].loseRecord++;
+                group[i].lossRecord++;
 				loserArray.push(group[i]);
 				winnerArray.push(group[i + 1]);
 			} else {
@@ -66,7 +66,7 @@ async function singleElimination(group,name) {
 			group = group.winnerArray;
 		
 		} while (group.length > 1);
-		resolve (group[0]);
+		resolve ({winner:group[0]});
 	});
 }
 
@@ -86,14 +86,14 @@ async function doRoundRobin(group,tournyName){
 			// winner gets winObj++;
 			if (report.final.winner == group[i].name) {
                 group[i].winRecord++;
-                group[e].loseRecord++;
+                group[e].lossRecord++;
 				if(!winObj[group[i].name]){
 					winObj[group[i].name] = 0;	
 				}
 				winObj[group[i].name]++;
 			} else if (report.final.winner == group[e].name) {
                 group[e].winRecord++;
-                group[i].loseRecord++;
+                group[i].lossRecord++;
 				if(!winObj[group[e].name]){
 					winObj[group[e].name] = 0;
 				}
@@ -151,34 +151,17 @@ async function regionalTournament(allGladiators, memoryByLvl) {
 			if (mainGlad.level >= 3) {
 				const startOfTick = new Date();
 				let added = [];
-				const MemoryByAge = memoryByLvl[mainGlad.level].filter((memory) => {
-					// Issue is that previously added Memories need
-					if ( Math.abs(memory.age - mainGlad.age) <= 6 && memory.name !== mainGlad.name && !added.includes(memory.name)) {
-						added.push(memory.name);
-						return memory;
-					}
-				});
-
                 let tournyName = mainGlad.name[0]+mainGlad.name[1]+mainGlad.name[4];
 				console.log("  -TOURN>>< Starting Single Elimination><",tournyName,mainGlad.level, mainGlad.age, MemoryByAge.length,'/',memoryByLvl[mainGlad.level].length);
-				let localGroup = getRandomMemorys(MemoryByAge, groupSize-1);
-				localGroup.unshift(mainGlad);
-				// So here we will randomize the group before we start the roundRobin
-				localGroup.sort(() => Math.random() - 0.5);
+				let localGroup =  getMemoryGroup(memoryByLvl, mainGlad, groupSize);
 
-				//let winner = await doRoundRobin(localGroup,tournyName);
 				let winner = await singleElimination(localGroup,tournyName);
-				if(winner.winner){
-					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: ${winner.winner.name}`);
-					winner.winner.weekWin++;
-				} else 
-				if(winner){
-					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: ${winner.name}`);
-					winner.weekWin++;
-				} else {
+				if(result.winner){
+					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: ${result.winner.name}`);
+					result.winner.weekWin++;
+				} else  {
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: NONE?!`);
 				}
-				// and it will repeat over and over again.
 				
                 usedGlads = usedGlads.concat(localGroup);
 				
@@ -189,6 +172,21 @@ async function regionalTournament(allGladiators, memoryByLvl) {
 	});
 }
 
+function getMemoryGroup(memoryByLvl, mainGlad, groupSize){
+	let added = [];
+	const MemoryByAge = memoryByLvl[mainGlad.level].filter((memory) => {
+		// Issue is that previously added Memories need
+		if ( Math.abs(memory.age - mainGlad.age) <= 6 && memory.name !== mainGlad.name && !added.includes(memory.name)) {
+			added.push(memory.name);
+			return memory;
+		}
+	});
+	let rando = getRandomMemorys(MemoryByAge, groupSize-1);
+	rando.unshift(mainGlad);
+	rando.sort(() => Math.random() - 0.5);
+
+	return rando;
+}
 
 async function localTournament(allGladiators, memoryByLvl) {
 	const groupSize = 8;
@@ -200,38 +198,20 @@ async function localTournament(allGladiators, memoryByLvl) {
 			const mainGlad = allGladiators[i];
 			if (mainGlad.level >= 3) {
 				const startOfTick = new Date();
-				let added = [];
-				const MemoryByAge = memoryByLvl[mainGlad.level].filter((memory) => {
-					// Issue is that previously added Memories need
-					if ( Math.abs(memory.age - mainGlad.age) <= 6 && memory.name !== mainGlad.name && !added.includes(memory.name)) {
-						added.push(memory.name);
-						return memory;
-					}
-				});
-
                 let tournyName = mainGlad.name[0]+mainGlad.name[1]+mainGlad.name[4];
-				console.log("  -TOURN>>< Starting RoundRobin><",tournyName,mainGlad.level, mainGlad.age, MemoryByAge.length,'/',memoryByLvl[mainGlad.level].length);
-				let localGroup = getRandomMemorys(MemoryByAge, groupSize-1);
-				localGroup.unshift(mainGlad);
+				let localGroup =  getMemoryGroup(memoryByLvl, mainGlad, groupSize);
 				// So here we will randomize the group before we start the roundRobin
-				localGroup.sort(() => Math.random() - 0.5);
+				console.log("  -TOURN>>< Starting RoundRobin><",tournyName,mainGlad.level, mainGlad.age, localGroup.length,'/',memoryByLvl[mainGlad.level].length);
 
-				let winner = await doRoundRobin(localGroup,tournyName);
-				//let winner = await singleElimination(localGroup,tournyName);
-				//console.log(winner);
-				if(winner.winner){
-					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: ${winner.winner.name}`);
-					winner.winner.weekWin++;
-				} else 
-				if(winner){
-					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: ${winner.name}`);
-					winner.weekWin++;
-				} else {
+				let result = await doRoundRobin(localGroup,tournyName);
+				if(result.winner){
+					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: ${result.winner.name}`);
+					result.winner.weekWin++;
+				} else  {
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: NONE?!`);
 				}
 				// and it will repeat over and over again.
                 usedGlads = usedGlads.concat(localGroup);
-				
 
 			}
 		}

@@ -72,16 +72,16 @@ module.exports = {
 				// Should be 64
 				console.log("Grand TOURNAMENT");
 			} else  */
-			// if (date.day == 28) {
-			// 	// Should be 32 fighters
-			// 	console.log("Regional TOURNAMENT");
-			// 	let ditto = await localTournament(allNonSeedGlad,memoryByLvl ); 
-			// 	console.log(ditto.length,"Regional TOURNAMENT END",allNonSeedGlad.length);
-			// 	for(let i in ditto){
-			// 		await ditto[i].save();
-			// 	}
+			if (date.day == 28) {
+				// Should be 32 fighters
+				console.log("Regional TOURNAMENT");
+				let ditto = await regionalTournament(allNonSeedGlad,memoryByLvl ); 
+				console.log(ditto.length,"Regional TOURNAMENT END",allNonSeedGlad.length);
+				for(let i in ditto){
+					await ditto[i].save();
+				}
 				
-			// } else {
+			} else {
 				// Should be 8 fighters
 				console.log("Local TOURNAMENT Start",allNonSeedGlad.length);
 				let ditto = await localTournament(allNonSeedGlad,memoryByLvl ); 
@@ -91,7 +91,7 @@ module.exports = {
 				}
 				// So we grab all gladiators that are selected via schedule to do this tournament.
 				// We will then make sure they do not do any training that day.
-			//}
+			}
 			await gameDate.addDay(); // This will set it to the next day.
 
 			// 	gladiator.age++;
