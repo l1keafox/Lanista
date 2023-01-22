@@ -41,7 +41,7 @@ router.post('/gladiator/doSpar', async(req, res) => {
     if(glad && glad2){
 
         let one = await prepModelForFight(glad);
-        let two = await prepModelForFight(glad);
+        let two = await prepModelForFight(glad2);
 
         let report = await doDuel(one,two);
 
