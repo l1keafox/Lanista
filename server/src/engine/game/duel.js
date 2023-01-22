@@ -251,11 +251,18 @@ async function doDuel(one, two) {
 	);
 
 	report.final = {};
-	if (!gladOne.hits || !gladOne.morale) {
+	const oneDead = (gladOne.hits <= 0 || gladOne.morale <= 0  || gladOne.stamina <= 0  );
+	const twoDead = (gladTwo.hits <= 0 || gladTwo.morale <= 0  || gladTwo.stamina <= 0  );
+	if(oneDead && twoDead){
+		report.final.winner = "none";
+	} else if(oneDead){
 		report.final.winner = gladTwo.name;
-	} else {
+	} else if(twoDead){
 		report.final.winner = gladOne.name;
 	}
+//	console.log(oneDead,twoDead)	;
+	
+//	console.log(report.final.winner);
 	report.final[gladOne.name] = {
 		hits: gladOne.hits,
 		morale: gladOne.morale,
