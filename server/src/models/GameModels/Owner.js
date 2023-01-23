@@ -24,10 +24,6 @@ const ownerSchema = new Schema(
             ref: "gladiator"
           }],
         inventory:[],
-        history:[{
-            type: Schema.Types.ObjectId,
-            ref: "gladiator"
-          }],
 	},
 	{
 		toJSON: {

@@ -137,7 +137,7 @@ export default {
         react: this.react,
         prepare: this.prepare
       }
-      console.log(clashObj);
+//      console.log(clashObj);
       await fetch(
         `http://${window.location.hostname}:3001/gladiator/updateClash`,
         {
@@ -171,7 +171,7 @@ export default {
 		this.clash = gladData.clash;
 		this.prepare = gladData.prepare;
 		this.react = gladData.react;
-		console.log(gladData);
+		//console.log(gladData);
 	},
 };
 </script>

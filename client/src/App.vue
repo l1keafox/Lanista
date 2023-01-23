@@ -1,21 +1,14 @@
 <template>
-  <div class="flex h-full w-full">
-    <!-- -->
-    <div class="bg-blue-900 px-3" id="sideBar">
+  <div class="flex h-full w-full overflow-hidden">
       <SideNav @logged="update" @changeMain="changeStage" />
-    </div>
-    <div class="bg-slate-900 grow">
       <component :is="mainStage" />
-    </div>
   </div>
 </template>
 
 <script>
 import WelcomeMain from "./views/WelcomeMain.vue";
-import ProfileMain from "./views/ProfileMain.vue";
 import GladiatorsMain from "./views/GladiatorsMain.vue";
-import StructuresMain from "./views/StructuresMain.vue";
-import TrainingMain from "./views/TrainingMain.vue";
+import SchoolMain from "./views/SchoolMain.vue";
 import CombatMain from "./views/CombatMain.vue";
 import StoreMain from "./views/StoreMain.vue";
 
@@ -26,13 +19,11 @@ export default {
   name: "App",
   components: {
     SideNav,
-    ProfileMain,
     WelcomeMain,
     GladiatorsMain,
-    TrainingMain,
     CombatMain,
     StoreMain,
-    StructuresMain,
+    SchoolMain,
   },
   data() {
     return {
@@ -53,8 +44,9 @@ export default {
   mounted() {},
   provide() {
     return {
-      card:"h-80 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
+      card:"h-80 w-56 p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
       smallCard:"h-64 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
+      largeCard:"h-96 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
       cardTitle:"text-xl text-sky-400",
       userData:this.userData
     };

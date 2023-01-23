@@ -22,54 +22,56 @@
 						<div>ROUND: {{ this.combatIndex }}</div>
 						<div class="flex">
 							<div :class="card">
-								<h1 :class="cardTitle">{{ glads[0].name }}</h1>
+								<h1 :class="cardTitle">{{ glads[0] }}</h1>
 								<hr />
 								<h1 class="text-red-300 text-xl">
 								Action:
 								{{
-									combatReport[combatIndex][glads[0].name].clash.clashAbility
+									combatReport[combatIndex][glads[0]].clash.clashAbility
 								}}	
 								</h1>							
 								<hr />
 								<template v-if="firstGlad">
 									<h2>Hp:{{ firstGlad.hits }}</h2>
 									<h2>Morale:{{ firstGlad.morale }}</h2>
+									<h2>Stamina:{{ firstGlad.stamina }}</h2>
 								</template>
 								<hr />
-								<h2>winPoints :{{ combatReport[combatIndex][glads[0].name].clash.winPoints }}</h2>
+								<h2>winPoints :{{ combatReport[combatIndex][glads[0]].clash.winPoints }}</h2>
 								<template
-									v-for="(eff, key) in combatReport[combatIndex][glads[0].name]
+									v-for="(eff, key) in combatReport[combatIndex][glads[0]]
 										.clash.effect"
 									:key="key">
 									<h2 v-if="key !=='clashAbility' ">{{ key }}:{{ eff }}</h2>
 								</template>
-								<template v-if=" combatReport[combatIndex][glads[0].name].react"> 
+								<!-- <template v-if=" combatReport[combatIndex][glads[0]].react"> 
 										<hr/>
-										<h1 class="text-red-300 text-xl"> {{ combatReport[combatIndex][glads[0].name].react.name }} </h1>
-										<p>  {{ combatReport[combatIndex][glads[0].name].react.effect }} </p>
-									</template>
+										<h1 class="text-red-300 text-xl"> {{ combatReport[combatIndex][glads[0]].react.name }} </h1>
+										<p>  {{ combatReport[combatIndex][glads[0]].react.effect }} </p>
+									</template> -->
 							</div>
 							<div :class="card">
 								{{ combatReport[combatIndex].clashResult.winner }}
 							</div>
 							<div :class="card">
-								<h1 :class="cardTitle">{{ glads[1].name }}</h1>
+								<h1 :class="cardTitle">{{ glads[1] }}</h1>
 								<hr />
 								<h1 class="text-red-300 text-xl">
 								Action:
 								{{
-									combatReport[combatIndex][glads[1].name].clash.clashAbility
+									combatReport[combatIndex][glads[1]].clash.clashAbility
 								}}	
 								</h1>							
 								<hr />
 								<template v-if="secondGlad">
 									<h2>Hp:{{ secondGlad.hits }}</h2>
 									<h2>Morale:{{ secondGlad.morale }}</h2>
+									<h2>Stamina:{{ secondGlad.stamina }}</h2>
 								</template>
 								<hr />
-								<h2>winPoints :{{ combatReport[combatIndex][glads[1].name].clash.winPoints }}</h2>
+								<h2>winPoints :{{ combatReport[combatIndex][glads[1]].clash.winPoints }}</h2>
 								<template
-									v-for="(eff, key) in combatReport[combatIndex][glads[1].name]
+									v-for="(eff, key) in combatReport[combatIndex][glads[1]]
 										.clash.effect"
 									:key="key">
 									<h2 v-if="key !=='clashAbility' ">{{ key }}:{{ eff }}</h2>
@@ -165,27 +167,29 @@ export default {
 			this.$emit("closeModal");
 		},
 		updateStats() {
-			if (this.combatReport[this.combatIndex][this.glads[0].name].effect.hits) {
-				this.firstGlad.hits = this.combatReport[this.combatIndex][this.glads[0].name].effect.hits;
+			if (this.combatReport[this.combatIndex][this.glads[0]].effect.hits) {
+				this.firstGlad.hits = this.combatReport[this.combatIndex][this.glads[0]].effect.hits;
 			}
-			if (
-				this.combatReport[this.combatIndex][this.glads[0].name].effect.morale
-			) {
-				this.firstGlad.morale = this.combatReport[this.combatIndex][this.glads[0].name].effect.morale;
+			if (this.combatReport[this.combatIndex][this.glads[0]].effect.morale) {
+				this.firstGlad.morale = this.combatReport[this.combatIndex][this.glads[0]].effect.morale;
+			}
+			if (this.combatReport[this.combatIndex][this.glads[0]].effect.stamina) {
+				this.firstGlad.stamina = this.combatReport[this.combatIndex][this.glads[0]].effect.stamina;
 			}
 
-			if (this.combatReport[this.combatIndex][this.glads[1].name].effect.hits) {
-				this.secondGlad.hits = this.combatReport[this.combatIndex][this.glads[1].name].effect.hits;
+			if (this.combatReport[this.combatIndex][this.glads[1]].effect.hits) {
+				this.secondGlad.hits = this.combatReport[this.combatIndex][this.glads[1]].effect.hits;
 			}
-			if (
-				this.combatReport[this.combatIndex][this.glads[1].name].effect.morale
-			) {
-				this.secondGlad.morale = this.combatReport[this.combatIndex][this.glads[1].name].effect.morale;
+			if (this.combatReport[this.combatIndex][this.glads[1]].effect.morale) {
+				this.secondGlad.morale = this.combatReport[this.combatIndex][this.glads[1]].effect.morale;
 			}
-			if (!this.firstGlad.hits || !this.firstGlad.morale) {
+			if (this.combatReport[this.combatIndex][this.glads[1]].effect.stamina) {
+				this.secondGlad.stamina = this.combatReport[this.combatIndex][this.glads[1]].effect.stamina;
+			}
+			if (!this.firstGlad.hits || !this.firstGlad.morale || !this.firstGlad.stamina) {
 				this.winner =  this.secondGlad.name;
 			}
-			if (!this.secondGlad.hits || this.secondGlad.morale < 0) {
+			if (!this.secondGlad.hits || this.secondGlad.morale < 0 || !this.secondGlad.stamina) {
 				this.winner = this.firstGlad.name;
 			}
 		},
@@ -194,27 +198,29 @@ export default {
 		//	console.log("REPORT?", this.glads);
 		// this.glads  holds the array of glads fought at least there names.
 		this.firstGlad = {
-			hits: this.glads[0].hits,
-			morale: this.glads[0].morale,
-			name: this.glads[0].name,
+			hits: 100, //this.glads[0].hits,
+			morale: 100, // this.glads[0].morale,
+			stamina: 100,
+			name: this.glads[0],
 		};
 		this.secondGlad = {
-			hits: this.glads[1].hits,
-			morale: this.glads[1].morale,
-			name: this.glads[1].name,
+			hits: 100,// this.glads[1].hits,
+			morale: 100,//this.glads[1].morale,
+			stamina: 100,
+			name: this.glads[1],
 		};
 		console.log(this.combatReport);
-		this.interval = setInterval(() => {
-			this.combatIndex++;
-			if (this.combatIndex > this.combatReport.maxRound) {
-				this.combatIndex = this.combatReport.maxRound;
-			}
-			this.updateStats();
-			if (this.combatIndex > this.combatReport.maxRound) {
-				clearInterval(this.interval);
-				console.log("REPORT WINNER");
-			}
-		}, 10000);
+		// this.interval = setInterval(() => {
+		// 	this.combatIndex++;
+		// 	if (this.combatIndex > this.combatReport.maxRound) {
+		// 		this.combatIndex = this.combatReport.maxRound;
+		// 	}
+		// 	this.updateStats();
+		// 	if (this.combatIndex > this.combatReport.maxRound) {
+		// 		clearInterval(this.interval);
+		// 		console.log("REPORT WINNER");
+		// 	}
+		// }, 10000);
 	},
 };
 </script>

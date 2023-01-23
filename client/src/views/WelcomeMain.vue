@@ -1,5 +1,5 @@
 <template>
-    <div class="flex h-full ">
+    <div class="flex w-full overflow-x-hidden">
         <div class="bg-slate-900 grow "> Welcome To Lanista </div>
     </div>
 </template>

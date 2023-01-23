@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
 const Owner = require('./Owner');
 const { getItemEffect } = require('./../../engine/game/itemsIndex');
+const { getAbilityEffect } = require('./../../engine/game/abilityIndex');
 
 const gladiatorSchema = new Schema(
 	{
@@ -12,31 +13,31 @@ const gladiatorSchema = new Schema(
             type:Schema.Types.ObjectId,
             ref:"Owner"
         },
+        seed:{
+            type:Boolean
+        },
         schedule:[],
-
-        localTournament:{
-            type:Boolean
-        },
-        regionalTournament:{
-            type:Boolean
-        },
-        grandTournament:{
-            type:Boolean
-        },
-        nationalTournament:{
-            type:Boolean
-        },
 
         winRecord:{
             type:Number
         },
-        loseRecord:{
+        lossRecord:{
             type:Number
         },
 
-        exp:{ // experience
+        weekWin:{
             type:Number
         },
+        monthWin:{
+            type:Number
+        },
+        quarterWin:{
+            type:Number
+        },
+        yearWin:{
+            type:Number
+        },
+
         level:{
             type:Number
         },
@@ -44,14 +45,17 @@ const gladiatorSchema = new Schema(
             type:Number
         },
 
-        learning:{
-            type:Number
-        },
-        afterLearning:{
+
+        // The following three arrays are linked, learnSkill is the skill learned
+        // task Skill is what is replaced
+        // Progress Skill is going to be a string that needs to be JSON/Strinify so it tracks
+        // how much each skill is being progressed.
+        learnSkill:[], 
+        
+        taskSkill:[],
+        progressSkill:{
             type:String
         },
-
-
 
         // Character Points Stats
         hits:{ // Physical Hit points
@@ -60,9 +64,6 @@ const gladiatorSchema = new Schema(
         mana:{ // Mental Mana Points
             type:Number
         },
-        stress:{ // Stress - not certain how this should be used yet.
-            type:Number
-        }, 
         morale:{ // Morale in fighting.
             type:Number
         },
@@ -160,6 +161,14 @@ gladiatorSchema.methods.setSkills = async function() {
         }
     });
 }
+gladiatorSchema.methods.doLevel = async function() {
+    // This will go through equipment and give fill up skills
+    // or it will go through 
+    if(this.age > Math.pow(2,this.level)){
+        this.level++;
+    }
+}
+
 
 const Gladiator = model("gladiator", gladiatorSchema);
 
