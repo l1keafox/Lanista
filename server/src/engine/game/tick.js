@@ -4,7 +4,7 @@ const { GameDate, Gladiator, Owner, Memory } = require("./../../models");
 const { doGrowth } = require("./trainingEffects");
 const { getAbilityEffect } = require("./abilityIndex");
 const { saveModelMemory } = require('./gladiatorPrep');
-const { localTournament,regionalTournament,quarterTournament } = require('./tournament');
+const { localTournament,regionalTournament,quarterTournament, nationalTournament } = require('./tournament');
 let date = {
 	time: 1, // This is # of events per day maxed at 8
 	day: 1, // Days maxed at 30
@@ -62,40 +62,48 @@ module.exports = {
 			// 	console.log(lvl, "s and Memory in them:", memoryByLvl[lvl].length );
 			// }
 			// So now we determine if the local,regional,quarter,national.
-			/*if (date.month === 12 && date.day == 28) {
+			if (date.month === 12 && date.day == 28) {
 				// national is roundrobin then a double elimination tournament.
 				// national is the last month, and 28th
 				// So now we grab an random Memories and add our guy to it.
 				// and do a tournament!
 				// Should be 124
+				let ditto = await await nationalTournament(allGladiators, memoryByLvl)
 				console.log("National TOURNAMENT");
-			} else  */
-			//if ((date.month === 3 || date.month === 6 || date.month === 9) && date.day == 28	) {
-				//Double elimination Tournament.
-				quarterTournament(allGladiators, memoryByLvl)
-				console.log("Quarter TOURNAMENT");
+				for(let i in ditto){
+					await ditto[i].save();
+				}
 
-			// } else if (date.day == 28) {
-			// 	// Should be 32 fighters
-			// 	// Single elimination.
-			// 	console.log("Regional TOURNAMENT");
-			// 	let ditto = await regionalTournament(allNonSeedGlad,memoryByLvl ); 
-			// 	console.log(ditto.length,"Regional TOURNAMENT END",allNonSeedGlad.length);
-			// 	for(let i in ditto){
-			// 		await ditto[i].save();
-			// 	}
+			} else  
+			if ((date.month === 3 || date.month === 6 || date.month === 9) && date.day == 28	) {
+				//Double elimination Tournament.
+				let ditto = await quarterTournament(allGladiators, memoryByLvl)
+				console.log("Quarter TOURNAMENT");
+				for(let i in ditto){
+					await ditto[i].save();
+				}
+
+			} else if (date.day == 28) {
+				// Should be 32 fighters
+				// Single elimination.
+				console.log("Regional TOURNAMENT");
+				let ditto = await regionalTournament(allNonSeedGlad,memoryByLvl ); 
+				console.log(ditto.length,"Regional TOURNAMENT END",allNonSeedGlad.length);
+				for(let i in ditto){
+					await ditto[i].save();
+				}
 				
-			// } else {
-			// 	// Local tournament is a round robin
-			// 	console.log("Local TOURNAMENT Start",allNonSeedGlad.length);
-			// 	let ditto = await localTournament(allNonSeedGlad,memoryByLvl ); 
-			// 	console.log(ditto.length,"Local TOURNAMENT END",allNonSeedGlad.length);
-			// 	for(let i in ditto){
-			// 		await ditto[i].save();
-			// 	}
-			// 	// So we grab all gladiators that are selected via schedule to do this tournament.
-			// 	// We will then make sure they do not do any training that day.
-			// }
+			} else {
+				// Local tournament is a round robin
+				console.log("Local TOURNAMENT Start",allNonSeedGlad.length);
+				let ditto = await localTournament(allNonSeedGlad,memoryByLvl ); 
+				console.log(ditto.length,"Local TOURNAMENT END",allNonSeedGlad.length);
+				for(let i in ditto){
+					await ditto[i].save();
+				}
+				// So we grab all gladiators that are selected via schedule to do this tournament.
+				// We will then make sure they do not do any training that day.
+			}
 			await gameDate.addDay(); // This will set it to the next day.
 
 			// 	gladiator.age++;

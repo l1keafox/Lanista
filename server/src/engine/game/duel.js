@@ -277,7 +277,7 @@ async function doDuel(one, two) {
 	};
 	report.fighters = [gladOne.name , gladTwo.name];
 
-	console.log(`  -EN> Game DUEL : ${gladOne.name} Vs ${gladTwo.name} TIME: ${new Date() - startOfTick}ms Winner:${report.final.winner} `);
+	//console.log(`  -EN> Game DUEL : ${gladOne.name} Vs ${gladTwo.name} TIME: ${new Date() - startOfTick}ms Winner:${report.final.winner} `);
 	return report;
 }
 

@@ -7,14 +7,22 @@ const { doDuel } = require("./duel");
 const { prepMemoryForFight, prepModelForFight } = require("./gladiatorPrep");
 
 function getRandomMemorys(memoryGroup, size) {
-	let rtnArray = [];
-	for (let i = 0; i < size; i++) {
-		rtnArray.push(memoryGroup[Math.floor(Math.random() * memoryGroup.length)]);
-	}
-	return rtnArray;
+//	let rtnArray = [];
+	memoryGroup.sort(() => Math.random() - 0.5);
+	// for (let i = 0; i < size; i++) {
+	// 	// Has a chance of bring in the same guy, so let's do this 
+	// 	rtnArray.push(memoryGroup[Math.floor(Math.random() * memoryGroup.length)]);
+	// 	rtnArray.push(memoryGroup[ Math.floor(Math.random() * memoryGroup.length) ]);
+
+	// }
+	return memoryGroup.slice(0,size);
 }
 
 async function prepGlad(glad) {
+	if(!glad){
+		console.log("PREP FAILED?",glad);
+		return;
+	};
 	if (glad.memory) {
 		return await prepMemoryForFight(glad);
 	} else {
@@ -121,66 +129,45 @@ async function bestOfThree(group,name){
 	});
 }
 
-async function roundRobinThenBestOfThree(group,name){
-	return new Promise(async (resolve, reject) => {
+async function roundRobinThenBestOfThree(incomingGroup,tournyName){
+	return new Promise(async (resolve, reject) =>
+	 {
+		const startOfTick = new Date();
 		let winObj = {};
-		// We need to split the big 124 peoples into smaller groups of 8
-
-		// Then those groups of 8 will do roundrobin tournament
-
-		for(let i = 0; i < group.length; i++){
-			const mainGlad = group[i];
-			for(let e = i+1; e< group.length;e++){
-				const oppGlad = group[e];
-				// do duel
-					let one = await prepGlad(group[i]);
-					let two = await prepGlad(group[e]);
-					let report = await doDuel(one,two);
-	
-				// winner gets winObj++;
-				if (report.final.winner == group[i].name) {
-					group[i].winRecord++;
-					group[e].lossRecord++;
-					if(!winObj[group[i].name]){
-						winObj[group[i].name] = 0;	
-					}
-					winObj[group[i].name]++;
-				} else if (report.final.winner == group[e].name) {
-					group[e].winRecord++;
-					group[i].lossRecord++;
-					if(!winObj[group[e].name]){
-						winObj[group[e].name] = 0;
-					}
-					winObj[group[e].name]++;
-	
-				} else {
-					// draw so.
-				}
-			}
+		// We need to split the big 128 peoples into smaller groups of 8
+		let groups = [];
+		// Group of 8 of sixteen.
+		// create the groups.
+		for(let i = 0; i < 8 ; i ++){
+			groups.push([]);
 		}
-//		console.log(winObj);
-		let mostName = [];
-		let mostWins = 0;
-		for(let name in winObj){
-			if(winObj[name] > mostWins){
-				mostWins = winObj[name];
-				mostName = [name];
-			} else if( winObj[name] == mostWins ) {
-				// then tie condidtion
-				mostName.push(name);
+		console.log('  -EN/TOURNY/NAT>',incomingGroup.length, "Num of peeps");
+		do{
+			groups.sort(() => Math.random() - 0.5);
+			for(let i = 0; i < 8 ; i ++){
+				groups[i].push(incomingGroup.pop());
+				if(incomingGroup.length == 0  )break;
 			}
-		}
-	
-		console.log(mostName, "wins with : ", mostWins);
-		let winArray = [];
-		for(let i in group){
-			if(mostName.includes(group[i].name)){
-				winArray.push(group[i]);
+		}while(incomingGroup.length !== 0)
+		
+		let bestOfThreeArry = [];
+		for(let index in groups){
+			let grp = groups[index];
+			console.log('  -EN/TOURNY/NAT>',grp.length, "# of members /",groups.length , "# of groups");
+			// so do round robin with this groups
+			let result = await doRoundRobin(grp,tournyName,false);
+			for(let i in result.winner){
+				console.log('  -EN/TOURNY/ Round Robin Winner>',result.winner[i].name);
 			}
+			bestOfThreeArry = bestOfThreeArry.concat(result.winner);
 		}
-
-		// Ties will go on to the bestOfThree tournament.
-			
+		let string = '';
+		bestOfThreeArry.forEach(glad => string+=glad.name+' ');
+		console.log('  -EN/TOURNY/ Tournament:',string);
+		let result = await bestOfThree(bestOfThreeArry,tournyName+"Final");
+		
+		resolve(result);
+		
 
 	});
 }
@@ -200,61 +187,68 @@ async function singleElimination(group,name) {
 	});
 }
 
-async function doRoundRobin(group,tournyName){
+async function doRoundRobin(group,tournyName,oneWinner){
 	// Round robin means that each member of the group will face off against each member
 	// the one with the most 
 	let winObj = {};
 	for(let i = 0; i < group.length; i++){
 		const mainGlad = group[i];
+
 		for(let e = i+1; e< group.length;e++){
 			const oppGlad = group[e];
 			// do duel
+			let report;
+			if(group[e]){
         	    let one = await prepGlad(group[i]);
     	        let two = await prepGlad(group[e]);
-				let report = await doDuel(one,two);
+				report = await doDuel(one,two);
+			} else {
+
+			}
 
 			// winner gets winObj++;
 			if (report.final.winner == group[i].name) {
                 group[i].winRecord++;
                 group[e].lossRecord++;
-				if(!winObj[group[i].name]){
-					winObj[group[i].name] = 0;	
+				if(!winObj[group[i]._id]){
+					winObj[group[i]._id] = 0;	
 				}
-				winObj[group[i].name]++;
+				winObj[group[i]._id]++;
 			} else if (report.final.winner == group[e].name) {
                 group[e].winRecord++;
                 group[i].lossRecord++;
-				if(!winObj[group[e].name]){
-					winObj[group[e].name] = 0;
+				if(!winObj[group[e]._id]){
+					winObj[group[e]._id] = 0;
 				}
-				winObj[group[e].name]++;
+				winObj[group[e]._id]++;
 
 			} else {
 				// draw so.
 			}
 		}
 	}
-	console.log(winObj);
-	let mostName = [];
+	let mostId = [];
 	let mostWins = 0;
-	for(let name in winObj){
-		if(winObj[name] > mostWins){
-			mostWins = winObj[name];
-			mostName = [name];
-		} else if( winObj[name] == mostWins ) {
+	for(let id in winObj){
+		if(winObj[id] > mostWins){
+			mostWins = winObj[id];
+			mostId = [id];
+		} else if( winObj[id] == mostWins ) {
 			// then tie condidtion
-			mostName.push(name);
+			mostId.push(id);
 		}
 	}
 
-	console.log(mostName, "wins with : ", mostWins);
+//	console.log(mostId, "wins with : ", mostWins);
 	let winArray = [];
 	for(let i in group){
-		if(mostName.includes(group[i].name)){
-			winArray.push(group[i]);
-		}
+			if(mostId.includes(group[i].id)){
+				winArray.push(group[i]);
+			}
 	}
-
+	if(!oneWinner){
+		return {winner:winArray, winCount:mostWins };
+	}
 		if (winArray.length > 1){
 		let result = await singleElimination(winArray,tournyName);
 		return {winner:result.winner,winCount:mostWins};
@@ -267,42 +261,75 @@ async function doRoundRobin(group,tournyName){
 	// The one with the most wins gets returned;
 
 }
-async function nationalTournament( ){
-	const groupSize = 124;
+
+
+function getMemoryGroup(memoryByLvl, mainGlad, groupSize){
+	let added = [];
+	if(!Array.isArray(mainGlad)){
+		mainGlad = [mainGlad];
+	}
+	const MemoryByAge = memoryByLvl[mainGlad[0].level].filter((memory) => {
+		// Issue is that previously added Memories need
+		if ( Math.abs(memory.age - mainGlad[0].age) <= 6 && memory.name !== mainGlad[0].name && !added.includes(memory.name)) {
+			added.push(memory.name);
+			return memory;
+		}
+	});
+	let rando = getRandomMemorys(MemoryByAge, groupSize-mainGlad[0].length);
+
+	rando = rando.concat(mainGlad);
+
+	rando.sort(() => Math.random() - 0.5);
+
+	return rando;
+}
+async function nationalTournament( allGladiators, memoryByLvl){
+	const groupSize = 128;
 	// Go through each gladiators
 	// find 7 other Memories that is the same level and +/- 6 days in age.
 	let usedGlads = [];
 	return new Promise(async (resolve, reject) => {
-		for(let i in allGladiators){
-			const mainGlad = allGladiators[i];
-			if (mainGlad.level >= 3) {
+		// we need to organize by level. so a tournament for each level.
+
+		let organizeByLvl = {};
+		allGladiators.forEach( glad =>{
+			if(!organizeByLvl[glad.level]){
+				organizeByLvl[glad.level] = [];
+			}
+			organizeByLvl[glad.level].push(glad);
+		});
+		console.log('  -EN/TOURNY/NAT>SEND IN:',allGladiators.length);
+		for(let i in organizeByLvl){
+			console.log('  -EN/TOURNY/NAT>',i, 'levels  IN:',organizeByLvl[i].length);
+			const mainGlad = organizeByLvl[i][0];
 				const startOfTick = new Date();
 				let added = [];
-                let tournyName = mainGlad.name[0]+mainGlad.name[1]+mainGlad.name[4];
-				
-				let localGroup =  getMemoryGroup(memoryByLvl, mainGlad, groupSize);
-				console.log("  -TOURN>>< Starting Best of Three Tournament><",tournyName,mainGlad.level, mainGlad.age, localGroup.length,'/',memoryByLvl[mainGlad.level].length);
+                let tournyName = 'NAT';
+				// This won't use so many memories, it will take all the gladiators and then add memories based on the number.
+
+				let localGroup =  getMemoryGroup(memoryByLvl, organizeByLvl[i], groupSize);
+				console.log("  -TOURN>>< Starting National Tournament> FOR LEVEL:",mainGlad.level,"<",tournyName, localGroup.length,'/',memoryByLvl[mainGlad.level].length);
 				
 				// So first it will do an roundrobin touranament 
 				// The winner of each roundrobin will then go on to the bestOfThree tournament.
 
 
-				let result = await nationalTouranment(localGroup,tournyName);
+				let result = await roundRobinThenBestOfThree(localGroup,tournyName);
 				if(result.winner){
-					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: ${result.winner.name}`);
+					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms National Doing Local tournament size: ${localGroup.length} WINNER: ${result.winner.name}`);
 					result.winner.quarterWin++;
 				} else  {
-					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: NONE?!`);
+					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms National Doing Local tournament size: ${localGroup.length} WINNER: NONE?!`);
 				}
 				
                 usedGlads = usedGlads.concat(localGroup);
-				
-
 			}
-		}
+
+			
 		resolve(usedGlads);
 	});
 }
+
 
 async function quarterTournament(allGladiators, memoryByLvl) {
 	const groupSize = 32;
@@ -370,21 +397,6 @@ async function regionalTournament(allGladiators, memoryByLvl) {
 	});
 }
 
-function getMemoryGroup(memoryByLvl, mainGlad, groupSize){
-	let added = [];
-	const MemoryByAge = memoryByLvl[mainGlad.level].filter((memory) => {
-		// Issue is that previously added Memories need
-		if ( Math.abs(memory.age - mainGlad.age) <= 6 && memory.name !== mainGlad.name && !added.includes(memory.name)) {
-			added.push(memory.name);
-			return memory;
-		}
-	});
-	let rando = getRandomMemorys(MemoryByAge, groupSize-1);
-	rando.unshift(mainGlad);
-	rando.sort(() => Math.random() - 0.5);
-
-	return rando;
-}
 
 async function localTournament(allGladiators, memoryByLvl) {
 	const groupSize = 8;
@@ -401,7 +413,7 @@ async function localTournament(allGladiators, memoryByLvl) {
 				// So here we will randomize the group before we start the roundRobin
 				console.log("  -TOURN>>< Starting RoundRobin><",tournyName,mainGlad.level, mainGlad.age, localGroup.length,'/',memoryByLvl[mainGlad.level].length);
 
-				let result = await doRoundRobin(localGroup,tournyName);
+				let result = await doRoundRobin(localGroup,tournyName,true);
 				if(result.winner){
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: ${result.winner.name}`);
 					result.winner.weekWin++;
@@ -417,4 +429,4 @@ async function localTournament(allGladiators, memoryByLvl) {
 	});
 }
 
-module.exports = { localTournament ,regionalTournament , quarterTournament};
+module.exports = { localTournament ,regionalTournament , quarterTournament, nationalTournament};
