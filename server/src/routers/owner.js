@@ -183,7 +183,7 @@ router.post('/owner/buyItem', async(req, res) => {
 //     res.send(owner2)
 // })
 router.post('/owner', async(req, res) => {
-    let owner2 = await Owner.findOne({ userAcct: req.body.id }).populate('gladiators',['name','age','winRecord','lossRecord','weekWin','monthWin','quarterWin','yearWin']);
+    let owner2 = await Owner.findOne({ userAcct: req.body.id }).populate('gladiators',['name','age','winRecord','lossRecord','weekWin','monthWin','quarterWin','yearWin','level']);
     res.send(owner2)
 })
 

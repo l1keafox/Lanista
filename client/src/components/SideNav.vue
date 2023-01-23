@@ -100,6 +100,7 @@ export default {
 	emits: ["logged", "changeMain"],
 	methods: {
 		async updateOwner() {
+			this.userData =  auth.getUser();
 			if (this.isLoggedIn) {
 				const rpnse = await fetch(
 					`http://${window.location.hostname}:3001/owner`,
@@ -119,6 +120,7 @@ export default {
 		async doLogOut() {
 			auth.logout();
 			this.$emit("logged");
+			clearInterval(this.interval );
 		},
 		async createAcct({ username, password, email }) {
 			//      console.log('trying create');

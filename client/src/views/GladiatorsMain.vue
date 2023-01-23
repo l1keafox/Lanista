@@ -5,10 +5,10 @@
         
         <h1 :class="cardTitle">{{glad.name}} </h1>
 
-        <h2> Age:{{glad.age}}</h2>
-        <h2> Record: W:{{glad.winRecord}} / L:{{glad.lossRecord}}</h2>
+        <h2> Age:{{glad.age}} Level:{{glad.level}}</h2>
+        <h2> Wins:{{glad.winRecord}} / Loss:{{glad.lossRecord}}</h2>
         <h2> Local: {{glad.weekWin}} / Regional : {{glad.monthWin}}</h2>
-        <h2> Quarter : {{glad.quarterWin}}/ National:{{glad.yearWin}}</h2>
+        <h2> Quarter : {{glad.quarterWin}} / National: {{glad.yearWin}}</h2>
 
         <hr/>
         <button class="bg-yellow-200 m-2 text-purple-900" @click="openModal($event,'ScheduleManager')" :data-id="glad._id">Schedule  </button>
@@ -16,6 +16,7 @@
         <button class="bg-red-200 m-2 text-purple-700" @click="openModal($event,'EquipmentScreen')"    :data-id="glad._id">Equipment  </button>
         <button class="bg-green-200 m-2 text-purple-700" @click="openModal($event,'ClashSettings')"    :data-id="glad._id">Clash  </button>
         <button class="bg-purple-200 m-2 text-purple-700" @click="openModal($event,'MemoryHistory')"    :data-id="glad._id">Memories  </button>
+        <button class="bg-slate-200 m-2 text-purple-700" @click="openModal($event,'DuelHistory')"    :data-id="glad._id">Duel History  </button>
         
       </div>
     </div>
@@ -32,6 +33,7 @@ import ScheduleManager from "./../components/ScheduleManager.vue";
 import GladiatorStats from "./../components/GladiatorStats.vue";
 import EquipmentScreen from "./../components/EquipmentScreen.vue";
 import MemoryHistory from "./../components/MemoryHistory.vue";
+import DuelHistory from "./../components/DuelHistory.vue";
 
 import ClashSettings from "./../components/ClashSettings.vue";
 
@@ -76,6 +78,7 @@ export default {
     ScheduleManager,
     MemoryHistory,
     GladiatorStats,
+    DuelHistory,
     EquipmentScreen,
     ClashSettings,
   },
