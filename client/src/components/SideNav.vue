@@ -53,6 +53,11 @@
 				@click="$emit('changeMain', 'StoreMain')">
 				Store
 			</div>
+			<div
+				class="m-2 cursor-pointer sideOptions"
+				@click="$emit('changeMain', 'TournamentMain')">
+				Tournament
+			</div>
 			<div class="m-2 cursor-pointer sideOptions" @click="doLogOut">Logout</div>
 		</div>
 
@@ -81,6 +86,7 @@ export default {
 			userData: auth.getUser(),
 			showCreateModal: false,
 			isLoggedIn: auth.loggedIn(),
+			interval: null
 		};
 	},
 	components: {
@@ -88,7 +94,8 @@ export default {
 		CreateAccount,
 	},
 	async mounted() {
-		this.updateOwner();
+		//this.updateOwner();
+		this.startUpdateTimer();
 	},
 	emits: ["logged", "changeMain"],
 	methods: {
@@ -102,9 +109,12 @@ export default {
 						body: JSON.stringify({ "id": auth.getUser()._id }),
 					}
 				);
-				let ownerData = await rpnse.json();
-				this.ownerData = ownerData;
+				this.ownerData = await rpnse.json();
 			}
+		},
+		async startUpdateTimer(){
+			this.updateOwner();
+			this.interval = setInterval(				this.updateOwner,			5000)
 		},
 		async doLogOut() {
 			auth.logout();
