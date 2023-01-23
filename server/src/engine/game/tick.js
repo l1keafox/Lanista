@@ -4,7 +4,7 @@ const { GameDate, Gladiator, Owner, Memory } = require("./../../models");
 const { doGrowth } = require("./trainingEffects");
 const { getAbilityEffect } = require("./abilityIndex");
 const { saveModelMemory } = require('./gladiatorPrep');
-const { localTournament,regionalTournament,quarterTournament } = require('./tournament');
+const { localTournament,regionalTournament,quarterTournament, nationalTournament } = require('./tournament');
 let date = {
 	time: 1, // This is # of events per day maxed at 8
 	day: 1, // Days maxed at 30
@@ -33,7 +33,8 @@ module.exports = {
 		date.gladNum = allGladiators.length;
 
 		let ownersGain = {};
-		if (date.weekDay == 7 ) {
+		if (date.weekDay == 7  ) {
+
 
 			console.log("  -EN>Tournament Day");
 			let allNonSeedGlad = [];
@@ -72,8 +73,8 @@ module.exports = {
 			} else  */
 			//if ((date.month === 3 || date.month === 6 || date.month === 9) && date.day == 28	) {
 				//Double elimination Tournament.
-				quarterTournament(allGladiators, memoryByLvl)
-				console.log("Quarter TOURNAMENT");
+				await nationalTournament(allGladiators, memoryByLvl)
+				console.log("National TOURNAMENT");
 
 			// } else if (date.day == 28) {
 			// 	// Should be 32 fighters
