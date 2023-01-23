@@ -11,6 +11,8 @@
         <button class="bg-blue-200 m-2 text-purple-700"   @click="openModal($event,'GladiatorStats')"  :data-id="glad._id">Stats  </button>
         <button class="bg-red-200 m-2 text-purple-700" @click="openModal($event,'EquipmentScreen')"    :data-id="glad._id">Equipment  </button>
         <button class="bg-green-200 m-2 text-purple-700" @click="openModal($event,'ClashSettings')"    :data-id="glad._id">Clash  </button>
+        <button class="bg-green-200 m-2 text-purple-700" @click="openModal($event,'MemoryHistory')"    :data-id="glad._id">Memories  </button>
+        
       </div>
     </div>
   </div>
@@ -25,6 +27,8 @@ import auth from "./../mixins/auth";
 import ScheduleManager from "./../components/ScheduleManager.vue";
 import GladiatorStats from "./../components/GladiatorStats.vue";
 import EquipmentScreen from "./../components/EquipmentScreen.vue";
+import MemoryHistory from "./../components/MemoryHistory.vue";
+
 import ClashSettings from "./../components/ClashSettings.vue";
 
 export default {
@@ -37,6 +41,7 @@ export default {
       isModalShown:null,
       gladiatorId: null,
       ownerData: null,
+      
     };
   },
   inject: ['largeCard','cardTitle','card'],
@@ -66,6 +71,7 @@ export default {
   },
   components:{
     ScheduleManager,
+    MemoryHistory,
     GladiatorStats,
     EquipmentScreen,
     ClashSettings,

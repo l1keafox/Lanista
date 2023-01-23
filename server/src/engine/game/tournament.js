@@ -190,7 +190,11 @@ async function singleElimination(group,name) {
 async function doRoundRobin(group,tournyName,oneWinner){
 	// Round robin means that each member of the group will face off against each member
 	// the one with the most 
+	// Report needs to be just an the ids
+	// cause players will want.
+
 	let winObj = {};
+	let report = {};
 	for(let i = 0; i < group.length; i++){
 		const mainGlad = group[i];
 
@@ -254,7 +258,7 @@ async function doRoundRobin(group,tournyName,oneWinner){
 		return {winner:result.winner,winCount:mostWins};
 		}
 
-	return {winner:winArray[0], winCount:mostWins };
+	return {winner:winArray[0], winCount:mostWins , report:report };
 
 
 
@@ -270,12 +274,12 @@ function getMemoryGroup(memoryByLvl, mainGlad, groupSize){
 	}
 	const MemoryByAge = memoryByLvl[mainGlad[0].level].filter((memory) => {
 		// Issue is that previously added Memories need
-		if ( Math.abs(memory.age - mainGlad[0].age) <= 6 && memory.name !== mainGlad[0].name && !added.includes(memory.name)) {
+		if ( Math.abs(memory.age - mainGlad[0].age) <= 6 && memory.name !== mainGlad[0].name  && !added.includes(memory.name)) {
 			added.push(memory.name);
 			return memory;
 		}
 	});
-	let rando = getRandomMemorys(MemoryByAge, groupSize-mainGlad[0].length);
+	let rando = getRandomMemorys(MemoryByAge, groupSize-mainGlad.length);
 
 	rando = rando.concat(mainGlad);
 

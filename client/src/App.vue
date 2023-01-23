@@ -11,6 +11,7 @@ import GladiatorsMain from "./views/GladiatorsMain.vue";
 import SchoolMain from "./views/SchoolMain.vue";
 import CombatMain from "./views/CombatMain.vue";
 import StoreMain from "./views/StoreMain.vue";
+import TournamentMain from "./views/TournamentMain.vue";
 
 import SideNav from "@/components/SideNav.vue";
 import auth from "./mixins/auth";
@@ -22,6 +23,7 @@ export default {
     WelcomeMain,
     GladiatorsMain,
     CombatMain,
+    TournamentMain,
     StoreMain,
     SchoolMain,
   },

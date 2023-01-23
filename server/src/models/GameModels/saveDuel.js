@@ -5,18 +5,20 @@ const { Schema, model } = require("mongoose");
 const saveDuelModel = new Schema(
 	{
         // Game Stats
-		gladiatorOne:      {
+		gladiatorOne:{
             type: Schema.Types.ObjectId,
             ref: "gladiator"
         },
-        gladiatorTwo:      {
+        gladiatorTwo:{
             type: Schema.Types.ObjectId,
             ref: "gladiator"
         },
-        duel:{
+        duel:{ // The string of the duel.
             type:String
         },
-        
+        createdAt:{  // based off of getTime() this will determine when this stuff gets deleted.
+            type: Number
+        }
 	},
 );
 
