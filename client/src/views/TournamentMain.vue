@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="flex w-full overflow-x-hidden">
 
     </div>
 </template>

@@ -62,6 +62,7 @@ module.exports = {
 			// 	console.log(lvl, "s and Memory in them:", memoryByLvl[lvl].length );
 			// }
 			// So now we determine if the local,regional,quarter,national.
+			const startOfTick = new Date();
 			if (date.month === 12 && date.day == 28) {
 				// national is roundrobin then a double elimination tournament.
 				// national is the last month, and 28th
@@ -104,6 +105,8 @@ module.exports = {
 				// So we grab all gladiators that are selected via schedule to do this tournament.
 				// We will then make sure they do not do any training that day.
 			}
+
+			console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms`);
 			await gameDate.addDay(); // This will set it to the next day.
 
 			// 	gladiator.age++;

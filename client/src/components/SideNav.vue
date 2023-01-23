@@ -21,7 +21,7 @@
 				Create Account
 			</button>
 		</div>
-		<div v-else class="font-lux text-xl">
+		<div v-else class="font-lux text-base">
 			<div>
 				<template v-if="userData">
 					<h2>Username: {{ userData.username }}</h2>

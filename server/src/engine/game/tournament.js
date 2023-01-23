@@ -178,7 +178,7 @@ async function singleElimination(group,name) {
     	let roundCount = 0;
 		do {
         	roundCount++;
-        	console.log("  -TOURN>Start Round ",roundCount,name, group.length);
+//        	console.log("  -TOURN>Start Round ",roundCount,name, group.length);
 			group = await tournamentRound(group);
 			group = group.winnerArray;
 		
@@ -382,7 +382,7 @@ async function regionalTournament(allGladiators, memoryByLvl) {
                 let tournyName = mainGlad.name[0]+mainGlad.name[1]+mainGlad.name[4];
 				
 				let localGroup =  getMemoryGroup(memoryByLvl, mainGlad, groupSize);
-				console.log("  -TOURN>>< Starting Single Elimination><",tournyName,mainGlad.level, mainGlad.age, localGroup.length,'/',memoryByLvl[mainGlad.level].length);
+//				console.log("  -TOURN>>< Starting Single Elimination><",tournyName,mainGlad.level, mainGlad.age, localGroup.length,'/',memoryByLvl[mainGlad.level].length);
 
 				let result = await singleElimination(localGroup,tournyName);
 				if(result.winner){

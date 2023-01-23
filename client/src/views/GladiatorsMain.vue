@@ -4,14 +4,18 @@
         <div v-for="glad in ownerData.gladiators" :key="glad" :class="largeCard"> 
         
         <h1 :class="cardTitle">{{glad.name}} </h1>
+
         <h2> Age:{{glad.age}}</h2>
+        <h2> Record: W:{{glad.winRecord}} / L:{{glad.lossRecord}}</h2>
+        <h2> Local: {{glad.weekWin}} / Regional : {{glad.monthWin}}</h2>
+        <h2> Quarter : {{glad.quarterWin}}/ National:{{glad.yearWin}}</h2>
 
         <hr/>
         <button class="bg-yellow-200 m-2 text-purple-900" @click="openModal($event,'ScheduleManager')" :data-id="glad._id">Schedule  </button>
         <button class="bg-blue-200 m-2 text-purple-700"   @click="openModal($event,'GladiatorStats')"  :data-id="glad._id">Stats  </button>
         <button class="bg-red-200 m-2 text-purple-700" @click="openModal($event,'EquipmentScreen')"    :data-id="glad._id">Equipment  </button>
         <button class="bg-green-200 m-2 text-purple-700" @click="openModal($event,'ClashSettings')"    :data-id="glad._id">Clash  </button>
-        <button class="bg-green-200 m-2 text-purple-700" @click="openModal($event,'MemoryHistory')"    :data-id="glad._id">Memories  </button>
+        <button class="bg-purple-200 m-2 text-purple-700" @click="openModal($event,'MemoryHistory')"    :data-id="glad._id">Memories  </button>
         
       </div>
     </div>
@@ -63,9 +67,8 @@ export default {
         body: JSON.stringify({ "id": this.userData._id }),
       }
     );
-    let ownerData = await rpnse.json();
-    this.ownerData = ownerData;     
-//    console.log('updated info') ;
+    this.ownerData = await rpnse.json();
+    console.log('updated info',this.ownerData ) ;
     }
 
   },
