@@ -322,7 +322,7 @@ async function nationalTournament( allGladiators, memoryByLvl){
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms National Doing Local tournament size: ${localGroup.length} WINNER: NONE?!`);
 				}
 				
-//                usedGlads = usedGlads.concat(localGroup);
+                usedGlads = usedGlads.concat(localGroup);
 			}
 
 			
