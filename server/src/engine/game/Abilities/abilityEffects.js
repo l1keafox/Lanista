@@ -43,7 +43,10 @@ function compareEffects(gladiator,target){
             // If dodge is sucessful 
             if(gladiator.effectToDo.hitChance <= 0 && gladiator.effectToDo.hitDamage){
                 // hit damage is 0, and target(person who did the swing), get stamina damage
-                target.effectToDo.staminaDamage = gladiator.effectToDo.hitDamage;
+                // console.log(gladiator.effectToDo.hitDamage,gladiator.agility * 0.01)
+                // Damage is 150 multiplier
+                // agility should be 100 
+                target.effectToDo.staminaDamage = gladiator.effectToDo.hitDamage - (gladiator.agility*0.01);
                 gladiator.effectToDo.hitDamage = 0;
             }
 

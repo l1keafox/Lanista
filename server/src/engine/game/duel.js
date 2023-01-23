@@ -253,6 +253,8 @@ async function doDuel(one, two) {
 	report.final = {};
 	const oneDead = (gladOne.hits <= 0 || gladOne.morale <= 0  || gladOne.stamina <= 0  );
 	const twoDead = (gladTwo.hits <= 0 || gladTwo.morale <= 0  || gladTwo.stamina <= 0  );
+	// console.log(gladOne.name,gladOne.hits, gladOne.morale, gladOne.stamina);
+	// console.log(gladTwo.name,gladTwo.hits, gladTwo.morale, gladTwo.stamina);
 	if(oneDead && twoDead){
 		report.final.winner = "none";
 	} else if(oneDead){
@@ -262,7 +264,7 @@ async function doDuel(one, two) {
 	}
 //	console.log(oneDead,twoDead)	;
 	
-//	console.log(report.final.winner);
+	// console.log(report.final.winner);
 	report.final[gladOne.name] = {
 		hits: gladOne.hits,
 		morale: gladOne.morale,
