@@ -21,15 +21,14 @@
 				Create Account
 			</button>
 		</div>
-		<div v-else class="font-lux text-xl">
+		<div v-else class="font-lux text-base">
 			<div>
-				<template v-if="userData">
-					<h2>Username: {{ userData.username }}</h2>
-				</template>
+				
+				<h2>Username: <template v-if="userData">{{ userData.username }}</template></h2>
 				<hr />
-				<div v-if="ownerData">
-					<h2>GOLD: {{ ownerData.gold }}</h2>
-					<h2>FAME: {{ ownerData.fame }}</h2>
+				<div>
+					<h2>GOLD: <template v-if="ownerData"> {{ ownerData.gold }}</template></h2>
+					<h2>FAME: <template v-if="ownerData"> {{ ownerData.fame }}</template></h2>
 				</div>
 				<hr />
 			</div>
@@ -53,6 +52,11 @@
 				@click="$emit('changeMain', 'StoreMain')">
 				Store
 			</div>
+			<div
+				class="m-2 cursor-pointer sideOptions"
+				@click="$emit('changeMain', 'TournamentMain')">
+				Tournament
+			</div>
 			<div class="m-2 cursor-pointer sideOptions" @click="doLogOut">Logout</div>
 		</div>
 
@@ -73,12 +77,12 @@ import CreateAccount from "./CreateAccount.vue";
 
 export default {
 	name: "SideNav",
-	inject: ["card", "cardTitle", "smallCard"],
+	inject: ["card", "cardTitle", "smallCard","getOwner","getUser"],
 	data() {
 		return {
 			showLoginModal: false,
 			ownerData: null,
-			userData: auth.getUser(),
+			userData: null,
 			showCreateModal: false,
 			isLoggedIn: auth.loggedIn(),
 		};
@@ -88,24 +92,13 @@ export default {
 		CreateAccount,
 	},
 	async mounted() {
-		this.updateOwner();
+		this.ownerData = this.getOwner;
+		this.userData = this.getUser;
 	},
-	emits: ["logged", "changeMain"],
+	
+	emits: ["logged", "changeMain","getUser"],
 	methods: {
-		async updateOwner() {
-			if (this.isLoggedIn) {
-				const rpnse = await fetch(
-					`http://${window.location.hostname}:3001/owner`,
-					{
-						method: "POST",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({ "id": auth.getUser()._id }),
-					}
-				);
-				let ownerData = await rpnse.json();
-				this.ownerData = ownerData;
-			}
-		},
+		
 		async doLogOut() {
 			auth.logout();
 			this.$emit("logged");
@@ -136,7 +129,10 @@ export default {
 				alert("Cannot Create Acct");
 			}
 			this.$emit("logged");
-			this.updateOwner();
+			this.ownerData = this.getOwner;
+			this.userData = this.getUser;
+
+			//this.updateOwner();
 			this.showCreateModal = false;
 		},
 
@@ -162,7 +158,10 @@ export default {
 				alert("Cannot login");
 			}
 			this.$emit("logged");
-			this.updateOwner();
+			//this.updateOwner();
+			this.ownerData = this.getOwner;
+			this.userData = this.getUser;
+
 			this.showLoginModal = false;
 		},
 		closePopup() {

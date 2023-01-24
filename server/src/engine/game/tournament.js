@@ -3,8 +3,9 @@
 Tournaments take two things, gladiators and Memories;
 
 */
-const { doDuel } = require("./duel");
+const { doDuel,parseAndSaveDuel } = require("./duel");
 const { prepMemoryForFight, prepModelForFight } = require("./gladiatorPrep");
+const { saveTournament } = require('./../../models/');
 
 function getRandomMemorys(memoryGroup, size) {
 //	let rtnArray = [];
@@ -35,6 +36,7 @@ async function tournamentRound(group) {
 	return new Promise(async (resolve, reject) => {
 	let winnerArray = [];
 	let loserArray = [];
+	let duelReport = [];
 	for (let i = 0; i < group.length; i += 2) {
 		if (!group[i + 1]) {
 			winnerArray.push(group[i]);
@@ -43,6 +45,10 @@ async function tournamentRound(group) {
             let two = await prepGlad(group[i + 1]);
 			let report = await doDuel(one,two);
 			// console.log(` ${group[i].name} vs ${group[i + 1].name} : Winner: ${	report.final.winner	} ` );
+
+			let saved = await parseAndSaveDuel(report);
+			// console.log(saved.id,"Saved ID?");
+			duelReport.push(saved.id);
 			if (report.final.winner == group[i].name) {
                 group[i].winRecord++;
                 group[i+1].lossRecord++;
@@ -60,7 +66,7 @@ async function tournamentRound(group) {
 		}
 	}
     //winnerArray.forEach( glad => glad.save());
-	resolve ({winnerArray,loserArray});
+	resolve ({winnerArray,loserArray,duelReport});
 	});
 }
 
@@ -119,7 +125,7 @@ async function bestOfThree(group,name){
 		let losersGroup = [];
 		do {
         	roundCount++;
-        	console.log("  -TOURN>Start Round ",roundCount,name, group.length);
+//        	console.log("  -TOURN>Start best of three Round ",roundCount,name, group.length);
 			group = await bestOutOf3Round(group);
 
 			group = group.winnerArray;
@@ -176,21 +182,27 @@ async function roundRobinThenBestOfThree(incomingGroup,tournyName){
 async function singleElimination(group,name) {
 	return new Promise(async (resolve, reject) => {
     	let roundCount = 0;
+		let tournamentReport = [];
 		do {
         	roundCount++;
-        	console.log("  -TOURN>Start Round ",roundCount,name, group.length);
-			group = await tournamentRound(group);
-			group = group.winnerArray;
-		
+//        	console.log("  -TOURN>Start Round ",roundCount,name, group.length);
+			const result = await tournamentRound(group);
+			group = result.winnerArray;
+//			console.log(result.duelReport,"DUEL REPORT in SINGLE"); // group.report is an array
+			tournamentReport.push(result.duelReport);
 		} while (group.length > 1);
-		resolve ({winner:group[0]});
+		resolve ({winner:group[0],report:tournamentReport});
 	});
 }
 
 async function doRoundRobin(group,tournyName,oneWinner){
 	// Round robin means that each member of the group will face off against each member
 	// the one with the most 
+	// Report needs to be just an the ids
+	// cause players will want.
+
 	let winObj = {};
+	let duelReport = [];
 	for(let i = 0; i < group.length; i++){
 		const mainGlad = group[i];
 
@@ -202,6 +214,8 @@ async function doRoundRobin(group,tournyName,oneWinner){
         	    let one = await prepGlad(group[i]);
     	        let two = await prepGlad(group[e]);
 				report = await doDuel(one,two);
+				let saved = await parseAndSaveDuel(report);
+				duelReport.push(saved.id);
 			} else {
 
 			}
@@ -246,19 +260,24 @@ async function doRoundRobin(group,tournyName,oneWinner){
 				winArray.push(group[i]);
 			}
 	}
+	//
+	let finalReport = {
+		duelReport,
+		eliminationReport: null,
+		type:"roundRobin"
+	};
+	
 	if(!oneWinner){
-		return {winner:winArray, winCount:mostWins };
+		return {winner:winArray, winCount:mostWins, finalReport };
 	}
-		if (winArray.length > 1){
+	if (winArray.length > 1){
 		let result = await singleElimination(winArray,tournyName);
-		return {winner:result.winner,winCount:mostWins};
-		}
+		
+		finalReport.eliminationReport = result.report;
+		return {winner:result.winner,winCount:mostWins , finalReport};
+	}
 
-	return {winner:winArray[0], winCount:mostWins };
-
-
-
-	// The one with the most wins gets returned;
+	return {winner:winArray[0], winCount:mostWins , finalReport };
 
 }
 
@@ -270,12 +289,12 @@ function getMemoryGroup(memoryByLvl, mainGlad, groupSize){
 	}
 	const MemoryByAge = memoryByLvl[mainGlad[0].level].filter((memory) => {
 		// Issue is that previously added Memories need
-		if ( Math.abs(memory.age - mainGlad[0].age) <= 6 && memory.name !== mainGlad[0].name && !added.includes(memory.name)) {
+		if ( Math.abs(memory.age - mainGlad[0].age) <= 6 && memory.name !== mainGlad[0].name  && !added.includes(memory.name)) {
 			added.push(memory.name);
 			return memory;
 		}
 	});
-	let rando = getRandomMemorys(MemoryByAge, groupSize-mainGlad[0].length);
+	let rando = getRandomMemorys(MemoryByAge, groupSize-mainGlad.length);
 
 	rando = rando.concat(mainGlad);
 
@@ -345,11 +364,11 @@ async function quarterTournament(allGladiators, memoryByLvl) {
                 let tournyName = mainGlad.name[0]+mainGlad.name[1]+mainGlad.name[4];
 				
 				let localGroup =  getMemoryGroup(memoryByLvl, mainGlad, groupSize);
-				console.log("  -TOURN>>< Starting Best of Three Tournament><",tournyName,mainGlad.level, mainGlad.age, localGroup.length,'/',memoryByLvl[mainGlad.level].length);
+//				console.log("  -TOURN>>< Starting Best of Three Tournament><",tournyName,, localGroup.length,'/',memoryByLvl[mainGlad.level].length);
 
 				let result = await bestOfThree(localGroup,tournyName);
 				if(result.winner){
-					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: ${result.winner.name}`);
+					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Level:${mainGlad.level} Age:{ mainGlad.age } Doing Local tournament size: ${localGroup.length} WINNER: ${result.winner.name}`);
 					result.winner.quarterWin++;
 				} else  {
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: NONE?!`);
@@ -378,9 +397,12 @@ async function regionalTournament(allGladiators, memoryByLvl) {
                 let tournyName = mainGlad.name[0]+mainGlad.name[1]+mainGlad.name[4];
 				
 				let localGroup =  getMemoryGroup(memoryByLvl, mainGlad, groupSize);
-				console.log("  -TOURN>>< Starting Single Elimination><",tournyName,mainGlad.level, mainGlad.age, localGroup.length,'/',memoryByLvl[mainGlad.level].length);
+//				console.log("  -TOURN>>< Starting Single Elimination><",tournyName,mainGlad.level, mainGlad.age, localGroup.length,'/',memoryByLvl[mainGlad.level].length);
 
 				let result = await singleElimination(localGroup,tournyName);
+				console.log(result.report);
+				let completeReport = result.report;
+				// completeReport
 				if(result.winner){
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: ${result.winner.name}`);
 					result.winner.monthWin++;
@@ -397,6 +419,24 @@ async function regionalTournament(allGladiators, memoryByLvl) {
 	});
 }
 
+function grabOwnerGladIds(localGroup){
+	let gladiator = [];
+	let owner = [];
+	let memory = [];
+
+	localGroup.forEach(glad =>{
+		if(glad.memory){
+			owner.push(glad.ownerID );
+			memory.push(glad._id);
+		} else {
+			owner.push(glad.ownerId );
+			gladiator.push(glad._id);
+		}
+
+
+	});
+	return {gladiator,owner,memory}
+}
 
 async function localTournament(allGladiators, memoryByLvl) {
 	const groupSize = 8;
@@ -411,9 +451,16 @@ async function localTournament(allGladiators, memoryByLvl) {
                 let tournyName = mainGlad.name[0]+mainGlad.name[1]+mainGlad.name[4];
 				let localGroup =  getMemoryGroup(memoryByLvl, mainGlad, groupSize);
 				// So here we will randomize the group before we start the roundRobin
-				console.log("  -TOURN>>< Starting RoundRobin><",tournyName,mainGlad.level, mainGlad.age, localGroup.length,'/',memoryByLvl[mainGlad.level].length);
+				//console.log("  -TOURN>>< Starting RoundRobin><",tournyName,mainGlad.level, mainGlad.age, localGroup.length,'/',memoryByLvl[mainGlad.level].length);
 
 				let result = await doRoundRobin(localGroup,tournyName,true);
+				// we will need all owners, and make sure it's unique
+				// we will need all glaidators and memories seperated.
+
+				let {gladiator,owner,memory} = grabOwnerGladIds(localGroup);
+				console.log(JSON.stringify(result.finalReport),"FINAL");
+				let savedTourny = await new saveTournament({tournament: JSON.stringify( result.finalReport ),gladiators:gladiator, memories:memory, owners:owner});
+				await savedTourny.save();
 				if(result.winner){
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: ${result.winner.name}`);
 					result.winner.weekWin++;

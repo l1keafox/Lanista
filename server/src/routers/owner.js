@@ -1,6 +1,6 @@
 
 const express = require('express');
-const {User,Owner,Gladiator,DayEvents} = require('../models');
+const {User,Owner,Gladiator,DayEvents,saveTournament} = require('../models');
 const {getTraining} = require('./../engine/game/trainingEffects');
 const {getStructureEffect} = require('./../engine/game/structureIndex');
 const {getItemEffect} = require('./../engine/game/itemsIndex');
@@ -77,11 +77,33 @@ router.post('/owner/inventoryData', async(req, res) => {
     }  );
     res.send(rtnData);
 })
+router.post('/owner/allTournament', async(req, res) => {
+    // oh... so req.body.id is user id not owner id.
+     let mongoose = require('mongoose');
+     let id =  mongoose.Types.ObjectId(req.body.ownerId);
+     let tournaments = await saveTournament.find({ 'owners': { $elemMatch: {$eq:id} } })
+                        .populate('gladiators',['name'])
+                        .populate('memories',['name'])
+                        .populate('owners',['userName'])
+    //.populate('gladiators',['gladiators'])
+    console.log(tournaments.length) ;
+    console.log(tournaments[0])
+    
+    // {_id: ObjectId('63ccc0ab05127fa0ec48b999')}
+//    res.send(tournaments);{_id:'' }
+    res.send(tournaments);
+})
+
+router.post('/owner/tournamentRound', async(req, res) => {
+    res.send({});
+})
+
 router.post('/owner/training', async(req, res) => {
     let owner = await Owner.findOne({ userAcct: req.body.id });
     let rtn = await owner.getTraining();
     res.send(rtn);
 })
+
 router.post('/owner/learning', async(req, res) => {
     let owner = await Owner.findOne({ userAcct: req.body.id });
     let rtn = await owner.getLearning();
@@ -178,14 +200,14 @@ router.post('/owner/buyItem', async(req, res) => {
 
 
 
-router.post('/owner', async(req, res) => {
-    let owner2 = await Owner.findOne({ userAcct: req.body.id }).populate('gladiators');
-    res.send(owner2)
-})
 // router.post('/owner', async(req, res) => {
-//     let owner2 = await Owner.findOne({ userAcct: req.body.id }).populate('gladiators',['name','age']);
+//     let owner2 = await Owner.findOne({ userAcct: req.body.id }).populate('gladiators');
 //     res.send(owner2)
 // })
+router.post('/owner', async(req, res) => {
+    let owner2 = await Owner.findOne({ userAcct: req.body.id }).populate('gladiators',['name','age','winRecord','lossRecord','weekWin','monthWin','quarterWin','yearWin','level']);
+    res.send(owner2)
+})
 
 
 module.exports = router

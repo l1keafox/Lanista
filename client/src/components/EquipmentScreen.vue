@@ -45,7 +45,7 @@
             </div>
 
             <div class="flex justify-between"> 
-              <h2>Off HandF:{{gladiatorData.offHand}}</h2> 
+              <h2>Off Hand:{{gladiatorData.offHand}}</h2> 
               <template v-if="inventoryData.offHand">
                 <select name="offHand" class="bg-cyan-100 w-28" id="offHand"> 
                   <option value="empty">Select</option>
@@ -86,8 +86,8 @@
           <div
             class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b"
           >
-            <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" v-on:click="$emit('closeModal')"> Close            </button>
             <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" @click="doEquip"> Equip Items            </button>
+            <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" v-on:click="$emit('closeModal')"> Close            </button>
           </div>
         </div>
       </div>

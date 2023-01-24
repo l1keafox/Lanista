@@ -67,6 +67,39 @@ function setupStats(glad) {
 }
 
 //saveModelMemory
+async function saveManyModelMemory(gladArray){
+	let createArray = [];
+	for(let gladiator of gladArray){
+		if(gladiator.level >= 3){
+			let memory = await prepModelForMemory(gladiator);
+			memory = JSON.stringify(memory);
+			createArray.push(
+			 	{
+				memory,
+				"name": gladiator.name,
+				"level": gladiator.level,
+				"age": gladiator.age,
+				"gladiatorID": gladiator._id,
+				"ownerID": gladiator.ownerId,
+				"winRecord": 0,
+				"lossRecord": 0,
+				"weekWin": 0,
+				"monthWin": 0,
+				"quarterWin": 0,
+				"yearWin": 0,
+				}
+			);
+		}
+	}
+	
+	Memory.insertMany( createArray ).then(
+		function(){
+			console.group("Data inserted");
+		}
+	);
+}
+
+
 async function saveModelMemory(gladiator) {
 	let memory = await prepModelForMemory(gladiator);
 	memory = JSON.stringify(memory);
@@ -77,7 +110,7 @@ async function saveModelMemory(gladiator) {
 		"level": gladiator.level,
 		"age": gladiator.age,
 		"gladiatorID": gladiator._id,
-		"ownerID": gladiator.owner,
+		"ownerID": gladiator.ownerId,
 		"winRecord": 0,
 		"lossRecord": 0,
 		"weekWin": 0,
@@ -160,5 +193,6 @@ module.exports = {
 	prepModelForMemory,
 	prepModelForFight,
 	saveModelMemory,
+	saveManyModelMemory,
 	prepMemoryForFight,
 };

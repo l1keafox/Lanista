@@ -1,5 +1,5 @@
 const db = require("../src/config/connection");
-const { User, GameDate,Owner,Gladiator,saveDuel,Memory } = require("./../src/models");
+const { User, GameDate,Owner,Gladiator,saveDuel,Memory, saveTournament } = require("./../src/models");
 const seedAcct = require('./../src/engine/game/SeedAccount')
 
 db.once("open", async () => {
@@ -9,6 +9,8 @@ db.once("open", async () => {
 		await GameDate.deleteMany({});
         await GameDate.create({day:1,month:1,year:1,time:1,weekDay:1  } );
 
+		console.log("  > Deleting saved Tournament");
+		await saveTournament.deleteMany({});
 		console.log("  > Deleting saved Duels");
 		await saveDuel.deleteMany({});
 		console.log("  > Deleting saved Memories");

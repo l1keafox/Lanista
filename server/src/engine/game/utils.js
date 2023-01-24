@@ -3,7 +3,7 @@ const namesArray = require('./names');
 
 function createNewOwner() {
   
-  return { gold: 100, fame:0, structures:[ "School" ] ,inventory : [] };
+  return { gold: 100, fame:1, structures:[ "School" ] ,inventory : [] };
 }
 
 const gladNames = require('./names');
@@ -27,7 +27,8 @@ function getRandomAround(num,percent){
 }
 
 function modStat4Effect(num,percent){
- return getRandomAround(num/100,percent)
+  let rtn = getRandomAround(num/100,percent);
+ return rtn.toFixed()
 }
 
 function createNewGladiator(gladType) {

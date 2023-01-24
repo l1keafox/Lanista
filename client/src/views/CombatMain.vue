@@ -83,7 +83,7 @@ export default {
 		};
 	},
 	computed: {},
-	inject: ["card", "cardTitle"],
+	inject: ["card", "cardTitle",'getOwner'],
 	methods: {
 		closeModal() {
 			this.isModalShown = false;
@@ -148,32 +148,8 @@ export default {
 
 	async mounted() {
 		try {
-			const rpnse = await fetch(
-				`http://${window.location.hostname}:3001/owner`,
-				{
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({ "id": this.userData._id }),
-				}
-			);
-//			console.log(rpnse);
-			let ownerData = await rpnse.json();
-//			console.log(ownerData);
-			this.ownerData = ownerData;
-			// if (ownerData.history.length > 0) {
-			// 	console.log(ownerData.history[0]);
-			// 	const history = await fetch(
-			// 		`http://${window.location.hostname}:3001/gladiator/getDuelHistory`,
-			// 		{
-			// 			method: "POST",
-			// 			headers: { "Content-Type": "application/json" },
-			// 			body: JSON.stringify({ "historyId": ownerData.history[0] }),
-			// 		}
-			// 	);
-			// 	console.log(history);
-			// 	let ddtd = await history.json();
-			// 	console.log("Wat",ddtd);
-			// }
+			this.ownerData = this.getOwner;
+
 		} catch (err) {
 			console.log(err);
 		}
