@@ -52,7 +52,8 @@ export default {
     async updateOwner() {
 			this.userData =  auth.getUser();
 			if (this.isLoggedIn) {
-				const rpnse = await fetch(
+        try{
+          const rpnse = await fetch(
 					`http://${window.location.hostname}:3001/owner`,
 					{
 						method: "POST",
@@ -61,6 +62,9 @@ export default {
 					}
 				);
 				this.ownerData = await rpnse.json();
+        }catch(err){
+          console.log(err)
+        }
 			}
     //  console.log('getting',this.ownerData );
 		},    
