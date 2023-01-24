@@ -9,7 +9,12 @@ class AuthService {
 			console.log('No token');
 			return false;
 		}
-		return decode(token);
+		const decoded =decode(token);
+		if(new Date() - new Date(decoded.timeCreated) > 43200000){
+			console.log('Time out on date');
+			this.logout();
+		}
+		return decoded;
 	}
 
 	// return `true` or `false` if token exists (does not verify if it's expired yet)

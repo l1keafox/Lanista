@@ -32,7 +32,7 @@ export default {
     return {
       isLoggedIn: auth.loggedIn(),
       mainStage: "WelcomeMain",
-      userData: auth.getUser(),
+      userData: null,
       interval:null,
       ownerData:null
     };
@@ -43,14 +43,15 @@ export default {
     },
     update() {
       this.isLoggedIn = auth.loggedIn();
+      this.userData =  auth.getUser();
     },
-    async startUpdateTimer(){
-			this.updateOwner();
-			this.interval = setInterval(				this.updateOwner,			5000)
-		},
 
     async updateOwner() {
-			this.userData =  auth.getUser();
+
+      if(this.userData == null){
+        this.userData =  auth.getUser();
+
+      }
 			if (this.isLoggedIn) {
         try{
           const rpnse = await fetch(
@@ -63,18 +64,21 @@ export default {
 				);
 				this.ownerData = await rpnse.json();
         }catch(err){
-          console.log(err)
+          console.log(err, "clearing")
+          clearInterval(this.interval);
         }
-			}
-    //  console.log('getting',this.ownerData );
+			} else {
+          clearInterval(this.interval);
+      }
+    
 		},    
   },
   unmounted(){
     clearInterval(this.interval);
   },  
   mounted() {
-    
-    setInterval(this.startUpdateTimer,1000);
+    this.updateOwner();
+		this.interval = setInterval(this.updateOwner,5000)
   },
   provide() {
     return {
@@ -83,7 +87,7 @@ export default {
       largeCard:"h-96 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
       cardTitle:"text-xl text-sky-400",
       getOwner: computed(()=>this.ownerData),
-      userData: this.userData
+      getUser: computed(()=>this.userData),
     };
   },
 };

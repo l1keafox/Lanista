@@ -58,7 +58,7 @@ gameDateSchema.methods.addDay = async function () {
 	// This happens on the seventh of every day.,
 	//this.time++;
 //	if(this.time > 8 ) {
-		this.time = 1;
+		this.time = 0;
 		this.day++;
 		this.weekDay++;
 		if(this.weekDay > 7){

@@ -5,9 +5,15 @@
 <script>
 export default {
     name:"TournamentMain",
-    inject:['userData'],
+    data(){
+        return{
+            userData:null
+        }
+    },
+    inject:['getUser'],
     async mounted(){
-        console.log(this.userData._id);
+        this.userData = this.getUser;
+        console.log(this.userData);
         const inventory = await fetch(
             `http://${window.location.hostname}:3001/owner/tournament`,
             {
