@@ -263,25 +263,21 @@ async function doRoundRobin(group,tournyName,oneWinner){
 	//
 	let finalReport = {
 		duelReport,
-		eliminationReport: null
+		eliminationReport: null,
+		type:"roundRobin"
 	};
+	
 	if(!oneWinner){
 		return {winner:winArray, winCount:mostWins, finalReport };
 	}
-		if (winArray.length > 1){
+	if (winArray.length > 1){
 		let result = await singleElimination(winArray,tournyName);
-		//console.log(result);
+		
 		finalReport.eliminationReport = result.report;
-
-			
 		return {winner:result.winner,winCount:mostWins , finalReport};
-		}
+	}
 
 	return {winner:winArray[0], winCount:mostWins , finalReport };
-
-
-
-	// The one with the most wins gets returned;
 
 }
 
@@ -462,8 +458,8 @@ async function localTournament(allGladiators, memoryByLvl) {
 				// we will need all glaidators and memories seperated.
 
 				let {gladiator,owner,memory} = grabOwnerGladIds(localGroup);
-//				console.log(JSON.stringify(result.finalReport),"FINAL");
-				let savedTourny = await new saveTournament({tournament: JSON.stringify( result.finalReport.duelReport ),gladiators:gladiator, memories:memory, owners:owner});
+				console.log(JSON.stringify(result.finalReport),"FINAL");
+				let savedTourny = await new saveTournament({tournament: JSON.stringify( result.finalReport ),gladiators:gladiator, memories:memory, owners:owner});
 				await savedTourny.save();
 				if(result.winner){
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: ${result.winner.name}`);

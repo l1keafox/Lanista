@@ -1,5 +1,8 @@
 <template>
-	<div class="flex w-full overflow-x-hidden"></div>
+	<div class="flex w-full overflow-x-hidden">
+
+
+    </div>
 </template>
 
 <script>
@@ -7,7 +10,8 @@ export default {
     name:"TournamentMain",
     data(){
         return{
-            userData:null
+            userData:null,
+            tournamentData:null
         }
     },
     inject:['getUser'],
@@ -22,8 +26,14 @@ export default {
                 body: JSON.stringify({ "ownerId": this.userData.ownerId}),
             }
             );
-            console.log(inventory);
-            //this.inventory = await inventory.json();
+            this.tournamentData = await inventory.json();
+            console.log(this.tournamentData);
+            // Each tournament will have one of this guys users
+            // So let's first show it as cards then we will have the cards show winner and type
+            // then we will 
+            // tournament Data will have owners, memories, gladiators and the tournament data.
+            //
+            //this.inventory = ;
 
     }
 }

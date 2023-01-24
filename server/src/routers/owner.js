@@ -91,7 +91,7 @@ router.post('/owner/allTournament', async(req, res) => {
     
     // {_id: ObjectId('63ccc0ab05127fa0ec48b999')}
 //    res.send(tournaments);{_id:'' }
-    res.send({});
+    res.send(tournaments);
 })
 
 router.post('/owner/tournamentRound', async(req, res) => {
