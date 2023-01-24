@@ -13,13 +13,13 @@ export default {
     inject:['getUser'],
     async mounted(){
         this.userData = this.getUser;
-        console.log(this.userData);
+        console.log(this.userData.ownerId);
         const inventory = await fetch(
             `http://${window.location.hostname}:3001/owner/tournament`,
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ "id": this.userData._id}),
+                body: JSON.stringify({ "ownerId": this.userData.ownerId}),
             }
             );
             console.log(inventory);

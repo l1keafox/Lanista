@@ -79,6 +79,7 @@ router.post("/users/login", async (req, res) => {
 
 			user.owner = owner._id;
 			owner.userAcct = user._id;
+			owner.userName = user.username;
 
 			user.save();
 			owner.save();

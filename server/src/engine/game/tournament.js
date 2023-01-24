@@ -431,7 +431,7 @@ function grabOwnerGladIds(localGroup){
 	localGroup.forEach(glad =>{
 		if(glad.memory){
 			owner.push(glad.ownerID );
-			memory.push(glad.gladiatorID);
+			memory.push(glad._id);
 		} else {
 			owner.push(glad.owner );
 			gladiator.push(glad._id);

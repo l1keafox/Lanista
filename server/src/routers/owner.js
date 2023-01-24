@@ -79,20 +79,17 @@ router.post('/owner/inventoryData', async(req, res) => {
 })
 router.post('/owner/tournament', async(req, res) => {
     // oh... so req.body.id is user id not owner id.
-    console.log(req.body.id);
-    let owner = await Owner.findOne({ userAcct: req.body.id });
-    console.log(owner);
-    // var mongoose = require('mongoose'),
-    // trainerId = req.body.id;
-    // var id =  mongoose.Types.ObjectId(owner.id);
-    // console.log(id);
-    // //let tournaments = await saveTournament.find({'owners': id });    
-    // let tournaments = await saveTournament.find({ 'owners': { $elemMatch: {$eq:id} } })
+     let mongoose = require('mongoose');
+     let id =  mongoose.Types.ObjectId(req.body.ownerId);
+     let tournaments = await saveTournament.find({ 'owners': { $elemMatch: {$eq:id} } })
+                        .populate('gladiators',['name'])
+//                        .populate('memories')
+    //.populate('gladiators',['gladiators'])
+    console.log(tournaments.length) ;
+    console.log(tournaments[0])
     
-    // console.log(tournaments.length) ;
-    
-    
-    //res.send(tournaments);
+    // {_id: ObjectId('63ccc0ab05127fa0ec48b999')}
+//    res.send(tournaments);{_id:'' }
     res.send({});
 })
 
