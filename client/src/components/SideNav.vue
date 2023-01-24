@@ -78,7 +78,7 @@ import CreateAccount from "./CreateAccount.vue";
 
 export default {
 	name: "SideNav",
-	inject: ["card", "cardTitle", "smallCard"],
+	inject: ["card", "cardTitle", "smallCard","getOwner"],
 	data() {
 		return {
 			showLoginModal: false,
@@ -86,7 +86,6 @@ export default {
 			userData: auth.getUser(),
 			showCreateModal: false,
 			isLoggedIn: auth.loggedIn(),
-			interval: null
 		};
 	},
 	components: {
@@ -94,33 +93,15 @@ export default {
 		CreateAccount,
 	},
 	async mounted() {
-		//this.updateOwner();
-		this.startUpdateTimer();
+		this.ownerData = this.getOwner;
 	},
+	
 	emits: ["logged", "changeMain"],
 	methods: {
-		async updateOwner() {
-			this.userData =  auth.getUser();
-			if (this.isLoggedIn) {
-				const rpnse = await fetch(
-					`http://${window.location.hostname}:3001/owner`,
-					{
-						method: "POST",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({ "id": auth.getUser()._id }),
-					}
-				);
-				this.ownerData = await rpnse.json();
-			}
-		},
-		async startUpdateTimer(){
-			this.updateOwner();
-			this.interval = setInterval(				this.updateOwner,			5000)
-		},
+		
 		async doLogOut() {
 			auth.logout();
 			this.$emit("logged");
-			clearInterval(this.interval );
 		},
 		async createAcct({ username, password, email }) {
 			//      console.log('trying create');
@@ -148,7 +129,7 @@ export default {
 				alert("Cannot Create Acct");
 			}
 			this.$emit("logged");
-			this.updateOwner();
+			//this.updateOwner();
 			this.showCreateModal = false;
 		},
 
@@ -174,7 +155,7 @@ export default {
 				alert("Cannot login");
 			}
 			this.$emit("logged");
-			this.updateOwner();
+			//this.updateOwner();
 			this.showLoginModal = false;
 		},
 		closePopup() {

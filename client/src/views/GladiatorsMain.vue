@@ -5,7 +5,7 @@
         
         <h1 :class="cardTitle">{{glad.name}} </h1>
 
-        <h2> Age:{{glad.age}} Level:{{glad.level}}</h2>
+        <h2> Level:{{glad.level}} /  Age:{{glad.age}}</h2>
         <h2> Wins:{{glad.winRecord}} / Loss:{{glad.lossRecord}}</h2>
         <h2> Local: {{glad.weekWin}} / Regional : {{glad.monthWin}}</h2>
         <h2> Quarter : {{glad.quarterWin}} / National: {{glad.yearWin}}</h2>
@@ -50,7 +50,7 @@ export default {
       
     };
   },
-  inject: ['largeCard','cardTitle','card'],
+  inject: ['largeCard','cardTitle','card','getOwner'],
   methods:{
     openModal(event,modalName){
       this.gladiatorId = event.target.getAttribute("data-id");
@@ -60,19 +60,6 @@ export default {
     closeModal(){
       this.isModalShown = false;
     },
-    async updateOwnerInfo(){
-      const rpnse = await fetch(
-      `http://${window.location.hostname}:3001/owner`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ "id": this.userData._id }),
-      }
-    );
-    this.ownerData = await rpnse.json();
-    console.log('updated info',this.ownerData ) ;
-    }
-
   },
   components:{
     ScheduleManager,
@@ -83,8 +70,7 @@ export default {
     ClashSettings,
   },
   async mounted() {
-    this.updateOwnerInfo();
-//    setInterval(this.updateOwnerInfo, 15000);
+    this.ownerData = this.getOwner;
   },
 };
 </script>

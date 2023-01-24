@@ -16,6 +16,7 @@ import TournamentMain from "./views/TournamentMain.vue";
 import SideNav from "@/components/SideNav.vue";
 import auth from "./mixins/auth";
 
+import {computed} from "vue"
 export default {
   name: "App",
   components: {
@@ -31,7 +32,9 @@ export default {
     return {
       isLoggedIn: auth.loggedIn(),
       mainStage: "WelcomeMain",
-      userData: auth.getUser()
+      userData: auth.getUser(),
+      interval:null,
+      ownerData:null
     };
   },
   methods: {
@@ -41,16 +44,42 @@ export default {
     update() {
       this.isLoggedIn = auth.loggedIn();
     },
-  },
+    async startUpdateTimer(){
+			this.updateOwner();
+			this.interval = setInterval(				this.updateOwner,			5000)
+		},
 
-  mounted() {},
+    async updateOwner() {
+			this.userData =  auth.getUser();
+			if (this.isLoggedIn) {
+				const rpnse = await fetch(
+					`http://${window.location.hostname}:3001/owner`,
+					{
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ "id": auth.getUser()._id }),
+					}
+				);
+				this.ownerData = await rpnse.json();
+			}
+    //  console.log('getting',this.ownerData );
+		},    
+  },
+  unmounted(){
+    clearInterval(this.interval);
+  },  
+  mounted() {
+    
+    setInterval(this.startUpdateTimer,1000);
+  },
   provide() {
     return {
       card:"h-80 w-56 p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
       smallCard:"h-64 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
       largeCard:"h-96 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
       cardTitle:"text-xl text-sky-400",
-      userData:this.userData
+      getOwner: computed(()=>this.ownerData),
+      userData: this.userData
     };
   },
 };
