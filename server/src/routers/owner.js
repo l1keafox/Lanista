@@ -1,6 +1,6 @@
 
 const express = require('express');
-const {User,Owner,Gladiator,DayEvents} = require('../models');
+const {User,Owner,Gladiator,DayEvents,saveTournament} = require('../models');
 const {getTraining} = require('./../engine/game/trainingEffects');
 const {getStructureEffect} = require('./../engine/game/structureIndex');
 const {getItemEffect} = require('./../engine/game/itemsIndex');
@@ -77,11 +77,30 @@ router.post('/owner/inventoryData', async(req, res) => {
     }  );
     res.send(rtnData);
 })
+router.post('/owner/tournament', async(req, res) => {
+    // oh... so req.body.id is user id not owner id.
+    console.log(req.body.id);
+    let owner = await Owner.findOne({ userAcct: req.body.id });
+    console.log(owner.id);
+    var mongoose = require('mongoose'),
+    trainerId = req.body.id;
+    var id =  mongoose.Types.ObjectId(owner.id);
+    console.log(id);
+    //let tournaments = await saveTournament.find({'owners': id });    
+    let tournaments = await saveTournament.find({ 'owners': { $elemMatch: {$eq:id} } })
+    
+    console.log(tournaments.length) ;
+    
+    
+    res.send(tournaments);
+})
+
 router.post('/owner/training', async(req, res) => {
     let owner = await Owner.findOne({ userAcct: req.body.id });
     let rtn = await owner.getTraining();
     res.send(rtn);
 })
+
 router.post('/owner/learning', async(req, res) => {
     let owner = await Owner.findOne({ userAcct: req.body.id });
     let rtn = await owner.getLearning();

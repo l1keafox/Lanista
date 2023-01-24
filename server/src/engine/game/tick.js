@@ -34,21 +34,22 @@ module.exports = {
 
 		let ownersGain = {};
 		if (date.weekDay == 7 ) {
+			const startOfTick = new Date();
 
-			console.log("  -EN>Tournament Day");
+//			console.log("  -EN>Tournament Day");
 			let allNonSeedGlad = [];
 // 			allGladiators.forEach(async (gladiator) => {
 			for(let gladiator of allGladiators){
 				if(gladiator.level >= 3){
 					await saveModelMemory(gladiator);
 				}
-				//console.log(`  -EN> SAVING GLAD ${gladiator.name} age:${gladiator.age} level:${gladiator.level}`)
+				
 				if(!gladiator.seed){
 					allNonSeedGlad.push(gladiator);
 				}
 			}
  //			});
-			console.log("  -EN>Tourny> Gladiators ::",allNonSeedGlad.length);
+ 		  	console.log(`  -EN> Saved Gladiators ${startOfTick-new Date()} Starting Tournament  :: ${allNonSeedGlad.length}`);
 			
 			let memoryByLvl = {};
 			let allMemory = await Memory.find();
@@ -62,7 +63,6 @@ module.exports = {
 			// 	console.log(lvl, "s and Memory in them:", memoryByLvl[lvl].length );
 			// }
 			// So now we determine if the local,regional,quarter,national.
-			const startOfTick = new Date();
 			if (date.month === 12 && date.day == 28) {
 				// national is roundrobin then a double elimination tournament.
 				// national is the last month, and 28th
@@ -70,47 +70,61 @@ module.exports = {
 				// and do a tournament!
 				// Should be 124
 				let ditto = await await nationalTournament(allGladiators, memoryByLvl)
-				console.log("National TOURNAMENT");
+//				console.log("National TOURNAMENT");
 				for(let i in ditto){
+					if(!ditto[i].memory){
+						ditto[i].age++;
+					}
 					await ditto[i].save();
 				}
+				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allGladiators.length} saved:${ditto.length}`);
 
 			} else  
 			if ((date.month === 3 || date.month === 6 || date.month === 9) && date.day == 28	) {
+				
 				//Double elimination Tournament.
-				let ditto = await quarterTournament(allGladiators, memoryByLvl)
-				console.log("Quarter TOURNAMENT");
+				let ditto = await quarterTournament(allNonSeedGlad, memoryByLvl)
+//				console.log("Quarter TOURNAMENT Memberes:",allNonSeedGlad.length);
 				for(let i in ditto){
+					if(!ditto[i].memory){
+						ditto[i].age++;
+					}
 					await ditto[i].save();
 				}
+				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.length}`);
 
 			} else if (date.day == 28) {
 				// Should be 32 fighters
 				// Single elimination.
-				console.log("Regional TOURNAMENT");
+			//	console.log("Regional TOURNAMENT");
 				let ditto = await regionalTournament(allNonSeedGlad,memoryByLvl ); 
-				console.log(ditto.length,"Regional TOURNAMENT END",allNonSeedGlad.length);
+			//	console.log(ditto.length,"Regional TOURNAMENT END",allNonSeedGlad.length);
 				for(let i in ditto){
+					if(!ditto[i].memory){
+						ditto[i].age++;
+					}
 					await ditto[i].save();
 				}
-				
+				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.length}`);
+
 			} else {
 				// Local tournament is a round robin
-				console.log("Local TOURNAMENT Start",allNonSeedGlad.length);
+			//	console.log("Local TOURNAMENT Start",allNonSeedGlad.length);
 				let ditto = await localTournament(allNonSeedGlad,memoryByLvl ); 
-				console.log(ditto.length,"Local TOURNAMENT END",allNonSeedGlad.length);
+			//	console.log(ditto.length,"Local TOURNAMENT END",allNonSeedGlad.length);
 				for(let i in ditto){
+					if(!ditto[i].memory){
+						ditto[i].age++;
+					}
 					await ditto[i].save();
 				}
 				// So we grab all gladiators that are selected via schedule to do this tournament.
 				// We will then make sure they do not do any training that day.
+				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.length}`);
 			}
 
-			console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms`);
 			await gameDate.addDay(); // This will set it to the next day.
 
-			// 	gladiator.age++;
-			// gladiator.save();			
 		} else {
 			//console.log('  -TICK> Do Growth')
 
@@ -179,7 +193,7 @@ module.exports = {
 
 		const keys = Object.keys(ownersGain);
 		const myPromise = new Promise((resolve, reject) => {
-			if(keys.length === 0) resolve("this");
+			//resolve("this");
 			keys.forEach(async (ownerid, index) => {
 				let owner = await Owner.findOne({ _id: ownerid });
 				// console.log('  -EN/TICK> Owner',owner.userAcct ,': gained  G:',ownersGain[ownerid].gold,"F:",ownersGain[ownerid].fame);
@@ -194,7 +208,9 @@ module.exports = {
 			});
 
 		});
-		await myPromise;
+		if(keys.length > 0){
+			await myPromise;
+		}
 		await gameDate.save();
 
 	},

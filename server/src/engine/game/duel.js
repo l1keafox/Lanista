@@ -6,7 +6,7 @@ const {
 	addEffect,
 } = require("./Abilities/abilityEffects");
 const { getItemEffect } = require("./itemsIndex");
-const {Memory} = require('./../../models');
+const {Memory,saveDuel} = require('./../../models');
 //const {  prepModelForFight  } = require('./gladiatorPrep')
 
 async function returnPreparedGladiator(gladiator) {
@@ -268,17 +268,42 @@ async function doDuel(one, two) {
 	report.final[gladOne.name] = {
 		hits: gladOne.hits,
 		morale: gladOne.morale,
+		id: gladOne._id,
 		stamina: gladOne.stamina 
 	};
+
 	report.final[gladTwo.name] = {
 		hits: gladTwo.hits,
 		morale: gladTwo.morale,
+		id: gladTwo._id,
 		stamina: gladTwo.stamina 
 	};
 	report.fighters = [gladOne.name , gladTwo.name];
-
+	//console.log(test);
+//	 console.log(savedDuel);
+	// let test = await parseAndSaveDuel(report);
+	// console.log(test.id);
 	//console.log(`  -EN> Game DUEL : ${gladOne.name} Vs ${gladTwo.name} TIME: ${new Date() - startOfTick}ms Winner:${report.final.winner} `);
 	return report;
 }
 
-module.exports = { doDuel };
+function parseDuel(report){
+	let idOne;
+	let idTwo;
+	for(let name in report.final){
+		if(idOne){
+			idTwo = report.final[name].id;
+		} else {
+			idOne = report.final[name].id;
+		}
+	}
+	return { "gladiatorOne":idTwo ,"gladiatorTwo":idOne ,duel: JSON.stringify(report), createdAt: new Date()};
+}
+
+async function parseAndSaveDuel(report){
+	const savedDuel = 	await new saveDuel( parseDuel(report) );
+						await savedDuel.save();
+	return savedDuel;
+}
+
+module.exports = { doDuel , parseDuel,parseAndSaveDuel };
