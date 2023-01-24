@@ -3,7 +3,7 @@
 const { GameDate, Gladiator, Owner, Memory } = require("./../../models");
 const { doGrowth } = require("./trainingEffects");
 const { getAbilityEffect } = require("./abilityIndex");
-const { saveModelMemory } = require('./gladiatorPrep');
+const { saveModelMemory , saveManyModelMemory } = require('./gladiatorPrep');
 const { localTournament,regionalTournament,quarterTournament, nationalTournament } = require('./tournament');
 let date = {
 	time: 1, // This is # of events per day maxed at 8
@@ -38,17 +38,17 @@ module.exports = {
 
 //			console.log("  -EN>Tournament Day");
 			let allNonSeedGlad = [];
-// 			allGladiators.forEach(async (gladiator) => {
+			saveManyModelMemory(allGladiators); // uncertain if this works as intended.
+
 			for(let gladiator of allGladiators){
-				if(gladiator.level >= 3){
-					await saveModelMemory(gladiator);
-				}
+				// if(gladiator.level >= 3){
+				// 	await saveModelMemory(gladiator);
+				// }
 				
 				if(!gladiator.seed){
 					allNonSeedGlad.push(gladiator);
 				}
 			}
- //			});
  		  	console.log(`  -EN> Saved Gladiators ${startOfTick-new Date()} Starting Tournament  :: ${allNonSeedGlad.length}`);
 			
 			let memoryByLvl = {};
@@ -160,8 +160,8 @@ module.exports = {
 				);
 				// console.log(`  -EN/Tick> ${gladiator.name} is training`, gladiator.schedule[0][date.weekDay][date.time]);
 				if (growth) {
-					if (!ownersGain[gladiator.owner]) {
-						ownersGain[gladiator.owner] = {
+					if (!ownersGain[gladiator.ownerId]) {
+						ownersGain[gladiator.ownerId] = {
 							gold: 0,
 							fame: 0,
 						};
@@ -169,10 +169,10 @@ module.exports = {
 					const goldGrowth = growth.find((element) => element.stat === "gold");
 					const fameGrowth = growth.find((element) => element.stat === "fame");
 					if (goldGrowth) {
-						ownersGain[gladiator.owner].gold += goldGrowth.amount;
+						ownersGain[gladiator.ownerId].gold += goldGrowth.amount;
 					}
 					if (fameGrowth) {
-						ownersGain[gladiator.owner].fame += fameGrowth.amount;
+						ownersGain[gladiator.ownerId].fame += fameGrowth.amount;
 					}
 				} 
 			}

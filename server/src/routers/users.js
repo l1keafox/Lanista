@@ -12,12 +12,12 @@ async function createOwner(user) {
 	console.log("  -EN> New Owner with new USER Acct created");
 	for (let i = 0; i < 3; i++) {
 		const glad = await new Gladiator(createNewGladiator("default"));
-		glad.owner = owner._id;
+		glad.ownerId = owner._id;
 		owner.gladiators.push(glad.id);
 		glad.save();
 	}
 	owner.userAcct = user._id;
-	user.owner = owner._id;
+	user.ownerId = owner._id;
 	return owner;
 }
 
@@ -65,25 +65,26 @@ router.post("/users/login", async (req, res) => {
 				.status(401)
 				.send({ error: "Login failed! Check authentication credentials" });
 		}
-		const token = await user.generateAuthToken();
-		// Here we should create owner
-		if (!user.owner) {
+		if (!user.ownerId) {
 			const owner = await new Owner(createNewOwner());
             console.log("  -EN> Owner created with base seed acct");
 			for (let i = 0; i < 3; i++) {
 				const glad = await new Gladiator(createNewGladiator("default"));
-				glad.owner = owner._id;
+				glad.ownerId = owner._id;
 				owner.gladiators.push(glad.id);
 				glad.save();
 			}
 
-			user.owner = owner._id;
+			user.ownerId = owner._id;
 			owner.userAcct = user._id;
 			owner.userName = user.username;
 
 			user.save();
 			owner.save();
 		}
+
+		const token = await user.generateAuthToken();
+		// Here we should create owner
 
 		res.send({ user, token });
 	} catch (error) {

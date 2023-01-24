@@ -77,19 +77,24 @@ router.post('/owner/inventoryData', async(req, res) => {
     }  );
     res.send(rtnData);
 })
-router.post('/owner/tournament', async(req, res) => {
+router.post('/owner/allTournament', async(req, res) => {
     // oh... so req.body.id is user id not owner id.
      let mongoose = require('mongoose');
      let id =  mongoose.Types.ObjectId(req.body.ownerId);
      let tournaments = await saveTournament.find({ 'owners': { $elemMatch: {$eq:id} } })
                         .populate('gladiators',['name'])
-//                        .populate('memories')
+                        .populate('memories',['name'])
+                        .populate('owners',['userName'])
     //.populate('gladiators',['gladiators'])
     console.log(tournaments.length) ;
     console.log(tournaments[0])
     
     // {_id: ObjectId('63ccc0ab05127fa0ec48b999')}
 //    res.send(tournaments);{_id:'' }
+    res.send({});
+})
+
+router.post('/owner/tournamentRound', async(req, res) => {
     res.send({});
 })
 

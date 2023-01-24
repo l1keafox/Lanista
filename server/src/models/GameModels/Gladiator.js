@@ -9,7 +9,7 @@ const gladiatorSchema = new Schema(
         name:{
             type:String
         },
-        owner:{
+        ownerId:{
             type:Schema.Types.ObjectId,
             ref:"Owner"
         },

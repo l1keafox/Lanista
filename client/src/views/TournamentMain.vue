@@ -13,9 +13,9 @@ export default {
     inject:['getUser'],
     async mounted(){
         this.userData = this.getUser;
-        console.log(this.userData.ownerId);
+        console.log(this.userData);
         const inventory = await fetch(
-            `http://${window.location.hostname}:3001/owner/tournament`,
+            `http://${window.location.hostname}:3001/owner/allTournament`,
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },

@@ -3,7 +3,7 @@ const namesArray = require('./names');
 
 function createNewOwner() {
   
-  return { gold: 100, fame:0, structures:[ "School" ] ,inventory : [] };
+  return { gold: 100, fame:1, structures:[ "School" ] ,inventory : [] };
 }
 
 const gladNames = require('./names');

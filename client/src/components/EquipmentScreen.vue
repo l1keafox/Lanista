@@ -45,7 +45,7 @@
             </div>
 
             <div class="flex justify-between"> 
-              <h2>Off HandF:{{gladiatorData.offHand}}</h2> 
+              <h2>Off Hand:{{gladiatorData.offHand}}</h2> 
               <template v-if="inventoryData.offHand">
                 <select name="offHand" class="bg-cyan-100 w-28" id="offHand"> 
                   <option value="empty">Select</option>
