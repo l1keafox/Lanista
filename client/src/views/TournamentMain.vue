@@ -1,7 +1,14 @@
 <template>
-	<div class="flex w-full overflow-x-hidden">
-
-
+	<div class="flex w-full overflow-x-hidden flex-col flex-wrap">
+        <h1>Tournaments</h1>
+        <template v-if="tournamentData">
+            <div v-for="tourny in tournamentData" :key="tourny">
+                <div :class="card">
+                    <h1>Type: {{ tourny.tournament.type }} </h1>
+                    <button>  </button>
+                </div>
+            </div>
+        </template>
     </div>
 </template>
 
@@ -14,7 +21,7 @@ export default {
             tournamentData:null
         }
     },
-    inject:['getUser'],
+    inject:['getUser','card'],
     async mounted(){
         this.userData = this.getUser;
         console.log(this.userData);
@@ -27,6 +34,9 @@ export default {
             }
             );
             this.tournamentData = await inventory.json();
+            this.tournamentData.forEach(tourn => {
+                tourn.tournament = JSON.parse(tourn.tournament);
+            })
             console.log(this.tournamentData);
             // Each tournament will have one of this guys users
             // So let's first show it as cards then we will have the cards show winner and type
