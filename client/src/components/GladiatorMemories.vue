@@ -33,7 +33,7 @@
           </div>
         </div>
         <div v-if="isModalShown">
-          <MemoryStats @closeModal="closeModal"/>
+          <MemoryStats @closeModal="closeModal" :gladMemory="Memory" />
         </div>
       </div>
 </template>
@@ -51,7 +51,8 @@ import MemoryStats from './MemoryStats.vue'
                 gladiatorData: null,
                 isModalShown:false,
                 count:0,
-                memories:[]
+                memories:[],
+                Memory:null
             }
         },
         methods:{
@@ -62,7 +63,8 @@ import MemoryStats from './MemoryStats.vue'
             },
 
             async showMemory(event){
-              console.log(this.memories[event.target.getAttribute("data-index")]);
+            //  console.log(this.memories[event.target.getAttribute("data-index")]);
+              this.Memory = this.memories[event.target.getAttribute("data-index")];
                 this.isModalShown = true;
 
             },

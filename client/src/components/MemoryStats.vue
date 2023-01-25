@@ -15,7 +15,7 @@
               <!--body-->
               <div class="relative p-6 flex-auto">
       
-                      <!-- <div v-if="gladiatorData" class="flex">
+                      <div v-if="gladiatorData" class="flex">
                         <div class="flex p-2 flex-col h-48 w-48 bg-slate-800">
                           <h1> Stat Points </h1>
                           <h2>hits:{{gladiatorData.hits}}</h2>
@@ -53,7 +53,7 @@
                           <h2>luck:{{gladiatorData.luck}}</h2>
                           <h2>reputation:{{gladiatorData.reputation}} </h2>
                           <h2>charisma:{{gladiatorData.charisma}}</h2>
-                        </div> -->
+                        </div>
                 
                     </div>
       
@@ -61,23 +61,40 @@
               <!--footer-->
               <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                 <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" v-on:click="$emit('closeModal')">
-                  Close
+                  Closed
                 </button>
               </div>
             </div>
         </div>
+    </div>
     </div>
 </template>
 
 <script>
     export default {
         name:"MemoryStats",
+        props:['gladMemory'],
+        data(){
+            return{
+                gladiatorData:null
+            }
+        },
+        async mounted(){
+            this.gladiatorData = JSON.parse(this.gladMemory.memory);
+            // console.log("THIS",this.gladMemory);
+            // console.log("PARSED",this.gladiatorData);
+            this.gladiatorData.name = this.gladMemory.name;
+            this.gladiatorData.age = this.gladMemory.age;
+            this.gladiatorData.level = this.gladMemory.level;
+            this.gladiatorData.winRecord = this.gladMemory.winRecord;
+            this.gladiatorData.lossRecord = this.gladMemory.lossRecord;
+        },
         methods:{
             bgClose(event){
             if(event.target.getAttribute("data-id") === "bg"){
               this.$emit('closeModal')
             }
-          },
+        },
     },
 
     }
