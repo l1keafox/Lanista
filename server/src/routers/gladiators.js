@@ -161,12 +161,17 @@ router.get('/gladiator/allMemories/:gladId', async(req, res) => {
     console.log(memories.length);
     res.send(memories);
 })
-router.get('/gladiator/allDuels/:gladId', async(req, res) => {
-    let duels = await saveDuel.find({ $of:[{gladiatorOne : req.params.gladId},{gladiatorTwo : req.params.gladId} ] }); 
-    console.log(req.params);
-    console.log(duels.length,"Duels");
+// router.get('/gladiator/allDuels/:gladId', async(req, res) => {
+//     let duels = await saveDuel.find({ $or:[{gladiatorOne : req.params.gladId},{gladiatorTwo : req.params.gladId} ] }); 
+//     console.log(req.params);
+//     console.log(duels.length,"Duels");
+//     res.send(duels);
+// })
+router.get('/gladiator/someDuels/:gladId/:offset/:limit', async(req, res) => {
+    let duels = await saveDuel.find({ $or:[{gladiatorOne : req.params.gladId},{gladiatorTwo : req.params.gladId} ] }).populate('gladiatorTwo',['name']).populate('gladiatorOne',['name']).skip(req.params.offset).limit(req.params.limit); 
     res.send(duels);
 })
+
 
 router.post('/gladiator/saveLearning', async(req, res) => {
     let glad = await Gladiator.findOne({ _id: req.body.id });
