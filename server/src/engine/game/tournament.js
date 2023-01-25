@@ -32,6 +32,7 @@ async function prepGlad(glad) {
 }
 
 async function tournamentRound(group) {
+	
 	// now we should create an function that takes any number of gladiators and returns half the number after a clash.
 	return new Promise(async (resolve, reject) => {
 	let winnerArray = [];
@@ -196,11 +197,11 @@ async function singleElimination(group,name) {
 }
 
 async function doRoundRobin(group,tournyName,oneWinner){
-	// Round robin means that each member of the group will face off against each member
-	// the one with the most 
-	// Report needs to be just an the ids
-	// cause players will want.
-
+/*
+Round robin is a O(n^2) or Big O squared 
+Because it has two loops one starting one and finishing.
+This should be small group sthen.
+*/
 	let winObj = {};
 	let duelReport = [];
 	for(let i = 0; i < group.length; i++){
