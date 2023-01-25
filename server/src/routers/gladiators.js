@@ -155,6 +155,13 @@ router.post('/gladiator/saveWeek', async(req, res) => {
     res.send(glad)
 })
 
+router.get('/gladiator/allMemories/:gladId', async(req, res) => {
+    let memories = await Memory.find({ gladiatorID : req.params.gladId }); 
+    console.log(req.params);
+    console.log(memories.length);
+    res.send(memories);
+})
+
 router.post('/gladiator/saveLearning', async(req, res) => {
     let glad = await Gladiator.findOne({ _id: req.body.id });
     

@@ -46,8 +46,20 @@
                 }
             },
         },
-        mounted(){
-            
+        async mounted(){
+            //router.get('/gladiator/allMemories/:id'
+            const rpnse = await fetch(
+                `http://${window.location.hostname}:3001/gladiator/allMemories/${this.gladId}`,
+                {
+                // method: "POST",
+                headers: { "Content-Type": "application/json" },
+                // body: JSON.stringify({ "id": this.gladId }),
+                }
+            );
+            let rn = await rpnse.json();
+            console.log(rn);
+
+      
         }
     }
 </script>
