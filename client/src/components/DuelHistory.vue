@@ -77,7 +77,7 @@ import CombatReview from "@/components/CombatReview";
                 let rpns = await JSON.parse (test.duel);
                 this.combatReport = rpns;
                 this.glads = rpns.fighters;				
-                console.log("SHow combat!",rpns);
+
                 this.isModalShown = true;
             },
             closeModal() {
@@ -96,7 +96,6 @@ import CombatReview from "@/components/CombatReview";
                 {headers: { "Content-Type": "application/json" }}
               );
               let rn = await rpnse.json();
-              console.log(rn);
               this.posts.push(...rn);
             }
         }

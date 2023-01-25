@@ -1,15 +1,32 @@
 <template>
-	<div class="flex w-full overflow-x-auto flex-col flex-wrap">
-        <template v-if="tournamentData">
-            <div v-for="tourny in tournamentData" :key="tourny" class="">
-                <div :class="card">
-                    <h1>Type: {{ tourny.tournament.type }} </h1>
-                    <button> Show Details </button>
-                    <button> Show Gladiators </button>
-                    <button> Show Owners </button>
+	<div class="flex w-full overflow-x-auto flex flex-wrap">
+        <template v-if="tournaments">
+            <div v-for="(tourny,index) in tournaments" :key="index" class="">
+                <div :class="largeCard">
+                    <h1>{{ tourny.tournament.type }} </h1>
+                    <hr/>
+                    <template v-for="(glad,index2) in tourny.gladiators" :key="index2">
+                        <template v-if="gladOwned(glad)">
+                            <h2 class ="text-red-500">**{{glad.name}}**</h2>
+                        </template>
+                        <template v-else>
+                            <h2>{{glad.name}}</h2>
+                        </template>
+
+                    </template>
+                    <template v-for="(glad,index) in tourny.memories" :key="index">
+                        <h2>{{glad.name}}</h2>
+                    </template>
+                    <button class="bg-yellow-200 m-2 p-3 text-black"> Show Details </button>
                 </div>
             </div>
+            <div id="intersection" class="bg-yellow-100" @click="this.loadMorePosts"> </div>
+
         </template>
+        <div v-if="isModalShown">
+          <!-- <MemoryStats @closeModal="closeModal" :gladMemory="Memory" /> -->
+        </div>
+  
     </div>
 </template>
 
@@ -19,26 +36,54 @@ export default {
     data(){
         return{
             userData:null,
-            tournamentData:null
+            isModalShown:false,
+            count:0,
+            tournaments:[],
+            ownerData:null,
+            tournament:null
         }
     },
-    inject:['getUser','card'],
+    inject:['getUser','largeCard','getOwner'],
+    methods:{
+        gladOwned(glad){
+            let rsult = this.ownerData.gladiators.findIndex(ownedGlad =>{
+                return glad.name  == ownedGlad.name
+            })
+            return rsult > -1;
+        }, 
+        closeModal() {
+              this.isModalShown = false;
+        },
+        async  loadMorePosts(){
+              const addPosts = 25;
+              const rpnse = await fetch(
+                `http://${window.location.hostname}:3001/owner/someTournament/${this.userData.ownerId}/${this.count}/${addPosts}`,
+                {headers: { "Content-Type": "application/json" }}
+              );
+              let rn = await rpnse.json();
+              this.count += addPosts;
+                console.log(rn);
+                rn.forEach(tourn => {tourn.tournament = JSON.parse(tourn.tournament);})
+              this.tournaments.push(...rn);
+            },
+    },
     async mounted(){
         this.userData = this.getUser;
+        this.ownerData = this.getOwner;
         console.log(this.userData);
-        const inventory = await fetch(
-            `http://${window.location.hostname}:3001/owner/allTournament`,
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ "ownerId": this.userData.ownerId}),
-            }
-            );
-            this.tournamentData = await inventory.json();
-            this.tournamentData.forEach(tourn => {
-                tourn.tournament = JSON.parse(tourn.tournament);
-            })
-            console.log(this.tournamentData);
+        let observer = new IntersectionObserver(this.loadMorePosts);
+        observer.observe(document.getElementById("intersection"));
+
+        // const inventory = await fetch(
+        //     `http://${window.location.hostname}:3001/owner/allTournament`,
+        //     {
+        //         method: "POST",
+        //         headers: { "Content-Type": "application/json" },
+        //         body: JSON.stringify({ "ownerId": this.userData.ownerId}),
+        //     }
+        //     );
+        //     this.tournamentData = await inventory.json();
+        //     console.log(this.tournamentData);
             // Each tournament will have one of this guys users
             // So let's first show it as cards then we will have the cards show winner and type
             // then we will 

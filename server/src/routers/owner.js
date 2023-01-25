@@ -77,6 +77,26 @@ router.post('/owner/inventoryData', async(req, res) => {
     }  );
     res.send(rtnData);
 })
+
+router.get( '/owner/someTournament/:ownerId/:offset/:limit',async(req, res) => {
+    console.log("Some Tourna");
+    let mongoose = require('mongoose');
+    let id =  mongoose.Types.ObjectId(req.params.ownerId);
+    let tournaments = await saveTournament.find({ 'owners': { $elemMatch: {$eq:id} } })
+        .populate('gladiators',['name'])
+        .populate('memories',['name'])
+        .populate('owners',['userName'])
+        .skip(req.params.offset)
+        .limit(req.params.limit); 
+
+        let tournaments2 = await saveTournament.find({ 'owners': { $elemMatch: {$eq:id} } })
+        .populate('gladiators',['name'])
+        .populate('memories',['name'])
+        .populate('owners',['userName'])
+        console.log(tournaments.length,req.params.offset,"/",tournaments2.length,req.params.limit);
+    res.send(tournaments);
+} );
+
 router.post('/owner/allTournament', async(req, res) => {
     // oh... so req.body.id is user id not owner id.
      let mongoose = require('mongoose');
@@ -86,12 +106,12 @@ router.post('/owner/allTournament', async(req, res) => {
                         .populate('memories',['name'])
                         .populate('owners',['userName'])
     //.populate('gladiators',['gladiators'])
-    function onlyUnique(value, index, self) {
-        return self.indexOf(value) === index;
-    }
-    tournaments.forEach(tourny => {
-        tourny.owners = tourny.owners.filter(onlyUnique);
-    })
+    // function onlyUnique(value, index, self) {
+    //     return self.indexOf(value) === index;
+    // }
+    // tournaments.forEach(tourny => {
+    //     tourny.owners = tourny.owners.filter(onlyUnique);
+    // })
       
     console.log(tournaments.length) ;
     console.log(tournaments[0])

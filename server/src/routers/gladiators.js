@@ -45,18 +45,6 @@ router.post('/gladiator/doSpar', async(req, res) => {
 
         let report = await doDuel(one,two);
 
-        // Here we save it? 
-//        let owner = await Owner.findOne({ userAcct: req.body.ownerId });
-        //saveDuel
-       // const savedDuel = await new saveDuel({ "gladiatorOne":req.body.gladatorId ,"gladiatorTwo":req.body.gladatorId2 ,duel: JSON.stringify(report) } );
-        //console.log(savedDuel);
-        // owner.history.push(savedDuel);
-        // if(owner.history.length > 10){
-        //     const deleted = owner.history.pop();
-        //     console.log('We should also go through saveDuels and delete this',deleted);
-        // }
-      //  owner.save();
-        //savedDuel.save();
         res.send(report)
     } else {
         res.send({"error":"Glad/Glad2 error"})
@@ -155,16 +143,13 @@ router.post('/gladiator/saveWeek', async(req, res) => {
     res.send(glad)
 })
 
-router.get('/gladiator/allMemories/:gladId', async(req, res) => {
-    let memories = await Memory.find({ gladiatorID : req.params.gladId }); 
-    console.log(req.params);
-    console.log(memories.length);
-    res.send(memories);
-})
+// router.get('/gladiator/allMemories/:gladId', async(req, res) => {
+//     let memories = await Memory.find({ gladiatorID : req.params.gladId }); 
+//     res.send(memories);
+// })
 
 router.get('/gladiator/someMemories/:gladId/:offset/:limit', async(req, res) => {
     let memories = await Memory.find({ gladiatorID : req.params.gladId }).skip(req.params.offset).limit(req.params.limit); 
-    console.log(memories.length);
     res.send(memories);
 })
 

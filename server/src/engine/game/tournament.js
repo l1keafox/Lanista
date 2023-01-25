@@ -433,9 +433,11 @@ function grabOwnerGladIds(localGroup){
 			owner.push(glad.ownerId );
 			gladiator.push(glad._id);
 		}
-
-
 	});
+    function onlyUnique(value, index, self) {
+        return self.indexOf(value) === index;
+    }
+	owner = owner.filter(onlyUnique);
 	return {gladiator,owner,memory}
 }
 
