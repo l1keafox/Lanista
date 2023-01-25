@@ -1,11 +1,12 @@
 <template>
-	<div class="flex w-full overflow-x-hidden flex-col flex-wrap">
-        <h1>Tournaments</h1>
+	<div class="flex w-full overflow-x-auto flex-col flex-wrap">
         <template v-if="tournamentData">
-            <div v-for="tourny in tournamentData" :key="tourny">
+            <div v-for="tourny in tournamentData" :key="tourny" class="">
                 <div :class="card">
                     <h1>Type: {{ tourny.tournament.type }} </h1>
-                    <button>  </button>
+                    <button> Show Details </button>
+                    <button> Show Gladiators </button>
+                    <button> Show Owners </button>
                 </div>
             </div>
         </template>

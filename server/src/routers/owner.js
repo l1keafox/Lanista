@@ -86,9 +86,16 @@ router.post('/owner/allTournament', async(req, res) => {
                         .populate('memories',['name'])
                         .populate('owners',['userName'])
     //.populate('gladiators',['gladiators'])
+    function onlyUnique(value, index, self) {
+        return self.indexOf(value) === index;
+    }
+    tournaments.forEach(tourny => {
+        tourny.owners = tourny.owners.filter(onlyUnique);
+    })
+      
     console.log(tournaments.length) ;
     console.log(tournaments[0])
-    
+
     // {_id: ObjectId('63ccc0ab05127fa0ec48b999')}
 //    res.send(tournaments);{_id:'' }
     res.send(tournaments);
