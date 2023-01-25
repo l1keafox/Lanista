@@ -33,7 +33,18 @@
 
 <script>
     export default {
+
         name:"DuelHistory",
+        props: ["gladId"],
+        async mounted(){
+            console.log(this.gladId);
+            const rpnse = await fetch(
+                `http://${window.location.hostname}:3001/gladiator/allDuels/${this.gladId}`,
+                {headers: { "Content-Type": "application/json" }}
+            );
+            let rn = await rpnse.json();
+            console.log(rn);            
+        },
         methods:{
             bgClose(event) {
                 if (event.target.getAttribute("data-id") === "bg") {
@@ -41,6 +52,7 @@
                 }
             },
         }
+
     }
 </script>
 
