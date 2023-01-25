@@ -1,5 +1,5 @@
 <template>
-	<div class="flex w-full overflow-x-auto flex flex-wrap">
+	<div class="flex w-full overflow-x-auto flex-wrap">
         <template v-if="tournaments">
             <div v-for="(tourny,index) in tournaments" :key="index" class="">
                 <div :class="largeCard">
@@ -17,26 +17,32 @@
                     <template v-for="(glad,index) in tourny.memories" :key="index">
                         <h2>{{glad.name}}</h2>
                     </template>
-                    <button class="bg-yellow-200 m-2 p-3 text-black"> Show Details </button>
+                    <button class="bg-yellow-200 m-2 p-3 text-black" @click="showDetailModal($event)" :data-type="tourny.tournament.type" :data-index="index"> Show Details </button>
                 </div>
             </div>
             <div id="intersection" class="bg-yellow-100" @click="this.loadMorePosts"> </div>
 
         </template>
         <div v-if="isModalShown">
-          <!-- <MemoryStats @closeModal="closeModal" :gladMemory="Memory" /> -->
+            <component :is="tournamentType" :tournamentData="tournamentData" @closeModal="closeModal"> </component>
         </div>
   
     </div>
 </template>
 
 <script>
+import roundRobin from './../components/roundRobin';
 export default {
     name:"TournamentMain",
+    components:{
+        roundRobin,
+    },
     data(){
         return{
             userData:null,
             isModalShown:false,
+            tournamentType:null,
+            tournamentData:null,
             count:0,
             tournaments:[],
             ownerData:null,
@@ -45,6 +51,13 @@ export default {
     },
     inject:['getUser','largeCard','getOwner'],
     methods:{
+        showDetailModal(event){
+            this.tournamentType = event.target.getAttribute("data-type");
+            this.tournamentData = this.tournaments[event.target.getAttribute("data-index")].tournament
+            console.log(this.tournaments[event.target.getAttribute("data-index")].tournament, event.target.getAttribute("data-index") )
+           this.isModalShown = true;
+            
+        },
         gladOwned(glad){
             let rsult = this.ownerData.gladiators.findIndex(ownedGlad =>{
                 return glad.name  == ownedGlad.name
