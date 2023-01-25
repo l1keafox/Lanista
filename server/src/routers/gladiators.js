@@ -164,6 +164,11 @@ router.get('/gladiator/someDuels/:gladId/:offset/:limit', async(req, res) => {
     res.send(duels);
 })
 
+router.get('/gladiator/getDuel/:duelId', async(req, res) => {
+    let duel = await saveDuel.find({ _id:req.params.duelId } );
+    console.log(duel);
+    res.send( duel );
+})
 
 router.post('/gladiator/saveLearning', async(req, res) => {
     let glad = await Gladiator.findOne({ _id: req.body.id });

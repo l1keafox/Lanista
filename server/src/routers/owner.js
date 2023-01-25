@@ -1,6 +1,6 @@
 
 const express = require('express');
-const {User,Owner,Gladiator,DayEvents,saveTournament} = require('../models');
+const {User,Owner,Gladiator,DayEvents,saveTournament,saveDuel} = require('../models');
 const {getTraining} = require('./../engine/game/trainingEffects');
 const {getStructureEffect} = require('./../engine/game/structureIndex');
 const {getItemEffect} = require('./../engine/game/itemsIndex');
