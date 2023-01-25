@@ -161,6 +161,13 @@ router.get('/gladiator/allMemories/:gladId', async(req, res) => {
     console.log(memories.length);
     res.send(memories);
 })
+
+router.get('/gladiator/someMemories/:gladId/:offset/:limit', async(req, res) => {
+    let memories = await Memory.find({ gladiatorID : req.params.gladId }).skip(req.params.offset).limit(req.params.limit); 
+    console.log(memories.length);
+    res.send(memories);
+})
+
 // router.get('/gladiator/allDuels/:gladId', async(req, res) => {
 //     let duels = await saveDuel.find({ $or:[{gladiatorOne : req.params.gladId},{gladiatorTwo : req.params.gladId} ] }); 
 //     console.log(req.params);

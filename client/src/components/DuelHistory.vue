@@ -6,7 +6,7 @@
         <div class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex" data-id="bg"  v-on:click="bgClose($event)" >
           <div class="relative w-auto my-6 mx-auto max-w-6xl ">
             <!--content-->
-            <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none  max-h-96">
+            <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none max-h-96">
               <!--header-->
               <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                 <!-- <h3 v-if="gladiatorData" class="text-3xl font-semibold"> -->
@@ -14,7 +14,7 @@
                 <!-- </h3> -->
               </div>
               <!--body-->
-              <div id="bodyScroll" class="relative p-6 flex-auto overflow-y-auto bg-yellow-200">
+              <div class="relative p-6 flex-auto overflow-y-auto bg-yellow-200">
                 <template v-for="(duel,index) in posts"
                 :key="index">
                 <div class="flex justify-between">
@@ -57,7 +57,6 @@ import CombatReview from "@/components/CombatReview";
             isModalShown:false,
             combatReport: null,
             count:0,
-            scrollComponent:null,
             posts: []
           }
         },
@@ -82,9 +81,8 @@ import CombatReview from "@/components/CombatReview";
                 this.isModalShown = true;
             },
             closeModal() {
-			this.isModalShown = false;
-		},
-
+              this.isModalShown = false;
+            },
             bgClose(event) {
                 if (event.target.getAttribute("data-id") === "bg") {
                     this.$emit('closeModal')
