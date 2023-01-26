@@ -125,21 +125,6 @@ router.get('/owner/trainingData/:ownerId', async(req, res) => {
     res.send(rtnData);
 })
 
-router.post('/owner/trainingData', async(req, res) => {
-    let owner = await Owner.findOne({ userAcct: req.body.id });
-    await owner.getTraining();
-
-    let rtnData = owner.training.map( train =>{
-        let rtn = getTraining(train);
-        if(rtn){
-            rtn.training = train;
-            return rtn;
-        }else {
-            console.log("trainfailure?",train);
-        }
-    }  ) .filter((notUndefined) => notUndefined !== undefined);
-    res.send(rtnData);
-})
 router.get('/owner/learningData/:ownerId', async(req, res) => {
     const owner = await Owner.findById(req.params.ownerId);
     await owner.getLearning();
@@ -157,9 +142,9 @@ router.get('/owner/learningData/:ownerId', async(req, res) => {
 
 
 
-router.post('/owner/store', async(req, res) => {
-    let owner2 = await Owner.findOne({ userAcct: req.body.id });
-    let storeItems = getStoreItems();
+router.get('/owner/store/:ownerId', async(req, res) => {
+    const owner2 = await Owner.findById(req.params.ownerId);
+    const storeItems = getStoreItems();
 
     let rtn = {};
     for(let type in storeItems){
