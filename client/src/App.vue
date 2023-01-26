@@ -44,6 +44,7 @@ export default {
     update() {
       this.isLoggedIn = auth.loggedIn();
       this.userData =  auth.getUser();
+      this.updateOwner();
     },
 
     async updateOwner() {
@@ -55,11 +56,9 @@ export default {
 			if (this.isLoggedIn) {
         try{
           const rpnse = await fetch(
-					`http://${window.location.hostname}:3001/owner`,
+					`http://${window.location.hostname}:3001/owner/${auth.getUser().ownerId}`,
 					{
-						method: "POST",
 						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({ "id": auth.getUser()._id }),
 					}
 				);
 				this.ownerData = await rpnse.json();
