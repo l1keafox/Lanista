@@ -59,15 +59,12 @@
     inject: ['card','cardTitle','smallCard'],
     async mounted() {
       const rpnse = await fetch(
-        `http://${window.location.hostname}:3001/owner/structuresData`,
+        `http://${window.location.hostname}:3001/owner/structuresData/${this.userData.ownerId}`,
         {
-            method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ "id": this.userData._id}),
           }      
       );
-      let structureData = await rpnse.json();
-      this.structureData =  structureData;
+      this.structureData = await rpnse.json();
 
       const rpnse3 = await fetch(
         `http://${window.location.hostname}:3001/owner/trainingData`,

@@ -77,7 +77,7 @@ export default {
   },  
   mounted() {
     this.updateOwner();
-		this.interval = setInterval(this.updateOwner,5000)
+		this.interval = setInterval(this.updateOwner,5000);
   },
   provide() {
     return {

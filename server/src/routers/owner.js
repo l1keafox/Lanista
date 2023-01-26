@@ -9,22 +9,19 @@ const { getAbilityEffect } = require('./../engine/game/abilityIndex');
 const auth = require('../middleware/auth');
 const router = express.Router();
 
-router.post('/owner/structures', async(req, res) => {
-    let owner2 = await Owner.findOne({ userAcct: req.body.id });
+router.get('/owner/structures/:ownerId', async(req, res) => {
+    const owner2 = await Owner.findById(req.params.ownerId);
     res.send(owner2.structures)
 })
 
-router.post('/owner/structuresData', async(req, res) => {
-    let owner2 = await Owner.findOne({ userAcct: req.body.id });
-
-    let rtnData = owner2.structures.map( struct =>{
+router.get('/owner/structuresData/:ownerId', async(req, res) => {
+    const owner2 = await Owner.findById(req.params.ownerId);
+    const rtnData = owner2.structures.map( struct =>{
         let rtn = getStructureEffect(struct);
         rtn.structure = struct;
         return rtn;
-    }  );
-    
+    });
     res.send(rtnData);
-
 })
 
 router.post('/owner/removeItems', async(req, res) => {
@@ -231,10 +228,10 @@ router.post('/owner/buyItem', async(req, res) => {
 //     let owner2 = await Owner.findOne({ userAcct: req.body.id }).populate('gladiators');
 //     res.send(owner2)
 // })
-router.post('/owner', async(req, res) => {
-    let owner2 = await Owner.findOne({ userAcct: req.body.id }).populate('gladiators',['name','age','winRecord','lossRecord','weekWin','monthWin','quarterWin','yearWin','level']);
-    res.send(owner2)
-})
+// router.post('/owner', async(req, res) => {
+//     let owner2 = await Owner.findOne({ userAcct: req.body.id }).populate('gladiators',['name','age','winRecord','lossRecord','weekWin','monthWin','quarterWin','yearWin','level']);
+//     res.send(owner2)
+// })
 router.get('/owner/:ownerId', async(req, res) => {
     let owner2 = await Owner.findById( req.params.ownerId ).populate('gladiators',['name','age','winRecord','lossRecord','weekWin','monthWin','quarterWin','yearWin','level']);
     res.send(owner2)
