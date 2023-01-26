@@ -39,11 +39,18 @@
 </template>
 
 <script>
-import roundRobin from './../components/roundRobin';
+import roundRobin from './../components/roundRobinTournament';
+import singleElimination from './../components/singleEliminationTournament';
+import bestOfThree from './../components/bestOfThreeTournament';
+import roundRobinBestOfThree from './../components/roundRobinOfThreeTournament';
+
 export default {
     name:"TournamentMain",
     components:{
         roundRobin,
+        singleElimination,
+        bestOfThree,
+        roundRobinBestOfThree
     },
     data(){
         return{
@@ -60,10 +67,19 @@ export default {
     inject:['getUser','largeCard','getOwner'],
     methods:{
         showDetailModal(event){
-            this.tournamentType = event.target.getAttribute("data-type");
+            const tournKey = {
+                "weekly": "roundRobin",
+                "monthly": "singleElimination",
+                "quarter": "bestOfThree",
+                "quater": "bestOfThree",
+                "year": "roundRobinBestOfThree",
+                "yearly": "roundRobinBestOfThree"
+            };
+
+            this.tournamentType = tournKey[event.target.getAttribute("data-type")];
             this.tournamentData = this.tournaments[event.target.getAttribute("data-index")].tournament
             console.log(this.tournaments[event.target.getAttribute("data-index")].tournament, event.target.getAttribute("data-index") )
-           this.isModalShown = true;
+            this.isModalShown = true;
             
         },
         gladOwned(glad){
@@ -94,24 +110,6 @@ export default {
         console.log(this.userData);
         let observer = new IntersectionObserver(this.loadMorePosts);
         observer.observe(document.getElementById("intersection"));
-
-        // const inventory = await fetch(
-        //     `http://${window.location.hostname}:3001/owner/allTournament`,
-        //     {
-        //         method: "POST",
-        //         headers: { "Content-Type": "application/json" },
-        //         body: JSON.stringify({ "ownerId": this.userData.ownerId}),
-        //     }
-        //     );
-        //     this.tournamentData = await inventory.json();
-        //     console.log(this.tournamentData);
-            // Each tournament will have one of this guys users
-            // So let's first show it as cards then we will have the cards show winner and type
-            // then we will 
-            // tournament Data will have owners, memories, gladiators and the tournament data.
-            //
-            //this.inventory = ;
-
     }
 }
 </script>

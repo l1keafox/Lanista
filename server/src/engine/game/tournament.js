@@ -419,7 +419,7 @@ async function nationalTournament( allGladiators, memoryByLvl){
 
 
 				let result = await roundRobinThenBestOfThree(localGroup,tournyName);
-				doSaveTournament(localGroup,result.report,"national",result.winner);
+				doSaveTournament(localGroup,result.report,"yearly",result.winner);
 				if(result.winner){
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms National Doing National tournament size: ${localGroup.length} WINNER: ${result.winner.name}`);
 					result.winner.quarterWin++;
