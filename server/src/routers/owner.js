@@ -79,7 +79,7 @@ router.post('/owner/inventoryData', async(req, res) => {
 })
 
 router.get( '/owner/someTournament/:ownerId/:offset/:limit',async(req, res) => {
-    console.log("Some Tourna");
+    // console.log("Some Tourna");
     let mongoose = require('mongoose');
     let id =  mongoose.Types.ObjectId(req.params.ownerId);
     let tournaments = await saveTournament.find({ 'owners': { $elemMatch: {$eq:id} } })
@@ -89,11 +89,11 @@ router.get( '/owner/someTournament/:ownerId/:offset/:limit',async(req, res) => {
         .skip(req.params.offset)
         .limit(req.params.limit); 
 
-        let tournaments2 = await saveTournament.find({ 'owners': { $elemMatch: {$eq:id} } })
-        .populate('gladiators',['name'])
-        .populate('memories',['name'])
-        .populate('owners',['userName'])
-        console.log(tournaments.length,req.params.offset,"/",tournaments2.length,req.params.limit);
+        // let tournaments2 = await saveTournament.find({ 'owners': { $elemMatch: {$eq:id} } })
+        // .populate('gladiators',['name'])
+        // .populate('memories',['name'])
+        // .populate('owners',['userName'])
+        // console.log(tournaments.length,req.params.offset,"/",tournaments2.length,req.params.limit);
     res.send(tournaments);
 } );
 
@@ -113,8 +113,8 @@ router.post('/owner/allTournament', async(req, res) => {
     //     tourny.owners = tourny.owners.filter(onlyUnique);
     // })
       
-    console.log(tournaments.length) ;
-    console.log(tournaments[0])
+    // console.log(tournaments.length) ;
+    // console.log(tournaments[0])
 
     // {_id: ObjectId('63ccc0ab05127fa0ec48b999')}
 //    res.send(tournaments);{_id:'' }

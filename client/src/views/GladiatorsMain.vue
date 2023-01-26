@@ -1,7 +1,7 @@
 <template>
   <div  class="flex flex-col w-full overflow-y-hidden">
     <div  v-if="ownerData" class="flex flex-wrap overflow-x-auto" > 
-        <div v-for="glad in ownerData.gladiators" :key="glad" :class="largeCard"> 
+        <div v-for="glad in ownerData.gladiators" :key="glad" :class="gladiatorCard"> 
         
         <h1 :class="cardTitle">{{glad.name}} </h1>
 
@@ -17,6 +17,7 @@
         <button class="bg-green-200 m-2 text-purple-700" @click="openModal($event,'ClashSettings')"    :data-id="glad._id">Clash  </button>
         <button class="bg-purple-200 m-2 text-purple-700" @click="openModal($event,'GladiatorMemories')"   :data-id="glad._id">Memories  </button>
         <button class="bg-slate-200 m-2 text-purple-700" @click="openModal($event,'DuelHistory')"      :data-id="glad._id">Duel History  </button>
+        <button class="bg-pink-200 m-2 text-purple-700" @click="openModal($event,'DuelHistory')"      :data-id="glad._id">Tournament </button>
         
       </div>
     </div>
@@ -50,7 +51,7 @@ export default {
       
     };
   },
-  inject: ['largeCard','cardTitle','card','getOwner'],
+  inject: ['gladiatorCard','cardTitle','card','getOwner'],
   methods:{
     openModal(event,modalName){
       this.gladiatorId = event.target.getAttribute("data-id");

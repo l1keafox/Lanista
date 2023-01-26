@@ -90,11 +90,11 @@ import CombatReview from "@/components/CombatReview";
             },
             async  loadMorePosts(){
               const addPosts = 15;
-              this.count += addPosts;
               const rpnse = await fetch(
                 `http://${window.location.hostname}:3001/gladiator/someDuels/${this.gladId}/${this.count}/${addPosts}`,
                 {headers: { "Content-Type": "application/json" }}
               );
+              this.count += addPosts;
               let rn = await rpnse.json();
               this.posts.push(...rn);
             }

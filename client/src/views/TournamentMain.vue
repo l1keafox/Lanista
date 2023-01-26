@@ -5,6 +5,8 @@
                 <div :class="largeCard">
                     <h1>{{ tourny.tournament.type }} </h1>
                     <hr/>
+                    <button class="bg-yellow-200 m-2 p-3 text-black" @click="showDetailModal($event)" :data-type="tourny.tournament.type" :data-index="index"> Show Details </button>
+                    <div  class="overflow-y-auto h-full">
                     <template v-for="(glad,index2) in tourny.gladiators" :key="index2">
                         <template v-if="gladOwned(glad)">
                             <h2 class ="text-red-500">**{{glad.name}}**</h2>
@@ -15,9 +17,15 @@
 
                     </template>
                     <template v-for="(glad,index) in tourny.memories" :key="index">
-                        <h2>{{glad.name}}</h2>
+                        <template v-if="gladOwned(glad)">
+                            <h2 class ="text-red-500">**{{glad.name}}**</h2>
+                        </template>
+                        <template v-else>
+                            <h2>{{glad.name}}</h2>
+                        </template>
+
                     </template>
-                    <button class="bg-yellow-200 m-2 p-3 text-black" @click="showDetailModal($event)" :data-type="tourny.tournament.type" :data-index="index"> Show Details </button>
+                    </div>
                 </div>
             </div>
             <div id="intersection" class="bg-yellow-100" @click="this.loadMorePosts"> </div>

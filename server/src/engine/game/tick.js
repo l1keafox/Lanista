@@ -33,12 +33,12 @@ module.exports = {
 		date.gladNum = allGladiators.length;
 
 		let ownersGain = {};
-		if (date.weekDay == 7 ) {
+		if (date.weekDay == 7) {
 			const startOfTick = new Date();
 
 //			console.log("  -EN>Tournament Day");
 			let allNonSeedGlad = [];
-			saveManyModelMemory(allGladiators); // uncertain if this works as intended.
+			await saveManyModelMemory(allGladiators); // uncertain if this works as intended.
 
 			for(let gladiator of allGladiators){
 				// if(gladiator.level >= 3){
@@ -58,7 +58,10 @@ module.exports = {
 					memoryByLvl[ mem.level ] = [];
 				}
 				memoryByLvl[ mem.level ].push(mem);
-			} );
+			});
+			// for(let level in memoryByLvl){
+			// 	console.log(level,memoryByLvl[level].length);
+			// }
 			// for(let lvl in memoryByLvl){
 			// 	console.log(lvl, "s and Memory in them:", memoryByLvl[lvl].length );
 			// }
@@ -93,7 +96,7 @@ module.exports = {
 				}
 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.length}`);
 
-			} else if (date.day == 28) {
+			} else if (date.day == 28 ) {
 				// Should be 32 fighters
 				// Single elimination.
 			//	console.log("Regional TOURNAMENT");

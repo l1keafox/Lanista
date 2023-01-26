@@ -1,3 +1,4 @@
+const {modStat4Effect} = require('./../utils');
 module.exports = {
     abilityName: "backStab",
     type:"react",
@@ -11,10 +12,11 @@ module.exports = {
       if (caster.clashResult === this.resultWanted  && caster.clashAbility === "dodge" ) {
         
         //caster.hits++;
-        target.hits -= 10;
+        const dodgeChance = modStat4Effect(caster.abilityMix({"dexterity":30,"agility":30,"sensitivity":30,"luck":15}),10);
+        target.hits -= dodgeChance;
         this.cooldown = this.maxCooldown;
-        console.log(`   ${caster.name}-> DOING BACK STAB! because : ${caster.clashResult} CD:${this.maxCooldown}`, caster.hits);
-        return {name:this.abilityName, effect:"hits: -10" }
+//        console.log(`   ${caster.name}-> DOING BACK STAB! because : ${caster.clashResult} CD:${this.maxCooldown}`, caster.hits);
+        return {name:this.abilityName, effect:`hits: -${dodgeChance}` }
       }
     }
   };
