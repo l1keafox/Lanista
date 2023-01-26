@@ -161,17 +161,12 @@ export default {
     this.gladiatorData = gladiatorData;
 
   const inventory = await fetch(
-      `http://${window.location.hostname}:3001/owner/itemsSort`,
+      `http://${window.location.hostname}:3001/owner/itemsSort/${this.userData.ownerId}`,
       {
-        method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ "id": this.userData._id }),
       }
     );
-    const inventoryData = await inventory.json();
-//    console.log(inventoryData);
-    this.inventoryData = inventoryData;
-
+    this.inventoryData = await inventory.json();
   },
 };
 </script>

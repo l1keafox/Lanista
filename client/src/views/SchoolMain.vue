@@ -53,7 +53,6 @@
         trainingData: null,
         inventory:null,
         learningData:null
-
       };
     },
     inject: ['card','cardTitle','smallCard'],
@@ -67,36 +66,23 @@
       this.structureData = await rpnse.json();
 
       const rpnse3 = await fetch(
-        `http://${window.location.hostname}:3001/owner/trainingData`,
+        `http://${window.location.hostname}:3001/owner/trainingData/${this.userData.ownerId}`,
         {
-            method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ "id": this.userData._id}),
           }      
       );
-      let trainingData = await rpnse3.json();
-      this.trainingData =  trainingData;
-
+      this.trainingData = await rpnse3.json();
 
       const rpnse2 = await fetch(
-        `http://${window.location.hostname}:3001/owner/learningData`,
+        `http://${window.location.hostname}:3001/owner/learningData/${this.userData.ownerId}`,
         {
-            method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ "id": this.userData._id}),
           }      
       );
-      let learningData = await rpnse2.json();
-      this.learningData =  learningData;
-      const inventory = await fetch(
-      `http://${window.location.hostname}:3001/owner/inventoryData`,
-      {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ "id": this.userData._id}),
-        }      
-    );
-    this.inventory = await inventory.json();      
+      this.learningData = await rpnse2.json();
+
+      const inventory = await fetch(`http://${window.location.hostname}:3001/owner/inventoryData/${this.userData.ownerId}`,{ headers: { "Content-Type": "application/json" }});
+      this.inventory = await inventory.json();      
     },
   };
   </script>
