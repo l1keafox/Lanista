@@ -48,7 +48,7 @@ import MemoryStats from './MemoryStats.vue'
         },
         data(){
             return {
-                gladiatorData: null,
+                // gladiatorData: null,
                 isModalShown:false,
                 count:0,
                 memories:[],

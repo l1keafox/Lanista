@@ -18,7 +18,11 @@
                 <template v-for="(duel,index) in posts"
                 :key="index">
                 <div class="flex justify-between">
-                    <div><h2>{{duel.gladiatorOne.name}} vs {{duel.gladiatorTwo.name}}</h2> </div> <button class="bg-blue-300 text-black" :data-index="index" @click="showCombat($event)"> See Duel </button>
+                    <div><h2>{{duel.gladiatorOne.name}} vs {{duel.gladiatorTwo.name}}</h2> </div> 
+                    <div>
+                    <button class="bg-blue-300 text-black px-2" :data-index="index" @click="showCombat($event)"> See Duel </button>
+                    <button class="bg-blue-300 text-black px-2 " :data-index="index" @click="deleteDuel($event)"> Delete </button>
+                    </div>
                 </div>
                 </template>
                 <div id="intersection"> </div>

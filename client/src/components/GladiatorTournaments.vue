@@ -14,7 +14,13 @@
                 <!-- </h3> -->
               </div>
               <!--body-->
-              <div class="relative p-6 flex-auto overflow-y-auto bg-yellow-200">
+              <div class="relative p-6 flex-auto overflow-y-auto bg-yellow-200 flex flex-col">
+                <div v-for="(tournament, index) in tournamentArray" :key="index" class="flex w-52 justify-between">
+                  <h1>{{ tournament.tournament.type }}</h1>
+                  <button> Show Info</button>
+                </div>
+
+                <div id="intersection"> </div>
               </div>
               <!--footer-->
               <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
@@ -39,15 +45,20 @@
 <script>
     export default {
         name:"GladiatorTournament",
-        props:['tournamentData'],
+        props:['tournamentData',"gladId"],
+        data(){
+          return{
+            count:0,
+            isModalShown:false,
+            tournamentArray:[],
+          }
+        },
+        
         async mounted(){
-            let grab = this.tournamentData.duelReport[0];
-            const rpnse = await fetch(
-                `http://${window.location.hostname}:3001/gladiator/getDuel/${grab}`,
-                {headers: { "Content-Type": "application/json" }}
-              );
-            let rn = await rpnse.json();
-            console.log(rn);
+          let observer = new IntersectionObserver(()=>{
+              this.loadMorePosts();
+            });
+              observer.observe(document.getElementById("intersection"));
         },
         methods:{
             bgClose(event) {
@@ -55,6 +66,17 @@
                     this.$emit('closeModal')
                 }
             },
+            async  loadMorePosts(){
+              const addPosts = 10;
+              const rpnse = await fetch(
+                `http://${window.location.hostname}:3001/gladiator/someTournaments/${this.gladId}/${this.count}/${addPosts}`,
+                {headers: { "Content-Type": "application/json" }}
+              );
+              let rn = await rpnse.json();
+              this.count += addPosts;
+              rn.forEach(tourn => {tourn.tournament = JSON.parse(tourn.tournament);})
+              this.tournamentArray.push(...rn);
+            },            
 
         },
     }

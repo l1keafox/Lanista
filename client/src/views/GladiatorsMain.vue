@@ -17,7 +17,7 @@
         <button class="bg-green-200 m-2 text-purple-700" @click="openModal($event,'ClashSettings')"    :data-id="glad._id">Clash  </button>
         <button class="bg-purple-200 m-2 text-purple-700" @click="openModal($event,'GladiatorMemories')"   :data-id="glad._id">Memories  </button>
         <button class="bg-slate-200 m-2 text-purple-700" @click="openModal($event,'DuelHistory')"      :data-id="glad._id">Duel History  </button>
-        <button class="bg-pink-200 m-2 text-purple-700" @click="openModal($event,'GladiatorTournament')"      :data-id="glad._id">Tournament Wins</button>
+        <button class="bg-pink-200 m-2 text-purple-700" @click="openModal($event,'GladiatorTournament')"      :data-id="glad._id">Tournament History</button>
         
       </div>
     </div>
@@ -35,7 +35,7 @@ import GladiatorStats from "./../components/GladiatorStats.vue";
 import EquipmentScreen from "./../components/EquipmentScreen.vue";
 import GladiatorMemories from "../components/GladiatorMemories.vue";
 import DuelHistory from "./../components/DuelHistory.vue";
-
+import GladiatorTournament from "./../components/GladiatorTournaments.vue";
 import ClashSettings from "./../components/ClashSettings.vue";
 
 export default {
@@ -65,6 +65,7 @@ export default {
   components:{
     ScheduleManager,
     GladiatorMemories,
+    GladiatorTournament,
     GladiatorStats,
     DuelHistory,
     EquipmentScreen,
