@@ -18,7 +18,11 @@
                 <template v-for="(duel,index) in posts"
                 :key="index">
                 <div class="flex justify-between">
-                    <div><h2>{{duel.gladiatorOne.name}} vs {{duel.gladiatorTwo.name}}</h2> </div> <button class="bg-blue-300 text-black" :data-index="index" @click="showCombat($event)"> See Duel </button>
+                    <div><h2>{{duel.gladiatorOne.name}} vs {{duel.gladiatorTwo.name}}</h2> </div> 
+                    <div>
+                    <button class="bg-blue-300 text-black px-2" :data-index="index" @click="showCombat($event)"> See Duel </button>
+                    <!-- <button class="bg-blue-300 text-black px-2 " :data-index="index" @click="deleteDuel($event)"> Delete </button> -->
+                    </div>
                 </div>
                 </template>
                 <div id="intersection"> </div>
@@ -77,7 +81,7 @@ import CombatReview from "@/components/CombatReview";
                 let rpns = await JSON.parse (test.duel);
                 this.combatReport = rpns;
                 this.glads = rpns.fighters;				
-                console.log("SHow combat!",rpns);
+
                 this.isModalShown = true;
             },
             closeModal() {
@@ -90,13 +94,12 @@ import CombatReview from "@/components/CombatReview";
             },
             async  loadMorePosts(){
               const addPosts = 15;
-              this.count += addPosts;
               const rpnse = await fetch(
                 `http://${window.location.hostname}:3001/gladiator/someDuels/${this.gladId}/${this.count}/${addPosts}`,
                 {headers: { "Content-Type": "application/json" }}
               );
+              this.count += addPosts;
               let rn = await rpnse.json();
-              console.log(rn);
               this.posts.push(...rn);
             }
         }

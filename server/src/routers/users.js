@@ -72,20 +72,20 @@ router.post("/users/login", async (req, res) => {
 				const glad = await new Gladiator(createNewGladiator("default"));
 				glad.ownerId = owner._id;
 				owner.gladiators.push(glad.id);
-				glad.save();
+				await glad.save();
 			}
 
 			user.ownerId = owner._id;
 			owner.userAcct = user._id;
 			owner.userName = user.username;
 
-			user.save();
-			owner.save();
+			await user.save();
+			await owner.save();
 		}
 
 		const token = await user.generateAuthToken();
 		// Here we should create owner
-
+		
 		res.send({ user, token });
 	} catch (error) {
 		res.status(400).send(error);

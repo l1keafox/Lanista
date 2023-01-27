@@ -72,7 +72,7 @@ async function returnPreparedGladiator(gladiator) {
 		for (let aReaction of this.react) {
 			
 			if (aReaction.cooldown) {
-//				console.log(aReaction)
+//				console.log(aReaction.abilityName, "HAS CD:",aReaction.cooldown)
 				continue;
 			}
 //			console.log(aReaction.cooldown , aReaction.maxCooldown)

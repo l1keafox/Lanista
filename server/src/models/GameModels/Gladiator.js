@@ -37,6 +37,24 @@ const gladiatorSchema = new Schema(
         yearWin:{
             type:Number
         },
+        memoryWinRecord:{
+            type:Number
+        },
+        memoryLossRecord:{
+            type:Number
+        },
+        memoryWeekWin:{
+            type:Number
+        },
+        memoryMonthWin:{
+            type:Number
+        },
+        memoryQuarterWin:{
+            type:Number
+        },
+        memoryYearWin:{
+            type:Number
+        },
 
         level:{
             type:Number

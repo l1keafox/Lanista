@@ -53,7 +53,13 @@ function createNewGladiator(gladType) {
         quarterWin:0,
         yearWin:0,
         age:1,
-  
+        memoryWinRecord:0,
+				memoryLossRecord:0,
+				memoryWeekWin:0,
+				memoryMonthWin:0,
+				memoryQuarterWin:0,
+				memoryYearWin:0,
+
         // Looking for average of 1,000 start stat. as starting average.
         // Physical Stats
         strength:rollDice(35,55),

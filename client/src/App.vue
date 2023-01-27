@@ -1,7 +1,10 @@
 <template>
-  <div class="flex h-full w-full overflow-hidden">
-      <SideNav @logged="update" @changeMain="changeStage" />
-      <component :is="mainStage" />
+  <div class="flex flex-col h-full w-full overflow-hidden">
+      <HeaderVue @logged="update" />
+      <div class="flex h-full w-full">
+        <SideNav  @logged="update" @changeMain="changeStage" />
+        <component :is="mainStage" />
+      </div>
   </div>
 </template>
 
@@ -14,6 +17,7 @@ import StoreMain from "./views/StoreMain.vue";
 import TournamentMain from "./views/TournamentMain.vue";
 
 import SideNav from "@/components/SideNav.vue";
+import HeaderVue from "@/components/Header.vue";
 import auth from "./mixins/auth";
 
 import {computed} from "vue"
@@ -21,6 +25,7 @@ export default {
   name: "App",
   components: {
     SideNav,
+    HeaderVue,
     WelcomeMain,
     GladiatorsMain,
     CombatMain,
@@ -44,22 +49,21 @@ export default {
     update() {
       this.isLoggedIn = auth.loggedIn();
       this.userData =  auth.getUser();
+      this.updateOwner();
     },
 
     async updateOwner() {
 
       if(this.userData == null){
-        this.userData =  auth.getUser();
-
+          this.userData =  auth.getUser();
       }
 			if (this.isLoggedIn) {
+        
         try{
           const rpnse = await fetch(
-					`http://${window.location.hostname}:3001/owner`,
+					`http://${window.location.hostname}:3001/owner/${auth.getUser().ownerId}`,
 					{
-						method: "POST",
 						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({ "id": auth.getUser()._id }),
 					}
 				);
 				this.ownerData = await rpnse.json();
@@ -78,16 +82,18 @@ export default {
   },  
   mounted() {
     this.updateOwner();
-		this.interval = setInterval(this.updateOwner,5000)
+		this.interval = setInterval(this.updateOwner,5000);
   },
   provide() {
     return {
       card:"h-80 w-56 p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
       smallCard:"h-64 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
-      largeCard:"h-96 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
+      largeCard:"h-96 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-sm",
+      gladiatorCard:"h-[27rem] aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
       cardTitle:"text-xl text-sky-400",
       getOwner: computed(()=>this.ownerData),
       getUser: computed(()=>this.userData),
+      getLogged: computed(()=>this.isLoggedIn),
     };
   },
 };

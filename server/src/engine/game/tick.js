@@ -33,12 +33,12 @@ module.exports = {
 		date.gladNum = allGladiators.length;
 
 		let ownersGain = {};
-		if (date.weekDay == 7 ) {
+		if (date.weekDay == 7) {
 			const startOfTick = new Date();
 
 //			console.log("  -EN>Tournament Day");
 			let allNonSeedGlad = [];
-			saveManyModelMemory(allGladiators); // uncertain if this works as intended.
+			await saveManyModelMemory(allGladiators); // uncertain if this works as intended.
 
 			for(let gladiator of allGladiators){
 				// if(gladiator.level >= 3){
@@ -58,7 +58,10 @@ module.exports = {
 					memoryByLvl[ mem.level ] = [];
 				}
 				memoryByLvl[ mem.level ].push(mem);
-			} );
+			});
+			// for(let level in memoryByLvl){
+			// 	console.log(level,memoryByLvl[level].length);
+			// }
 			// for(let lvl in memoryByLvl){
 			// 	console.log(lvl, "s and Memory in them:", memoryByLvl[lvl].length );
 			// }
@@ -93,7 +96,7 @@ module.exports = {
 				}
 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.length}`);
 
-			} else if (date.day == 28) {
+			} else if (date.day == 28 ) {
 				// Should be 32 fighters
 				// Single elimination.
 			//	console.log("Regional TOURNAMENT");
@@ -185,8 +188,30 @@ module.exports = {
 				}
 				gladiator.doLevel();
 			}
-			//
-			gladiator.save();
+			if(date.time == 1 && date.weekDay == 1 && !gladiator.seed){
+				// let's find all the memories and add them to wins...
+				// but... that means there needs to be two types of wins
+				// Memory wins/Gladiator wins and total wins.
+				// memoryWinRecord  // memoryLossRecord
+				let memories = await Memory.find({ gladiatorID : gladiator.id });
+
+				gladiator.memoryWinRecord = 0;
+				gladiator.memoryLossRecord = 0;
+				gladiator.memoryWeekWin = 0;
+				gladiator.memoryMonthWin = 0;
+				gladiator.memoryQuarterWin = 0;
+				gladiator.memoryYearWin = 0;
+
+				memories.forEach(mem => {
+					gladiator.memoryWinRecord  += mem.winRecord;
+					gladiator.memoryLossRecord += mem.lossRecord;
+					gladiator.memoryWeekWin += mem.weekWin;
+					gladiator.memoryMonthWin += mem.monthWin;
+					gladiator.memoryQuarterWin += mem.quarterWin;
+					gladiator.memoryYearWin += mem.yearWin;
+				});
+				}
+			await gladiator.save();
 			});
 		}
 		

@@ -92,11 +92,7 @@ async function saveManyModelMemory(gladArray){
 		}
 	}
 	
-	Memory.insertMany( createArray ).then(
-		function(){
-			console.group("Data inserted");
-		}
-	);
+	await Memory.insertMany( createArray );
 }
 
 
