@@ -1,6 +1,6 @@
 <template>
-  <div  class="flex flex-col w-full overflow-y-hidden">
-    <div  v-if="ownerData" class="flex flex-wrap overflow-x-auto" > 
+  <div  class="flex flex-wrap w-full overflow-y-scroll ">
+    <template  v-if="ownerData"> 
         <div v-for="glad in ownerData.gladiators" :key="glad" :class="gladiatorCard"> 
         
         <h1 :class="cardTitle">{{glad.name}} </h1>
@@ -20,7 +20,7 @@
         <button class="bg-pink-200 m-2 text-purple-700 rounded" @click="openModal($event,'GladiatorTournament')"      :data-id="glad._id">Tournament History</button>
         
       </div>
-    </div>
+    </template>
   </div>
   <div v-if="isModalShown">
     <component :is="modalShown" :gladId="gladiatorId" @closeModal="closeModal"/>

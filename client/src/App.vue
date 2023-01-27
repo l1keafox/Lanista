@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col h-full w-full overflow-hidden">
+  <div class="flex flex-col h-screen w-screen overflow-hidden">
       <HeaderVue @logged="update" />
-      <div class="flex h-full w-full">
-        <SideNav  @logged="update" @changeMain="changeStage" />
+      <div class="flex h-[calc(100vh-45px)] w-full">
+        <SideNav @logged="update" @changeMain="changeStage" />
         <component :is="mainStage" />
       </div>
   </div>

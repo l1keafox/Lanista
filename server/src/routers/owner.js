@@ -150,31 +150,28 @@ router.get('/owner/getStudent/:ownerId', async(req, res) => {
     // it will create an random student, and save it's data in potentialStudents and send the data 
     // to the client for him to decide.
     // const rtnGlad = 1;
-    let newGlad = createNewGladiator("default")
-    if(!potentialStudents[req.params.ownerId]){
-        potentialStudents[req.params.ownerId] = [];
+    potentialStudents[req.params.ownerId] = [];
+    for(let i = 0; i < 4;i++){
+        potentialStudents[req.params.ownerId].push(createNewGladiator("default"));
+    //    console.log(i, "created",potentialStudents[req.params.ownerId].length);
     }
-    potentialStudents[req.params.ownerId]= [newGlad];
-    console.log(newGlad.name, "created",potentialStudents[req.params.ownerId].length);
-    res.send (newGlad);
+    res.send (potentialStudents[req.params.ownerId]);
 })
 
 
 router.post('/owner/buyStudent/', async(req, res) => {
     // In this post it will confirm buying th student, so it will 
-    const {gladName,ownerId} = req.body;
+    const {gladName,ownerId,index} = req.body;
     console.log(gladName,ownerId);
     if(potentialStudents[ownerId]){
         const owner2 = await Owner.findById(ownerId);
-        const glad = await new Gladiator(potentialStudents[ownerId][0]);
+        const glad = await new Gladiator(potentialStudents[ownerId][index]);
         glad.ownerId = owner2._id;
-        console.log( owner2.gladiators.length );
 	    owner2.gladiators.push(glad.id);
-        console.log("Getting glad:",glad.name);
+        console.log(`  -EN> OWNER: ${owner2.name} , Getting glad: ${glad.name}`);
 
     	await glad.save();
         await owner2.save();
-        console.log( owner2.gladiators.length );
         res.send(true);
         return;
     }
