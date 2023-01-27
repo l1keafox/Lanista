@@ -44,7 +44,12 @@
                            
               </div>
                 <div>
-                  {{  this.tournamentData.tournamentStructure[ openTab ] }}
+                  <div v-for="(fight, index) in this.tournamentData.tournamentStructure[ openTab ]" :key="index" >
+                    <div class ="flex justify-between">
+                      <div>{{ fight[1]  }} vs  {{ fight[2]  }} </div>
+                      <button @click="showDuel(fight.saveId,fight[1],fight[2])" > Duel </button>
+                    </div>
+                  </div>
                 </div>
 
               </div>
@@ -57,20 +62,25 @@
             </div>
           </div>
         </div>
-        <!-- <div v-if="isModalShown">
+        <div v-if="isModalShown">
+          <!-- <CombatReview/> -->
            <CombatReview
             :combatReport="combatReport"
             @closeModal="closeModal"
             :glads="glads" /> 
-        </div> -->
+        </div>
     
       </div>
 
 </template>
 
 <script>
+import CombatReview from '@/components/CombatReview.vue';
     export default {
         name:"singleElimination",
+        components:{
+          CombatReview,
+        },
         props:['tournamentData'],
         async mounted(){
           console.log(this.tournamentData.type);
@@ -89,6 +99,9 @@
         },
         data(){
           return{
+            combatReport:null,
+            glads:null,
+            isModalShown:false,
             selectedIndex:0,
             openTab: 0,
             selectedTab:"inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500",
@@ -96,16 +109,28 @@
           }
         },
         methods:{
-          // selectTab (i) {
-          //   this.selectedIndex = i
-          // // loop over all the tabs
-          //   // this.tabs.forEach((tab, index) => {
-          //   //   tab.isActive = (index === i)
-          //   // })
-          // },          
+          closeModal(){
+            this.isModalShown = false;
+          },
+          async showDuel(duelId,one,two){
+            //this.tournamentData.tournamentStructure[ openTab ]
+            console.log(duelId,one,two);
+            this.glads = [one,two];
+            const rpnse = await fetch(
+                `http://${window.location.hostname}:3001/gladiator/getDuel/${duelId}`,
+                {headers: { "Content-Type": "application/json" }}
+              );
+            let rn = await rpnse.json();
+             let rpns = await JSON.parse (rn[0].duel);
+             this.combatReport = rpns;
+
+            console.log(rpns);
+
+           this.isModalShown = true;
+          } ,       
           toggleTabs: function(tabNumber){
-      this.openTab = tabNumber
-    },          
+            this.openTab = tabNumber
+          },          
           // tabButton(round){
           //   // const round = event.target.getAttribute("data-round");
           //   this.selectedIndex = round;
