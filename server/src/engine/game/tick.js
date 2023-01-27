@@ -188,8 +188,30 @@ module.exports = {
 				}
 				gladiator.doLevel();
 			}
-			//
-			gladiator.save();
+			if(date.time == 1 && date.weekDay == 1 && !gladiator.seed){
+				// let's find all the memories and add them to wins...
+				// but... that means there needs to be two types of wins
+				// Memory wins/Gladiator wins and total wins.
+				// memoryWinRecord  // memoryLossRecord
+				let memories = await Memory.find({ gladiatorID : gladiator.id });
+
+				gladiator.memoryWinRecord = 0;
+				gladiator.memoryLossRecord = 0;
+				gladiator.memoryWeekWin = 0;
+				gladiator.memoryMonthWin = 0;
+				gladiator.memoryQuarterWin = 0;
+				gladiator.memoryYearWin = 0;
+
+				memories.forEach(mem => {
+					gladiator.memoryWinRecord  += mem.winRecord;
+					gladiator.memoryLossRecord += mem.lossRecord;
+					gladiator.memoryWeekWin += mem.weekWin;
+					gladiator.memoryMonthWin += mem.monthWin;
+					gladiator.memoryQuarterWin += mem.quarterWin;
+					gladiator.memoryYearWin += mem.yearWin;
+				});
+				}
+			await gladiator.save();
 			});
 		}
 		

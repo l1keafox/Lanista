@@ -1,34 +1,34 @@
 <template>
 	<div class="overflow-y-auto max-h-screen bg-blue-900 px-3 w-48">
 		<div
-			class="m-2 cursor-pointer sideOptions"
+			class=" font-lux text-base m-2 cursor-pointer sideOptions rounded"
 			@click="$emit('changeMain', 'WelcomeMain')">
 			Home
 		</div>
 
 		<div v-if="isLoggedIn" class="font-lux text-base">
 			<div
-				class="m-2 cursor-pointer sideOptions"
+				class="m-2 cursor-pointer sideOptions rounded"
 				@click="$emit('changeMain', 'GladiatorsMain')">
 				Gladiators
 			</div>
 			<div
-				class="m-2 cursor-pointer sideOptions"
+				class="m-2 cursor-pointer sideOptions rounded"
 				@click="$emit('changeMain', 'SchoolMain')">
 				School
 			</div>
 			<div
-				class="m-2 cursor-pointer sideOptions"
+				class="m-2 cursor-pointer sideOptions rounded"
 				@click="$emit('changeMain', 'CombatMain')">
 				Combat
 			</div>
 			<div
-				class="m-2 cursor-pointer sideOptions"
+				class="m-2 cursor-pointer sideOptions rounded"
 				@click="$emit('changeMain', 'StoreMain')">
 				Store
 			</div>
 			<div
-				class="m-2 cursor-pointer sideOptions"
+				class="m-2 cursor-pointer sideOptions rounded"
 				@click="$emit('changeMain', 'TournamentMain')">
 				Tournament
 			</div>

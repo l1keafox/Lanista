@@ -13,20 +13,20 @@
             </div>
 			<div v-if="!isLoggedIn" class="flex justify-center items-center">
 				<button
-					class="my-2 px-2 cursor-pointer sideOptions text-neo"
+					class="my-2 px-2 cursor-pointer sideOptions text-neo rounded"
 					@click="showCreateAcct"
 					:key="isLoggedIn">
 					Create Account
 				</button>
 				<button
-					class="m-2 px-2 cursor-pointer sideOptions text-neo"
+					class="m-2 px-2 cursor-pointer sideOptions text-neo rounded"
 					@click="showLogin"
 					:key="isLoggedIn">
 					Login
 				</button>
 			</div>
             <div v-else class="font-lux text-base flex justify-center items-center">
-                <div class="m-2 px-2 cursor-pointer sideOptions" @click="doLogOut">Logout</div>
+                <div class="m-2 px-2 cursor-pointer sideOptions rounded" @click="doLogOut">Logout</div>
             </div>
 
 		</div>

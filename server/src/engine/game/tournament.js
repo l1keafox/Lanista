@@ -421,10 +421,10 @@ async function nationalTournament( allGladiators, memoryByLvl){
 				let result = await roundRobinThenBestOfThree(localGroup,tournyName);
 				doSaveTournament(localGroup,result.report,"yearly",result.winner);
 				if(result.winner){
-					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms National Doing National tournament size: ${localGroup.length} WINNER: ${result.winner.name}`);
+					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms National Doing National tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: ${result.winner.name}`);
 					result.winner.yearWin++;
 				} else  {
-					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms National Doing National tournament size: ${localGroup.length} WINNER: NONE?!`);
+					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms National Doing National tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: NONE?!`);
 				}
 				
                 usedGlads = usedGlads.concat(localGroup);
@@ -458,7 +458,7 @@ async function quarterTournament(allGladiators, memoryByLvl) {
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Level:${mainGlad.level} Age:${ mainGlad.age } Doing Quarter tournament size: ${localGroup.length} WINNER: ${result.winner.name}`);
 					result.winner.quarterWin++;
 				} else  {
-					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Quarter tournament size: ${localGroup.length} WINNER: NONE?!`);
+					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} age:${mainGlad.age} level: ${mainGlad.level} Doing Quarter tournament size: ${localGroup.length} WINNER: NONE?!`);
 				}
 				
                 usedGlads = usedGlads.concat(localGroup);
@@ -488,10 +488,10 @@ async function regionalTournament(allGladiators, memoryByLvl) {
 				let result = await singleElimination(localGroup,tournyName);
 				doSaveTournament(localGroup,result.report,"monthly",result.winner)
 				if(result.winner){
-					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Reginoal tournament size: ${localGroup.length} WINNER: ${result.winner.name}`);
+					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Reginoal tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: ${result.winner.name}`);
 					result.winner.monthWin++;
 				} else  {
-					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Reginoal tournament size: ${localGroup.length} WINNER: NONE?!`);
+					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Reginoal tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: NONE?!`);
 				}
 				
                 usedGlads = usedGlads.concat(localGroup);
@@ -524,10 +524,10 @@ async function localTournament(allGladiators, memoryByLvl) {
 
 				await doSaveTournament(localGroup,result.report,"weekly",result.winner)
 				if(result.winner){
-					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: ${result.winner.name}`);
+					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: ${result.winner.name}`);
 					result.winner.weekWin++;
 				} else  {
-					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} WINNER: NONE?!`);
+					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: NONE?!`);
 				}
 				// and it will repeat over and over again.
                 usedGlads = usedGlads.concat(localGroup);

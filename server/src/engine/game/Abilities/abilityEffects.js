@@ -53,6 +53,10 @@ function compareEffects(gladiator,target){
             // If they are both dodging
             if(target.effectToDo.missChance){
                 // Then both of them just set missChance to 0;
+                // they both get drained of stamina by dodging when nothing is there.
+                target.effectToDo.staminaDamage = target.effectToDo.missChance;
+                gladiator.effectToDo.staminaDamage = gladiator.effectToDo.missChance;
+
                 target.effectToDo.missChance = 0;
                 gladiator.effectToDo.missChance = 0;
             }

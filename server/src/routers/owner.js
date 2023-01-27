@@ -201,7 +201,7 @@ router.post('/owner/buyItem', async(req, res) => {
 })
 
 router.get('/owner/:ownerId', async(req, res) => {
-    let owner2 = await Owner.findById( req.params.ownerId ).populate('gladiators',['name','age','winRecord','lossRecord','weekWin','monthWin','quarterWin','yearWin','level']);
+    let owner2 = await Owner.findById( req.params.ownerId ).populate('gladiators',['name','age','winRecord','lossRecord','memoryWinRecord','memoryLossRecord','weekWin','monthWin','quarterWin','yearWin','memoryWeekWin','memoryMonthWin','memoryQuarterWin','memoryYearWin','level']);
     res.send(owner2)
 })
 
