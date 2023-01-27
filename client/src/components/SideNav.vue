@@ -29,6 +29,11 @@
 			</div>
 			<div
 				class="m-2 cursor-pointer sideOptions rounded"
+				@click="$emit('changeMain', 'StudentMain')">
+				Students
+			</div>
+			<div
+				class="m-2 cursor-pointer sideOptions rounded"
 				@click="$emit('changeMain', 'TournamentMain')">
 				Tournament
 			</div>
