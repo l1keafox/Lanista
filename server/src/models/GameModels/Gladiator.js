@@ -37,24 +37,6 @@ const gladiatorSchema = new Schema(
         yearWin:{
             type:Number
         },
-        memoryWinRecord:{
-            type:Number
-        },
-        memoryLossRecord:{
-            type:Number
-        },
-        memoryWeekWin:{
-            type:Number
-        },
-        memoryMonthWin:{
-            type:Number
-        },
-        memoryQuarterWin:{
-            type:Number
-        },
-        memoryYearWin:{
-            type:Number
-        },
 
         level:{
             type:Number
@@ -182,6 +164,11 @@ gladiatorSchema.methods.setSkills = async function() {
 gladiatorSchema.methods.doLevel = async function() {
     // This will go through equipment and give fill up skills
     // or it will go through 
+    if(this.level > 8){
+        if(this.age > Math.pow(2,8)){
+            this.level++;
+        }
+    } else 
     if(this.age > Math.pow(2,this.level)){
         this.level++;
     }
