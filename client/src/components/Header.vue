@@ -7,9 +7,9 @@
 				LANISTA
 			</h1>
             <div class ="flex w-1/3 justify-between items-center">
-				<h2>Username: <template v-if="userData">{{ userData.username }}</template></h2>
-				<h2>GOLD: <template v-if="ownerData"> {{ ownerData.gold }}</template></h2>
-				<h2>FAME: <template v-if="ownerData"> {{ ownerData.fame }}</template></h2>
+				<h2 :class ="cardTitle">Username: <template v-if="userData">{{ userData.username }}</template></h2>
+				<h2 :class ="cardTitle">GOLD: <template v-if="ownerData"> {{ ownerData.gold }}</template></h2>
+				<h2 :class ="cardTitle">FAME: <template v-if="ownerData"> {{ ownerData.fame }}</template></h2>
             </div>
 			<div v-if="!isLoggedIn" class="flex justify-center items-center">
 				<button
@@ -46,7 +46,7 @@ import CreateAccount from "./CreateAccount.vue";
 
 export default {
 	name: "HeaderVue",
-	inject: ["getUser","getOwner"],
+	inject: ["getUser","getOwner","cardTitle"],
 	emits: ["logged", "changeMain", "getUser"],
 	data() {
 		return {
