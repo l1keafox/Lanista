@@ -17,7 +17,7 @@
               <div class="relative p-6 flex-auto overflow-y-auto bg-yellow-200 flex flex-col">
                 <div v-for="(tournament, index) in tournamentArray" :key="index" class="flex w-52 justify-between">
                   <h1>{{ tournament.tournament.type }}</h1>
-                  <button> Show Info</button>
+                  <button @click="showDetailModal($event)" :data-type="tournament.tournament.type"  :data-index="index"> Show Info</button>
                 </div>
 
                 <div id="intersection"> </div>
@@ -32,10 +32,7 @@
           </div>
         </div>
         <div v-if="isModalShown">
-          <CombatReview
-            :combatReport="combatReport"
-            @closeModal="closeModal"
-            :glads="glads" />
+          <component :is="tournamentType" :tournamentData="tournamentData" @closeModal="closeModal"> </component>
         </div>
     
       </div>
@@ -43,13 +40,26 @@
 </template>
 
 <script>
+import roundRobin from '@/components/roundRobinTournament.vue'
+import singleElimination from '@/components/singleEliminationTournament';
+import bestOfThree from '@/components/bestOfThreeTournament';
+import roundRobinBestOfThree from '@/components/roundRobinOfThreeTournament';
+
     export default {
         name:"GladiatorTournament",
-        props:['tournamentData',"gladId"],
+        props:["gladId"],
+        components:{
+          roundRobin,
+          singleElimination,
+          bestOfThree,
+          roundRobinBestOfThree
+        },
         data(){
           return{
             count:0,
             isModalShown:false,
+            tournamentType:null,
+            tournamentData:null,
             tournamentArray:[],
           }
         },
@@ -61,6 +71,26 @@
               observer.observe(document.getElementById("intersection"));
         },
         methods:{
+          closeModal() {
+              this.isModalShown = false;
+        },
+
+          showDetailModal(event){
+            const tournKey = {
+                "weekly": "roundRobin",
+                "monthly": "singleElimination",
+                "quarter": "bestOfThree",
+                "quater": "bestOfThree",
+                "year": "roundRobinBestOfThree",
+                "yearly": "roundRobinBestOfThree"
+            };
+
+            this.tournamentType = tournKey[event.target.getAttribute("data-type")];
+            this.tournamentData = this.tournamentArray[event.target.getAttribute("data-index")].tournament
+            console.log(this.tournamentArray[event.target.getAttribute("data-index")].tournament, event.target.getAttribute("data-index") )
+            this.isModalShown = true;
+        },
+
             bgClose(event) {
                 if (event.target.getAttribute("data-id") === "bg") {
                     this.$emit('closeModal')

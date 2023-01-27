@@ -151,13 +151,11 @@ router.post('/gladiator/saveWeek', async(req, res) => {
     .populate('memories',['name'])
     .populate('owners',['userName'])
     .skip(req.params.offset).limit(req.params.limit)
-    console.log(tournaments.length, id,"What");
     res.send(tournaments);
  })
 
 router.get('/gladiator/someMemories/:gladId/:offset/:limit', async(req, res) => {
     let memories = await Memory.find({ gladiatorID : req.params.gladId }).skip(req.params.offset).limit(req.params.limit); 
-//    console.log(memories.length,req.params.gladId,req.params.offset, req.params.limit)
     res.send(memories);
 })
 
@@ -171,6 +169,10 @@ router.get('/gladiator/someDuels/:gladId/:offset/:limit', async(req, res) => {
     let duels = await saveDuel.find({ $or:[{gladiatorOne : req.params.gladId},{gladiatorTwo : req.params.gladId} ] }).populate('gladiatorTwo',['name']).populate('gladiatorOne',['name']).skip(req.params.offset).limit(req.params.limit); 
     
     res.send(duels);
+})
+
+router.delete('/gladiator/deleteDuel/:duelId' , async(req, res) => {
+    
 })
 
 router.get('/gladiator/getDuel/:duelId', async(req, res) => {

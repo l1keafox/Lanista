@@ -17,6 +17,7 @@
               <div class="relative p-6 flex-auto overflow-y-auto bg-yellow-200">
                 <div v-for="(glad,index) in this.gladiatorObj " :key="index" class="flex justify-between">  
                     <h1> {{index}} </h1> 
+                    <div>
                     <select name="mainHand" class="bg-cyan-100 w-28" id="mainHand"> 
                       <option value="empty">vs select</option>
                       <template v-for="(vsGlad, index) in glad" :key="index">
@@ -26,6 +27,7 @@
                     <button @click="ShowDuel">
                       Show
                     </button>
+                    </div>
                 </div>
               </div>
               <!--footer-->
