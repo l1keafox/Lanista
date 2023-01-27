@@ -155,7 +155,7 @@ router.post('/gladiator/saveWeek', async(req, res) => {
  })
 
 router.get('/gladiator/someMemories/:gladId/:offset/:limit', async(req, res) => {
-    let memories = await Memory.find({ gladiatorID : req.params.gladId }).skip(req.params.offset).limit(req.params.limit); 
+    let memories = await Memory.find({ gladiatorId : req.params.gladId }).skip(req.params.offset).limit(req.params.limit); 
     res.send(memories);
 })
 

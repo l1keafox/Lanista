@@ -6,9 +6,9 @@
         <h1 :class="cardTitle">{{glad.name}} </h1>
 
         <h2> Level:{{glad.level}} /  Age:{{glad.age}}</h2>
-        <h2> Wins:{{glad.winRecord + glad.memoryWinRecord}} / Loss:{{glad.lossRecord + glad.memoryLossRecord}}</h2>
-        <h2> Local: {{glad.weekWin + glad.memoryWeekWin}} / Regional : {{glad.monthWin + glad.memoryMonthWin }}</h2>
-        <h2> Quarter : {{glad.quarterWin + glad.memoryQuarterWin}} / National: {{glad.yearWin + glad.memoryYearWin}}</h2>
+        <h2> Wins:{{glad.winRecord }} / Loss:{{glad.lossRecord }}</h2>
+        <h2> Local: {{glad.weekWin }} / Regional : {{glad.monthWin }}</h2>
+        <h2> Quarter : {{glad.quarterWin }} / National: {{glad.yearWin }}</h2>
 
         <hr/>
         <button class="bg-yellow-200 m-2 text-purple-900 rounded" @click="openModal($event,'ScheduleManager')" :data-id="glad._id">Schedule  </button>

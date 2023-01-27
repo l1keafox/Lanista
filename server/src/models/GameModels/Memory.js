@@ -35,11 +35,14 @@ const MemorySchema = new Schema(
         yearWin:{
             type:Number
         },
+        seed:{
+            type:Boolean
+        },
 
-        gladiatorID:{
+        gladiatorId:{
             type:String
         },
-        ownerID:{
+        ownerId:{
             type:String
         },
         memory:{
