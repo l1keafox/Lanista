@@ -87,6 +87,7 @@ router.get( '/owner/someTournament/:ownerId/:offset/:limit',async(req, res) => {
 
         // let tournaments2 = await saveTournament.find({ 'owners': { $elemMatch: {$eq:id} } })
         // .populate('gladiators',['name'])
+        
         // .populate('memories',['name'])
         // .populate('owners',['userName'])
         // console.log(tournaments.length,req.params.offset,"/",tournaments2.length,req.params.limit);

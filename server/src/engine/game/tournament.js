@@ -171,9 +171,9 @@ async function roundRobinThenBestOfThree(incomingGroup,tournyName){
 			// so do round robin with this groups
 			let result = await doRoundRobin(grp,tournyName,false);
 			roundRobinReport.push(result.report);
-			for(let i in result.winner){
-				console.log('  -EN/TOURNY/ Round Robin Winner>',result.winner[i].name);
-			}
+			// for(let i in result.winner){
+			// 	console.log('  -EN/TOURNY/ Round Robin Winner>',result.winner[i]);
+			// }
 			bestOfThreeArry = bestOfThreeArry.concat(result.winner);
 		}
 		let string = '';
@@ -422,7 +422,7 @@ async function nationalTournament( allGladiators, memoryByLvl){
 				doSaveTournament(localGroup,result.report,"yearly",result.winner);
 				if(result.winner){
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms National Doing National tournament size: ${localGroup.length} WINNER: ${result.winner.name}`);
-					result.winner.quarterWin++;
+					result.winner.yearWin++;
 				} else  {
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms National Doing National tournament size: ${localGroup.length} WINNER: NONE?!`);
 				}

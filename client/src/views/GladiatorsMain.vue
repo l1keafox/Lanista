@@ -17,7 +17,7 @@
         <button class="bg-green-200 m-2 text-purple-700" @click="openModal($event,'ClashSettings')"    :data-id="glad._id">Clash  </button>
         <button class="bg-purple-200 m-2 text-purple-700" @click="openModal($event,'GladiatorMemories')"   :data-id="glad._id">Memories  </button>
         <button class="bg-slate-200 m-2 text-purple-700" @click="openModal($event,'DuelHistory')"      :data-id="glad._id">Duel History  </button>
-        <button class="bg-pink-200 m-2 text-purple-700" @click="openModal($event,'DuelHistory')"      :data-id="glad._id">Tournament Wins</button>
+        <button class="bg-pink-200 m-2 text-purple-700" @click="openModal($event,'GladiatorTournament')"      :data-id="glad._id">Tournament Wins</button>
         
       </div>
     </div>

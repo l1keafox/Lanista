@@ -1,7 +1,10 @@
 <template>
-  <div class="flex h-full w-full overflow-hidden">
-      <SideNav @logged="update" @changeMain="changeStage" />
-      <component :is="mainStage" />
+  <div class="flex flex-col h-full w-full overflow-hidden">
+      <HeaderVue @logged="update" />
+      <div class="flex h-full w-full">
+        <SideNav  @logged="update" @changeMain="changeStage" />
+        <component :is="mainStage" />
+      </div>
   </div>
 </template>
 
@@ -14,6 +17,7 @@ import StoreMain from "./views/StoreMain.vue";
 import TournamentMain from "./views/TournamentMain.vue";
 
 import SideNav from "@/components/SideNav.vue";
+import HeaderVue from "@/components/Header.vue";
 import auth from "./mixins/auth";
 
 import {computed} from "vue"
@@ -21,6 +25,7 @@ export default {
   name: "App",
   components: {
     SideNav,
+    HeaderVue,
     WelcomeMain,
     GladiatorsMain,
     CombatMain,
@@ -50,10 +55,10 @@ export default {
     async updateOwner() {
 
       if(this.userData == null){
-        this.userData =  auth.getUser();
-
+          this.userData =  auth.getUser();
       }
 			if (this.isLoggedIn) {
+        
         try{
           const rpnse = await fetch(
 					`http://${window.location.hostname}:3001/owner/${auth.getUser().ownerId}`,
@@ -88,6 +93,7 @@ export default {
       cardTitle:"text-xl text-sky-400",
       getOwner: computed(()=>this.ownerData),
       getUser: computed(()=>this.userData),
+      getLogged: computed(()=>this.isLoggedIn),
     };
   },
 };

@@ -6,15 +6,27 @@
         <div class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex" data-id="bg"  v-on:click="bgClose($event)" >
           <div class="relative w-auto my-6 mx-auto max-w-6xl ">
             <!--content-->
-            <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none max-h-96">
+            <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
               <!--header-->
               <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                <!-- <h3 v-if="gladiatorData" class="text-3xl font-semibold"> -->
-                  RoundRobin
-                <!-- </h3> -->
+                <h3 class="text-3xl font-semibold">
+                  RoundRobin - winner : {{ this.tournamentData.winner }}
+                </h3>
               </div>
               <!--body-->
               <div class="relative p-6 flex-auto overflow-y-auto bg-yellow-200">
+                <div v-for="(glad,index) in this.gladiatorObj " :key="index" class="flex justify-between">  
+                    <h1> {{index}} </h1> 
+                    <select name="mainHand" class="bg-cyan-100 w-28" id="mainHand"> 
+                      <option value="empty">vs select</option>
+                      <template v-for="(vsGlad, index) in glad" :key="index">
+                        <option :value="vsGlad.duelId">{{ vsGlad.vs }} </option>
+                      </template>
+                    </select>
+                    <button @click="ShowDuel">
+                      Show
+                    </button>
+                </div>
               </div>
               <!--footer-->
               <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
@@ -40,14 +52,32 @@
     export default {
         name:"roundRobinReview",
         props:['tournamentData'],
+        data(){
+          return {
+            gladiatorObj : {}
+          }
+        },
         async mounted(){
-            let grab = this.tournamentData.duelReport[0];
-            const rpnse = await fetch(
-                `http://${window.location.hostname}:3001/gladiator/getDuel/${grab}`,
-                {headers: { "Content-Type": "application/json" }}
-              );
-            let rn = await rpnse.json();
-            console.log(rn);
+            //let grab = this.tournamentData.duelReport[0];
+            // We going to use a drop down menu, so let's first organlize the data by users.
+            this.gladiatorObj = {};
+            console.log(this.tournamentData);
+            this.tournamentData.tournamentStructure.forEach( duel =>{
+
+              if(!this.gladiatorObj[duel[1]]){
+                this.gladiatorObj[duel[1]] = [{duelId:duel.saveId, vs:duel[2]}];
+              } else {
+                this.gladiatorObj[duel[1]].push({duelId:duel.saveId, vs:duel[2]})
+              }
+              if(!this.gladiatorObj[duel[2]]){
+                this.gladiatorObj[duel[2]] = [{duelId:duel.saveId, vs:duel[1]}];
+              } else {
+                this.gladiatorObj[duel[2]].push({duelId:duel.saveId, vs:duel[1]})
+              }
+              //console.log( duel[1], duel[2], duel.saveId )
+            } );
+
+            console.log(this.gladiatorObj);
         },
         methods:{
             bgClose(event) {
@@ -55,6 +85,9 @@
                     this.$emit('closeModal')
                 }
             },
+            ShowDuel(){
+
+            }
 
         },
     }
