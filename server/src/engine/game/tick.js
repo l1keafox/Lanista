@@ -37,19 +37,15 @@ module.exports = {
 			const startOfTick = new Date();
 
 //			console.log("  -EN>Tournament Day");
-			let allNonSeedGlad = [];
 			await saveManyModelMemory(allGladiators); // uncertain if this works as intended.
+			let allNonSeedGlad = allGladiators.filter(glad => !glad.seed );
 
-			for(let gladiator of allGladiators){
-				// if(gladiator.level >= 3){
-				// 	await saveModelMemory(gladiator);
-				// }
-				
-				if(!gladiator.seed){
-					allNonSeedGlad.push(gladiator);
-				}
-			}
- 		  	console.log(`  -EN> Saved Gladiators ${startOfTick-new Date()} Starting Tournament  :: ${allNonSeedGlad.length}`);
+			// for(let gladiator of allGladiators){
+			// 	if(!gladiator.seed){
+			// 		allNonSeedGlad.push(gladiator);
+			// 	}
+			// }
+ 		  	console.log(`  -EN> Saved Gladiators Time: ${new Date()-startOfTick} Sorting  :: ${allNonSeedGlad.length}`);
 			
 			let memoryByLvl = {};
 			let allMemory = await Memory.find();
@@ -59,6 +55,7 @@ module.exports = {
 				}
 				memoryByLvl[ mem.level ].push(mem);
 			});
+			console.log(`  -EN> Sorting Done Time: ${new Date()-startOfTick} Starting Tournament  :: ${allNonSeedGlad.length}`);
 			// for(let level in memoryByLvl){
 			// 	console.log(level,memoryByLvl[level].length);
 			// }
@@ -66,20 +63,28 @@ module.exports = {
 			// 	console.log(lvl, "s and Memory in them:", memoryByLvl[lvl].length );
 			// }
 			// So now we determine if the local,regional,quarter,national.
+			async function saveGlads(glads){
+				for(let i in glads){
+					if(!glads[i].memory){
+						glads[i].age++;
+					}
+					if(glads[i].memory && glads[i].seed){
+
+					} else {
+						await glads[i].save();
+					}
+				}
+			}
+
 			if (date.month === 12 && date.day == 28) {
 				// national is roundrobin then a double elimination tournament.
 				// national is the last month, and 28th
 				// So now we grab an random Memories and add our guy to it.
 				// and do a tournament!
 				// Should be 124
-				let ditto = await await nationalTournament(allGladiators, memoryByLvl)
+				let ditto = await nationalTournament(allGladiators, memoryByLvl)
 //				console.log("National TOURNAMENT");
-				for(let i in ditto){
-					if(!ditto[i].memory){
-						ditto[i].age++;
-					}
-					await ditto[i].save();
-				}
+				await saveGlads(ditto);
 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allGladiators.length} saved:${ditto.length}`);
 
 			} else  
@@ -88,12 +93,7 @@ module.exports = {
 				//Double elimination Tournament.
 				let ditto = await quarterTournament(allNonSeedGlad, memoryByLvl)
 //				console.log("Quarter TOURNAMENT Memberes:",allNonSeedGlad.length);
-				for(let i in ditto){
-					if(!ditto[i].memory){
-						ditto[i].age++;
-					}
-					await ditto[i].save();
-				}
+				await saveGlads(ditto);
 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.length}`);
 
 			} else if (date.day == 28 ) {
@@ -102,12 +102,7 @@ module.exports = {
 			//	console.log("Regional TOURNAMENT");
 				let ditto = await regionalTournament(allNonSeedGlad,memoryByLvl ); 
 			//	console.log(ditto.length,"Regional TOURNAMENT END",allNonSeedGlad.length);
-				for(let i in ditto){
-					if(!ditto[i].memory){
-						ditto[i].age++;
-					}
-					await ditto[i].save();
-				}
+			await saveGlads(ditto);
 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.length}`);
 
 			} else {
@@ -115,12 +110,7 @@ module.exports = {
 			//	console.log("Local TOURNAMENT Start",allNonSeedGlad.length);
 				let ditto = await localTournament(allNonSeedGlad,memoryByLvl ); 
 			//	console.log(ditto.length,"Local TOURNAMENT END",allNonSeedGlad.length);
-				for(let i in ditto){
-					if(!ditto[i].memory){
-						ditto[i].age++;
-					}
-					await ditto[i].save();
-				}
+				await saveGlads(ditto);	
 				// So we grab all gladiators that are selected via schedule to do this tournament.
 				// We will then make sure they do not do any training that day.
 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.length}`);

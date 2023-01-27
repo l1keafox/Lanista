@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col h-full w-full overflow-hidden">
+  <div class="flex flex-col h-screen w-screen overflow-hidden">
       <HeaderVue @logged="update" />
-      <div class="flex h-full w-full">
-        <SideNav  @logged="update" @changeMain="changeStage" />
+      <div class="flex h-[calc(100vh-45px)] w-full">
+        <SideNav @logged="update" @changeMain="changeStage" />
         <component :is="mainStage" />
       </div>
   </div>
@@ -15,6 +15,7 @@ import SchoolMain from "./views/SchoolMain.vue";
 import CombatMain from "./views/CombatMain.vue";
 import StoreMain from "./views/StoreMain.vue";
 import TournamentMain from "./views/TournamentMain.vue";
+import StudentMain from "./views/StudentMain.vue";
 
 import SideNav from "@/components/SideNav.vue";
 import HeaderVue from "@/components/Header.vue";
@@ -25,6 +26,7 @@ export default {
   name: "App",
   components: {
     SideNav,
+    StudentMain,
     HeaderVue,
     WelcomeMain,
     GladiatorsMain,
@@ -88,7 +90,7 @@ export default {
     return {
       card:"h-80 w-56 p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
       smallCard:"h-64 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
-      largeCard:"h-96 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-sm",
+      largeCard:"h-96 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
       gladiatorCard:"h-[27rem] aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
       cardTitle:"text-xl text-sky-400",
       getOwner: computed(()=>this.ownerData),

@@ -41,13 +41,13 @@
         name:"bestOfThreeTournament",
         props:['tournamentData'],
         async mounted(){
-            let grab = this.tournamentData.duelReport[0];
-            const rpnse = await fetch(
-                `http://${window.location.hostname}:3001/gladiator/getDuel/${grab}`,
-                {headers: { "Content-Type": "application/json" }}
-              );
-            let rn = await rpnse.json();
-            console.log(rn);
+            // let grab = this.tournamentData.duelReport[0];
+            // const rpnse = await fetch(
+            //     `http://${window.location.hostname}:3001/gladiator/getDuel/${grab}`,
+            //     {headers: { "Content-Type": "application/json" }}
+            //   );
+            // let rn = await rpnse.json();
+            // console.log(rn);
         },
         methods:{
             bgClose(event) {

@@ -6,6 +6,7 @@ const {getStructureEffect} = require('./../engine/game/structureIndex');
 const {getItemEffect} = require('./../engine/game/itemsIndex');
 const {getStoreItems} = require('./../engine/game/storeIndex');
 const { getAbilityEffect } = require('./../engine/game/abilityIndex');
+const {createNewGladiator} = require('./../engine/game/utils')
 const auth = require('../middleware/auth');
 const router = express.Router();
 
@@ -142,6 +143,40 @@ router.get('/owner/learningData/:ownerId', async(req, res) => {
 })
 
 
+let potentialStudents= {};
+router.get('/owner/getStudent/:ownerId', async(req, res) => {
+    // So get Student will 
+    // So how this will work is that server will get an request to get a student
+    // it will create an random student, and save it's data in potentialStudents and send the data 
+    // to the client for him to decide.
+    // const rtnGlad = 1;
+    potentialStudents[req.params.ownerId] = [];
+    for(let i = 0; i < 4;i++){
+        potentialStudents[req.params.ownerId].push(createNewGladiator("default"));
+    //    console.log(i, "created",potentialStudents[req.params.ownerId].length);
+    }
+    res.send (potentialStudents[req.params.ownerId]);
+})
+
+
+router.post('/owner/buyStudent/', async(req, res) => {
+    // In this post it will confirm buying th student, so it will 
+    const {gladName,ownerId,index} = req.body;
+    console.log(gladName,ownerId);
+    if(potentialStudents[ownerId]){
+        const owner2 = await Owner.findById(ownerId);
+        const glad = await new Gladiator(potentialStudents[ownerId][index]);
+        glad.ownerId = owner2._id;
+	    owner2.gladiators.push(glad.id);
+        console.log(`  -EN> OWNER: ${owner2.name} , Getting glad: ${glad.name}`);
+
+    	await glad.save();
+        await owner2.save();
+        res.send(true);
+        return;
+    }
+    res.send(false);
+})
 
 router.get('/owner/store/:ownerId', async(req, res) => {
     const owner2 = await Owner.findById(req.params.ownerId);
