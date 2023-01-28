@@ -121,6 +121,10 @@ async function bestOutOf3Round(group) {
 				winnerArray.push(group[i + 1]);
 			}
 		}
+		if(threeReport.length < 3){
+			threeReport.push( {saveId: null, 1: threeReport[1][1], 2:threeReport[1][2]} );
+		}
+		threeReport[2][1]
 		roundReport.push( threeReport );
 
 	}
@@ -139,7 +143,8 @@ async function bestOfThreeTournament(group,name){
         	roundCount++;
 //        	console.log("  -TOURN>Start best of three Round ",roundCount,name, group.length);
 			result = await bestOutOf3Round(group);
-			roundReport.push(group.report);
+			
+			roundReport.push(result.report);
 			group = result.winnerArray;
 		
 		} while (group.length > 1);

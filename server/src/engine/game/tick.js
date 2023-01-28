@@ -65,29 +65,30 @@ module.exports = {
 			// So now we determine if the local,regional,quarter,national.
 			async function saveGlads(glads){
 				for(let i in glads){
-					if(!glads[i].memory){
+					 if(!glads[i].memory){
+						// If it's not an memory age it.
 						glads[i].age++;
 					}
-					if(glads[i].memory && glads[i].seed){
-
+					if(glads[i].memory || glads[i].seed){
+						// if it is an memory, 
 					} else {
 						await glads[i].save();
 					}
 				}
 			}
 
-			if (date.month === 12 && date.day == 28) {
-				// national is roundrobin then a double elimination tournament.
-				// national is the last month, and 28th
-				// So now we grab an random Memories and add our guy to it.
-				// and do a tournament!
-				// Should be 124
-				let ditto = await nationalTournament(allGladiators, memoryByLvl)
-//				console.log("National TOURNAMENT");
-				await saveGlads(ditto);
-				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allGladiators.length} saved:${ditto.length}`);
+// 			if (date.month === 12 && date.day == 28) {
+// 				// national is roundrobin then a double elimination tournament.
+// 				// national is the last month, and 28th
+// 				// So now we grab an random Memories and add our guy to it.
+// 				// and do a tournament!
+// 				// Should be 124
+// 				let ditto = await nationalTournament(allGladiators, memoryByLvl)
+// //				console.log("National TOURNAMENT");
+// 				await saveGlads(ditto);
+// 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allGladiators.length} saved:${ditto.length}`);
 
-			} else  
+// 			} else  
 			if ((date.month === 3 || date.month === 6 || date.month === 9) && date.day == 28	) {
 				
 				//Double elimination Tournament.
