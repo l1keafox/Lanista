@@ -31,7 +31,7 @@ module.exports = {
 		// Why not have it optional?
 		let allGladiators = await Gladiator.find();
 		date.gladNum = allGladiators.length;
-console.log( allGladiators[0].age, allGladiators[0].name, allGladiators[0].seed ,"///",allGladiators[allGladiators.length-1].age, allGladiators[allGladiators.length-1].name, allGladiators[allGladiators.length-1].seed);
+
 		let ownersGain = {};
 		if (date.weekDay == 7) {
 			const startOfTick = new Date();
@@ -49,7 +49,7 @@ console.log( allGladiators[0].age, allGladiators[0].name, allGladiators[0].seed 
 			// 		allNonSeedGlad.push(gladiator);
 			// 	}
 			// }
- 		  	console.log(`  -EN> Saved Gladiators Time: ${new Date()-startOfTick} Sorting  :: ${allNonSeedGlad.length}`);
+ 		  	console.log(`  -EN> Saved Gladiators Time: ${new Date()-startOfTick} Sorting  :: ${allNonSeedGlad.length}# of glads`);
 			
 			let memoryByLvl = {};
 
@@ -61,7 +61,7 @@ console.log( allGladiators[0].age, allGladiators[0].name, allGladiators[0].seed 
 			// 	}
 			// 	memoryByLvl[ mem.level ].push(mem);
 			// });
-			console.log(`  -EN> Sorting Done Time: ${new Date()-startOfTick} Starting Tournament  :: ${allNonSeedGlad.length}`);
+//			console.log(`  -EN> Sorting Done Time: ${new Date()-startOfTick} Starting Tournament  :: ${allNonSeedGlad.length}`);
 			// for(let level in memoryByLvl){
 			// 	console.log(level,memoryByLvl[level].length);
 			// }
@@ -70,25 +70,33 @@ console.log( allGladiators[0].age, allGladiators[0].name, allGladiators[0].seed 
 			// }
 			// So now we determine if the local,regional,quarter,national.
 			async function saveGlads(glads){
-				for(let i in glads){
-					//  if(!glads[i].memory){
-					// 	// If it's not an memory age it.
-					// 	glads[i].age++;
-					// }
-					if(glads[i] === undefined){
+				console.log(glads.usedGlads.length);
 
-					} else 
-					if(glads[i].memory || glads[i].seed){
-						// if it is an memory, or a seed.
-					} else {
-						try{
-							await glads[i].save();
-						} catch(err){
-							console.log(err);
-						}
+				// So these are all gladiatorIds that need to be added this record
+				// memory is from memory fighting
+				console.log("Memory",glads.toRecordObj.memory);
+				// gladiators are the acutal gladiator fighting.
+				console.log("Gladiators", glads.toRecordObj.gladiator);
+
+				// for(let i in glads){
+				// 	//  if(!glads[i].memory){
+				// 	// 	// If it's not an memory age it.
+				// 	// 	glads[i].age++;
+				// 	// }
+				// 	if(glads[i] === undefined){
+
+				// 	} else 
+				// 	if(glads[i].memory || glads[i].seed){
+				// 		// if it is an memory, or a seed.
+				// 	} else {
+				// 		try{
+				// 			await glads[i].save();
+				// 		} catch(err){
+				// 			console.log(err);
+				// 		}
 						
-					}
-				}
+				// 	}
+				// }
 			}
 
 // 			if (date.month === 12 && date.day == 28) {
@@ -103,24 +111,24 @@ console.log( allGladiators[0].age, allGladiators[0].name, allGladiators[0].seed 
 // 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allGladiators.length} saved:${ditto.length}`);
 
 //			} else  
-			if ((date.month === 3 || date.month === 6 || date.month === 9) && date.day == 28	) {
+// 			if ((date.month === 3 || date.month === 6 || date.month === 9) && date.day == 28	) {
 				
-				//Double elimination Tournament.
-				let ditto = await quarterTournament(allNonSeedGlad, memoryByLvl)
-//				console.log("Quarter TOURNAMENT Memberes:",allNonSeedGlad.length);
-				await saveGlads(ditto);
-				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.length}`);
+// 				//Double elimination Tournament.
+// 				let ditto = await quarterTournament(allNonSeedGlad, memoryByLvl)
+// //				console.log("Quarter TOURNAMENT Memberes:",allNonSeedGlad.length);
+// 				await saveGlads(ditto);
+// 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.length}`);
 
-			} else if (date.day == 28 ) {
-				// Should be 32 fighters
-				// Single elimination.
-			//	console.log("Regional TOURNAMENT");
-				let ditto = await regionalTournament(allNonSeedGlad,memoryByLvl ); 
-			//	console.log(ditto.length,"Regional TOURNAMENT END",allNonSeedGlad.length);
-			await saveGlads(ditto);
-				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.length}`);
+// 			} else if (date.day == 28 ) {
+// 				// Should be 32 fighters
+// 				// Single elimination.
+// 			//	console.log("Regional TOURNAMENT");
+// 				let ditto = await regionalTournament(allNonSeedGlad,memoryByLvl ); 
+// 			//	console.log(ditto.length,"Regional TOURNAMENT END",allNonSeedGlad.length);
+// 			await saveGlads(ditto);
+// 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.length}`);
 
-			} else {
+// 			} else {
 				// Local tournament is a round robin
 			//	console.log("Local TOURNAMENT Start",allNonSeedGlad.length);
 				let ditto = await localTournament(allNonSeedGlad); 
@@ -129,7 +137,7 @@ console.log( allGladiators[0].age, allGladiators[0].name, allGladiators[0].seed 
 				// So we grab all gladiators that are selected via schedule to do this tournament.
 				// We will then make sure they do not do any training that day.
 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.length}`);
-			}
+			//}
 
 			await gameDate.addDay(); // This will set it to the next day.
 

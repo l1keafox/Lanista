@@ -93,7 +93,7 @@ async function saveManyModelMemory(gladArray){
 
 		}
 	}
-	console.log(`  -> Added ${createArray.length} / in array: ${gladArray.length}`)
+	// console.log(`  -> Added ${createArray.length} / in array: ${gladArray.length}`)
 	await Memory.insertMany( createArray );
 }
 
@@ -203,7 +203,7 @@ async function getMemoryGroup( mainGlad, groupSize){
 	//, , name:{$ne:mainGlad[0].name}
 	//, 
 	let string = "";
-	console.log("age",mainGlad[0].age,"lvl",mainGlad[0].level, "#", MemoryByAge.length, "found"); 
+//	console.log("age",mainGlad[0].age,"lvl",mainGlad[0].level, "#", MemoryByAge.length, "found"); 
 	MemoryByAge = MemoryByAge.filter((memory) => {
 		// Issue is that previously added Memories need
 		if (!added.includes(memory.name) ) {

@@ -202,15 +202,45 @@ async function singleElimination(group,name) {
 }
 
 async function addToRecord(maybeGlad,type,win){
+
 	maybeGlad[type]++;
 	if(maybeGlad.memory && !maybeGlad.seed ){
 		let notMemory = await Gladiator.findById(maybeGlad.gladiatorId);
 		notMemory[type]++;
 		await notMemory.save();
 	}
+	
 }
 
-async function doRoundRobin(group,tournyName,oneWinner){
+async function addToRecord2(recObj, maybeGlad,type){
+	// recObj needs to get the maybeGlad
+	if( maybeGlad.seed ) return; // Seeds don't care about their record. 
+
+	// console.log( maybeGlad.id,  !maybeGlad.memory , maybeGlad.seed ,  type);
+	if(!recObj.memory) recObj.memory = {};
+	if(!recObj.gladiator) recObj.gladiator = {};
+	if(maybeGlad.memory  ){
+		//let notMemory = await Gladiator.findById(maybeGlad.gladiatorId);
+		if(!recObj.gladiator[maybeGlad.gladiatorId] )  recObj.gladiator[maybeGlad.gladiatorId] = {};
+		if(!recObj.gladiator[maybeGlad.gladiatorId][type]) recObj.gladiator[maybeGlad.gladiatorId][type] = 0;
+		    recObj.gladiator[maybeGlad.gladiatorId][type]++;
+
+		// if(!maybeGlad.seed){
+			if(!recObj.memory[maybeGlad.id] )  recObj.memory[maybeGlad.id] = { };
+			if(!recObj.memory[maybeGlad.id][type]) recObj.memory[maybeGlad.id][type] = 0;
+				recObj.memory[maybeGlad.id][type]++;
+		//}
+			
+	} else {
+		if(! recObj.gladiator[maybeGlad.id]       )  recObj.gladiator[maybeGlad.id] = { };
+		if(! recObj.gladiator[maybeGlad.id][type] ) recObj.gladiator[maybeGlad.id][type] = 0;
+			 recObj.gladiator[maybeGlad.id][type]++;
+	}
+	
+}
+
+
+async function doRoundRobin(group,tournyName,oneWinner,toRecord){
 /*
 Round robin is a O(n^2) or Big O squared 
 Because it has two loops one starting one and finishing.
@@ -238,15 +268,19 @@ This should be small group sthen.
 
 			// winner gets winObj++;
 			if (dResult.final.winner == group[i].name) {
-				await addToRecord(group[i],"winRecord");
-				await addToRecord(group[e],"lossRecord");
+				// await addToRecord(group[i],"winRecord");
+				await addToRecord2(toRecord,group[i],"winRecord");
+				// await addToRecord(group[e],"lossRecord");
+				await addToRecord2(toRecord,group[e],"lossRecord");
 				if(!winObj[group[i]._id]){
 					winObj[group[i]._id] = 0;	
 				}
 				winObj[group[i]._id]++;
 			} else if (dResult.final.winner == group[e].name) {
-				await addToRecord(group[i],"lossRecord");
-				await addToRecord(group[e],"winRecord");
+				// await addToRecord(group[i],"lossRecord");
+				await addToRecord2(toRecord,group[i],"lossRecord");
+				// await addToRecord(group[e],"winRecord");
+				await addToRecord2(toRecord,group[e],"winRecord");
 				if(!winObj[group[e]._id]){
 					winObj[group[e]._id] = 0;
 				}
@@ -254,6 +288,8 @@ This should be small group sthen.
 
 			} else {
 				// draw so.
+				await addToRecord2(toRecord,group[i],"draw");
+				await addToRecord2(toRecord,group[e],"draw");
 			}
 		}
 	}
@@ -468,7 +504,8 @@ async function localTournament(allGladiators) {
 	let usedGlads = [];
 	return new Promise(async (resolve, reject) => {
 
-		
+		let toRecordObj = {};
+		console.log('  -> Starting Local');
 		for(let i in allGladiators){
 			const mainGlad = allGladiators[i];
 			if (mainGlad.level >= 3) {
@@ -478,10 +515,9 @@ async function localTournament(allGladiators) {
 				// So here we will randomize the group before we start the roundRobin
 				//console.log("  -TOURN>>< Starting RoundRobin><",tournyName,mainGlad.level, mainGlad.age, localGroup.length,'/',memoryByLvl[mainGlad.level].length);
 
-				let result = await doRoundRobin(localGroup,tournyName,true);
+				let result = await doRoundRobin(localGroup,tournyName,true,toRecordObj);
 				// we will need all owners, and make sure it's unique
 				// we will need all glaidators and memories seperated.
-
 				await doSaveTournament(localGroup,result.report,"weekly",result.winner)
 				if(result.winner){
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: ${result.winner.name}`);
@@ -494,7 +530,7 @@ async function localTournament(allGladiators) {
 
 			}
 		}
-		resolve(usedGlads);
+		resolve({usedGlads,toRecordObj});
 	});
 }
 
