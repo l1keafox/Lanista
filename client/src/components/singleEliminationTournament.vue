@@ -40,9 +40,6 @@
               </div>
               <!--body-->
               <div class="relative p-6 flex-auto overflow-y-auto bg-yellow-200">
-                <div class = "flex">  
-                           
-              </div>
                 <div>
                   <div v-for="(fight, index) in this.tournamentData.tournamentStructure[ openTab ]" :key="index" >
                     <div class ="flex justify-between">
@@ -52,7 +49,7 @@
                   </div>
                 </div>
 
-              </div>
+               </div>
               <!--footer-->
               <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                 <button class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" v-on:click="$emit('closeModal')">
@@ -102,10 +99,7 @@ import CombatReview from '@/components/CombatReview.vue';
             combatReport:null,
             glads:null,
             isModalShown:false,
-            selectedIndex:0,
             openTab: 0,
-            selectedTab:"inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500",
-            notSelectedTab:"inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
           }
         },
         methods:{
@@ -114,27 +108,19 @@ import CombatReview from '@/components/CombatReview.vue';
           },
           async showDuel(duelId,one,two){
             //this.tournamentData.tournamentStructure[ openTab ]
-            console.log(duelId,one,two);
             this.glads = [one,two];
             const rpnse = await fetch(
                 `http://${window.location.hostname}:3001/gladiator/getDuel/${duelId}`,
                 {headers: { "Content-Type": "application/json" }}
               );
             let rn = await rpnse.json();
-             let rpns = await JSON.parse (rn[0].duel);
-             this.combatReport = rpns;
-
-            console.log(rpns);
-
+            let rpns = await JSON.parse (rn[0].duel);
+            this.combatReport = rpns;
            this.isModalShown = true;
           } ,       
           toggleTabs: function(tabNumber){
             this.openTab = tabNumber
-          },          
-          // tabButton(round){
-          //   // const round = event.target.getAttribute("data-round");
-          //   this.selectedIndex = round;
-          // },
+          },      
             bgClose(event) {
                 if (event.target.getAttribute("data-id") === "bg") {
                     this.$emit('closeModal')

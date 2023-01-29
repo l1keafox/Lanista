@@ -90,9 +90,10 @@ async function saveManyModelMemory(gladArray){
 				"yearWin": 0,
 				}
 			);
+
 		}
 	}
-	
+	console.log(`  -> Added ${createArray.length} / in array: ${gladArray.length}`)
 	await Memory.insertMany( createArray );
 }
 
@@ -187,10 +188,62 @@ async function prepMemoryForFight(gladMem) {
 	return rtnObj;
 }
 
+async function getMemoryGroup( mainGlad, groupSize){
+	// Memory.find(by level)
+
+	// Store it in cache incase others want it.
+	if(!Array.isArray(mainGlad)){
+		mainGlad = [mainGlad];
+	}
+	let added = [ mainGlad[0].name ];
+	
+
+	let MemoryByAge = await Memory.find({level:mainGlad[0].level})
+	//, age: { $gt:  mainGlad[0].age-6, $lt:  mainGlad[0].age+6 } 
+	//, , name:{$ne:mainGlad[0].name}
+	//, 
+	let string = "";
+	console.log("age",mainGlad[0].age,"lvl",mainGlad[0].level, "#", MemoryByAge.length, "found"); 
+	MemoryByAge = MemoryByAge.filter((memory) => {
+		// Issue is that previously added Memories need
+		if (!added.includes(memory.name) ) {
+			added.push(memory.name);
+			string += " "+memory.name;
+			return memory;
+		} 
+	});
+	function getRandomMemorys(memoryGroup, size) {
+		let rtnArray = [];
+		//memoryGroup.sort(() => Math.random() - 0.5);
+		if(size < 1 ) return [];
+		for (let i = 0; i < size; i++) {
+			// Has a chance of bring in the same guy, so let's do this 
+			rtnArray.push(memoryGroup[Math.floor(Math.random() * memoryGroup.length)]);
+		// 	rtnArray.push(memoryGroup[ Math.floor(Math.random() * memoryGroup.length) ]);
+		}
+		return rtnArray;
+		// return memoryGroup.slice(0,size);
+	}
+	
+	// Math.abs(memory.age - mainGlad[0].age) <= 12 &&
+	let rando = getRandomMemorys(MemoryByAge, groupSize-mainGlad.length);
+	// console.log(string);
+	rando = rando.concat(mainGlad);
+
+	rando.sort(() => Math.random() - 0.5);
+	// string = "";
+	// for(let i in rando){
+	// 	string += rando[i].name + " "+  rando[i].age + " "+  rando[i].level + "/";
+	// }
+	// console.log(string);
+	return rando;
+}
+
 module.exports = {
 	prepModelForMemory,
 	prepModelForFight,
 	saveModelMemory,
+	getMemoryGroup,
 	saveManyModelMemory,
 	prepMemoryForFight,
 };

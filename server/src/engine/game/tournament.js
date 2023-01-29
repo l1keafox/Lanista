@@ -4,20 +4,9 @@ Tournaments take two things, gladiators and Memories;
 
 */
 const { doDuel,parseAndSaveDuel } = require("./duel");
-const { prepMemoryForFight, prepModelForFight } = require("./gladiatorPrep");
-const { saveTournament,Gladiator } = require('./../../models/');
+const { prepMemoryForFight, prepModelForFight,getMemoryGroup } = require("./gladiatorPrep");
+const { saveTournament,Gladiator,Memory } = require('./../../models/');
 
-function getRandomMemorys(memoryGroup, size) {
-	let rtnArray = [];
-	//memoryGroup.sort(() => Math.random() - 0.5);
-	for (let i = 0; i < size; i++) {
-		// Has a chance of bring in the same guy, so let's do this 
-		rtnArray.push(memoryGroup[Math.floor(Math.random() * memoryGroup.length)]);
-	// 	rtnArray.push(memoryGroup[ Math.floor(Math.random() * memoryGroup.length) ]);
-	}
-	return rtnArray;
-	// return memoryGroup.slice(0,size);
-}
 
 async function prepGlad(glad) {
 	if(!glad){
@@ -121,6 +110,10 @@ async function bestOutOf3Round(group) {
 				winnerArray.push(group[i + 1]);
 			}
 		}
+		if(threeReport.length < 3){
+			threeReport.push( {saveId: null, 1: threeReport[1][1], 2:threeReport[1][2]} );
+		}
+		threeReport[2][1]
 		roundReport.push( threeReport );
 
 	}
@@ -139,7 +132,8 @@ async function bestOfThreeTournament(group,name){
         	roundCount++;
 //        	console.log("  -TOURN>Start best of three Round ",roundCount,name, group.length);
 			result = await bestOutOf3Round(group);
-			roundReport.push(group.report);
+			
+			roundReport.push(result.report);
 			group = result.winnerArray;
 		
 		} while (group.length > 1);
@@ -222,6 +216,7 @@ Round robin is a O(n^2) or Big O squared
 Because it has two loops one starting one and finishing.
 This should be small group sthen.
 */
+
 	let winObj = {};
 	let duelResults = [];
 	for(let i = 0; i < group.length; i++){
@@ -302,59 +297,6 @@ This should be small group sthen.
 
 }
 
-
-function getMemoryGroup(memoryByLvl, mainGlad, groupSize){
-	if(!Array.isArray(mainGlad)){
-		mainGlad = [mainGlad];
-	}
-	let added = [ mainGlad[0].name ];
-	//console.log(mainGlad[0].age,memoryByLvl[mainGlad[0].level].length,"size:",groupSize);
-	
-	const MemoryByAge = memoryByLvl[mainGlad[0].level].filter((memory) => {
-		// Issue is that previously added Memories need
-		if ( Math.abs(memory.age - mainGlad[0].age) <= 12 && !added.includes(memory.name) ) {
-			added.push(memory.name);
-			return memory;
-		}
-	});
-	// const MbyNotName  = memoryByLvl[mainGlad[0].level].filter((memory) => {
-	// 	// Issue is that previously added Memories need
-	// 	if (!added.includes(memory.name) ) {
-	// 		added.push(memory.name);
-	// 		return memory;
-	// 	}
-	// });
-	// const byAge = memoryByLvl[mainGlad[0].level].filter((memory) => {
-	// 	// Issue is that previously added Memories need
-	// 	if (Math.abs(memory.age - mainGlad[0].age) <= 12 ) {
-	// 		added.push(memory.name);
-	// 		return memory;
-	// 	}
-	// });
-
-	// const MbyAge = memoryByLvl[mainGlad[0].level].filter((memory) => {
-	// 	// Issue is that previously added Memories need
-	// 	if ( memory.name !== mainGlad[0].name  ) {
-	// 		added.push(memory.name);
-	// 		return memory;
-	// 	}
-	// });
-	// for(let i in MbyNotName){
-	// 	console.log(MbyNotName[i].name,MbyNotName[i].age);
-	// }
-//	console.log( MbyNotName.length, byAge.length ,  "   : ",MemoryByAge.length  );
-
-		let rando = getRandomMemorys(MemoryByAge, groupSize-mainGlad.length);
-
-	rando = rando.concat(mainGlad);
-
-	rando.sort(() => Math.random() - 0.5);
-
-	return rando;
-}
-
-
-
 function grabOwnerGladIds(localGroup){
 	let gladiator = [];
 	let owner = [];
@@ -401,7 +343,7 @@ async function doSaveTournament(members,report,saveAs,winner){
 
 
 
-async function nationalTournament( allGladiators, memoryByLvl){
+async function nationalTournament( allGladiators){
 	const groupSize = 128;
 	// Go through each gladiators
 	// find 7 other Memories that is the same level and +/- 6 days in age.
@@ -425,8 +367,8 @@ async function nationalTournament( allGladiators, memoryByLvl){
                 let tournyName = 'NAT';
 				// This won't use so many memories, it will take all the gladiators and then add memories based on the number.
 
-				let localGroup =  getMemoryGroup(memoryByLvl, organizeByLvl[i], groupSize);
-				console.log("  -TOURN>>< Starting National Tournament> FOR LEVEL:",mainGlad.level,"<",tournyName, localGroup.length,'/',memoryByLvl[mainGlad.level].length);
+				let localGroup =  await getMemoryGroup(organizeByLvl[i], groupSize);
+				console.log("  -TOURN>>< Starting National Tournament> FOR LEVEL:",mainGlad.level,"<",tournyName, localGroup.length,'/');
 				
 				// So first it will do an roundrobin touranament 
 				// The winner of each roundrobin will then go on to the bestOfThree tournament.
@@ -451,7 +393,7 @@ async function nationalTournament( allGladiators, memoryByLvl){
 }
 
 
-async function quarterTournament(allGladiators, memoryByLvl) {
+async function quarterTournament(allGladiators,) {
 	const groupSize = 32;
 	// Go through each gladiators
 	// find 7 other Memories that is the same level and +/- 6 days in age.
@@ -464,7 +406,7 @@ async function quarterTournament(allGladiators, memoryByLvl) {
 				let added = [];
                 let tournyName = mainGlad.name[0]+mainGlad.name[1]+mainGlad.name[4];
 				
-				let localGroup =  getMemoryGroup(memoryByLvl, mainGlad, groupSize);
+				let localGroup = await getMemoryGroup(mainGlad, groupSize);
 //				console.log("  -TOURN>>< Starting Best of Three Tournament><",tournyName,, localGroup.length,'/',memoryByLvl[mainGlad.level].length);
 
 				let result = await bestOfThreeTournament(localGroup,tournyName);
@@ -486,7 +428,7 @@ async function quarterTournament(allGladiators, memoryByLvl) {
 	});
 }
 
-async function regionalTournament(allGladiators, memoryByLvl) {
+async function regionalTournament(allGladiators) {
 	const groupSize = 16;
 	// Go through each gladiators
 	// find 7 other Memories that is the same level and +/- 6 days in age.
@@ -499,7 +441,7 @@ async function regionalTournament(allGladiators, memoryByLvl) {
 				let added = [];
                 let tournyName = mainGlad.name[0]+mainGlad.name[1]+mainGlad.name[4];
 				
-				let localGroup =  getMemoryGroup(memoryByLvl, mainGlad, groupSize);
+				let localGroup = await getMemoryGroup(mainGlad, groupSize);
 //				console.log("  -TOURN>>< Starting Single Elimination><",tournyName,mainGlad.level, mainGlad.age, localGroup.length,'/',groupSize,memoryByLvl[mainGlad.level].length);
 				let result = await singleElimination(localGroup,tournyName);
 				doSaveTournament(localGroup,result.report,"monthly",result.winner)
@@ -519,7 +461,7 @@ async function regionalTournament(allGladiators, memoryByLvl) {
 	});
 }
 
-async function localTournament(allGladiators, memoryByLvl) {
+async function localTournament(allGladiators) {
 	const groupSize = 8;
 	// Go through each gladiators
 	// find 7 other Memories that is the same level and +/- 6 days in age.
@@ -532,7 +474,7 @@ async function localTournament(allGladiators, memoryByLvl) {
 			if (mainGlad.level >= 3) {
 				const startOfTick = new Date();
                 let tournyName = mainGlad.name[0]+mainGlad.name[1]+mainGlad.name[4];
-				let localGroup =  getMemoryGroup(memoryByLvl, mainGlad, groupSize);
+				let localGroup = await  getMemoryGroup(mainGlad, groupSize);
 				// So here we will randomize the group before we start the roundRobin
 				//console.log("  -TOURN>>< Starting RoundRobin><",tournyName,mainGlad.level, mainGlad.age, localGroup.length,'/',memoryByLvl[mainGlad.level].length);
 

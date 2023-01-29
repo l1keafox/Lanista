@@ -3,7 +3,7 @@ const {User,Owner,Gladiator,DayEvents,saveDuel,Memory, saveTournament} = require
 const auth = require('../middleware/auth');
 const { getAbilityEffect } = require("./../engine/game/abilityIndex");
 const { doDuel }= require("../engine/game/duel");
-const {saveModelMemory, prepMemoryForFight,prepModelForFight} = require('./../engine/game/gladiatorPrep')
+const {saveModelMemory, prepMemoryForFight,prepModelForFight,getMemoryGroup} = require('./../engine/game/gladiatorPrep')
 
 const router = express.Router();
 
@@ -56,17 +56,19 @@ router.post('/gladiator/fightMemory', async(req, res) => {
 
     if(glad){
         // This is where we get the memory and prepare it as  two;
-        let allMemories = await Memory.find();
-//        console.log(allMemories.length);
-        if(allMemories.length === 0 ){
-            res.send({});
-        }
-        let randoMemory = allMemories[ Math.floor( Math.random() & allMemories.length ) ] ;
-//        console.log(randoMemory);
+//         let allMemories = await Memory.find();
+// //        console.log(allMemories.length);
+//         if(allMemories.length === 0 ){
+//             res.send({});
+//         }
+console.log(glad.name, glad.level, glad.age);
+        const nearBy = await getMemoryGroup(  glad, 1 );
+        console.log(nearBy[0].name, nearBy[0].level, nearBy[0].age);
+        let randoMemory = nearBy[ Math.floor( Math.random() & nearBy.length ) ] ;
         let one = await prepModelForFight(glad);
-        let two = await prepMemoryForFight(randoMemory);
-        let report = await doDuel(one,two);
-        res.send(report)
+//        let two = await prepMemoryForFight(randoMemory);
+        //let report = await doDuel(one,two);
+        res.send({})
 
     }
     // with memory have age and level,
