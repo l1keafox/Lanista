@@ -31,14 +31,18 @@ module.exports = {
 		// Why not have it optional?
 		let allGladiators = await Gladiator.find();
 		date.gladNum = allGladiators.length;
-
+console.log( allGladiators[0].age, allGladiators[0].name, allGladiators[0].seed ,"///",allGladiators[allGladiators.length-1].age, allGladiators[allGladiators.length-1].name, allGladiators[allGladiators.length-1].seed);
 		let ownersGain = {};
 		if (date.weekDay == 7) {
 			const startOfTick = new Date();
 
 //			console.log("  -EN>Tournament Day");
+			// console.log(`aging ${allGladiators.length} glads +1 day`);
+			let allNonSeedGlad = allGladiators.filter(glad => {
+				glad.age++;
+				return !glad.seed 
+			});
 			await saveManyModelMemory(allGladiators); // uncertain if this works as intended.
-			let allNonSeedGlad = allGladiators.filter(glad => !glad.seed );
 
 			// for(let gladiator of allGladiators){
 			// 	if(!gladiator.seed){
@@ -48,13 +52,15 @@ module.exports = {
  		  	console.log(`  -EN> Saved Gladiators Time: ${new Date()-startOfTick} Sorting  :: ${allNonSeedGlad.length}`);
 			
 			let memoryByLvl = {};
-			let allMemory = await Memory.find();
-			allMemory.forEach( mem =>{
-				if(!memoryByLvl[ mem.level ]){
-					memoryByLvl[ mem.level ] = [];
-				}
-				memoryByLvl[ mem.level ].push(mem);
-			});
+
+			// let allMemory = await Memory.find();
+			// console.log(`  -EN> Sorting Done Time: ${new Date()-startOfTick} Starting Tournament  :: ${allMemory.length}`);
+			// allMemory.forEach( mem =>{
+			// 	if(!memoryByLvl[ mem.level ]){
+			// 		memoryByLvl[ mem.level ] = [];
+			// 	}
+			// 	memoryByLvl[ mem.level ].push(mem);
+			// });
 			console.log(`  -EN> Sorting Done Time: ${new Date()-startOfTick} Starting Tournament  :: ${allNonSeedGlad.length}`);
 			// for(let level in memoryByLvl){
 			// 	console.log(level,memoryByLvl[level].length);
@@ -65,14 +71,22 @@ module.exports = {
 			// So now we determine if the local,regional,quarter,national.
 			async function saveGlads(glads){
 				for(let i in glads){
-					 if(!glads[i].memory){
-						// If it's not an memory age it.
-						glads[i].age++;
-					}
+					//  if(!glads[i].memory){
+					// 	// If it's not an memory age it.
+					// 	glads[i].age++;
+					// }
+					if(glads[i] === undefined){
+
+					} else 
 					if(glads[i].memory || glads[i].seed){
-						// if it is an memory, 
+						// if it is an memory, or a seed.
 					} else {
-						await glads[i].save();
+						try{
+							await glads[i].save();
+						} catch(err){
+							console.log(err);
+						}
+						
 					}
 				}
 			}
@@ -88,7 +102,7 @@ module.exports = {
 // 				await saveGlads(ditto);
 // 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allGladiators.length} saved:${ditto.length}`);
 
-// 			} else  
+//			} else  
 			if ((date.month === 3 || date.month === 6 || date.month === 9) && date.day == 28	) {
 				
 				//Double elimination Tournament.
@@ -109,7 +123,7 @@ module.exports = {
 			} else {
 				// Local tournament is a round robin
 			//	console.log("Local TOURNAMENT Start",allNonSeedGlad.length);
-				let ditto = await localTournament(allNonSeedGlad,memoryByLvl ); 
+				let ditto = await localTournament(allNonSeedGlad); 
 			//	console.log(ditto.length,"Local TOURNAMENT END",allNonSeedGlad.length);
 				await saveGlads(ditto);	
 				// So we grab all gladiators that are selected via schedule to do this tournament.
@@ -120,7 +134,7 @@ module.exports = {
 			await gameDate.addDay(); // This will set it to the next day.
 
 		} else {
-			//console.log('  -TICK> Do Growth')
+			// console.log('  -TICK> allGladiators Age++')
 
 			await allGladiators.forEach(async (gladiator) => {
 //			console.log(gladiator.schedule[0][date.weekDay][date.time], gladiator.name,"learning",gladiator.learnSkill,gladiator.taskSkill,gladiator.progressSkill);
@@ -168,12 +182,16 @@ module.exports = {
 					if (fameGrowth) {
 						ownersGain[gladiator.ownerId].fame += fameGrowth.amount;
 					}
+				}
 				} 
-			}
 
 
 			if (date.time === 8) {
 				gladiator.age++;
+				if(gladiator.seed && date.weekDay ==1){
+					// This it too make up for tournament say sense seeded guys aren't aged.
+					gladiator.age++;
+				}
 				if(gladiator.age > 2000000){
 					console.log(" FORWARD THINKING AGE, add more memoriy arries or not!");
 				}
@@ -181,8 +199,8 @@ module.exports = {
 			}
 			await gladiator.save();
 			});
+			
 		}
-		
 
 		const keys = Object.keys(ownersGain);
 		const myPromise = new Promise((resolve, reject) => {
