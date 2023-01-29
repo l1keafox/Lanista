@@ -1,30 +1,28 @@
 
 const express = require('express');
-const {User,Owner,Gladiator,DayEvents} = require('../models');
+const {User,Owner,Gladiator,DayEvents,saveTournament,saveDuel} = require('../models');
 const {getTraining} = require('./../engine/game/trainingEffects');
 const {getStructureEffect} = require('./../engine/game/structureIndex');
 const {getItemEffect} = require('./../engine/game/itemsIndex');
 const {getStoreItems} = require('./../engine/game/storeIndex');
 const { getAbilityEffect } = require('./../engine/game/abilityIndex');
+const {createNewGladiator} = require('./../engine/game/utils')
 const auth = require('../middleware/auth');
 const router = express.Router();
 
-router.post('/owner/structures', async(req, res) => {
-    let owner2 = await Owner.findOne({ userAcct: req.body.id });
+router.get('/owner/structures/:ownerId', async(req, res) => {
+    const owner2 = await Owner.findById(req.params.ownerId);
     res.send(owner2.structures)
 })
 
-router.post('/owner/structuresData', async(req, res) => {
-    let owner2 = await Owner.findOne({ userAcct: req.body.id });
-
-    let rtnData = owner2.structures.map( struct =>{
+router.get('/owner/structuresData/:ownerId', async(req, res) => {
+    const owner2 = await Owner.findById(req.params.ownerId);
+    const rtnData = owner2.structures.map( struct =>{
         let rtn = getStructureEffect(struct);
         rtn.structure = struct;
         return rtn;
-    }  );
-    
+    });
     res.send(rtnData);
-
 })
 
 router.post('/owner/removeItems', async(req, res) => {
@@ -49,11 +47,10 @@ router.post('/owner/removeItems', async(req, res) => {
     await owner.save();
     res.send(owner);
 })
-
-router.post('/owner/itemsSort', async(req, res) => {
+router.get('/owner/itemsSort/:ownerId', async(req, res) => {
     // So how we want to do this: is return an object that is organized by slot.
-    let owner = await Owner.findOne({ userAcct: req.body.id });
-    let rtn = {};
+    const owner = await Owner.findById(req.params.ownerId);
+    const rtn = {};
     owner.inventory.forEach( item =>{
         if(item.amount){
             let itemEffect = getItemEffect(item.type);
@@ -65,63 +62,125 @@ router.post('/owner/itemsSort', async(req, res) => {
     res.send(rtn);
 })
 
-router.post('/owner/inventoryData', async(req, res) => {
-    let owner = await Owner.findOne({ userAcct: req.body.id });
+router.get('/owner/inventoryData/:ownerId', async(req, res) => {
+    const owner = await Owner.findById(req.params.ownerId);
     await owner.getTraining();
 
-    let rtnData = owner.inventory.map( item =>{
-        let rtn = getItemEffect(item.type);
-        rtn.item = item.type;
-        rtn.amount = item.amount;
-        return rtn;
-    }  );
+    const rtnData = owner.inventory.map( item =>{
+            let rtn = getItemEffect(item.type);
+            rtn.item = item.type;
+            rtn.amount = item.amount;
+            return rtn;
+        });
     res.send(rtnData);
 })
+
+router.get( '/owner/someTournament/:ownerId/:offset/:limit',async(req, res) => {
+    // console.log("Some Tourna");
+    let mongoose = require('mongoose');
+    let id =  mongoose.Types.ObjectId(req.params.ownerId);
+    let tournaments = await saveTournament.find({ 'owners': { $elemMatch: {$eq:id} } })
+        .populate('gladiators',['name'])
+        .populate('memories',['name'])
+        .populate('owners',['userName'])
+        .skip(req.params.offset)
+        .limit(req.params.limit); 
+
+        // let tournaments2 = await saveTournament.find({ 'owners': { $elemMatch: {$eq:id} } })
+        // .populate('gladiators',['name'])
+        
+        // .populate('memories',['name'])
+        // .populate('owners',['userName'])
+        // console.log(tournaments.length,req.params.offset,"/",tournaments2.length,req.params.limit);
+    res.send(tournaments);
+} );
+
+router.post('/owner/tournamentRound', async(req, res) => {
+    res.send({});
+})
+
 router.post('/owner/training', async(req, res) => {
     let owner = await Owner.findOne({ userAcct: req.body.id });
     let rtn = await owner.getTraining();
     res.send(rtn);
 })
+
 router.post('/owner/learning', async(req, res) => {
     let owner = await Owner.findOne({ userAcct: req.body.id });
     let rtn = await owner.getLearning();
     res.send(rtn);
 })
 
-router.post('/owner/trainingData', async(req, res) => {
-    let owner = await Owner.findOne({ userAcct: req.body.id });
+router.get('/owner/trainingData/:ownerId', async(req, res) => {
+    const owner = await Owner.findById(req.params.ownerId);
     await owner.getTraining();
 
-    let rtnData = owner.training.map( train =>{
+    const rtnData = owner.training.map( train =>{
         let rtn = getTraining(train);
         if(rtn){
             rtn.training = train;
             return rtn;
         }else {
-            console.log("trainfailure?",train);
+            console.log("  -EN/ROUTER> traing data failure?",train);
         }
     }  ) .filter((notUndefined) => notUndefined !== undefined);
     res.send(rtnData);
 })
-router.post('/owner/learningData', async(req, res) => {
-    let owner = await Owner.findOne({ userAcct: req.body.id });
+
+router.get('/owner/learningData/:ownerId', async(req, res) => {
+    const owner = await Owner.findById(req.params.ownerId);
     await owner.getLearning();
-  
-    let rtnData = owner.learning.map( skill =>{
+    const rtnData = owner.learning.map( skill =>{
         let rtn = getAbilityEffect(skill);
         if(rtn){
             rtn.learning = skill;
             return rtn;
         } else {
-            console.log('leanring data?',skill);
+            console.log('  -EN/Router/Owner>leanring data skill missing?',skill);
         }
-    }  );
+    });
     res.send(rtnData);
 })
 
-router.post('/owner/store', async(req, res) => {
-    let owner2 = await Owner.findOne({ userAcct: req.body.id });
-    let storeItems = getStoreItems();
+
+let potentialStudents= {};
+router.get('/owner/getStudent/:ownerId', async(req, res) => {
+    // So get Student will 
+    // So how this will work is that server will get an request to get a student
+    // it will create an random student, and save it's data in potentialStudents and send the data 
+    // to the client for him to decide.
+    // const rtnGlad = 1;
+    potentialStudents[req.params.ownerId] = [];
+    for(let i = 0; i < 4;i++){
+        potentialStudents[req.params.ownerId].push(createNewGladiator("default"));
+    //    console.log(i, "created",potentialStudents[req.params.ownerId].length);
+    }
+    res.send (potentialStudents[req.params.ownerId]);
+})
+
+
+router.post('/owner/buyStudent/', async(req, res) => {
+    // In this post it will confirm buying th student, so it will 
+    const {gladName,ownerId,index} = req.body;
+    console.log(gladName,ownerId);
+    if(potentialStudents[ownerId]){
+        const owner2 = await Owner.findById(ownerId);
+        const glad = await new Gladiator(potentialStudents[ownerId][index]);
+        glad.ownerId = owner2._id;
+	    owner2.gladiators.push(glad.id);
+        console.log(`  -EN> OWNER: ${owner2.name} , Getting glad: ${glad.name}`);
+
+    	await glad.save();
+        await owner2.save();
+        res.send(true);
+        return;
+    }
+    res.send(false);
+})
+
+router.get('/owner/store/:ownerId', async(req, res) => {
+    const owner2 = await Owner.findById(req.params.ownerId);
+    const storeItems = getStoreItems();
 
     let rtn = {};
     for(let type in storeItems){
@@ -176,16 +235,10 @@ router.post('/owner/buyItem', async(req, res) => {
     res.send(true);
 })
 
-
-
-router.post('/owner', async(req, res) => {
-    let owner2 = await Owner.findOne({ userAcct: req.body.id }).populate('gladiators');
+router.get('/owner/:ownerId', async(req, res) => {
+    let owner2 = await Owner.findById( req.params.ownerId ).populate('gladiators',['name','age','winRecord','lossRecord','memoryWinRecord','memoryLossRecord','weekWin','monthWin','quarterWin','yearWin','memoryWeekWin','memoryMonthWin','memoryQuarterWin','memoryYearWin','level']);
     res.send(owner2)
 })
-// router.post('/owner', async(req, res) => {
-//     let owner2 = await Owner.findOne({ userAcct: req.body.id }).populate('gladiators',['name','age']);
-//     res.send(owner2)
-// })
 
 
 module.exports = router

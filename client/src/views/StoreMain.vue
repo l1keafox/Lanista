@@ -69,19 +69,21 @@ export default {
       console.log("Buying:", buyThisThing, "Result", success);
 
       if (success) {
-        const rpnse = await fetch(
-          `http://${window.location.hostname}:3001/owner/store`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ "id": this.userData._id }),
-          }
-        );
-        let storeData = await rpnse.json();
-        this.itemData = storeData.items;
-        this.structData = storeData.structures;
+        this.updateStore();
       }
     },
+    async updateStore(){
+      const rpnse = await fetch(
+      `http://${window.location.hostname}:3001/owner/store/${this.userData.ownerId}`,
+        {
+        headers: { "Content-Type": "application/json" },
+        }
+      );
+      const storeData = await rpnse.json();
+      this.itemData = storeData.items;
+      this.structData = storeData.structures;
+
+    }
   },
   components: {},
   data() {
@@ -92,17 +94,7 @@ export default {
     };
   },
   async mounted() {
-    const rpnse = await fetch(
-      `http://${window.location.hostname}:3001/owner/store`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ "id": this.userData._id }),
-      }
-    );
-    let storeData = await rpnse.json();
-    this.itemData = storeData.items;
-    this.structData = storeData.structures;
+    this.updateStore();
   },
 };
 </script>

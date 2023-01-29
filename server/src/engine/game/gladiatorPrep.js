@@ -67,6 +67,37 @@ function setupStats(glad) {
 }
 
 //saveModelMemory
+async function saveManyModelMemory(gladArray){
+	let createArray = [];
+	for(let gladiator of gladArray){
+		if(gladiator.level >= 3){
+			let memory = await prepModelForMemory(gladiator);
+			memory = JSON.stringify(memory);
+			createArray.push(
+			 	{
+				memory,
+				"name": gladiator.name,
+				"level": gladiator.level,
+				"age": gladiator.age,
+				"gladiatorId": gladiator._id,
+				"ownerId": gladiator.ownerId,
+				"seed":gladiator.seed,
+				"winRecord": 0,
+				"lossRecord": 0,
+				"weekWin": 0,
+				"monthWin": 0,
+				"quarterWin": 0,
+				"yearWin": 0,
+				}
+			);
+
+		}
+	}
+	console.log(`  -> Added ${createArray.length} / in array: ${gladArray.length}`)
+	await Memory.insertMany( createArray );
+}
+
+
 async function saveModelMemory(gladiator) {
 	let memory = await prepModelForMemory(gladiator);
 	memory = JSON.stringify(memory);
@@ -76,8 +107,9 @@ async function saveModelMemory(gladiator) {
 		"name": gladiator.name,
 		"level": gladiator.level,
 		"age": gladiator.age,
-		"gladiatorID": gladiator._id,
-		"ownerID": gladiator.owner,
+		"gladiatorId": gladiator._id,
+		"ownerId": gladiator.ownerId,
+		"seed":gladiator.seed,
 		"winRecord": 0,
 		"lossRecord": 0,
 		"weekWin": 0,
@@ -156,9 +188,62 @@ async function prepMemoryForFight(gladMem) {
 	return rtnObj;
 }
 
+async function getMemoryGroup( mainGlad, groupSize){
+	// Memory.find(by level)
+
+	// Store it in cache incase others want it.
+	if(!Array.isArray(mainGlad)){
+		mainGlad = [mainGlad];
+	}
+	let added = [ mainGlad[0].name ];
+	
+
+	let MemoryByAge = await Memory.find({level:mainGlad[0].level})
+	//, age: { $gt:  mainGlad[0].age-6, $lt:  mainGlad[0].age+6 } 
+	//, , name:{$ne:mainGlad[0].name}
+	//, 
+	let string = "";
+	console.log("age",mainGlad[0].age,"lvl",mainGlad[0].level, "#", MemoryByAge.length, "found"); 
+	MemoryByAge = MemoryByAge.filter((memory) => {
+		// Issue is that previously added Memories need
+		if (!added.includes(memory.name) ) {
+			added.push(memory.name);
+			string += " "+memory.name;
+			return memory;
+		} 
+	});
+	function getRandomMemorys(memoryGroup, size) {
+		let rtnArray = [];
+		//memoryGroup.sort(() => Math.random() - 0.5);
+		if(size < 1 ) return [];
+		for (let i = 0; i < size; i++) {
+			// Has a chance of bring in the same guy, so let's do this 
+			rtnArray.push(memoryGroup[Math.floor(Math.random() * memoryGroup.length)]);
+		// 	rtnArray.push(memoryGroup[ Math.floor(Math.random() * memoryGroup.length) ]);
+		}
+		return rtnArray;
+		// return memoryGroup.slice(0,size);
+	}
+	
+	// Math.abs(memory.age - mainGlad[0].age) <= 12 &&
+	let rando = getRandomMemorys(MemoryByAge, groupSize-mainGlad.length);
+	// console.log(string);
+	rando = rando.concat(mainGlad);
+
+	rando.sort(() => Math.random() - 0.5);
+	// string = "";
+	// for(let i in rando){
+	// 	string += rando[i].name + " "+  rando[i].age + " "+  rando[i].level + "/";
+	// }
+	// console.log(string);
+	return rando;
+}
+
 module.exports = {
 	prepModelForMemory,
 	prepModelForFight,
 	saveModelMemory,
+	getMemoryGroup,
+	saveManyModelMemory,
 	prepMemoryForFight,
 };

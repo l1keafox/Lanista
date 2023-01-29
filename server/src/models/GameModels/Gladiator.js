@@ -9,7 +9,7 @@ const gladiatorSchema = new Schema(
         name:{
             type:String
         },
-        owner:{
+        ownerId:{
             type:Schema.Types.ObjectId,
             ref:"Owner"
         },
@@ -164,6 +164,11 @@ gladiatorSchema.methods.setSkills = async function() {
 gladiatorSchema.methods.doLevel = async function() {
     // This will go through equipment and give fill up skills
     // or it will go through 
+    if(this.level > 8){
+        if(this.age > 128*this.level ){
+            this.level++;
+        }
+    } else 
     if(this.age > Math.pow(2,this.level)){
         this.level++;
     }

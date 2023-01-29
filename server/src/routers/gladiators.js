@@ -1,9 +1,9 @@
 const express = require('express');
-const {User,Owner,Gladiator,DayEvents,saveDuel,Memory} = require('../models');
+const {User,Owner,Gladiator,DayEvents,saveDuel,Memory, saveTournament} = require('../models');
 const auth = require('../middleware/auth');
 const { getAbilityEffect } = require("./../engine/game/abilityIndex");
 const { doDuel }= require("../engine/game/duel");
-const {saveModelMemory, prepMemoryForFight,prepModelForFight} = require('./../engine/game/gladiatorPrep')
+const {saveModelMemory, prepMemoryForFight,prepModelForFight,getMemoryGroup} = require('./../engine/game/gladiatorPrep')
 
 const router = express.Router();
 
@@ -45,18 +45,6 @@ router.post('/gladiator/doSpar', async(req, res) => {
 
         let report = await doDuel(one,two);
 
-        // Here we save it? 
-//        let owner = await Owner.findOne({ userAcct: req.body.ownerId });
-        //saveDuel
-       // const savedDuel = await new saveDuel({ "gladiatorOne":req.body.gladatorId ,"gladiatorTwo":req.body.gladatorId2 ,duel: JSON.stringify(report) } );
-        //console.log(savedDuel);
-        // owner.history.push(savedDuel);
-        // if(owner.history.length > 10){
-        //     const deleted = owner.history.pop();
-        //     console.log('We should also go through saveDuels and delete this',deleted);
-        // }
-      //  owner.save();
-        //savedDuel.save();
         res.send(report)
     } else {
         res.send({"error":"Glad/Glad2 error"})
@@ -68,17 +56,19 @@ router.post('/gladiator/fightMemory', async(req, res) => {
 
     if(glad){
         // This is where we get the memory and prepare it as  two;
-        let allMemories = await Memory.find();
-//        console.log(allMemories.length);
-        if(allMemories.length === 0 ){
-            res.send({});
-        }
-        let randoMemory = allMemories[ Math.floor( Math.random() & allMemories.length ) ] ;
-//        console.log(randoMemory);
+//         let allMemories = await Memory.find();
+// //        console.log(allMemories.length);
+//         if(allMemories.length === 0 ){
+//             res.send({});
+//         }
+console.log(glad.name, glad.level, glad.age);
+        const nearBy = await getMemoryGroup(  glad, 1 );
+        console.log(nearBy[0].name, nearBy[0].level, nearBy[0].age);
+        let randoMemory = nearBy[ Math.floor( Math.random() & nearBy.length ) ] ;
         let one = await prepModelForFight(glad);
-        let two = await prepMemoryForFight(randoMemory);
-        let report = await doDuel(one,two);
-        res.send(report)
+//        let two = await prepMemoryForFight(randoMemory);
+        //let report = await doDuel(one,two);
+        res.send({})
 
     }
     // with memory have age and level,
@@ -153,6 +143,44 @@ router.post('/gladiator/saveWeek', async(req, res) => {
     glad.save();
     console.log('  -EN> savingWeek',glad.name);
     res.send(glad)
+})
+
+ router.get('/gladiator/someTournaments/:gladId/:offset/:limit', async(req, res) => {
+    let mongoose = require('mongoose');
+    let id =  mongoose.Types.ObjectId(req.params.gladId);
+    let tournaments = await saveTournament.find({ 'gladiators': { $elemMatch: {$eq:id} } })
+    .populate('gladiators',['name'])
+    .populate('memories',['name'])
+    .populate('owners',['userName'])
+    .skip(req.params.offset).limit(req.params.limit)
+    res.send(tournaments);
+ })
+
+router.get('/gladiator/someMemories/:gladId/:offset/:limit', async(req, res) => {
+    let memories = await Memory.find({ gladiatorId : req.params.gladId }).skip(req.params.offset).limit(req.params.limit); 
+    res.send(memories);
+})
+
+// router.get('/gladiator/allDuels/:gladId', async(req, res) => {
+//     let duels = await saveDuel.find({ $or:[{gladiatorOne : req.params.gladId},{gladiatorTwo : req.params.gladId} ] }); 
+//     console.log(req.params);
+//     console.log(duels.length,"Duels");
+//     res.send(duels);
+// })
+router.get('/gladiator/someDuels/:gladId/:offset/:limit', async(req, res) => {
+    let duels = await saveDuel.find({ $or:[{gladiatorOne : req.params.gladId},{gladiatorTwo : req.params.gladId} ] }).populate('gladiatorTwo',['name']).populate('gladiatorOne',['name']).skip(req.params.offset).limit(req.params.limit); 
+    
+    res.send(duels);
+})
+
+router.delete('/gladiator/deleteDuel/:duelId' , async(req, res) => {
+    
+})
+
+router.get('/gladiator/getDuel/:duelId', async(req, res) => {
+    let duel = await saveDuel.find({ _id:req.params.duelId } );
+    // console.log(duel);
+    res.send( duel );
 })
 
 router.post('/gladiator/saveLearning', async(req, res) => {

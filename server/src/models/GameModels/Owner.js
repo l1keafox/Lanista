@@ -10,6 +10,9 @@ const ownerSchema = new Schema(
             type:Schema.Types.ObjectId,
             ref:"User"
         },
+        userName:{
+            type:String,
+        },
         gold:{
             type: Number,
         },
