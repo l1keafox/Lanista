@@ -15,7 +15,7 @@ let date = {
 
 module.exports = {
 	doTick: async function () {
-
+		return new Promise(async (resolve, reject) => {
 		let gameDate = await GameDate.find();
 		gameDate = gameDate[0]; // Because there should only be 1 gameDate ever!;
 		await gameDate.addTick();
@@ -70,13 +70,13 @@ module.exports = {
 			// }
 			// So now we determine if the local,regional,quarter,national.
 			async function saveGlads(glads){
-				// console.log(glads.usedGlads.length);
+				console.log(glads.usedGlads.length);
 
-				// // So these are all gladiatorIds that need to be added this record
-				// // memory is from memory fighting
-				// console.log("Memory",glads.toRecordObj.memory);
-				// // gladiators are the acutal gladiator fighting.
-				// console.log("Gladiators", glads.toRecordObj.gladiator);
+				// So these are all gladiatorIds that need to be added this record
+				// memory is from memory fighting
+				console.log("Memory",glads.toRecordObj.memory);
+				// gladiators are the acutal gladiator fighting.
+				console.log("Gladiators", glads.toRecordObj.gladiator);
 
 				// for(let i in glads){
 				// 	//  if(!glads[i].memory){
@@ -231,6 +231,8 @@ module.exports = {
 			await myPromise;
 		}
 		await gameDate.save();
+		resolve ("Done");
+	});
 
 	},
 	getDate: function () {
