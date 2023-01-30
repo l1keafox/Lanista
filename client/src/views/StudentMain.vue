@@ -6,10 +6,8 @@
                 <template v-for="(student,index) in showStudent" :key="index">
                 <div :class="gladiatorCard">
                     <h1> {{student.name}} </h1>
-                    <h1>hits: {{student.hits}} </h1>
-                    <h1>mana: {{student.mana}} </h1>
-                    <h1>stamina: {{student.stamina}} </h1>
                     <h1>strength: {{student.strength}} </h1>
+                    <h1>dexterity: {{student.dexterity}} </h1>
                     <h1>agility: {{student.agility}} </h1>
                     <h1>constitution: {{student.constitution}} </h1>
                     <h1>vitality: {{student.vitality}} </h1>

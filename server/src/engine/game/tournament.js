@@ -36,30 +36,26 @@ async function tournamentRound(group,toRecord) {
 			let duelResult = await doDuel(one,two);
 			let saved = await parseAndSaveDuel(duelResult);
 			report.push({saveId: saved.id, 1: one.name, 2:two.name});
-			 console.log(`  -EN> DUEL ${group[i].name} vs ${group[i + 1].name} : Winner: ${	duelResult.final.winner	} ` );
+//			 console.log(`  -EN> DUEL ${group[i].name} vs ${group[i + 1].name} : Winner: ${	duelResult.final.winner	} ` );
 
 			// console.log(saved.id,"Saved ID?");
 			if (duelResult.final.winner == group[i].name) {
-				// await addToRecord(group[i],"winRecord");
-				// await addToRecord(group[i+1],"lossRecord");
-				await addToRecord2(toRecord,group[i],"winRecord");
+				 addToRecord2(toRecord,group[i],"winRecord");
 				winnerArray.push(group[i]);
 
-				await addToRecord2(toRecord,group[i+1],"lossRecord");
+				 addToRecord2(toRecord,group[i+1],"lossRecord");
 				loserArray.push(group[i+1]);
                 
 			} else if (duelResult.final.winner == group[i + 1].name) {
-				// await addToRecord(group[i+1],"winRecord");
-				// await addToRecord(group[i],"lossRecord");
-				await addToRecord2(toRecord,group[i+1],"winRecord");
+				 addToRecord2(toRecord,group[i+1],"winRecord");
 				winnerArray.push(group[i + 1]);
 
-				await addToRecord2(toRecord,group[i],"lossRecord");
+				 addToRecord2(toRecord,group[i],"lossRecord");
 				loserArray.push(group[i]);
 			} else {
 				// draw so.
-				await addToRecord2(toRecord,group[i+1],"draw");
-				await addToRecord2(toRecord,group[i],"draw");
+				 addToRecord2(toRecord,group[i+1],"draw");
+				 addToRecord2(toRecord,group[i],"draw");
 				loserArray.push(group[i]);
 				loserArray.push(group[i+1]);
 				//console.log('DRAW For tournament');
@@ -72,7 +68,7 @@ async function tournamentRound(group,toRecord) {
 }
 
 
-async function bestOutOf3Round(group) {
+async function bestOutOf3Round(group,toRecord) {
 	// now we should create an function that takes any number of gladiators and returns half the number after a clash.
 	return new Promise(async (resolve, reject) => {
 	let winnerArray = [];
@@ -92,22 +88,27 @@ async function bestOutOf3Round(group) {
 				let saved = await parseAndSaveDuel(duelResult);
 				
 				threeReport.push( {saveId: saved.id, 1: one.name, 2:two.name} );
-//				 console.log(` ${group[i].name} vs ${group[i + 1].name} : Winner: ${	duelResultfinal.winner	} ` );
+				 console.log(` ${group[i].name} vs ${group[i + 1].name} : Winner: ${	duelResultfinal.winner	} ` );
 				if (duelResult.final.winner == group[i].name) {
 					// addToRecord(group[i]);
 					// addToRecord(group[i+1]);
-					await addToRecord(group[i],"winRecord");
-					await addToRecord(group[i+1],"lossRecord");
-
+					// await addToRecord(group[i],"winRecord");
+					// await addToRecord(group[i+1],"lossRecord");
+					addToRecord2(toRecord,group[i],"winRecord");
+					addToRecord2(toRecord,group[i+1],"lossRecord");
 					// here we should see if anyof these are memories
 					oneWins++;
 					
 				} else if (duelResult.final.winner == group[i + 1].name) {
-					await addToRecord(group[i+1],"winRecord");
-					await addToRecord(group[i],"lossRecord");
+					// await addToRecord(group[i+1],"winRecord");
+					// await addToRecord(group[i],"lossRecord");
+					addToRecord2(toRecord,group[i],"lossRecord");
+					addToRecord2(toRecord,group[i+1],"winRecord");
 					twoWins++;
 				} else {
 					// draw so.
+					addToRecord2(toRecord,group[i],"draw");
+					addToRecord2(toRecord,group[i+1],"draw");
 					twoWins++;
 					oneWins++;
 				}
@@ -132,7 +133,7 @@ async function bestOutOf3Round(group) {
 	});
 }
 
-async function bestOfThreeTournament(group,name){
+async function bestOfThreeTournament(group,name,toRecord){
 	return new Promise(async (resolve, reject) => {
     	let roundCount = 0;
 		let winnerGroup = group;
@@ -141,7 +142,7 @@ async function bestOfThreeTournament(group,name){
 		do {
         	roundCount++;
 //        	console.log("  -TOURN>Start best of three Round ",roundCount,name, group.length);
-			result = await bestOutOf3Round(group);
+			result = await bestOutOf3Round(group,toRecord);
 			
 			roundReport.push(result.report);
 			group = result.winnerArray;
@@ -201,13 +202,14 @@ async function singleElimination(group,name,toRecord) {
 		let tournamentResults = [];
 		do {
         	roundCount++;
-//        	console.log("  -TOURN>Start Round ",roundCount,name, group.length);
+        	
 			const result = await tournamentRound(group,toRecord);
+			console.log("    -TOURN>Start Round Started with :", group.length, "Ended with :",result.winnerArray.length);
 			group = result.winnerArray;
 //			console.log(result.report,"DUEL REPORT in SINGLE"); // group.report is an array
 			tournamentResults.push(result.report);
 		} while (group.length > 1);
-		console.log("WINNER: rountCount:",roundCount, group.length);
+		console.log("  -EN> Elemintaion :: rount taken to win:",roundCount, group.length);
 		resolve ({winner:group[0],report:tournamentResults});
 	});
 }
@@ -454,6 +456,7 @@ async function quarterTournament(allGladiators,) {
 	// find 7 other Memories that is the same level and +/- 6 days in age.
 	let usedGlads = [];
 	return new Promise(async (resolve, reject) => {
+		let toRecordObj = {};
 		for(let i in allGladiators){
 			const mainGlad = allGladiators[i];
 			if (mainGlad.level >= 3) {
@@ -464,7 +467,7 @@ async function quarterTournament(allGladiators,) {
 				let localGroup = await getMemoryGroup(mainGlad, groupSize);
 //				console.log("  -TOURN>>< Starting Best of Three Tournament><",tournyName,, localGroup.length,'/',memoryByLvl[mainGlad.level].length);
 
-				let result = await bestOfThreeTournament(localGroup,tournyName);
+				let result = await bestOfThreeTournament(localGroup,tournyName,toRecordObj);
 				doSaveTournament(localGroup,result.report,"quarter",result.winner);
 				if(result.winner){
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Level:${mainGlad.level} Age:${ mainGlad.age } Doing Quarter tournament size: ${localGroup.length} WINNER: ${result.winner.name}`);
@@ -479,7 +482,7 @@ async function quarterTournament(allGladiators,) {
 
 			}
 		}
-		resolve(usedGlads);
+		resolve({usedGlads,toRecordObj});
 	});
 }
 
