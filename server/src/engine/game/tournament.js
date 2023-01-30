@@ -4,7 +4,7 @@ Tournaments take two things, gladiators and Memories;
 
 */
 const { doDuel,parseAndSaveDuel } = require("./duel");
-const { prepMemoryForFight, prepModelForFight,getMemoryGroup } = require("./gladiatorPrep");
+const { prepMemoryForFight, prepModelForFight,getMemoryGroup, clearMemoryCache } = require("./gladiatorPrep");
 const { saveTournament,Gladiator,Memory } = require('./../../models/');
 
 
@@ -506,6 +506,7 @@ async function localTournament(allGladiators) {
 
 		let toRecordObj = {};
 		console.log('  -> Starting Local');
+		//clearMemoryCache();
 		for(let i in allGladiators){
 			const mainGlad = allGladiators[i];
 			if (mainGlad.level >= 3) {
@@ -521,7 +522,7 @@ async function localTournament(allGladiators) {
 				await doSaveTournament(localGroup,result.report,"weekly",result.winner)
 				if(result.winner){
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: ${result.winner.name}`);
-					await addToRecord(result.winner,"weekWin");
+					await addToRecord2(toRecordObj,result.winner,"weekWin");
 				} else  {
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: NONE?!`);
 				}

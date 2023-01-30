@@ -70,33 +70,63 @@ module.exports = {
 			// }
 			// So now we determine if the local,regional,quarter,national.
 			async function saveGlads(glads){
-				console.log(glads.usedGlads.length);
+//				console.log(glads.usedGlads.length);
 
 				// So these are all gladiatorIds that need to be added this record
 				// memory is from memory fighting
-				console.log("Memory",glads.toRecordObj.memory);
+//				console.log("Memory",glads.toRecordObj.memory);
 				// gladiators are the acutal gladiator fighting.
-				console.log("Gladiators", glads.toRecordObj.gladiator);
+//				console.log("Gladiators", glads.toRecordObj.gladiator);
 
-				// for(let i in glads){
-				// 	//  if(!glads[i].memory){
-				// 	// 	// If it's not an memory age it.
-				// 	// 	glads[i].age++;
-				// 	// }
-				// 	if(glads[i] === undefined){
+				// So with the gladiators we need to see if they exist in the usedGlads(they should)
+				// with the memories first we should also see 
+				// Object.keys(glads.toRecordObj.memory).includes(glad.id) || Object.keys(glads.toRecordObj.gladiator).includes(glad.id)
+				let foundGlad = glads.usedGlads.forEach(glad=>{
+					if(glads.toRecordObj.memory[glad.id]){
+//						console.log('Memory Object found glad',glad.id,glads.toRecordObj.memory[glad.id])
+						for(let stat in glads.toRecordObj.memory[glad.id]){
+//							console.log(stat, "Amnt: ", glads.toRecordObj.memory[glad.id][stat]);
+							glad[stat] += glads.toRecordObj.memory[glad.id][stat];
+						}
+						glads.toRecordObj.memory[glad.id] = undefined;
+					}
+					if(glads.toRecordObj.gladiator[glad.id]){
+//						console.log('Gladator found',glad.id,glads.toRecordObj.gladiator[glad.id])
+						for(let stat in glads.toRecordObj.gladiator[glad.id]){
+//							console.log(stat, "Amnt: ", glads.toRecordObj.gladiator[glad.id][stat]);
+							glad[stat] += glads.toRecordObj.gladiator[glad.id][stat];
+						}
+						glads.toRecordObj.gladiator[glad.id] = undefined;
+					}
+					//return true;
+				})
+				for(let i in glads.toRecordObj.memory){
+					if (glads.toRecordObj.memory[i]){
+						console.log(" ERROR STILL HAS NEEDS!   memory"  );
+					}
+				}
+				for(let i in glads.toRecordObj.gladiator){
+					if (glads.toRecordObj.gladiator[i]){
+						console.log(" ERROR STILL HAS NEEDS!  gladiator" );
+					}
+				}
+				// console.log("Memory",glads.toRecordObj.memory);
+				// // gladiators are the acutal gladiator fighting.
+				// console.log("Gladiators", glads.toRecordObj.gladiator);
 
-				// 	} else 
-				// 	if(glads[i].memory || glads[i].seed){
-				// 		// if it is an memory, or a seed.
-				// 	} else {
-				// 		try{
-				// 			await glads[i].save();
-				// 		} catch(err){
-				// 			console.log(err);
-				// 		}
+				for(let i in glads.usedGlads){
+
+					if(glads.usedGlads[i].memory || glads.usedGlads[i].seed){
+						// if it is an memory, or a seed.
+					} else {
+//						try{
+							await glads.usedGlads[i].save();
+						// } catch(err){
+						// 	console.log(err);
+						// }
 						
-				// 	}
-				// }
+					}
+				}
 			}
 
 // 			if (date.month === 12 && date.day == 28) {

@@ -188,18 +188,34 @@ async function prepMemoryForFight(gladMem) {
 	return rtnObj;
 }
 
+
+let memoryCache;
+function clearMemoryCache(){
+	memoryCache = {};
+}
+
 async function getMemoryGroup( mainGlad, groupSize){
 	// Memory.find(by level)
-
+//	const start = new Date();
 	// Store it in cache incase others want it.
 	if(!Array.isArray(mainGlad)){
 		mainGlad = [mainGlad];
 	}
 	let added = [ mainGlad[0].name ];
 	
+	//let MemoryByAge;
+	// if( !memoryCache[mainGlad[0].level] ){
+	// 	console.log(' has no Caching  ',mainGlad[0].level);
+	// 	memoryCache[mainGlad[0].level] = await Memory.find({level:mainGlad[0].level})
+	// } else {
+	// 	console.log(' Has Caching ',mainGlad[0].level);
+	// }
+	// let MemoryByAge = memoryCache[mainGlad[0].level]
 
-	let MemoryByAge = await Memory.find({level:mainGlad[0].level})
-	//, age: { $gt:  mainGlad[0].age-6, $lt:  mainGlad[0].age+6 } 
+	let MemoryByAge = await Memory.find({level:mainGlad[0].level, age: { $gt:  mainGlad[0].age-6, $lt:  mainGlad[0].age+6 }})
+
+	//console.log('FOUDNS PEED: ',new Date()-start,"LVL:",mainGlad[0].level);
+	// 
 	//, , name:{$ne:mainGlad[0].name}
 	//, 
 	// let string = "";
@@ -243,6 +259,7 @@ module.exports = {
 	prepModelForMemory,
 	prepModelForFight,
 	saveModelMemory,
+	clearMemoryCache,
 	getMemoryGroup,
 	saveManyModelMemory,
 	prepMemoryForFight,
