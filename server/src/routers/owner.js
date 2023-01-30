@@ -165,7 +165,9 @@ router.post('/owner/buyStudent/', async(req, res) => {
     console.log(gladName,ownerId);
     if(potentialStudents[ownerId]){
         const owner2 = await Owner.findById(ownerId);
+        console.log(potentialStudents[ownerId][index]);
         const glad = await new Gladiator(potentialStudents[ownerId][index]);
+        potentialStudents[ownerId].splice(index,1);
         glad.ownerId = owner2._id;
 	    owner2.gladiators.push(glad.id);
         console.log(`  -EN> OWNER: ${owner2.name} , Getting glad: ${glad.name}`);

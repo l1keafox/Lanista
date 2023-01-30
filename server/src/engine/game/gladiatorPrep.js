@@ -189,10 +189,6 @@ async function prepMemoryForFight(gladMem) {
 }
 
 
-let memoryCache;
-function clearMemoryCache(){
-	memoryCache = {};
-}
 
 async function getMemoryGroup( mainGlad, groupSize){
 	// Memory.find(by level)
@@ -259,7 +255,7 @@ module.exports = {
 	prepModelForMemory,
 	prepModelForFight,
 	saveModelMemory,
-	clearMemoryCache,
+	
 	getMemoryGroup,
 	saveManyModelMemory,
 	prepMemoryForFight,
