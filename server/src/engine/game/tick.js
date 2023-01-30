@@ -119,8 +119,7 @@ module.exports = {
 					if(glads.usedGlads[i].memory || glads.usedGlads[i].seed){
 						// if it is an memory, or a seed.
 					} else {
-//						console.log(glads.usedGlads[i])
-							await glads.usedGlads[i].save();
+						await glads.usedGlads[i].save();
 					}
 				}
 			}

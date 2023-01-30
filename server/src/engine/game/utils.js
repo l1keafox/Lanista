@@ -34,6 +34,14 @@ function modStat4Effect(num,percent){
 function createNewGladiator(gladType) {
   
   //console.log("  -EN> Creating Glad:",gladType);
+        // Looking for average of 1,000 start stat. as starting average.
+        // 30 d 66 current varience is :
+        // low of 700 hight of 1300
+        // Physical Stats
+        // 20d99
+        // Low of 635 high of 1365
+        const numDice = 20;
+        const sideDice = 99;
   switch(gladType){
     default:
     return { 
@@ -48,27 +56,24 @@ function createNewGladiator(gladType) {
         yearWin:0,
         age:1,
 
-        // Looking for average of 1,000 start stat. as starting average.
-        // 30 d 66 current varience is :
-        // low of 700 hight of 1300
-        // Physical Stats
-        strength:rollDice(30,66),
-        dexterity:rollDice(30,66),
-        agility:rollDice(30,66),
-        constitution:rollDice(30,66),
-        vitality:rollDice(30,66),
+        
+        strength:rollDice(numDice,sideDice),
+        dexterity:rollDice(numDice,sideDice),
+        agility:rollDice(numDice,sideDice),
+        constitution:rollDice(numDice,sideDice),
+        vitality:rollDice(numDice,sideDice),
         
         // Mental Stats
-        intelligence:rollDice(30,66),
-        wisdom:rollDice(30,66),
-        bravery:rollDice(30,66),
-        piety:rollDice(30,66),
-        sensitivity:rollDice(30,66),
+        intelligence:rollDice(numDice,sideDice),
+        wisdom:rollDice(numDice,sideDice),
+        bravery:rollDice(numDice,sideDice),
+        piety:rollDice(numDice,sideDice),
+        sensitivity:rollDice(numDice,sideDice),
   
         // Social Stats
-        charisma:rollDice(30,66),
-        luck:rollDice(30,66),
-        reputation:rollDice(30,66),
+        charisma:rollDice(numDice,sideDice),
+        luck:rollDice(numDice,sideDice),
+        reputation:rollDice(numDice,sideDice),
   
         skills:["dodge","taunt"],
         mainHand:"shortSword",
