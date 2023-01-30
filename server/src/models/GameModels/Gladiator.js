@@ -150,16 +150,8 @@ const gladiatorSchema = new Schema(
 
 	},
 );
-gladiatorSchema.methods.calcuateGladiator = async function() {
-    // This will go through equipment and give fill up skills
-    // or it will go through 
-    const slots = ["mainHand","offHand","head","body","boots"];
-    this.abilities = [];
-    slots.forEach(slot =>{
-        if(this[slot] && getItemEffect(this[slot]) ){
-            this.abilities = this.abilities.concat(getItemEffect(this[slot]).abilities);
-        }
-    });
+
+function calcauateBase(glad){
 
     // Mmm here we should change calcuateGladiator into calcuateStuff
     // It will keep looking at this.
@@ -178,15 +170,34 @@ gladiatorSchema.methods.calcuateGladiator = async function() {
 		return Math.round(total * 0.1);
 	}    
 
-    this.hits = abilityMix(this,{"constitution":70,"wisdom":30});
-    this.morale =  abilityMix(this,{"reputation":50,"bravery":50});
-    this.stamina = abilityMix(this,{"vitality":80,"sensitivity":20});
-    if(this.intelligence < this.piety){
-        this.mana = abilityMix(this,{"intelligence":20, "piety":80});
+    glad.hits = abilityMix(glad,{"constitution":70,"wisdom":30});
+    glad.morale =  abilityMix(glad,{"reputation":50,"bravery":50});
+    glad.stamina = abilityMix(glad,{"vitality":80,"sensitivity":20});
+    if(glad.intelligence < glad.piety){
+        glad.mana = abilityMix(glad,{"intelligence":20, "piety":80});
     } else {
-        this.mana = abilityMix(this,{"intelligence":80, "piety":20});
+        glad.mana = abilityMix(glad,{"intelligence":80, "piety":20});
     }
 }
+
+gladiatorSchema.methods.calcuateGladiator = async function() {
+    // This will go through equipment and give fill up skills
+    // or it will go through 
+    const slots = ["mainHand","offHand","head","body","boots"];
+    this.abilities = [];
+    slots.forEach(slot =>{
+        if(this[slot] && getItemEffect(this[slot]) ){
+            this.abilities = this.abilities.concat(getItemEffect(this[slot]).abilities);
+        }
+    });
+    calcauateBase(this);
+}
+
+gladiatorSchema.methods.calcuateStats = async function() {
+    calcauateBase(this);
+}
+
+
 gladiatorSchema.methods.doLevel = async function() {
     // This will go through equipment and give fill up skills
     // or it will go through 

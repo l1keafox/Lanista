@@ -83,25 +83,20 @@ async function bestOutOf3Round(group,toRecord) {
             let two = await prepGlad(group[i + 1]);
 			let oneWins = 0;
 			let twoWins = 0;
+			//let string = ""
 			do{
 				let duelResult = await doDuel(one,two);
 				let saved = await parseAndSaveDuel(duelResult);
 				
 				threeReport.push( {saveId: saved.id, 1: one.name, 2:two.name} );
-				 console.log(` ${group[i].name} vs ${group[i + 1].name} : Winner: ${	duelResultfinal.winner	} ` );
+//				 string += `ROUND: ${oneWins+twoWins}  ${group[i].name} vs ${group[i + 1].name} : Winner: **${	duelResult.final.winner	}** `;
 				if (duelResult.final.winner == group[i].name) {
-					// addToRecord(group[i]);
-					// addToRecord(group[i+1]);
-					// await addToRecord(group[i],"winRecord");
-					// await addToRecord(group[i+1],"lossRecord");
 					addToRecord2(toRecord,group[i],"winRecord");
 					addToRecord2(toRecord,group[i+1],"lossRecord");
 					// here we should see if anyof these are memories
 					oneWins++;
 					
 				} else if (duelResult.final.winner == group[i + 1].name) {
-					// await addToRecord(group[i+1],"winRecord");
-					// await addToRecord(group[i],"lossRecord");
 					addToRecord2(toRecord,group[i],"lossRecord");
 					addToRecord2(toRecord,group[i+1],"winRecord");
 					twoWins++;
@@ -113,6 +108,8 @@ async function bestOutOf3Round(group,toRecord) {
 					oneWins++;
 				}
 			}while(twoWins < 2 && oneWins < 2)
+			//console.log(string);
+
 			if(oneWins == 2){
 				winnerArray.push(group[i]);
 				loserArray.push(group[i+1]);
@@ -281,19 +278,15 @@ This should be small group sthen.
 
 			// winner gets winObj++;
 			if (dResult.final.winner == group[i].name) {
-				// await addToRecord(group[i],"winRecord");
-				await addToRecord2(toRecord,group[i],"winRecord");
-				// await addToRecord(group[e],"lossRecord");
-				await addToRecord2(toRecord,group[e],"lossRecord");
+				addToRecord2(toRecord,group[i],"winRecord");
+				addToRecord2(toRecord,group[e],"lossRecord");
 				if(!winObj[group[i]._id]){
 					winObj[group[i]._id] = 0;	
 				}
 				winObj[group[i]._id]++;
 			} else if (dResult.final.winner == group[e].name) {
-				// await addToRecord(group[i],"lossRecord");
-				await addToRecord2(toRecord,group[i],"lossRecord");
-				// await addToRecord(group[e],"winRecord");
-				await addToRecord2(toRecord,group[e],"winRecord");
+				addToRecord2(toRecord,group[i],"lossRecord");
+				addToRecord2(toRecord,group[e],"winRecord");
 				if(!winObj[group[e]._id]){
 					winObj[group[e]._id] = 0;
 				}
@@ -301,8 +294,8 @@ This should be small group sthen.
 
 			} else {
 				// draw so.
-				await addToRecord2(toRecord,group[i],"draw");
-				await addToRecord2(toRecord,group[e],"draw");
+				addToRecord2(toRecord,group[i],"draw");
+				addToRecord2(toRecord,group[e],"draw");
 			}
 		}
 	}
@@ -435,7 +428,7 @@ async function nationalTournament( allGladiators){
 				doSaveTournament(localGroup,result.report,"yearly",result.winner);
 				if(result.winner){
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms National Doing National tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: ${result.winner.name}`);
-					await addToRecord(result.winner,"yearWin");
+					//await addToRecord(result.winner,"yearWin");
 
 				} else  {
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms National Doing National tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: NONE?!`);
@@ -471,8 +464,7 @@ async function quarterTournament(allGladiators,) {
 				doSaveTournament(localGroup,result.report,"quarter",result.winner);
 				if(result.winner){
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Level:${mainGlad.level} Age:${ mainGlad.age } Doing Quarter tournament size: ${localGroup.length} WINNER: ${result.winner.name}`);
-					await addToRecord(result.winner,"quarterWin");
-
+					addToRecord2(toRecordObj,result.winner,"quarterWin");
 				} else  {
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} age:${mainGlad.age} level: ${mainGlad.level} Doing Quarter tournament size: ${localGroup.length} WINNER: NONE?!`);
 				}
@@ -506,7 +498,7 @@ async function regionalTournament(allGladiators) {
 				doSaveTournament(localGroup,result.report,"monthly",result.winner)
 				if(result.winner){
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing regional tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: ${result.winner.name}`);
-					await addToRecord(result.winner,"monthWin");
+					addToRecord2(toRecordObj,result.winner,"monthWin");
 				} else  {
 					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing regional tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: NONE?!`);
 				}
