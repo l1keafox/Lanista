@@ -99,7 +99,7 @@ router.get('/gladiator/clashInfo/:gladiatorId', async(req, res) => {
     let glad = await Gladiator.findById(req.params.gladiatorId);
     // So let's take all the skills and abilities put them in one array as unassigned
     // Then we will organize it as needed, returning an object that will hold 
-    glad.setSkills();
+    glad.calcuateGladiator();
     
     
     const allAbilities = glad.skills.concat(glad.abilities);

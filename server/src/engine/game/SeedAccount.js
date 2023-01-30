@@ -25,6 +25,7 @@ async function SeedAccount(){
     console.log("  -EN> Starting to create ",gladAmount," gladiators");
 	for (let i = 0; i < gladAmount; i++) {
 		const glad = await new Gladiator(createNewGladiator("default"));
+        glad.calcuateGladiator();
 		glad.ownerId = newOwner._id;
         glad.seed = true;
 		newOwner.gladiators.push(glad.id);

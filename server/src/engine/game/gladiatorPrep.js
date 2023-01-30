@@ -124,7 +124,7 @@ async function saveModelMemory(gladiator) {
 // prepModelForMemory
 async function prepModelForMemory(glad) {
 	// glad is to create an object that is prepared for save.
-	await glad.setSkills();
+	await glad.calcuateGladiator();
 	let rtnObj = setupStats(glad);
 	modifyStatsFromItems(glad);
 
@@ -146,7 +146,7 @@ async function prepModelForMemory(glad) {
 async function prepModelForFight(glad) {
 	// This will go through equipment and give fill up skills
 	// or it will go through
-	await glad.setSkills();
+	await glad.calcuateGladiator();
 	let rtnObj = setupStats(glad);
 	rtnObj.name = glad.name;
 	rtnObj.maxHits = glad.hits;
