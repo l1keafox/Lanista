@@ -1,11 +1,10 @@
 <template>
 	<div class="flex flex-col w-full overflow-x-hidden">
-		<div class="bg-slate-900">Potential Students</div>
 
             <div v-if="showStudent" class="flex">
                 <template v-for="(student,index) in showStudent" :key="index">
                 <div :class="gladiatorCard">
-                    <h1 :class="cardTitle"> {{student.name}} </h1>
+                    <h1 :class="cardTitle"> {{student.name}}  </h1>
                     <hr/>
                     <h1>strength: {{student.strength}} </h1>
                     <h1>dexterity: {{student.dexterity}} </h1>
@@ -14,16 +13,15 @@
                     <h1>vitality: {{student.vitality}} </h1>
 
                     <hr/>
-                    <h1>luck: {{student.luck}} </h1>
-                    <h1>charisma: {{student.charisma}} </h1>
-                    <h1>reputation: {{student.reputation}} </h1>
-
-                    <hr/>
                     <h1>intelligence: {{student.intelligence}} </h1>
                     <h1>wisdom: {{student.wisdom}} </h1>
                     <h1>bravery: {{student.bravery}} </h1>
                     <h1>piety: {{student.piety}} </h1>
                     <h1>sensitivity: {{student.sensitivity}} </h1>
+                    <hr/>
+                    <h1>luck: {{student.luck}} </h1>
+                    <h1>charisma: {{student.charisma}} </h1>
+                    <h1>reputation: {{student.reputation}} </h1>
                     <hr/>
 
                     <button @click="buyNewGlad($event)" class="bg-orange-700 p-2 w-64 m-3" :data-index="index">Buy New Student</button>
@@ -104,6 +102,27 @@ export default {
 				}
 			);
             this.showStudent = await rpnse.json();
+            
+            this.showStudent.forEach(glad =>{
+                glad.score = ((
+                glad.strength+
+                glad.dexterity+
+                glad.agility+
+                glad.constitution+
+                glad.vitality+
+
+                glad.luck+
+                glad.charisma+
+                glad.reputation+
+
+                glad.intelligence+
+                glad.wisdom+
+                glad.bravery+
+                glad.piety+
+                glad.sensitivity)/13).toFixed()
+
+            })
+
 		},
 	},
 };

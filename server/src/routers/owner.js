@@ -1,6 +1,6 @@
 
 const express = require('express');
-const {User,Owner,Gladiator,DayEvents,saveTournament,saveDuel} = require('../models');
+const {User,Owner,Gladiator,DayEvents,saveTournament,saveDuel,GameDate} = require('../models');
 const {getTraining} = require('./../engine/game/trainingEffects');
 const {getStructureEffect} = require('./../engine/game/structureIndex');
 const {getItemEffect} = require('./../engine/game/itemsIndex');
@@ -252,8 +252,13 @@ router.post('/owner/buyItem', async(req, res) => {
 })
 
 router.get('/owner/:ownerId', async(req, res) => {
-    let owner2 = await Owner.findById( req.params.ownerId ).populate('gladiators',['name','age','winRecord','lossRecord','memoryWinRecord','memoryLossRecord','weekWin','monthWin','quarterWin','yearWin','memoryWeekWin','memoryMonthWin','memoryQuarterWin','memoryYearWin','level']);
-    res.send(owner2)
+    const owner = await Owner.findById( req.params.ownerId ).populate('gladiators',['name','age','winRecord','lossRecord','memoryWinRecord','memoryLossRecord','weekWin','monthWin','quarterWin','yearWin','memoryWeekWin','memoryMonthWin','memoryQuarterWin','memoryYearWin','level']);
+    const gameDate = await GameDate.find();
+    res.send({owner, time:gameDate[0] })
+})
+
+router.get('/owner/date', async(req, res) => {
+    res.send( gameDate[0] )
 })
 
 
