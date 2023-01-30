@@ -1,7 +1,7 @@
 {
   "School":{
     "description":"Starting building that provides basic training options.",
-    "training":["chopWood","community","woodCarv","hiking","readBook","pray","lookLost","tough"]
+    "training":["chopWood","community","woodCarv","hiking","readBook","pray","lookLost"]
   },
   "weightRoom":{
     "description":"Provides an better way to gain strength.",

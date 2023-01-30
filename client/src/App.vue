@@ -39,6 +39,7 @@ export default {
     return {
       isLoggedIn: auth.loggedIn(),
       mainStage: "WelcomeMain",
+      timeData:null,
       userData: null,
       interval:null,
       ownerData:null
@@ -68,7 +69,10 @@ export default {
 						headers: { "Content-Type": "application/json" },
 					}
 				);
-				this.ownerData = await rpnse.json();
+        const oData = await rpnse.json();
+				this.ownerData = oData.owner;
+        this.timeData = oData.time;
+
         }catch(err){
           console.log(err, "clearing")
           clearInterval(this.interval);
@@ -84,7 +88,7 @@ export default {
   },  
   mounted() {
     this.updateOwner();
-		this.interval = setInterval(this.updateOwner,5000);
+		this.interval = setInterval(this.updateOwner,1000);
   },
   provide() {
     return {
@@ -94,6 +98,7 @@ export default {
       gladiatorCard:"h-[27rem] aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
       cardTitle:"text-xl text-sky-400",
       getOwner: computed(()=>this.ownerData),
+      getTime: computed(()=>this.timeData),
       getUser: computed(()=>this.userData),
       getLogged: computed(()=>this.isLoggedIn),
     };

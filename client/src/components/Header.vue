@@ -10,6 +10,13 @@
 				<h2 :class ="cardTitle">Username: <template v-if="userData">{{ userData.username }}</template></h2>
 				<h2 :class ="cardTitle">GOLD: <template v-if="ownerData"> {{ ownerData.gold }}</template></h2>
 				<h2 :class ="cardTitle">FAME: <template v-if="ownerData"> {{ ownerData.fame }}</template></h2>
+				<template v-if="timeData">
+					::
+					<h2 :class ="cardTitle">{{timeData.time}}:00</h2>
+					<h2 :class ="cardTitle">{{timeData.day}}/{{timeData.month}}/{{timeData.year}} </h2>
+					:
+					<h2 :class ="cardTitle">{{timeData.weekDay}}WeekDay</h2>
+				</template>
             </div>
 			<div v-if="!isLoggedIn" class="flex justify-center items-center">
 				<button
@@ -28,7 +35,6 @@
             <div v-else class="font-lux text-base flex justify-center items-center">
                 <div class="m-2 px-2 cursor-pointer sideOptions rounded" @click="doLogOut">Logout</div>
             </div>
-
 		</div>
 		<div v-if="showLoginModal">
 			<LoginVue id="vue" @close="closePopup" @trylogin="tryLogin" />
@@ -46,7 +52,7 @@ import CreateAccount from "./CreateAccount.vue";
 
 export default {
 	name: "HeaderVue",
-	inject: ["getUser","getOwner","cardTitle"],
+	inject: ["getUser","getOwner","cardTitle","getTime"],
 	emits: ["logged", "changeMain", "getUser"],
 	data() {
 		return {
@@ -54,6 +60,7 @@ export default {
 			showCreateModal: false,
 			userData: null,
             ownerData:null,
+			timeData:null,
 			isLoggedIn: auth.loggedIn()
 		};
 	},
@@ -65,6 +72,7 @@ export default {
 	async mounted() {
 		this.userData = this.getUser;
         this.ownerData = this.getOwner;
+		this.timeData = this.getTime;
         //this.isLoggedIn = this.userData.isLoggedIn();
 	},
 	methods: {

@@ -207,35 +207,29 @@ export default {
 	},
 	async mounted() {
 		const rpnse = await fetch(
-			`http://${window.location.hostname}:3001/gladiator`,
+			`http://${window.location.hostname}:3001/gladiator/${this.gladId}`,
 			{
-				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ "id": this.gladId }),
 			}
 		);
 		this.gladiatorData = await rpnse.json();
+		
 		if(this.gladiatorData.progressSkill){
 			this.gladiatorData.progressSkill = JSON.parse( this.gladiatorData.progressSkill )
 		}
 
 		const training = await fetch(
-			`http://${window.location.hostname}:3001/owner/training`,
+			`http://${window.location.hostname}:3001/owner/training/${this.userData.ownerId}`,
 			{
-				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ "id": this.userData._id }),
 			}
 		);
-		const trainingData = await training.json();
-		this.trainingData = trainingData;
+		this.trainingData = await training.json();
 
 		const learning = await fetch(
-			`http://${window.location.hostname}:3001/owner/learning`,
+			`http://${window.location.hostname}:3001/owner/learning/${this.userData.ownerId}`,
 			{
-				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ "id": this.userData._id }),
 			}
 		);
 		const learningData = await learning.json();

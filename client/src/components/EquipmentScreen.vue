@@ -150,15 +150,12 @@ export default {
   async mounted() {
     
     const rpnse = await fetch(
-      `http://${window.location.hostname}:3001/gladiator`,
+      `http://${window.location.hostname}:3001/gladiator/${this.gladId}`,
       {
-        method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ "id": this.gladId }),
       }
     );
-    const gladiatorData = await rpnse.json();
-    this.gladiatorData = gladiatorData;
+    this.gladiatorData = await rpnse.json();
 
   const inventory = await fetch(
       `http://${window.location.hostname}:3001/owner/itemsSort/${this.userData.ownerId}`,

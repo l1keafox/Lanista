@@ -90,15 +90,12 @@
     },
     async mounted() {
       const rpnse = await fetch(
-        `http://${window.location.hostname}:3001/gladiator`,
+        `http://${window.location.hostname}:3001/gladiator/${this.gladId}`,
         {
-          method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ "id": this.gladId }),
         }
       );
-      const ownerData = await rpnse.json();
-      this.gladiatorData = ownerData;
+      this.gladiatorData = await rpnse.json();
     },
   };
   </script>

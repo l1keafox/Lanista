@@ -1,6 +1,6 @@
 
 const express = require('express');
-const {User,Owner,Gladiator,DayEvents,saveTournament,saveDuel} = require('../models');
+const {User,Owner,Gladiator,DayEvents,saveTournament,saveDuel,GameDate} = require('../models');
 const {getTraining} = require('./../engine/game/trainingEffects');
 const {getStructureEffect} = require('./../engine/game/structureIndex');
 const {getItemEffect} = require('./../engine/game/itemsIndex');
@@ -99,9 +99,22 @@ router.post('/owner/tournamentRound', async(req, res) => {
     res.send({});
 })
 
-router.post('/owner/training', async(req, res) => {
-    let owner = await Owner.findOne({ userAcct: req.body.id });
-    let rtn = await owner.getTraining();
+// router.post('/owner/training', async(req, res) => {
+//     let owner = await Owner.findOne({ userAcct: req.body.id });
+//     let rtn = await owner.getTraining();
+//     res.send(rtn);
+// })
+router.get('/owner/training/:ownerId', async(req, res) => {
+    //    let owner = await Owner.findOne({ userAcct: req.body.id });
+        const owner = await Owner.findById(req.params.ownerId);
+        let rtn = await owner.getTraining();
+        res.send(rtn);
+})
+
+router.get('/owner/learning/:ownerId', async(req, res) => {
+//    let owner = await Owner.findOne({ userAcct: req.body.id });
+    const owner = await Owner.findById(req.params.ownerId);
+    let rtn = await owner.getLearning();
     res.send(rtn);
 })
 
@@ -162,10 +175,13 @@ router.get('/owner/getStudent/:ownerId', async(req, res) => {
 router.post('/owner/buyStudent/', async(req, res) => {
     // In this post it will confirm buying th student, so it will 
     const {gladName,ownerId,index} = req.body;
-    console.log(gladName,ownerId);
+    //console.log(gladName,ownerId);
     if(potentialStudents[ownerId]){
         const owner2 = await Owner.findById(ownerId);
+        // console.log(potentialStudents[ownerId][index]);
         const glad = await new Gladiator(potentialStudents[ownerId][index]);
+        glad.calcuateGladiator();
+        potentialStudents[ownerId].splice(index,1);
         glad.ownerId = owner2._id;
 	    owner2.gladiators.push(glad.id);
         console.log(`  -EN> OWNER: ${owner2.name} , Getting glad: ${glad.name}`);
@@ -236,8 +252,13 @@ router.post('/owner/buyItem', async(req, res) => {
 })
 
 router.get('/owner/:ownerId', async(req, res) => {
-    let owner2 = await Owner.findById( req.params.ownerId ).populate('gladiators',['name','age','winRecord','lossRecord','memoryWinRecord','memoryLossRecord','weekWin','monthWin','quarterWin','yearWin','memoryWeekWin','memoryMonthWin','memoryQuarterWin','memoryYearWin','level']);
-    res.send(owner2)
+    const owner = await Owner.findById( req.params.ownerId ).populate('gladiators',['name','age','winRecord','lossRecord','memoryWinRecord','memoryLossRecord','weekWin','monthWin','quarterWin','yearWin','memoryWeekWin','memoryMonthWin','memoryQuarterWin','memoryYearWin','level']);
+    const gameDate = await GameDate.find();
+    res.send({owner, time:gameDate[0] })
+})
+
+router.get('/owner/date', async(req, res) => {
+    res.send( gameDate[0] )
 })
 
 

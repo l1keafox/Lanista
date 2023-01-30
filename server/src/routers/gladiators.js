@@ -7,8 +7,8 @@ const {saveModelMemory, prepMemoryForFight,prepModelForFight,getMemoryGroup} = r
 
 const router = express.Router();
 
-router.post('/gladiator/', async(req, res) => {
-    let gladiator = await Gladiator.findOne({ _id: req.body.id });
+router.get('/gladiator/:gladiatorId', async(req, res) => {
+    let gladiator = await Gladiator.findById(req.params.gladiatorId);
     res.send(gladiator)
 })
 
@@ -44,7 +44,7 @@ router.post('/gladiator/doSpar', async(req, res) => {
         let two = await prepModelForFight(glad2);
 
         let report = await doDuel(one,two);
-
+        // this needs to be saved?
         res.send(report)
     } else {
         res.send({"error":"Glad/Glad2 error"})
@@ -61,14 +61,24 @@ router.post('/gladiator/fightMemory', async(req, res) => {
 //         if(allMemories.length === 0 ){
 //             res.send({});
 //         }
-console.log(glad.name, glad.level, glad.age);
-        const nearBy = await getMemoryGroup(  glad, 1 );
-        console.log(nearBy[0].name, nearBy[0].level, nearBy[0].age);
+//console.log(glad.name, glad.level, glad.age);
+        const nearBy = await getMemoryGroup(  glad, 2 );
+        //  console.log(glad.name);
+        // console.log(nearBy[0].name, nearBy[0].level, nearBy[0].age,nearBy.length);
         let randoMemory = nearBy[ Math.floor( Math.random() & nearBy.length ) ] ;
+//         console.log(randoMemory.name, randoMemory.memory);
         let one = await prepModelForFight(glad);
-//        let two = await prepMemoryForFight(randoMemory);
-        //let report = await doDuel(one,two);
-        res.send({})
+        let two;
+        if(randoMemory.memory){
+            two = await prepMemoryForFight(randoMemory);
+        } else {
+            two = await prepModelForFight(randoMemory);
+        }
+        // let two = await prepMemoryForFight(randoMemory);
+        // console.log(two);
+        let report = await doDuel(one,two);
+        //    console.log(report);
+        res.send(report)
 
     }
     // with memory have age and level,
@@ -84,11 +94,12 @@ console.log(glad.name, glad.level, glad.age);
 });
 
 
-router.post('/gladiator/clashInfo', async(req, res) => {
-    let glad = await Gladiator.findOne({ _id: req.body.id });
+router.get('/gladiator/clashInfo/:gladiatorId', async(req, res) => {
+//    let glad = await Gladiator.findOne({ _id: req.body.id });
+    let glad = await Gladiator.findById(req.params.gladiatorId);
     // So let's take all the skills and abilities put them in one array as unassigned
     // Then we will organize it as needed, returning an object that will hold 
-    glad.setSkills();
+    glad.calcuateGladiator();
     
     
     const allAbilities = glad.skills.concat(glad.abilities);

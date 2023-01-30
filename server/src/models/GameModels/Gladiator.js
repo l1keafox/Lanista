@@ -150,7 +150,37 @@ const gladiatorSchema = new Schema(
 
 	},
 );
-gladiatorSchema.methods.setSkills = async function() {
+
+function calcauateBase(glad){
+
+    // Mmm here we should change calcuateGladiator into calcuateStuff
+    // It will keep looking at this.
+   
+    function abilityMix (glad,statObj){
+		// input is
+		// num is an whole num * .01;
+		// { "stat":num, }
+		let total = 0;
+		for(let stat in statObj){
+		  if(statObj[stat] > 1){
+			statObj[stat] = statObj[stat] * 0.01;
+		  }
+		  total += glad[stat] * [statObj[stat]];
+		}
+		return Math.round(total * 0.1);
+	}    
+
+    glad.hits = abilityMix(glad,{"constitution":70,"wisdom":30});
+    glad.morale =  abilityMix(glad,{"reputation":50,"bravery":50});
+    glad.stamina = abilityMix(glad,{"vitality":80,"sensitivity":20});
+    if(glad.intelligence < glad.piety){
+        glad.mana = abilityMix(glad,{"intelligence":20, "piety":80});
+    } else {
+        glad.mana = abilityMix(glad,{"intelligence":80, "piety":20});
+    }
+}
+
+gladiatorSchema.methods.calcuateGladiator = async function() {
     // This will go through equipment and give fill up skills
     // or it will go through 
     const slots = ["mainHand","offHand","head","body","boots"];
@@ -160,7 +190,14 @@ gladiatorSchema.methods.setSkills = async function() {
             this.abilities = this.abilities.concat(getItemEffect(this[slot]).abilities);
         }
     });
+    calcauateBase(this);
 }
+
+gladiatorSchema.methods.calcuateStats = async function() {
+    calcauateBase(this);
+}
+
+
 gladiatorSchema.methods.doLevel = async function() {
     // This will go through equipment and give fill up skills
     // or it will go through 

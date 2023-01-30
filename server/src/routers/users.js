@@ -12,6 +12,7 @@ async function createOwner(user) {
 	console.log("  -EN> New Owner with new USER Acct created");
 	for (let i = 0; i < 3; i++) {
 		const glad = await new Gladiator(createNewGladiator("default"));
+		glad.calcuateGladiator();
 		glad.ownerId = owner._id;
 		owner.gladiators.push(glad.id);
 		glad.save();
@@ -70,6 +71,7 @@ router.post("/users/login", async (req, res) => {
             console.log("  -EN> Owner created with base seed acct");
 			for (let i = 0; i < 3; i++) {
 				const glad = await new Gladiator(createNewGladiator("default"));
+				glad.calcuateGladiator();
 				glad.ownerId = owner._id;
 				owner.gladiators.push(glad.id);
 				await glad.save();

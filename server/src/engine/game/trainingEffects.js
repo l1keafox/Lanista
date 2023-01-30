@@ -90,6 +90,7 @@ async function doGrowth(gladiator, training) {
 				rtnGrowth.push({ stat, amount: growthAmnt });
 			}
 		});
+		
 	}
 	return rtnGrowth;
 }

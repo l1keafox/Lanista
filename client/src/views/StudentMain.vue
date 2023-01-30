@@ -1,43 +1,70 @@
 <template>
 	<div class="flex flex-col w-full overflow-x-hidden">
-		<div class="bg-slate-900">Potential Students</div>
 
             <div v-if="showStudent" class="flex">
                 <template v-for="(student,index) in showStudent" :key="index">
                 <div :class="gladiatorCard">
-                    <h1> {{student.name}} </h1>
-                    <h1>hits: {{student.hits}} </h1>
-                    <h1>mana: {{student.mana}} </h1>
-                    <h1>stamina: {{student.stamina}} </h1>
+                    <h1 :class="cardTitle"> {{student.name}}  </h1>
+                    <hr/>
                     <h1>strength: {{student.strength}} </h1>
+                    <h1>dexterity: {{student.dexterity}} </h1>
                     <h1>agility: {{student.agility}} </h1>
                     <h1>constitution: {{student.constitution}} </h1>
                     <h1>vitality: {{student.vitality}} </h1>
 
-                    <h1>bravery: {{student.bravery}} </h1>
-                    <h1>charisma: {{student.charisma}} </h1>
-                    <h1>reputation: {{student.reputation}} </h1>
-
+                    <hr/>
                     <h1>intelligence: {{student.intelligence}} </h1>
-                    <h1>morale: {{student.morale}} </h1>
+                    <h1>wisdom: {{student.wisdom}} </h1>
+                    <h1>bravery: {{student.bravery}} </h1>
                     <h1>piety: {{student.piety}} </h1>
                     <h1>sensitivity: {{student.sensitivity}} </h1>
-                    <h1>wisdom: {{student.wisdom}} </h1>
+                    <hr/>
+                    <h1>luck: {{student.luck}} </h1>
+                    <h1>charisma: {{student.charisma}} </h1>
+                    <h1>reputation: {{student.reputation}} </h1>
+                    <hr/>
 
-                    <button @click="buyNewGlad($event)" :data-index="index">Buy New Gladiator</button>
+                    <button @click="buyNewGlad($event)" class="bg-orange-700 p-2 w-64 m-3" :data-index="index">Buy New Student</button>
                 </div>
                 </template>
 
             </div>
+            <div class ="justify-center text-center">
+                <button @click="getNewGlad" class="bg-blue-700 p-2 w-64 m-3">Find New Gladiator</button>
+            </div>
 
-		<button @click="getNewGlad">Find New Gladiator</button>
+            <div>
+            <hr/>
+            <h1> Physical Stats</h1>
+            <h2> Strength - determines how hard your physical attacks are.</h2>
+            <h2> Dexterity - Determines if you hit with your attacks.</h2>
+            <h2>Agility - Determines physical miss chance(dodge)</h2>
+            <h2>constitution - Determines Hit points and other defensive stats.</h2>
+            <h2>vitality - determines Stamina</h2>
+            
+            <hr/>
+            <h1> Mental Stats</h1>
+            <h2> intelligence - Determines mana, spells, and has small influnce in many actions. </h2>
+            <h2> wisdom - Experience, has influence over many actions</h2>
+            <h2> Bravery - Determines Morale</h2>
+            <h2> Piety - Determines mana, spells, and has small influence in many actions</h2>
+            <h2> Sensitivity - Has influence over many actions</h2>
+            <hr/>
+            <h1> Social Stats</h1>
+            <h2> Luck - Has influence over many actions</h2>
+            <h2> Charisma - Has influence over morale attacks(taunt)</h2>
+            <h2> Reputation - Determines Morale</h2>
+            
+            
+
+        </div>
 	</div>
 </template>
 
 <script>
 export default {
 	name: "studentMain",
-    inject:["gladiatorCard","getOwner"],
+    inject:["gladiatorCard","getOwner","cardTitle"],
 	data() {
 		return {
             showStudent:null,
@@ -75,6 +102,27 @@ export default {
 				}
 			);
             this.showStudent = await rpnse.json();
+            
+            this.showStudent.forEach(glad =>{
+                glad.score = ((
+                glad.strength+
+                glad.dexterity+
+                glad.agility+
+                glad.constitution+
+                glad.vitality+
+
+                glad.luck+
+                glad.charisma+
+                glad.reputation+
+
+                glad.intelligence+
+                glad.wisdom+
+                glad.bravery+
+                glad.piety+
+                glad.sensitivity)/13).toFixed()
+
+            })
+
 		},
 	},
 };
