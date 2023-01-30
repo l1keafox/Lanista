@@ -38,18 +38,7 @@ function createNewGladiator(gladType) {
     default:
     return { 
         name: gladNames[rollDice(1, gladNames.length)] + ' '+gladNames[rollDice(1, gladNames.length)], 
-        // Character Points Stats
-        // The three main stats for living. 
 
-        // hits: 100, // Easily trained stat.
-        // morale:100, // Morale is high because it's stable stat? Mmm maybe later add ways to train it up.
-        // stamina:100,
-  
-        // hits should be consitution
-        // stamina should be vitality
-        // morale should be reputation
-
-        mana:100,
         level:1,
         winRecord:0,
         lossRecord:0,
@@ -60,24 +49,26 @@ function createNewGladiator(gladType) {
         age:1,
 
         // Looking for average of 1,000 start stat. as starting average.
+        // 30 d 66 current varience is :
+        // low of 700 hight of 1300
         // Physical Stats
-        strength:rollDice(35,55),
-        dexterity:rollDice(35,55),
-        agility:rollDice(35,55),
-        constitution:rollDice(35,55),
-        vitality:rollDice(35,55),
+        strength:rollDice(30,66),
+        dexterity:rollDice(30,66),
+        agility:rollDice(30,66),
+        constitution:rollDice(30,66),
+        vitality:rollDice(30,66),
         
         // Mental Stats
-        intelligence:rollDice(35,55),
-        wisdom:rollDice(35,55),
-        bravery:rollDice(35,55),
-        piety:rollDice(35,55),
-        sensitivity:rollDice(35,55),
+        intelligence:rollDice(30,66),
+        wisdom:rollDice(30,66),
+        bravery:rollDice(30,66),
+        piety:rollDice(30,66),
+        sensitivity:rollDice(30,66),
   
         // Social Stats
-        charisma:rollDice(35,55),
-        luck:rollDice(35,55),
-        reputation:rollDice(35,55),
+        charisma:rollDice(30,66),
+        luck:rollDice(30,66),
+        reputation:rollDice(30,66),
   
         skills:["dodge","taunt"],
         mainHand:"shortSword",
