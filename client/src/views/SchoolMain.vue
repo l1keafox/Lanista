@@ -81,7 +81,8 @@
       );
       this.learningData = await rpnse2.json();
 
-      const inventory = await fetch(`http://${window.location.hostname}:3001/owner/inventoryData/${this.userData.ownerId}`,{ headers: { "Content-Type": "application/json" }});
+      const inventory = await fetch(
+        `http://${window.location.hostname}:3001/owner/inventoryData/${this.userData.ownerId}`,{ headers: { "Content-Type": "application/json" }});
       this.inventory = await inventory.json();      
     },
   };
