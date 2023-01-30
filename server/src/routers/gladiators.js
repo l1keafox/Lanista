@@ -62,13 +62,23 @@ router.post('/gladiator/fightMemory', async(req, res) => {
 //             res.send({});
 //         }
 //console.log(glad.name, glad.level, glad.age);
-        const nearBy = await getMemoryGroup(  glad, 1 );
-        console.log(nearBy[0].name, nearBy[0].level, nearBy[0].age);
+        const nearBy = await getMemoryGroup(  glad, 2 );
+        //  console.log(glad.name);
+        // console.log(nearBy[0].name, nearBy[0].level, nearBy[0].age,nearBy.length);
         let randoMemory = nearBy[ Math.floor( Math.random() & nearBy.length ) ] ;
+//         console.log(randoMemory.name, randoMemory.memory);
         let one = await prepModelForFight(glad);
-//        let two = await prepMemoryForFight(randoMemory);
-        //let report = await doDuel(one,two);
-        res.send({})
+        let two;
+        if(randoMemory.memory){
+            two = await prepMemoryForFight(randoMemory);
+        } else {
+            two = await prepModelForFight(randoMemory);
+        }
+        // let two = await prepMemoryForFight(randoMemory);
+        // console.log(two);
+        let report = await doDuel(one,two);
+        //    console.log(report);
+        res.send(report)
 
     }
     // with memory have age and level,

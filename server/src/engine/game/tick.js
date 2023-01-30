@@ -49,7 +49,7 @@ module.exports = {
 			// 		allNonSeedGlad.push(gladiator);
 			// 	}
 			// }
- 		  	console.log(`  -EN> Saved Gladiators Time: ${new Date()-startOfTick} Sorting  :: ${allNonSeedGlad.length}# of glads`);
+ 		  	console.log(`  -EN> Saved Gladiators Time: ${new Date()-startOfTick}  :: ${allNonSeedGlad.length}# of glads`);
 			
 			let memoryByLvl = {};
 
@@ -70,13 +70,13 @@ module.exports = {
 			// }
 			// So now we determine if the local,regional,quarter,national.
 			async function saveGlads(glads){
-//				console.log(glads.usedGlads.length);
+				//console.log(glads.usedGlads.length);
 
 				// So these are all gladiatorIds that need to be added this record
 				// memory is from memory fighting
-//				console.log("Memory",glads.toRecordObj.memory);
+			//	console.log("Memory",glads.toRecordObj.memory);
 				// gladiators are the acutal gladiator fighting.
-//				console.log("Gladiators", glads.toRecordObj.gladiator);
+			//	console.log("Gladiators", glads.toRecordObj.gladiator);
 
 				// So with the gladiators we need to see if they exist in the usedGlads(they should)
 				// with the memories first we should also see 
@@ -119,12 +119,8 @@ module.exports = {
 					if(glads.usedGlads[i].memory || glads.usedGlads[i].seed){
 						// if it is an memory, or a seed.
 					} else {
-//						try{
+//						console.log(glads.usedGlads[i])
 							await glads.usedGlads[i].save();
-						// } catch(err){
-						// 	console.log(err);
-						// }
-						
 					}
 				}
 			}
@@ -153,20 +149,20 @@ module.exports = {
 // 				// Should be 32 fighters
 // 				// Single elimination.
 // 			//	console.log("Regional TOURNAMENT");
-// 				let ditto = await regionalTournament(allNonSeedGlad,memoryByLvl ); 
+ 				let ditto = await regionalTournament(allNonSeedGlad,memoryByLvl ); 
 // 			//	console.log(ditto.length,"Regional TOURNAMENT END",allNonSeedGlad.length);
-// 			await saveGlads(ditto);
-// 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.length}`);
+	 			await saveGlads(ditto);
+ 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.length}`);
 
 // 			} else {
 				// Local tournament is a round robin
 			//	console.log("Local TOURNAMENT Start",allNonSeedGlad.length);
-				let ditto = await localTournament(allNonSeedGlad); 
+//				let ditto = await localTournament(allNonSeedGlad); 
 			//	console.log(ditto.length,"Local TOURNAMENT END",allNonSeedGlad.length);
-				await saveGlads(ditto);	
+//				await saveGlads(ditto);	
 				// So we grab all gladiators that are selected via schedule to do this tournament.
 				// We will then make sure they do not do any training that day.
-				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.length}`);
+//				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.length}`);
 			//}
 
 			await gameDate.addDay(); // This will set it to the next day.

@@ -215,7 +215,7 @@ async function getMemoryGroup( mainGlad, groupSize){
 	//, , name:{$ne:mainGlad[0].name}
 	//, 
 	// let string = "";
-	// console.log("age",mainGlad[0].age,"lvl",mainGlad[0].level, "#", MemoryByAge.length, "found  SIZE:", groupSize-mainGlad.length); 
+//	 console.log("age",mainGlad[0].age,"lvl",mainGlad[0].level, "#", MemoryByAge.length, "found  SIZE:", groupSize-mainGlad.length); 
 	MemoryByAge = MemoryByAge.filter((memory) => {
 		// Issue is that previously added Memories need
 		if (!added.includes(memory.name) ) {

@@ -20,7 +20,7 @@ async function prepGlad(glad) {
 	}
 }
 
-async function tournamentRound(group) {
+async function tournamentRound(group,toRecord) {
 	
 	// now we should create an function that takes any number of gladiators and returns half the number after a clash.
 	return new Promise(async (resolve, reject) => {
@@ -36,23 +36,32 @@ async function tournamentRound(group) {
 			let duelResult = await doDuel(one,two);
 			let saved = await parseAndSaveDuel(duelResult);
 			report.push({saveId: saved.id, 1: one.name, 2:two.name});
-			// console.log(` ${group[i].name} vs ${group[i + 1].name} : Winner: ${	duelResultfinal.winner	} ` );
+			 console.log(`  -EN> DUEL ${group[i].name} vs ${group[i + 1].name} : Winner: ${	duelResult.final.winner	} ` );
 
 			// console.log(saved.id,"Saved ID?");
 			if (duelResult.final.winner == group[i].name) {
-				await addToRecord(group[i],"winRecord");
-				await addToRecord(group[i+1],"lossRecord");
-
+				// await addToRecord(group[i],"winRecord");
+				// await addToRecord(group[i+1],"lossRecord");
+				await addToRecord2(toRecord,group[i],"winRecord");
 				winnerArray.push(group[i]);
+
+				await addToRecord2(toRecord,group[i+1],"lossRecord");
 				loserArray.push(group[i+1]);
                 
 			} else if (duelResult.final.winner == group[i + 1].name) {
-				await addToRecord(group[i+1],"winRecord");
-				await addToRecord(group[i],"lossRecord");
-				loserArray.push(group[i]);
+				// await addToRecord(group[i+1],"winRecord");
+				// await addToRecord(group[i],"lossRecord");
+				await addToRecord2(toRecord,group[i+1],"winRecord");
 				winnerArray.push(group[i + 1]);
+
+				await addToRecord2(toRecord,group[i],"lossRecord");
+				loserArray.push(group[i]);
 			} else {
 				// draw so.
+				await addToRecord2(toRecord,group[i+1],"draw");
+				await addToRecord2(toRecord,group[i],"draw");
+				loserArray.push(group[i]);
+				loserArray.push(group[i+1]);
 				//console.log('DRAW For tournament');
 			}
 		}
@@ -186,18 +195,19 @@ async function roundRobinThenBestOfThree(incomingGroup,tournyName){
 }
 
 
-async function singleElimination(group,name) {
+async function singleElimination(group,name,toRecord) {
 	return new Promise(async (resolve, reject) => {
     	let roundCount = 0;
 		let tournamentResults = [];
 		do {
         	roundCount++;
 //        	console.log("  -TOURN>Start Round ",roundCount,name, group.length);
-			const result = await tournamentRound(group);
+			const result = await tournamentRound(group,toRecord);
 			group = result.winnerArray;
 //			console.log(result.report,"DUEL REPORT in SINGLE"); // group.report is an array
 			tournamentResults.push(result.report);
 		} while (group.length > 1);
+		console.log("WINNER: rountCount:",roundCount, group.length);
 		resolve ({winner:group[0],report:tournamentResults});
 	});
 }
@@ -479,6 +489,7 @@ async function regionalTournament(allGladiators) {
 	// find 7 other Memories that is the same level and +/- 6 days in age.
 	let usedGlads = [];
 	return new Promise(async (resolve, reject) => {
+		let toRecordObj = {};
 		for(let i in allGladiators){
 			const mainGlad = allGladiators[i];
 			if (mainGlad.level >= 3) {
@@ -488,13 +499,13 @@ async function regionalTournament(allGladiators) {
 				
 				let localGroup = await getMemoryGroup(mainGlad, groupSize);
 //				console.log("  -TOURN>>< Starting Single Elimination><",tournyName,mainGlad.level, mainGlad.age, localGroup.length,'/',groupSize,memoryByLvl[mainGlad.level].length);
-				let result = await singleElimination(localGroup,tournyName);
+				let result = await singleElimination(localGroup,tournyName,toRecordObj);
 				doSaveTournament(localGroup,result.report,"monthly",result.winner)
 				if(result.winner){
-					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Reginoal tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: ${result.winner.name}`);
+					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing regional tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: ${result.winner.name}`);
 					await addToRecord(result.winner,"monthWin");
 				} else  {
-					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Reginoal tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: NONE?!`);
+					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing regional tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: NONE?!`);
 				}
 				
                 usedGlads = usedGlads.concat(localGroup);
@@ -502,7 +513,7 @@ async function regionalTournament(allGladiators) {
 
 			}
 		}
-		resolve(usedGlads);
+		resolve({usedGlads,toRecordObj});
 	});
 }
 
