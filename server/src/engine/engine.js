@@ -1,4 +1,4 @@
-const timeBetweenTicks = 1000; 
+const timeBetweenTicks = 500; 
 
 const Tick = require('./game/tick');
 let timeToLastTick;
