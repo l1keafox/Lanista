@@ -25,6 +25,7 @@ async function SeedAccount(){
     console.log("  -EN> Starting to create ",gladAmount," gladiators");
 	for (let i = 0; i < gladAmount; i++) {
 		const glad = await new Gladiator(createNewGladiator("default"));
+        glad.calcuateGladiator();
 		glad.ownerId = newOwner._id;
         glad.seed = true;
 		newOwner.gladiators.push(glad.id);
@@ -34,7 +35,7 @@ async function SeedAccount(){
     let allGladiators = await Gladiator.find();
     let weekDay = 1;
     let dateTime = 1;
-    const doTicks = 200;
+    const doTicks = 2000;
     console.log('  -SEED> Tick Growth Start Doing ',doTicks,"ticks for ",allGladiators.length,"gladiators");
 
 		const myPromise = new Promise(async (resolve, reject) => {

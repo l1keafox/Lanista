@@ -124,7 +124,7 @@ async function saveModelMemory(gladiator) {
 // prepModelForMemory
 async function prepModelForMemory(glad) {
 	// glad is to create an object that is prepared for save.
-	await glad.setSkills();
+	await glad.calcuateGladiator();
 	let rtnObj = setupStats(glad);
 	modifyStatsFromItems(glad);
 
@@ -146,7 +146,7 @@ async function prepModelForMemory(glad) {
 async function prepModelForFight(glad) {
 	// This will go through equipment and give fill up skills
 	// or it will go through
-	await glad.setSkills();
+	await glad.calcuateGladiator();
 	let rtnObj = setupStats(glad);
 	rtnObj.name = glad.name;
 	rtnObj.maxHits = glad.hits;
@@ -188,27 +188,39 @@ async function prepMemoryForFight(gladMem) {
 	return rtnObj;
 }
 
+
+
 async function getMemoryGroup( mainGlad, groupSize){
 	// Memory.find(by level)
-
+//	const start = new Date();
 	// Store it in cache incase others want it.
 	if(!Array.isArray(mainGlad)){
 		mainGlad = [mainGlad];
 	}
 	let added = [ mainGlad[0].name ];
 	
+	//let MemoryByAge;
+	// if( !memoryCache[mainGlad[0].level] ){
+	// 	console.log(' has no Caching  ',mainGlad[0].level);
+	// 	memoryCache[mainGlad[0].level] = await Memory.find({level:mainGlad[0].level})
+	// } else {
+	// 	console.log(' Has Caching ',mainGlad[0].level);
+	// }
+	// let MemoryByAge = memoryCache[mainGlad[0].level]
 
-	let MemoryByAge = await Memory.find({level:mainGlad[0].level})
-	//, age: { $gt:  mainGlad[0].age-6, $lt:  mainGlad[0].age+6 } 
+	let MemoryByAge = await Memory.find({level:mainGlad[0].level, age: { $gt:  mainGlad[0].age-6, $lt:  mainGlad[0].age+6 }})
+
+	//console.log('FOUDNS PEED: ',new Date()-start,"LVL:",mainGlad[0].level);
+	// 
 	//, , name:{$ne:mainGlad[0].name}
 	//, 
-	let string = "";
-	console.log("age",mainGlad[0].age,"lvl",mainGlad[0].level, "#", MemoryByAge.length, "found"); 
+	// let string = "";
+//	 console.log("age",mainGlad[0].age,"lvl",mainGlad[0].level, "#", MemoryByAge.length, "found  SIZE:", groupSize-mainGlad.length); 
 	MemoryByAge = MemoryByAge.filter((memory) => {
 		// Issue is that previously added Memories need
 		if (!added.includes(memory.name) ) {
 			added.push(memory.name);
-			string += " "+memory.name;
+			// string += " "+memory.name;
 			return memory;
 		} 
 	});
@@ -243,6 +255,7 @@ module.exports = {
 	prepModelForMemory,
 	prepModelForFight,
 	saveModelMemory,
+	
 	getMemoryGroup,
 	saveManyModelMemory,
 	prepMemoryForFight,

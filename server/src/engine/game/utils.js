@@ -28,23 +28,25 @@ function getRandomAround(num,percent){
 
 function modStat4Effect(num,percent){
   let rtn = getRandomAround(num/100,percent);
- return rtn.toFixed()
+  return rtn.toFixed()
 }
 
 function createNewGladiator(gladType) {
   
   //console.log("  -EN> Creating Glad:",gladType);
+        // Looking for average of 1,000 start stat. as starting average.
+        // 30 d 66 current varience is :
+        // low of 700 hight of 1300
+        // Physical Stats
+        // 20d99
+        // Low of 635 high of 1365
+        const numDice = 20;
+        const sideDice = 99;
   switch(gladType){
     default:
     return { 
         name: gladNames[rollDice(1, gladNames.length)] + ' '+gladNames[rollDice(1, gladNames.length)], 
-        // Character Points Stats
-        // The three main stats for living. 
-        hits: 100, // Easily trained stat.
-        morale:100, // Morale is high because it's stable stat? Mmm maybe later add ways to train it up.
-        stamina:100,
-  
-        mana:100,
+
         level:1,
         winRecord:0,
         lossRecord:0,
@@ -54,36 +56,35 @@ function createNewGladiator(gladType) {
         yearWin:0,
         age:1,
 
-        // Looking for average of 1,000 start stat. as starting average.
-        // Physical Stats
-        strength:rollDice(35,55),
-        dexterity:rollDice(35,55),
-        agility:rollDice(35,55),
-        constitution:rollDice(35,55),
-        vitality:rollDice(35,55),
+        
+        strength:rollDice(numDice,sideDice),
+        dexterity:rollDice(numDice,sideDice),
+        agility:rollDice(numDice,sideDice),
+        constitution:rollDice(numDice,sideDice),
+        vitality:rollDice(numDice,sideDice),
         
         // Mental Stats
-        intelligence:rollDice(35,55),
-        wisdom:rollDice(35,55),
-        bravery:rollDice(35,55),
-        piety:rollDice(35,55),
-        sensitivity:rollDice(35,55),
+        intelligence:rollDice(numDice,sideDice),
+        wisdom:rollDice(numDice,sideDice),
+        bravery:rollDice(numDice,sideDice),
+        piety:rollDice(numDice,sideDice),
+        sensitivity:rollDice(numDice,sideDice),
   
         // Social Stats
-        charisma:rollDice(35,55),
-        luck:rollDice(35,55),
-        reputation:rollDice(35,55),
+        charisma:rollDice(numDice,sideDice),
+        luck:rollDice(numDice,sideDice),
+        reputation:rollDice(numDice,sideDice),
   
         skills:["dodge","taunt"],
         mainHand:"shortSword",
         schedule:[
           {
-          1:{1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:"tough"},
-          2:{1:"community",2:"woodCarv",3:"hiking",4:"readBook",5:"pray",6:"lookLost",7:"tough",8:"chopWood"},
-          3:{1:"woodCarv",2:"hiking",3:"readBook",4:"pray",5:"lookLost",6:"tough",7:"chopWood",8:"tough"},
-          4:{1:"hiking",2:"readBook",3:"pray",4:"lookLost",5:"tough",6:"chopWood",7:"lookLost",8:"community"},
-          5:{1:"readBook",2:"pray",3:"lookLost",4:"tough",5:"chopWood",6:"pray",7:"community",8:"woodCarv"},
-          6:{1:"pray",2:"lookLost",3:"tough",4:"chopWood",5:"readBook",6:"community",7:"woodCarv",8:"hiking"},
+          1:{1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:"chopWood"},
+          2:{1:"community",2:"woodCarv",3:"hiking",4:"readBook",5:"pray",6:"lookLost",7:"woodCarv",8:"chopWood"},
+          3:{1:"woodCarv",2:"hiking",3:"readBook",4:"pray",5:"lookLost",6:"chopWood",7:"chopWood",8:"woodCarv"},
+          4:{1:"hiking",2:"readBook",3:"pray",4:"lookLost",5:"hiking",6:"chopWood",7:"lookLost",8:"community"},
+          5:{1:"readBook",2:"pray",3:"lookLost",4:"readBook",5:"chopWood",6:"pray",7:"community",8:"woodCarv"},
+          6:{1:"pray",2:"lookLost",3:"hiking",4:"chopWood",5:"readBook",6:"community",7:"woodCarv",8:"hiking"},
           }
         ]
   
