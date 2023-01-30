@@ -99,9 +99,22 @@ router.post('/owner/tournamentRound', async(req, res) => {
     res.send({});
 })
 
-router.post('/owner/training', async(req, res) => {
-    let owner = await Owner.findOne({ userAcct: req.body.id });
-    let rtn = await owner.getTraining();
+// router.post('/owner/training', async(req, res) => {
+//     let owner = await Owner.findOne({ userAcct: req.body.id });
+//     let rtn = await owner.getTraining();
+//     res.send(rtn);
+// })
+router.get('/owner/training/:ownerId', async(req, res) => {
+    //    let owner = await Owner.findOne({ userAcct: req.body.id });
+        const owner = await Owner.findById(req.params.ownerId);
+        let rtn = await owner.getTraining();
+        res.send(rtn);
+})
+
+router.get('/owner/learning/:ownerId', async(req, res) => {
+//    let owner = await Owner.findOne({ userAcct: req.body.id });
+    const owner = await Owner.findById(req.params.ownerId);
+    let rtn = await owner.getLearning();
     res.send(rtn);
 })
 
@@ -162,10 +175,10 @@ router.get('/owner/getStudent/:ownerId', async(req, res) => {
 router.post('/owner/buyStudent/', async(req, res) => {
     // In this post it will confirm buying th student, so it will 
     const {gladName,ownerId,index} = req.body;
-    console.log(gladName,ownerId);
+    //console.log(gladName,ownerId);
     if(potentialStudents[ownerId]){
         const owner2 = await Owner.findById(ownerId);
-        console.log(potentialStudents[ownerId][index]);
+        // console.log(potentialStudents[ownerId][index]);
         const glad = await new Gladiator(potentialStudents[ownerId][index]);
         potentialStudents[ownerId].splice(index,1);
         glad.ownerId = owner2._id;

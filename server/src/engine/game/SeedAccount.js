@@ -34,7 +34,7 @@ async function SeedAccount(){
     let allGladiators = await Gladiator.find();
     let weekDay = 1;
     let dateTime = 1;
-    const doTicks = 200;
+    const doTicks = 2000;
     console.log('  -SEED> Tick Growth Start Doing ',doTicks,"ticks for ",allGladiators.length,"gladiators");
 
 		const myPromise = new Promise(async (resolve, reject) => {
