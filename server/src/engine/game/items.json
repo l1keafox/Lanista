@@ -1,4 +1,16 @@
 {
+  "gladius":{
+    "slot":"mainHand",
+    "abilities":["slash"]
+  },
+  "galea":{
+    "slot":"head",
+    "abilities":["taunt"]
+  },
+  "clothArmor":{
+    "slot":"body",
+    "abilities":["dodge"]
+  },
   "shortSword":{
     "slot":"mainHand",
     "abilities":["slash","backstab"],

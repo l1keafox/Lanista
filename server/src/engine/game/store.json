@@ -1,13 +1,33 @@
 {
     "items":[
         {
+            "type":"gladius",
+            "cost":100,
+            "fame":1
+        },
+        {
+            "type":"galea",
+            "cost":100,
+            "fame":1
+        },
+        {
+            "type":"clothArmor",
+            "cost":100,
+            "fame":1
+        },
+        {
+            "type":"longSword",
+            "cost":1000,
+            "fame":1
+        },
+        {
             "type":"shortSword",
-            "cost":1,
+            "cost":300,
             "fame":1
         },
         {
             "type":"dagger",
-            "cost":1,
+            "cost":200,
             "fame":1
         }
 
