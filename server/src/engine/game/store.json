@@ -26,11 +26,21 @@
             "fame":1
         },
         {
+            "type":"boots",
+            "cost":300,
+            "fame":1
+        },
+                {
+            "type":"shield",
+            "cost":1000,
+            "fame":1
+        },
+        {
             "type":"dagger",
             "cost":200,
             "fame":1
         }
-
+        
     ],
     "structures":[
         {

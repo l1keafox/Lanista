@@ -1,31 +1,42 @@
 <template>
   <div class="flex flex-col w-full overflow-y-auto">
-    <h1>ITEMS:</h1>
-    
-    <div v-if="itemData" class="flex overflow-x-auto shrink-0">
-      <template v-for="(item, index) in itemData" :key="index">
-        <itemCard :data="item" @buyThing="buyThing('item',index)"/>
+
+    <div v-if="structData"  class="flex overflow-x-auto  shrink-0">
+      <template v-for="(struct, index) in structData" :key="index">
+        <itemCard :data="struct" @buyThing="buyThing('struct',index)"/>
       </template>
     </div>
-
-    <hr />
-    <h1>Head Armor:</h1>
-
+    <hr/>
     <div v-if="headData" class="flex overflow-x-auto  shrink-0">
       <template v-for="(item, index) in headData" :key="index" >
         <itemCard :data="item" @buyThing="buyThing('item',index)"/>
       </template>
     </div>
-
     <hr />
-    <h1>Structures:</h1>
-    <div v-if="structData"  class="flex overflow-x-auto  shrink-0">
-
-      <template v-for="(struct, index) in structData" :key="index">
-        <itemCard :data="struct" @buyThing="buyThing('struct',index)"/>
-
+    <div v-if="bodyData" class="flex overflow-x-auto  shrink-0">
+      <template v-for="(item, index) in bodyData" :key="index" >
+        <itemCard :data="item" @buyThing="buyThing('item',index)"/>
       </template>
     </div>
+    <hr />
+    <div v-if="mainData" class="flex overflow-x-auto  shrink-0">
+      <template v-for="(item, index) in mainData" :key="index" >
+        <itemCard :data="item" @buyThing="buyThing('item',index)"/>
+      </template>
+    </div>
+    <hr />
+    <div v-if="offData" class="flex overflow-x-auto  shrink-0">
+      <template v-for="(item, index) in offData" :key="index" >
+        <itemCard :data="item" @buyThing="buyThing('item',index)"/>
+      </template>
+    </div>
+    <hr />
+    <div v-if="bootsData" class="flex overflow-x-auto  shrink-0">
+      <template v-for="(item, index) in bootsData" :key="index" >
+        <itemCard :data="item" @buyThing="buyThing('item',index)"/>
+      </template>
+    </div>
+    <hr />
   </div>
 </template>
 

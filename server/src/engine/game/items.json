@@ -11,6 +11,14 @@
     "slot":"body",
     "abilities":["dodge"]
   },
+  "shield":{
+    "slot":"offHand",
+    "abilities":["block"]
+  },
+  "boots":{
+    "slot":"boots",
+    "abilities":["kick"]
+  },
   "shortSword":{
     "slot":"mainHand",
     "abilities":["slash","backstab"],

@@ -10,7 +10,7 @@
         <p> Each round of a duel there is a Clash - which is each gladiator will randomly pick one skill from his skill set.</p>
         <p> Compaired it to the other gladiators skill, each skill has effects and win condidtions against each other.</p>
         <p> Sort of like Rock/Paper/Scissors, the best example would be Strike/Taunt/Dodge</p>
-        <P> Strike > Taunt > Dodge > Strike </P>
+        <p> Strike > Taunt > Dodge > Strike </p>
         <p> If strike is against taunt, it will do hp damage.</p>
         <p> If Taunt is against Dodge, it will do morale damage</p>
         <p> If Dodge is against Strike, it will do Stamina Damage</p>
