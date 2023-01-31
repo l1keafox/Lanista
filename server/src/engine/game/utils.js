@@ -75,8 +75,10 @@ function createNewGladiator(gladType) {
         luck:rollDice(numDice,sideDice),
         reputation:rollDice(numDice,sideDice),
   
-        skills:["dodge","taunt"],
-        mainHand:"shortSword",
+        skills:[],
+        mainHand:"gladius",
+        body:"clothArmor",
+        head:"galea",
         schedule:[
           {
           1:{1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:"chopWood"},

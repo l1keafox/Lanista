@@ -116,10 +116,16 @@ module.exports = {
 
 				for(let i in glads.usedGlads){
 
-					if(glads.usedGlads[i].memory || glads.usedGlads[i].seed){
+					if(glads.usedGlads[i].seed){
 						// if it is an memory, or a seed.
+						// Memories maybe should be saved..
 					} else {
-						await glads.usedGlads[i].save();
+						try{
+							await glads.usedGlads[i].save();
+						}catch(err){
+							console.log(err);
+						}
+						
 					}
 				}
 			}

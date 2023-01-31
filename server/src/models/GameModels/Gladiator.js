@@ -202,7 +202,8 @@ gladiatorSchema.methods.doLevel = async function() {
     // This will go through equipment and give fill up skills
     // or it will go through 
     if(this.level > 8){
-        if(this.age > 128*this.level ){
+        // 336 days in a year
+        if(this.age > 336 * this.level ){
             this.level++;
         }
     } else 
