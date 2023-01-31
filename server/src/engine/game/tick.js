@@ -37,99 +37,32 @@ module.exports = {
 			const startOfTick = new Date();
 
 //			console.log("  -EN>Tournament Day");
-			// console.log(`aging ${allGladiators.length} glads +1 day`);
 			let allNonSeedGlad = allGladiators.filter(glad => {
 				glad.age++;
 				return !glad.seed 
 			});
 			await saveManyModelMemory(allGladiators); // uncertain if this works as intended.
 
-			// for(let gladiator of allGladiators){
-			// 	if(!gladiator.seed){
-			// 		allNonSeedGlad.push(gladiator);
-			// 	}
-			// }
  		  	console.log(`  -EN> Saved Gladiators Time: ${new Date()-startOfTick}  :: ${allNonSeedGlad.length}# of glads`);
 			
 			let memoryByLvl = {};
 
-			// let allMemory = await Memory.find();
-			// console.log(`  -EN> Sorting Done Time: ${new Date()-startOfTick} Starting Tournament  :: ${allMemory.length}`);
-			// allMemory.forEach( mem =>{
-			// 	if(!memoryByLvl[ mem.level ]){
-			// 		memoryByLvl[ mem.level ] = [];
-			// 	}
-			// 	memoryByLvl[ mem.level ].push(mem);
-			// });
-//			console.log(`  -EN> Sorting Done Time: ${new Date()-startOfTick} Starting Tournament  :: ${allNonSeedGlad.length}`);
-			// for(let level in memoryByLvl){
-			// 	console.log(level,memoryByLvl[level].length);
-			// }
-			// for(let lvl in memoryByLvl){
-			// 	console.log(lvl, "s and Memory in them:", memoryByLvl[lvl].length );
-			// }
-			// So now we determine if the local,regional,quarter,national.
 			async function saveGlads(glads){
-				//console.log(glads.usedGlads.length);
-
-				// So these are all gladiatorIds that need to be added this record
-				// memory is from memory fighting
-				//console.log("Memory",glads.toRecordObj.memory);
-				// gladiators are the acutal gladiator fighting.
-				//console.log("Gladiators", glads.toRecordObj.gladiator);
-
-				// So with the gladiators we need to see if they exist in the usedGlads(they should)
-				// with the memories first we should also see 
-				// Object.keys(glads.toRecordObj.memory).includes(glad.id) || Object.keys(glads.toRecordObj.gladiator).includes(glad.id)
-				let foundGlad = glads.usedGlads.forEach(glad=>{
-					if(glads.toRecordObj.memory[glad.id]){
-//						console.log('Memory Object found glad',glad.id,glads.toRecordObj.memory[glad.id])
-						for(let stat in glads.toRecordObj.memory[glad.id]){
-//							console.log(stat, "Amnt: ", glads.toRecordObj.memory[glad.id][stat]);
-							glad[stat] += glads.toRecordObj.memory[glad.id][stat];
-						}
-						glads.toRecordObj.memory[glad.id] = undefined;
+				for(let id in glads.toRecordObj.memory){
+					let memory = await Memory.findById(id);
+					for(let stat in glads.toRecordObj.memory[id]){
+						memory[stat] += glads.toRecordObj.memory[id][stat];
 					}
-					if(glads.toRecordObj.gladiator[glad.id]){
-//						console.log('Gladator found',glad.id,glads.toRecordObj.gladiator[glad.id])
-						for(let stat in glads.toRecordObj.gladiator[glad.id]){
-//							console.log(stat, "Amnt: ", glads.toRecordObj.gladiator[glad.id][stat]);
-							glad[stat] += glads.toRecordObj.gladiator[glad.id][stat];
-						}
-						glads.toRecordObj.gladiator[glad.id] = undefined;
-					}
-					//return true;
-				})
-				for(let i in glads.toRecordObj.memory){
-					if (glads.toRecordObj.memory[i]){
-						console.log(" ERROR STILL HAS NEEDS!   memory",i  );
-					}
+					memory.save();
 				}
-				for(let i in glads.toRecordObj.gladiator){
-					if (glads.toRecordObj.gladiator[i]){
-						console.log(" ERROR STILL HAS NEEDS!  gladiator",i );
+				for(let id in glads.toRecordObj.gladiator){
+					let glad = await Gladiator.findById(id);
+					for(let stat in glads.toRecordObj.gladiator[id]){
+						glad[stat] += glads.toRecordObj.gladiator[id][stat];
 					}
-				}
-				// console.log("Memory",glads.toRecordObj.memory);
-				// // gladiators are the acutal gladiator fighting.
-				// console.log("Gladiators", glads.toRecordObj.gladiator);
-
-				for(let i in glads.usedGlads){
-
-					if(glads.usedGlads[i].seed){
-						// if it is an memory, or a seed.
-						// Memories maybe should be saved..
-					} else {
-						try{
-							await glads.usedGlads[i].save();
-						}catch(err){
-							console.log(err);
-						}
-						
-					}
+					glad.save();
 				}
 			}
-
 			if (date.month === 12 && date.day == 28) {
 // 				// national is roundrobin then a double elimination tournament.
 // 				// national is the last month, and 28th
@@ -137,36 +70,28 @@ module.exports = {
 // 				// and do a tournament!
 // 				// Should be 124
 				let ditto = await nationalTournament(allGladiators, memoryByLvl)
-//				console.log("National TOURNAMENT");
 				await saveGlads(ditto);
 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allGladiators.length} saved:${ditto.usedGlads.length}`);
 
 			} else  
 			if ((date.month === 3 || date.month === 6 || date.month === 9) && date.day == 28	) {
 				
-				//Double elimination Tournament.
+				//Best of three Tournament.
 				let ditto = await quarterTournament(allNonSeedGlad, memoryByLvl)
-//				console.log("Quarter TOURNAMENT Memberes:",allNonSeedGlad.length);
 				await saveGlads(ditto);
 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.usedGlads.length}`);
 
 			} else if (date.day == 28 ) {
 				// Should be 32 fighters
 				// Single elimination.
-			//	console.log("Regional TOURNAMENT");
 				let ditto = await regionalTournament(allNonSeedGlad,memoryByLvl ); 
-			//	console.log(ditto.length,"Regional TOURNAMENT END",allNonSeedGlad.length);
 				await saveGlads(ditto);
  				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.usedGlads.length}`);
 
 			} else {
 //				Local tournament is a round robin
-//				console.log("Local TOURNAMENT Start",allNonSeedGlad.length);
 				let ditto = await localTournament(allNonSeedGlad); 
-//				console.log(ditto.length,"Local TOURNAMENT END",allNonSeedGlad.length);
 				await saveGlads(ditto);	
-//				So we grab all gladiators that are selected via schedule to do this tournament.
-//				We will then make sure they do not do any training that day.
 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.usedGlads.length}`);
 			}
 
