@@ -8,7 +8,12 @@
     "training":["weights"]
   },
   "altar":{
-    "description":"Can learn Heal from the gods.",
+    "description":"Can learn Heal spell.",
     "learning":["heal"]
+  },
+  "kickingRoom":{
+    "description":"A room to learn how to kick",
+    "learning":["kick"]
   }
+
 }

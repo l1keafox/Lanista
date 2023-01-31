@@ -101,10 +101,8 @@ module.exports = {
 			// console.log('  -TICK> allGladiators Age++')
 
 			await allGladiators.forEach(async (gladiator) => {
-//			console.log(gladiator.schedule[0][date.weekDay][date.time], gladiator.name,"learning",gladiator.learnSkill,gladiator.taskSkill,gladiator.progressSkill);
 			// before we do growth we need to check too see if this is current a skill replacement.
 			if(gladiator.taskSkill[0] ==  gladiator.schedule[0][date.weekDay][date.time] )			{
-				console.log("SKILL REPLACE");
 				// now it's replaces we need to 				
 				let progress = JSON.parse(gladiator.progressSkill);
 				let skill = getAbilityEffect( gladiator.learnSkill[0]);
