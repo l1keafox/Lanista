@@ -16,7 +16,8 @@ const abilityObj = {
     slash: require("./abilities/Slash"),
     dodge: require("./abilities/Dodge"),
     taunt: require("./abilities/Taunt"),
-    stab: require("./abilities/stab"),
+    stab: require("./abilities/Stab"),
+    kick: require("./abilities/Kick"),
 
 
     // React abilities.
