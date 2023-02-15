@@ -14,7 +14,7 @@ const abilityObj = {
 
 
     // Clash Abilities
-    slash: require(__dirname+"/abilities/Slash"),
+    slash: require(__dirname+"/Abilities/Slash"),
     dodge: require("./abilities/Dodge"),
     taunt: require("./abilities/Taunt"),
     stab: require("./abilities/Stab"),
