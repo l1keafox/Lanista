@@ -5,7 +5,7 @@ Due to abilities been a bit more complex than items, we will do an abilities fol
 
 
 */
-let heal = require("./abilities/Heal")
+
 const abilityObj = {
     // Now this one should maybe do 
     // Prepare abilities
