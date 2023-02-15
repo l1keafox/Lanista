@@ -15,15 +15,15 @@ const abilityObj = {
 
     // Clash Abilities
     slash: require(__dirname+"/Abilities/Slash"),
-    dodge: require("./abilities/Dodge"),
-    taunt: require("./abilities/Taunt"),
-    stab: require("./abilities/Stab"),
-    kick: require("./abilities/Kick"),
+    dodge: require("./Abilities/Dodge"),
+    taunt: require("./Abilities/Taunt"),
+    stab: require("./Abilities/Stab"),
+    kick: require("./Abilities/Kick"),
 
 
     // React abilities.
-    heal: require("./abilities/Heal"),
-    backstab: require("./abilities/backstab"),
+    heal: require("./Abilities/Heal"),
+    backstab: require("./Abilities/backstab"),
 };
 
 function getAbilityEffect(skillName) {
