@@ -13,7 +13,7 @@ const abilityObj = {
 
 
     // Clash Abilities
-    slash: require("./abilities/Slash"),
+    slash: require("./Slash"),
     // dodge: require("./abilities/Dodge"),
     // taunt: require("./abilities/Taunt"),
     // stab: require("./abilities/Stab"),
