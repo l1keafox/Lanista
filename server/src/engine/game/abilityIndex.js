@@ -10,7 +10,7 @@ console.log(__dirname);
 const abilityObj = {
     // Now this one should maybe do 
     // Prepare abilities
-    //  heal: require(path.join(__dirname, "/src/engine/game/abilities/Heal") ),
+    heal: require(path.join(__dirname, "/src/engine/game/abilities/Heal") ),
 
 
     // Clash Abilities
