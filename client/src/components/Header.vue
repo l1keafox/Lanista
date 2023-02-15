@@ -47,12 +47,13 @@
 
 <script>
 import auth from "@/mixins/auth";
+// import { getApi } from "@/mixins/apiCall"
 import LoginVue from "./LoginVue.vue";
 import CreateAccount from "./CreateAccount.vue";
 
 export default {
 	name: "HeaderVue",
-	inject: ["getUser","getOwner","cardTitle","getTime"],
+	inject: ["getUser","getOwner","cardTitle","getTime","apiCall"],
 	emits: ["logged", "changeMain", "getUser"],
 	data() {
 		return {
@@ -123,11 +124,8 @@ export default {
 				this.showLoginModal = false;
 				return;
 			}
-			//      console.log("Trying login", username, password);
-//			let port = 3001;
-          
 			const rpnse = await fetch(
-				`https://${window.location.hostname}/users/login`,
+				this.apiCall.value+'users/login',
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },

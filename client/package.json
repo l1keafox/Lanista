@@ -2,6 +2,7 @@
   "name": "lanistaclient",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001",
   "scripts": {
     "serve": "vue-cli-service serve",
     "start": "vue-cli-service serve",

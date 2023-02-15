@@ -1,4 +1,4 @@
-const timeBetweenTicks = process.env.MONGODB_CONNECTION_STRING? process.env.MONGODB_CONNECTION_STRING : 15000; 
+const timeBetweenTicks = process.env.TICK? process.env.TICK : 15000; 
 
 const Tick = require('./game/tick');
 let timeToLastTick;
@@ -17,7 +17,7 @@ return new Promise(async (resolve, reject) => {
 async function startLoop(){
     const currentTick = new Date();
     
-//     console.log('  -> Time Sense Last Tick:',currentTick - timeToLastTick);
+//    console.log('  -> Time Sense Last Tick:',currentTick - timeToLastTick);
     if((currentTick - timeToLastTick) > timeBetweenTicks ){
         timeToLastTick = new Date();
         await doGameTick();
