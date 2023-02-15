@@ -124,12 +124,10 @@ export default {
 				return;
 			}
 			//      console.log("Trying login", username, password);
-			let port = process.env.PORT ? process.env.PORT :  3001;
-        console.log(process.env.PORT)
-				console.log(port);
+//			let port = 3001;
           
 			const rpnse = await fetch(
-				`https://${window.location.hostname}:${port}/users/login`,
+				`https://${window.location.hostname}/users/login`,
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
