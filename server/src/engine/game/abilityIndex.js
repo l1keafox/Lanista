@@ -23,7 +23,7 @@ const abilityObj = {
 
     // React abilities.
     heal: require("./Abilities/Heal"),
-    backstab: require("./Abilities/backstab"),
+    backstab: require("./Abilities/BackStab"),
 };
 
 function getAbilityEffect(skillName) {
