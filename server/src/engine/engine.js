@@ -1,4 +1,4 @@
-const timeBetweenTicks = 1000; 
+const timeBetweenTicks = process.env.MONGODB_CONNECTION_STRING? process.env.MONGODB_CONNECTION_STRING : 15000; 
 
 const Tick = require('./game/tick');
 let timeToLastTick;
