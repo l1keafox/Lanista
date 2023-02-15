@@ -96,7 +96,7 @@ export default {
 					} else {
 						this.apiData =`http://${window.location.hostname}:3001/`
 					}
-
+          console.log("API SET",this.apiData);
     
   },
   provide() {
@@ -110,7 +110,8 @@ export default {
       getTime: computed(()=>this.timeData),
       getUser: computed(()=>this.userData),
       getLogged: computed(()=>this.isLoggedIn),
-      apiCall: this.apiData
+      apiCall: computed(()=>this.apiData)
+      
     };
   },
 };

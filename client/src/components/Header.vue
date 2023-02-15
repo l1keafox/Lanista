@@ -53,7 +53,7 @@ import CreateAccount from "./CreateAccount.vue";
 
 export default {
 	name: "HeaderVue",
-	inject: ["getUser","getOwner","cardTitle","getTime"],
+	inject: ["getUser","getOwner","cardTitle","getTime","apiCall"],
 	emits: ["logged", "changeMain", "getUser"],
 	data() {
 		return {
@@ -124,18 +124,8 @@ export default {
 				this.showLoginModal = false;
 				return;
 			}
-			//      console.log("Trying login", username, password);
-//			let port = 3001;
-          console.log( location.protocol)
-					let string;
-					if(location.protocol === 'https'){
-						string =`https://${window.location.hostname}:3001/users/login`
-					} else {
-						string =`http://${window.location.hostname}:3001/users/login`
-					}
-
 			const rpnse = await fetch(
-				string,
+				this.apiCall.value+'users/login',
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
