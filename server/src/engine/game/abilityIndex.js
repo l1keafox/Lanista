@@ -5,11 +5,11 @@ Due to abilities been a bit more complex than items, we will do an abilities fol
 
 
 */
-
+const path = require("path");
 const abilityObj = {
     // Now this one should maybe do 
     // Prepare abilities
-    // heal: require("./abilities/Heal"),
+     heal: require(path.join(__dirname, "./abilities/Heal") ),
 
 
     // Clash Abilities
