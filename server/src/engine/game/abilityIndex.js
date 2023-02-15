@@ -9,7 +9,7 @@ Due to abilities been a bit more complex than items, we will do an abilities fol
 const abilityObj = {
     // Now this one should maybe do 
     // Prepare abilities
-    heal: require("./abilities/Heal"),
+    // heal: require("./abilities/Heal"),
 
 
     // Clash Abilities
@@ -21,7 +21,7 @@ const abilityObj = {
 
 
     // React abilities.
-    heal: require("./abilities/Heal"),
+    // heal: require("./abilities/Heal"),
     backstab: require("./abilities/backstab"),
 };
 
