@@ -547,7 +547,7 @@ async function localTournament(allGladiators) {
 			
 				await doSaveTournament(localGroup,result.report,"weekly",result.winner)
 
-				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: ${string}`);				
+				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms Doing Local tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} ${mainGlad.name} WINNER: ${string}`);				
 
 				// and it will repeat over and over again.
                 usedGlads = usedGlads.concat(localGroup);
