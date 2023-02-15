@@ -117,11 +117,12 @@ async function bestOutOf3Round(group,toRecord) {
 				loserArray.push(group[i]);
 				winnerArray.push(group[i + 1]);
 			}
+			if(threeReport.length < 3){
+				threeReport.push( {saveId: null, 1: group[i].name, 2: group[i+1].name} );
+			}
+	
 		}
-		if(threeReport.length < 3){
-			threeReport.push( {saveId: null, 1: threeReport[1][1], 2:threeReport[1][2]} );
-		}
-		threeReport[2][1]
+		//threeReport[2][1]
 		roundReport.push( threeReport );
 
 	}
@@ -138,7 +139,7 @@ async function bestOfThreeTournament(group,name,toRecord){
 		let roundReport = [];
 		do {
         	roundCount++;
-//        	console.log("  -TOURN>Start best of three Round ",roundCount,name, group.length);
+        	console.log("  -TOURN>Start best of three Round ",roundCount,name, group.length);
 			result = await bestOutOf3Round(group,toRecord);
 			
 			roundReport.push(result.report);
@@ -149,46 +150,49 @@ async function bestOfThreeTournament(group,name,toRecord){
 	});
 }
 
-async function roundRobinThenBestOfThree(incomingGroup,tournyName){
+async function roundRobinThenBestOfThree(incomingGroup,tournyName,toRecord){
 	return new Promise(async (resolve, reject) =>
 	 {
-		// const startOfTick = new Date();
-		// let winObj = {};
-		// // We need to split the big 128 peoples into smaller groups of 8
-		// let groups = [];
-		// // Group of 8 of sixteen.
-		// // create the groups.
-		// for(let i = 0; i < 8 ; i ++){
-		// 	groups.push([]);
-		// }
-		// console.log('  -EN/TOURNY/NAT>',incomingGroup.length, "Num of peeps");
-		// do{
-		// 	groups.sort(() => Math.random() - 0.5);
-		// 	for(let i = 0; i < 8 ; i ++){
-		// 		groups[i].push(incomingGroup.pop());
-		// 		if(incomingGroup.length == 0  )break;
-		// 	}
-		// }while(incomingGroup.length !== 0)
+		const startOfTick = new Date();
+		let winObj = {};
+		// We need to split the big 128 peoples into smaller groups of 8
+		let groups = [];
+		const numOfGroups = 8;
+		// Group of 8 of sixteen.
+		// create the groups.
+		for(let i = 0; i < numOfGroups ; i ++){
+			groups.push([]);
+		}
+		console.log('      -EN/TOURNY/NAT> Starting with:',incomingGroup.length, "Num of glads");
+		incomingGroup = [...incomingGroup]
+		incomingGroup.sort(() => Math.random() - 0.5);
+		let i = 0;
+		while(incomingGroup.length){
+			groups[i].push(incomingGroup.pop());
+			i++;
+			if(i >= numOfGroups) i = 0
+		}
 		
-		// let bestOfThreeArry = [];
-		// let roundRobinReport = [];
-		// for(let index in groups){
-		// 	let grp = groups[index];
-		// 	console.log('  -EN/TOURNY/NAT>',grp.length, "# of members /",groups.length , "# of groups");
-		// 	// so do round robin with this groups
-		// 	let result = await doRoundRobin(grp,tournyName);
-		// 	roundRobinReport.push(result.report);
-		// 	// for(let i in result.winner){
-		// 	// 	console.log('  -EN/TOURNY/ Round Robin Winner>',result.winner[i]);
-		// 	// }
-		// 	bestOfThreeArry = bestOfThreeArry.concat(result.winner);
-		// }
-		// let string = '';
-		// bestOfThreeArry.forEach(glad => string+=glad.name+' ');
-		// console.log('  -EN/TOURNY/ Tournament:',string);
-		// let result = await bestOfThreeTournament(bestOfThreeArry,tournyName+"Final");
+		let bestOfThreeArry = [];
+		let roundRobinReport = [];
+		for(let index in groups){
+			let grp = groups[index];
+			console.log('        -EN/TOURNY/NAT>',grp.length, "# of members /",index, "# of groups");
+			// so do round robin with this groups
+			let result = await doRoundRobin(grp,tournyName ,toRecord );
+			// {winner:resultArray, report, duelResults:winObj };
+			roundRobinReport.push(result.report);
+			// for(let i in result.winner){
+			// 	console.log('  -EN/TOURNY/ Round Robin Winner>',result.winner[i]);
+			// }
+			bestOfThreeArry = bestOfThreeArry.concat(result.winner);
+		}
+		let string = '';
+		bestOfThreeArry.forEach(glad => string+=glad.name+' ');
+		console.log('    -EN/TOURNY/ Starting best of three Tournament: Members count:',bestOfThreeArry.length);
+		let result = await bestOfThreeTournament(bestOfThreeArry,tournyName+"Final",toRecord);
 
-		// resolve({winner:result.winner, report:{roundRobin:roundRobinReport, bestOfThree:result.report }});
+		resolve({winner:result.winner, report:{roundRobin:roundRobinReport, bestOfThree:result.report }});
 	});
 }
 
@@ -409,36 +413,37 @@ async function nationalTournament( allGladiators){
 			organizeByLvl[glad.level].push(glad);
 		});
 		console.log('  -EN/TOURNY/NAT>SEND IN:',allGladiators.length);
+		let toRecordObj = {};
 		for(let i in organizeByLvl){
-			console.log('  -EN/TOURNY/NAT>',i, 'levels  IN:',organizeByLvl[i].length);
+			console.log('    -EN/TOURNY/NAT******>',i, 'levels  Non Seeders::',organizeByLvl[i].length,"/",groupSize);
 			const mainGlad = organizeByLvl[i][0];
-				const startOfTick = new Date();
-				let added = [];
-                let tournyName = 'NAT';
-				// This won't use so many memories, it will take all the gladiators and then add memories based on the number.
+			const startOfTick = new Date();
+			let added = [];
+            let tournyName = 'NAT';
+			// This won't use so many memories, it will take all the gladiators and then add memories based on the number.
 
-				let localGroup =  await getMemoryGroup(organizeByLvl[i], groupSize);
-				console.log("  -TOURN>>< Starting National Tournament> FOR LEVEL:",mainGlad.level,"<",tournyName, localGroup.length,'/');
+			let localGroup =  await getMemoryGroup(organizeByLvl[i], groupSize);
+			console.log("  -EN/NATIONAL/TOURN>>< Starting National Tournament> FOR LEVEL:",mainGlad.level,"<",tournyName, localGroup.length,'/');
 				
 				// So first it will do an roundrobin touranament 
 				// The winner of each roundrobin will then go on to the bestOfThree tournament.
 
 
-				let result = await roundRobinThenBestOfThree(localGroup,tournyName);
-				doSaveTournament(localGroup,result.report,"yearly",result.winner);
-				if(result.winner){
-					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms National Doing National tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: ${result.winner.name}`);
-					//await addToRecord(result.winner,"yearWin");
-
-				} else  {
-					console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms National Doing National tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: NONE?!`);
-				}
+			
+			let result = await roundRobinThenBestOfThree(localGroup,tournyName,toRecordObj);
+			doSaveTournament(localGroup,result.report,"yearly",result.winner);
+			if(result.winner){
+				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms National Doing National tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: ${result.winner.name}`);
+				//await addToRecord(result.winner,"yearWin");
+			} else  {
+				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms National Doing National tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: NONE?!`);
+			}
+			usedGlads = usedGlads.concat(localGroup);
 				
-                usedGlads = usedGlads.concat(localGroup);
 			}
 
 			
-		resolve(usedGlads);
+		resolve({usedGlads,toRecordObj});
 	});
 }
 
@@ -542,7 +547,7 @@ async function localTournament(allGladiators) {
 			
 				await doSaveTournament(localGroup,result.report,"weekly",result.winner)
 
-				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms ${mainGlad.name} Doing Local tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} WINNER: ${string}`);				
+				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms Doing Local tournament size: ${localGroup.length} age:${mainGlad.age} level: ${mainGlad.level} ${mainGlad.name} WINNER: ${string}`);				
 
 				// and it will repeat over and over again.
                 usedGlads = usedGlads.concat(localGroup);

@@ -1,40 +1,48 @@
 <template>
-  <div class="flex flex-col w-full overflow-x-hidden">
-    <h1>ITEMS:</h1>
-    <div v-if="itemData" class="flex">
-      <div v-for="(item, index) in itemData" :key="item" :class="smallCard">
-        <h1 :class="cardTitle">{{ item.type }}</h1>
-        <hr />
+  <div class="flex flex-col w-full overflow-y-auto">
 
-        <button
-          class="bg-yellow-200 m-2 text-purple-900"
-          @click="buyThing('item', index)"
-        >
-          Buy
-        </button>
-      </div>
+    <div v-if="structData"  class="flex overflow-x-auto  shrink-0">
+      <template v-for="(struct, index) in structData" :key="index">
+        <itemCard :data="struct" @buyThing="buyThing('struct',index)"/>
+      </template>
     </div>
-
+    <hr/>
+    <div v-if="headData" class="flex overflow-x-auto  shrink-0">
+      <template v-for="(item, index) in headData" :key="index" >
+        <itemCard :data="item" @buyThing="buyThing('item',index)"/>
+      </template>
+    </div>
     <hr />
-    <h1>Structures:</h1>
-    <div v-if="structData"  class="flex">
-      <div v-for="(struct, index) in structData" :key="struct" :class="smallCard">
-        <h1 :class="cardTitle">{{ struct.type }}</h1>
-        <hr />
-
-        <button
-          class="bg-yellow-200 m-2 text-purple-900"
-          @click="buyThing('struct', index)"
-        >
-          Buy
-        </button>
-      </div>
+    <div v-if="bodyData" class="flex overflow-x-auto  shrink-0">
+      <template v-for="(item, index) in bodyData" :key="index" >
+        <itemCard :data="item" @buyThing="buyThing('item',index)"/>
+      </template>
     </div>
+    <hr />
+    <div v-if="mainData" class="flex overflow-x-auto  shrink-0">
+      <template v-for="(item, index) in mainData" :key="index" >
+        <itemCard :data="item" @buyThing="buyThing('item',index)"/>
+      </template>
+    </div>
+    <hr />
+    <div v-if="offData" class="flex overflow-x-auto  shrink-0">
+      <template v-for="(item, index) in offData" :key="index" >
+        <itemCard :data="item" @buyThing="buyThing('item',index)"/>
+      </template>
+    </div>
+    <hr />
+    <div v-if="bootsData" class="flex overflow-x-auto  shrink-0">
+      <template v-for="(item, index) in bootsData" :key="index" >
+        <itemCard :data="item" @buyThing="buyThing('item',index)"/>
+      </template>
+    </div>
+    <hr />
   </div>
 </template>
 
 <script>
 import auth from "./../mixins/auth";
+import itemCard from "./../components/ItemCard"
 export default {
   inject: ["card", "cardTitle","smallCard"],
   name: "StoreMain",
@@ -69,6 +77,7 @@ export default {
       console.log("Buying:", buyThisThing, "Result", success);
 
       if (success) {
+        alert("Bought Item");
         this.updateStore();
       }
     },
@@ -80,16 +89,46 @@ export default {
         }
       );
       const storeData = await rpnse.json();
+      this.headData= [];
+      this.bodyData= [];
+      this.offData= [];
+      this.mainData= [];
+      this.bootsData= [];
+      storeData.items.forEach(it=>{
+        switch(it.slot){
+          case "head":
+          this.headData.push(it);
+            break;
+            case "body":
+            this.bodyData.push(it);
+            break;
+            case "offHand":
+            this.offData.push(it);
+            break;
+            case "mainHand":
+            this.mainData.push(it);
+            break;
+            case "boots":
+            this.bootsData.push(it);
+            break;
+        }
+      })
       this.itemData = storeData.items;
       this.structData = storeData.structures;
-
     }
   },
-  components: {},
+  components: {
+    itemCard
+  },
   data() {
     return {
       userData: auth.getUser(),
       itemData: null,
+      headData: [],
+      bodyData: [],
+      mainData: [],
+      offData: [],
+      bootsData: [],
       structData: null,
     };
   },

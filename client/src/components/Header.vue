@@ -6,17 +6,17 @@
 				class="cursor-pointer text-4xl text-center font-bold font-lux p-2 pl-4">
 				LANISTA
 			</h1>
-            <div class ="flex w-1/3 justify-between items-center">
+            <div class ="flex w-2/3 justify-between items-center">
 				<h2 :class ="cardTitle">Username: <template v-if="userData">{{ userData.username }}</template></h2>
 				<h2 :class ="cardTitle">GOLD: <template v-if="ownerData"> {{ ownerData.gold }}</template></h2>
 				<h2 :class ="cardTitle">FAME: <template v-if="ownerData"> {{ ownerData.fame }}</template></h2>
-				<template v-if="timeData">
-					::
+				<div v-if="timeData" class="flex">
 					<h2 :class ="cardTitle">{{timeData.time}}:00</h2>
+					::
 					<h2 :class ="cardTitle">{{timeData.day}}/{{timeData.month}}/{{timeData.year}} </h2>
-					:
+					::
 					<h2 :class ="cardTitle">{{timeData.weekDay}}WeekDay</h2>
-				</template>
+				</div>
             </div>
 			<div v-if="!isLoggedIn" class="flex justify-center items-center">
 				<button

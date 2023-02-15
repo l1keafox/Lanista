@@ -84,6 +84,7 @@ export default {
 		},    
   },
   unmounted(){
+    console.log("UNMOUNTED?");
     clearInterval(this.interval);
   },  
   mounted() {

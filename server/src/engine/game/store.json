@@ -1,27 +1,114 @@
 {
     "items":[
         {
+            "type":"gladius",
+            "cost":100,
+            "fame":1
+        },
+        {
+            "type":"galea",
+            "cost":100,
+            "fame":1
+        },
+        {
+            "type":"clothArmor",
+            "cost":100,
+            "fame":1
+        },
+        {
+            "type":"fullHelm",
+            "cost":1000,
+            "fame":1
+        },
+        {
+            "type":"halfHelm",
+            "cost":1000,
+            "fame":1
+        },
+        {
+            "type":"plateArmor",
+            "cost":10000,
+            "fame":1
+        },
+        {
+            "type":"shortSpear",
+            "cost":500,
+            "fame":1
+        },
+        {
+            "type":"longSword",
+            "cost":1000,
+            "fame":1
+        },
+        {
             "type":"shortSword",
-            "cost":1,
+            "cost":300,
+            "fame":1
+        },
+        {
+            "type":"shortBoots",
+            "cost":300,
+            "fame":1
+        },
+        {
+            "type":"longBoots",
+            "cost":300,
+            "fame":1
+        },
+        {
+            "type":"parryDagger",
+            "cost":800,
+            "fame":1
+        },
+        {
+            "type":"longSpear",
+            "cost":1200,
+            "fame":1
+        },
+        {
+            "type":"mace",
+            "cost":1200,
+            "fame":1
+        },
+        
+        {
+            "type":"gauntlet",
+            "cost":800,
+            "fame":1
+        },
+        
+        {
+            "type":"mediumShield",
+            "cost":1000,
+            "fame":1
+        },
+        {
+            "type":"largeShield",
+            "cost":5000,
             "fame":1
         },
         {
             "type":"dagger",
-            "cost":1,
+            "cost":200,
             "fame":1
         }
-
+        
     ],
     "structures":[
         {
             "type":"weightRoom",
-            "fame":1,
-            "cost":1
+            "fame":100,
+            "cost":10000
+        },
+        {
+            "type":"kickingRoom",
+            "fame":100,
+            "cost":10000
         },
         {
             "type":"altar",
-            "fame":1,
-            "cost":1
+            "fame":400,
+            "cost":7500
         }
     ]
 }

@@ -10,13 +10,8 @@ const itemObj = require("./items.json");
 const structureObj = require("./structure.json");
 const storeObj = require("./store.json");
 
-function getStoreCosts(itemName) {
-  
-}
-
 function getStoreItems(){
-    
     return storeObj;
 }
 
-module.exports = { getStoreCosts,getStoreItems };
+module.exports = { getStoreItems };

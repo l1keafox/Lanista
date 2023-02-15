@@ -127,7 +127,7 @@ async function prepModelForMemory(glad) {
 	await glad.calcuateGladiator();
 	let rtnObj = setupStats(glad);
 	modifyStatsFromItems(glad);
-
+	glad.calcuateStats();
 	rtnObj.prepare = glad.prepare;
 	rtnObj.react = glad.react;
 
@@ -148,13 +148,14 @@ async function prepModelForFight(glad) {
 	// or it will go through
 	await glad.calcuateGladiator();
 	let rtnObj = setupStats(glad);
+	modifyStatsFromItems(glad);
+	glad.calcuateStats();
 	rtnObj.name = glad.name;
 	rtnObj.maxHits = glad.hits;
 	rtnObj.maxMana = glad.mana;
 	rtnObj.maxMorale = glad.morale;
 	rtnObj.maxStamina = glad.stamina;
 
-	modifyStatsFromItems(glad);
 	// Here we will go through items and adjust stats based on items.
 
 	rtnObj.prepare = glad.prepare.map((skill) => getAbilityEffect(skill));
