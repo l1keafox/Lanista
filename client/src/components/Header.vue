@@ -47,6 +47,7 @@
 
 <script>
 import auth from "@/mixins/auth";
+// import { getApi } from "@/mixins/apiCall"
 import LoginVue from "./LoginVue.vue";
 import CreateAccount from "./CreateAccount.vue";
 
@@ -125,9 +126,16 @@ export default {
 			}
 			//      console.log("Trying login", username, password);
 //			let port = 3001;
-          
+          console.log( location.protocol)
+					let string;
+					if(location.protocol === 'https'){
+						string =`https://${window.location.hostname}:3001/users/login`
+					} else {
+						string =`http://${window.location.hostname}:3001/users/login`
+					}
+
 			const rpnse = await fetch(
-				`https://${window.location.hostname}/users/login`,
+				string,
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },

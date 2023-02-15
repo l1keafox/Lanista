@@ -14,13 +14,21 @@ const app = express();
 // Socket.io Stuff
 const { initIo } = require("./src/socket/index"); // initIo to initalize the server, io later on just to grab the object.
 const ioServer = initIo(app); // initalizing io into serverIo
+// app.use(function(request, response, next) {
+//   console.log(process.env.NODE_ENV  )
+//   if (process.env.NODE_ENV != 'development' && !request.secure) {
+//      return response.redirect("https://" + request.headers.host + request.url);
+//   }
+
+//   next();
+// })
+
 app.use(cors())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(userRouter);
 app.use(gladiatorRouter);
 app.use(ownerRouter);
-
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/dist")));

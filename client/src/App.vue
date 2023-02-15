@@ -42,6 +42,7 @@ export default {
       timeData:null,
       userData: null,
       interval:null,
+      apiData:null,
       ownerData:null
     };
   },
@@ -60,13 +61,11 @@ export default {
       if(this.userData == null){
           this.userData =  auth.getUser();
       }
-			if (this.isLoggedIn) {
+			if (this.isLoggedIn && this.apiData) {
         
         try{
-          let port = process.env.PORT ? process.env.PORT :  3001;
-        console.log(process.env.PORT)
           const rpnse = await fetch(
-					`https://${window.location.hostname}:${port}/owner/${auth.getUser().ownerId}`,
+            this.apiData + `owner/${auth.getUser().ownerId}`,
 					{
 						headers: { "Content-Type": "application/json" },
 					}
@@ -92,6 +91,13 @@ export default {
   mounted() {
     this.updateOwner();
 		this.interval = setInterval(this.updateOwner,1000);
+					if(location.protocol === 'https'){
+						this.apiData =`https://${window.location.hostname}/`
+					} else {
+						this.apiData =`http://${window.location.hostname}:3001/`
+					}
+
+    
   },
   provide() {
     return {
@@ -104,6 +110,7 @@ export default {
       getTime: computed(()=>this.timeData),
       getUser: computed(()=>this.userData),
       getLogged: computed(()=>this.isLoggedIn),
+      apiCall: this.apiData
     };
   },
 };
