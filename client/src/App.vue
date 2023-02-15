@@ -63,16 +63,16 @@ export default {
 			if (this.isLoggedIn) {
         
         try{
-          let port = process.env.PORT ? process.env.PORT :  3001;
-          const rpnse = await fetch(
-					`http://${window.location.hostname}:${port}/owner/${auth.getUser().ownerId}`,
-					{
-						headers: { "Content-Type": "application/json" },
-					}
-				);
-        const oData = await rpnse.json();
-				this.ownerData = oData.owner;
-        this.timeData = oData.time;
+        //   let port = process.env.PORT ? process.env.PORT :  3001;
+        //   const rpnse = await fetch(
+				// 	`http://${window.location.hostname}:${port}/owner/${auth.getUser().ownerId}`,
+				// 	{
+				// 		headers: { "Content-Type": "application/json" },
+				// 	}
+				// );
+        // const oData = await rpnse.json();
+				// this.ownerData = oData.owner;
+        // this.timeData = oData.time;
 
         }catch(err){
           console.log(err, "clearing")
