@@ -17,6 +17,7 @@
     "vue": "^3.2.13",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
+    "vue-cli-plugin-tailwind": "~3.0.0",
     "@vue/cli-service": "~5.0.0",
     "vuedraggable": "^4.1.0"
   },
@@ -25,7 +26,6 @@
     "@babel/eslint-parser": "^7.12.16",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
-    "vue-cli-plugin-tailwind": "~3.0.0"
   },
   "eslintConfig": {
     "root": true,
