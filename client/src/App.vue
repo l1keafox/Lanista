@@ -91,7 +91,7 @@ export default {
   mounted() {
     this.updateOwner();
 		this.interval = setInterval(this.updateOwner,1000);
-					if(location.protocol === 'https'){
+					if(location.protocol === 'https:'){
 						this.apiData =`https://${window.location.hostname}/`
 					} else {
 						this.apiData =`http://${window.location.hostname}:3001/`
