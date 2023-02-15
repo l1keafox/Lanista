@@ -63,8 +63,9 @@ export default {
 			if (this.isLoggedIn) {
         
         try{
+          let port = process.env.PORT ? process.env.PORT :  3001;
           const rpnse = await fetch(
-					`http://${window.location.hostname}:3001/owner/${auth.getUser().ownerId}`,
+					`http://${window.location.hostname}:${port}/owner/${auth.getUser().ownerId}`,
 					{
 						headers: { "Content-Type": "application/json" },
 					}
