@@ -1,6 +1,13 @@
 <template>
   <div class="flex flex-col w-full overflow-x-hidden">
+    <h1 class="text-center font-baby text-[3rem]">How to play Lanista</h1>
+    <h1 class="text-center text-red-500 text-xl"> Work in progress </h1>
+      <p> Schedule </p>
+      <p> Memory </p>
+      <p> History </p>
       <p> Clash </p>
+      <p> Stats </p>
+      <p> Combat </p>
       <p> Each round of a duel there is a Clash - which is each gladiator will randomly pick one skill from his skill set.</p>
       <p> Compaired it to the other gladiators skill, each skill has effects and win condidtions against each other.</p>
       <p> Sort of like Rock/Paper/Scissors, the best example would be Strike/Taunt/Dodge</p>

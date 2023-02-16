@@ -6,15 +6,15 @@
 				class="cursor-pointer text-6xl text-center font-bold font-baby p-2 pl-4">
 				Lanista
 			</h1>
-        <div class ="flex w-1/3 justify-between items-center font-lux">
-					<h2 :class ="cardTitle">GOLD: <template v-if="ownerData"> {{ ownerData.gold }}</template></h2>
-					<h2 :class ="cardTitle">FAME: <template v-if="ownerData"> {{ ownerData.fame }}</template></h2>
-					<div v-if="timeData" class="flex">
+        <div class ="flex w-1/3 justify-between items-center font-lux cursor-default">
+					<div class="flex w-1/3 justify-between">
+						<h2 :class ="cardTitle" v-if="ownerData" >G: {{ ownerData.gold }} </h2>
+						<h2 :class ="cardTitle" v-if="ownerData" >F: {{ ownerData.fame }} </h2>
+					</div>
+					<div v-if="timeData" class="flex w-1/2  justify-between">
 						<h2 :class ="cardTitle">{{timeData.time}}:00</h2>
-						::
-						<h2 :class ="cardTitle">{{timeData.day}}/{{timeData.month}}/{{timeData.year}} </h2>
-						::
-						<h2 :class ="cardTitle">{{timeData.weekDay}}WeekDay</h2>
+						<h2 :class ="cardTitle">{{this.dayMap[timeData.weekDay]}}day</h2>
+						<h2 :class ="cardTitle">{{timeData.month}}/{{timeData.day}}/{{timeData.year}} </h2>
 					</div>
         </div>
 			<div v-if="!isLoggedIn" class="flex justify-center items-center  mr-5">
@@ -32,7 +32,7 @@
 				</button>
 			</div>
       <div v-else class="font-lux text-base flex justify-center items-center mr-5">
-				<h2 class ="mr-3 text-2xl text-slate-300"><template v-if="userData">{{ userData.username }}</template></h2>
+				<h2 class ="mr-3 text-2xl text-slate-300 cursor-default"><template v-if="userData">{{ userData.username }}</template></h2>
 				<img @click="showModal('SettingModal')" :src="gearIcon" class="hover:cursor-pointer"/>
         <button :class="btnClass" @click="doLogOut">Logout</button>
       </div>
@@ -53,16 +53,23 @@ import CreateAccount from "./CreateAccount.vue";
 import SettingModal from "./SettingsModal.vue"
 export default {
 	name: "HeaderVue",
-	inject: ["getUser","getOwner","cardTitle","getTime","apiCall"],
+	inject: ["getUser","getOwner","getTime","apiCall"],
 	emits: ["logged", "changeMain", "getUser"],
 	data() {
+		this.dayMap = {
+			1:"ones",
+			2:"twos",
+			3:"threes",
+			4:"fours",
+			5:"fives",
+			6:"sixes",
+		}
+		this.gearIcon = gearIcon
 		return {
 			btnClass:"m-2 px-3 py-2 cursor-pointer font-lux text-xl hover:underline sideOptions",
-			showLoginModal: false,
-			showCreateModal: false,
+			cardTitle:"text-2xl text-slate-300 ",
 			modalShown: null,
 			isModalShown: null,
-			gearIcon,
 			userData: null,
       ownerData:null,
 			timeData:null,
@@ -79,9 +86,12 @@ export default {
 		this.userData = this.getUser;
     this.ownerData = this.getOwner;
 		this.timeData = this.getTime;
-      //this.isLoggedIn = this.userData.isLoggedIn();
+		console.log(process.env,"TICK TIMES",10000)
 	},
 	methods: {
+		closePopup(){
+			this.isModalShown = false;
+		},
 		async doLogOut() {
 			auth.logout();
 			this.$emit("logged");
@@ -89,14 +99,8 @@ export default {
 		showModal(targetModal){
 			this.modalShown = targetModal
 			this.isModalShown = true;
-			console.log(this.modalShown,this.isModalShown);
 		},	
-		showLogin() {
-			this.showLoginModal = !this.showLoginModal;
-			//      console.log(this.showLoginModal);
-		},
 		async createAcct({ username, password, email }) {
-			//      console.log('trying create');
 			if (!username || !password || !email) {
 				this.isModalShown = false;
 				return;
@@ -124,8 +128,6 @@ export default {
 			this.$emit("logged");
 			this.ownerData = this.getOwner;
 			this.userData = this.getUser;
-
-			//this.updateOwner();
 			this.isModalShown = false;
 		},
 
@@ -150,15 +152,8 @@ export default {
 				alert("Cannot login");
 			}
 			this.$emit("logged");
-			//this.updateOwner();
 			this.ownerData = this.getOwner;
 			this.userData = this.getUser;
-
-			this.isModalShown = false;
-		},
-		closePopup() {
-			this.showLoginModal = false;
-			this.showCreateModal = false;
 			this.isModalShown = false;
 		}
 	},

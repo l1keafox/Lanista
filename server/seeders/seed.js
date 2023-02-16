@@ -7,7 +7,7 @@ db.once("open", async () => {
 		console.log("Starting Database ReFRESH:");
 		console.log("  > GameDate");
 		await GameDate.deleteMany({});
-        await GameDate.create({day:1,month:1,year:1,time:1,weekDay:1  } );
+        await GameDate.create({day:1,month:1,year:100,time:1,weekDay:1  } );
 
 		console.log("  > Deleting saved Tournament");
 		await saveTournament.deleteMany({});
