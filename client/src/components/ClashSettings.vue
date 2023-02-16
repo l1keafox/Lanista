@@ -116,7 +116,8 @@
 import draggable from "vuedraggable";
 export default {
 	name: "ClashSetting",
-	props: ["gladId","apiCall"],
+	props: ["gladId"],
+	inject:[,"apiCall"],
 	components: {
 		draggable,
 	},
@@ -154,6 +155,7 @@ export default {
 		},
 	},
 	async mounted() {
+		
 		const rpnse = await fetch(
 			this.apiCall.value + `/gladiator/clashInfo/${ this.gladId }`,
 			{

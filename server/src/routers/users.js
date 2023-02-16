@@ -39,10 +39,19 @@ router.post("/users/createAcct", async (req, res) => {
 	const { username, password, email } = req.body;
 	let userExist = await User.findOne({ username: username });
 	if (userExist) {
-		return res.status(401).send({ error: "User already created" });
+		return res.status(401).send({ error: "Create Acct failed: username" });
 	}
+	let existUser = await User.findOne({ email} );
+	if(existUser){
+		return res
+		.status(401)
+		.send({ error: "Create Acct failed: email" });
+	}
+
+
 	const newUser = await new User({ username, email, password });
 	console.log("  -NEW USER>-",newUser);
+
 	let newOwner = await createOwner(newUser);
 	await newOwner.save();
 	await newUser.save();
@@ -66,6 +75,7 @@ router.post("/users/login", async (req, res) => {
 				.status(401)
 				.send({ error: "Login failed! Check authentication credentials" });
 		}
+			// await User.find({username})
 		if (!user.ownerId) {
 			const owner = await new Owner(createNewOwner());
             console.log("  -EN> Owner created with base seed acct");
