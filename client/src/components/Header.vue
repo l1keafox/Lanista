@@ -109,7 +109,8 @@ export default {
 				this.isLoggedIn = true;
 				auth.login(det.token);
 			} else {
-				alert("Cannot Create Acct");
+				console.log(det);
+				alert(det.error);
 			}
 			this.$emit("logged");
 			this.ownerData = this.getOwner;

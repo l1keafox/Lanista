@@ -62,6 +62,7 @@ export default {
 			if (this.userData == null) {
 				this.userData = auth.getUser();
 			}
+			console.log("Trying update");
 			if (this.isLoggedIn && this.apiData) {
 				try {
 					const rpnse = await fetch(
@@ -78,7 +79,7 @@ export default {
 					clearInterval(this.interval);
 				}
 			} else {
-				clearInterval(this.interval);
+//				clearInterval(this.interval);
 			}
 		},
 	},

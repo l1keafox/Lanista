@@ -13,7 +13,9 @@
         <br/>
         <hr/>
         <br/>
-        <h1> Play for free! This game is not pay to win, but you need to think of how your weapons, skills and stats all interact</h1>
+        <h1 class="text-red-200 text-3xl"> WARNING - Game is still in alpha! while all features are in, they need to be refined and UI/UX needs to be improved. Items, training, buildings and balancing still needs to be done.</h1>
+        <h1> </h1>
+        <!-- <h1> Play for free! This game is not pay to win, but you need to think of how your weapons, skills and stats all interact</h1> -->
         <br/>
         <br/>
         <h1> Click on How To Play to the side nav for more details.</h1>
