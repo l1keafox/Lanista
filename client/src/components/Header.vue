@@ -1,5 +1,5 @@
 <template>
-	<div class = "">
+	<div class = "bg-blue-900">
 		<div class="flex justify-between text-center">
 			<h1
 				@click="$emit('changeMain', 'WelcomeMain')"
