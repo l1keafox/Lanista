@@ -6,8 +6,7 @@
 				class="cursor-pointer text-6xl text-center font-bold font-baby p-2 pl-4">
 				Lanista
 			</h1>
-        <div class ="flex w-1/2 justify-between items-center">
-					<h2 :class ="cardTitle">Username: <template v-if="userData">{{ userData.username }}</template></h2>
+        <div class ="flex w-1/3 justify-between items-center font-lux">
 					<h2 :class ="cardTitle">GOLD: <template v-if="ownerData"> {{ ownerData.gold }}</template></h2>
 					<h2 :class ="cardTitle">FAME: <template v-if="ownerData"> {{ ownerData.fame }}</template></h2>
 					<div v-if="timeData" class="flex">
@@ -18,39 +17,40 @@
 						<h2 :class ="cardTitle">{{timeData.weekDay}}WeekDay</h2>
 					</div>
         </div>
-			<div v-if="!isLoggedIn" class="flex justify-center items-center">
+			<div v-if="!isLoggedIn" class="flex justify-center items-center  mr-5">
 				<button
 					:class="btnClass"
-					@click="showCreateAcct"
+					@click="showModal('CreateAccount')"
 					:key="isLoggedIn">
 					Create Account
 				</button>
 				<button
 					:class="btnClass"
-					@click="showLogin"
+					@click="showModal('LoginVue')"
 					:key="isLoggedIn">
 					Login
 				</button>
 			</div>
-            <div v-else class="font-lux text-base flex justify-center items-center">
-                <button :class="btnClass" @click="doLogOut">Logout</button>
-            </div>
+      <div v-else class="font-lux text-base flex justify-center items-center mr-5">
+				<h2 class ="mr-3 text-2xl text-slate-300"><template v-if="userData">{{ userData.username }}</template></h2>
+				<img @click="showModal('SettingModal')" :src="gearIcon" class="hover:cursor-pointer"/>
+        <button :class="btnClass" @click="doLogOut">Logout</button>
+      </div>
 		</div>
-		<div v-if="showLoginModal">
-			<LoginVue id="vue" @close="closePopup" @trylogin="tryLogin" />
+		<div v-if="isModalShown">
+			<component :is="modalShown" @closeModal="closePopup" @trylogin="tryLogin"  @createAcct="createAcct"/>
 		</div>
-		<div v-if="showCreateModal">
-			<CreateAccount id="vue" @close="closePopup" @createAcct="createAcct" />
-		</div>
+	
 	</div>
 </template>
 
 <script>
 import auth from "@/mixins/auth";
+import gearIcon from "@/assets/gear_icon.png";
 
 import LoginVue from "./LoginVue.vue";
 import CreateAccount from "./CreateAccount.vue";
-
+import SettingModal from "./SettingsModal.vue"
 export default {
 	name: "HeaderVue",
 	inject: ["getUser","getOwner","cardTitle","getTime","apiCall"],
@@ -60,6 +60,9 @@ export default {
 			btnClass:"m-2 px-3 py-2 cursor-pointer font-lux text-xl hover:underline sideOptions",
 			showLoginModal: false,
 			showCreateModal: false,
+			modalShown: null,
+			isModalShown: null,
+			gearIcon,
 			userData: null,
       ownerData:null,
 			timeData:null,
@@ -68,6 +71,7 @@ export default {
 	},
 	components: {
 		LoginVue,
+		SettingModal,
 		CreateAccount,
 	},
 
@@ -82,7 +86,11 @@ export default {
 			auth.logout();
 			this.$emit("logged");
 		},
-
+		showModal(targetModal){
+			this.modalShown = targetModal
+			this.isModalShown = true;
+			console.log(this.modalShown,this.isModalShown);
+		},	
 		showLogin() {
 			this.showLoginModal = !this.showLoginModal;
 			//      console.log(this.showLoginModal);
@@ -90,7 +98,7 @@ export default {
 		async createAcct({ username, password, email }) {
 			//      console.log('trying create');
 			if (!username || !password || !email) {
-				this.showCreateModal = false;
+				this.isModalShown = false;
 				return;
 			}
 			const rpnse = await fetch(
@@ -118,12 +126,12 @@ export default {
 			this.userData = this.getUser;
 
 			//this.updateOwner();
-			this.showCreateModal = false;
+			this.isModalShown = false;
 		},
 
 		async tryLogin({ username, password }) {
 			if (!username || !password) {
-				this.showLoginModal = false;
+				this.isModalShown = false;
 				return;
 			}
 			const rpnse = await fetch(
@@ -146,23 +154,19 @@ export default {
 			this.ownerData = this.getOwner;
 			this.userData = this.getUser;
 
-			this.showLoginModal = false;
+			this.isModalShown = false;
 		},
 		closePopup() {
 			this.showLoginModal = false;
 			this.showCreateModal = false;
-		},
-		showCreateAcct() {
-			this.showCreateModal = !this.showCreateModal;
-			//    console.log(this.showLoginModal);
-		},
+			this.isModalShown = false;
+		}
 	},
 };
 </script>
 
 <style scoped>
 button {
-	
 	transition: all .5s linear;
 }
 </style>
