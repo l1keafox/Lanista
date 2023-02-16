@@ -107,6 +107,7 @@ export default {
     };
   },
   props: ["gladId"],
+  inject:['apiCall'],
   methods: {
     bgClose(event) {
       if (event.target.getAttribute("data-id") === "bg") {
@@ -126,7 +127,7 @@ export default {
 
       if(equipObj.length){
         await fetch(
-        `http://${window.location.hostname}:3001/owner/removeItems`,
+          this.apiCall.value+ `/owner/removeItems`,
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -135,7 +136,7 @@ export default {
         );
 
         await fetch(
-        `http://${window.location.hostname}:3001/gladiator/updateEquipment`,
+          this.apiCall.value+ `/gladiator/updateEquipment`,
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -150,7 +151,7 @@ export default {
   async mounted() {
     
     const rpnse = await fetch(
-      `http://${window.location.hostname}:3001/gladiator/${this.gladId}`,
+      this.apiCall.value+ `/gladiator/${this.gladId}`,
       {
         headers: { "Content-Type": "application/json" },
       }
@@ -158,7 +159,7 @@ export default {
     this.gladiatorData = await rpnse.json();
 
   const inventory = await fetch(
-      `http://${window.location.hostname}:3001/owner/itemsSort/${this.userData.ownerId}`,
+    this.apiCall.value+ `/owner/itemsSort/${this.userData.ownerId}`,
       {
         headers: { "Content-Type": "application/json" },
       }

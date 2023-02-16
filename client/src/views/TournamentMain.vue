@@ -64,7 +64,7 @@ export default {
             tournament:null
         }
     },
-    inject:['getUser','largeCard','getOwner'],
+    inject:['getUser','largeCard','getOwner','apiCall'],
     methods:{
         showDetailModal(event){
             const tournKey = {
@@ -94,7 +94,8 @@ export default {
         async  loadMorePosts(){
               const addPosts = 25;
               const rpnse = await fetch(
-                `http://${window.location.hostname}:3001/owner/someTournament/${this.userData.ownerId}/${this.count}/${addPosts}`,
+                this.apiCall.value +
+                `/owner/someTournament/${this.userData.ownerId}/${this.count}/${addPosts}`,
                 {headers: { "Content-Type": "application/json" }}
               );
               let rn = await rpnse.json();

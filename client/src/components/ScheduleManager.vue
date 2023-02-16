@@ -140,6 +140,7 @@ export default {
 		};
 	},
 	computed: {},
+	inject:['apiCall'],
 	methods: {
 		bgClose(event) {
 			if (event.target.getAttribute("data-id") === "bg") {
@@ -177,7 +178,7 @@ export default {
 			// console.log(rtnObj);
 			//here we should do a post to save it.
 			await fetch(
-				`http://${window.location.hostname}:3001/gladiator/saveWeek`,
+				this.apiCall.value +				`/gladiator/saveWeek`,
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
@@ -190,7 +191,7 @@ export default {
 			console.log(`${skill.value} should replace ${task.value} when done`);
 
 			await fetch(
-				`http://${window.location.hostname}:3001/gladiator/saveLearning`,
+				this.apiCall.value +				`/gladiator/saveLearning`,
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
@@ -207,7 +208,7 @@ export default {
 	},
 	async mounted() {
 		const rpnse = await fetch(
-			`http://${window.location.hostname}:3001/gladiator/${this.gladId}`,
+			this.apiCall.value +			`/gladiator/${this.gladId}`,
 			{
 				headers: { "Content-Type": "application/json" },
 			}
@@ -219,7 +220,7 @@ export default {
 		}
 
 		const training = await fetch(
-			`http://${window.location.hostname}:3001/owner/training/${this.userData.ownerId}`,
+			this.apiCall.value +			`/owner/training/${this.userData.ownerId}`,
 			{
 				headers: { "Content-Type": "application/json" },
 			}
@@ -227,7 +228,7 @@ export default {
 		this.trainingData = await training.json();
 
 		const learning = await fetch(
-			`http://${window.location.hostname}:3001/owner/learning/${this.userData.ownerId}`,
+			this.apiCall.value +			`/owner/learning/${this.userData.ownerId}`,
 			{
 				headers: { "Content-Type": "application/json" },
 			}

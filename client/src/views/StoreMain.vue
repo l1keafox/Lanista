@@ -44,7 +44,7 @@
 import auth from "./../mixins/auth";
 import itemCard from "./../components/ItemCard"
 export default {
-  inject: ["card", "cardTitle","smallCard"],
+  inject: ["card", "cardTitle","smallCard",'apiCall'],
   name: "StoreMain",
   methods: {
     async buyThing(type, index) {
@@ -65,7 +65,8 @@ export default {
       }
 
       const rpnse = await fetch(
-        `http://${window.location.hostname}:3001/owner/buyItem`,
+        this.apiCall.value +
+        `/owner/buyItem`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -83,7 +84,8 @@ export default {
     },
     async updateStore(){
       const rpnse = await fetch(
-      `http://${window.location.hostname}:3001/owner/store/${this.userData.ownerId}`,
+        this.apiCall.value +
+      `/owner/store/${this.userData.ownerId}`,
         {
         headers: { "Content-Type": "application/json" },
         }

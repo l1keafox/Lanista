@@ -64,7 +64,7 @@
 <script>
 export default {
 	name: "studentMain",
-    inject:["gladiatorCard","getOwner","cardTitle"],
+    inject:["gladiatorCard","getOwner","cardTitle",'apiCall'],
 	data() {
 		return {
             showStudent:null,
@@ -83,7 +83,8 @@ export default {
             console.log(this.ownerData.id,event.target.getAttribute("data-index"));
             const index = event.target.getAttribute("data-index");
             const rpnse = await fetch(
-			`http://${window.location.hostname}:3001/owner/buyStudent`,
+                this.apiCall.value +
+			`/owner/buyStudent`,
 			{
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -96,7 +97,8 @@ export default {
         },
 		async getNewGladiator() {
 			const rpnse = await fetch(
-				`http://${window.location.hostname}:3001/owner/getStudent/${this.ownerData.id}`,
+                this.apiCall.value +
+				`/owner/getStudent/${this.ownerData.id}`,
 				{
 					headers: { "Content-Type": "application/json" },
 				}

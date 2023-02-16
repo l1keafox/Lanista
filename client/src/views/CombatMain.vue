@@ -83,7 +83,7 @@ export default {
 		};
 	},
 	computed: {},
-	inject: ["card", "cardTitle",'getOwner'],
+	inject: ["card", "cardTitle",'getOwner','apiCall'],
 	methods: {
 		closeModal() {
 			this.isModalShown = false;
@@ -96,7 +96,7 @@ export default {
 //			console.log("Doing memory fight",gladData,sch.value);
 			if(gladData){
 				const rpnse = await fetch(
-					`http://${window.location.hostname}:3001/gladiator/fightMemory`,
+					this.apiCall.value +				`/gladiator/fightMemory`,
 					{
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
@@ -126,7 +126,8 @@ export default {
 			);
 			if (gladData && glad2) {
 				const rpnse = await fetch(
-					`http://${window.location.hostname}:3001/gladiator/doSpar`,
+					this.apiCall.value +
+					`/gladiator/doSpar`,
 					{
 						method: "POST",
 						headers: { "Content-Type": "application/json" },

@@ -48,6 +48,7 @@ import roundRobinBestOfThree from '@/components/roundRobinOfThreeTournament';
     export default {
         name:"GladiatorTournament",
         props:["gladId"],
+        inject:['apiCall'],
         components:{
           roundRobin,
           singleElimination,
@@ -99,7 +100,7 @@ import roundRobinBestOfThree from '@/components/roundRobinOfThreeTournament';
             async  loadMorePosts(){
               const addPosts = 10;
               const rpnse = await fetch(
-                `http://${window.location.hostname}:3001/gladiator/someTournaments/${this.gladId}/${this.count}/${addPosts}`,
+                this.apiCall.value +                 `/gladiator/someTournaments/${this.gladId}/${this.count}/${addPosts}`,
                 {headers: { "Content-Type": "application/json" }}
               );
               let rn = await rpnse.json();
