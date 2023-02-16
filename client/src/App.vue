@@ -17,6 +17,7 @@ import CombatMain from "./views/CombatMain.vue";
 import StoreMain from "./views/StoreMain.vue";
 import TournamentMain from "./views/TournamentMain.vue";
 import StudentMain from "./views/StudentMain.vue";
+import FeedbackMain from "./views/FeedbackMain.vue";
 
 import SideNav from "@/components/SideNav.vue";
 import HeaderVue from "@/components/Header.vue";
@@ -26,6 +27,7 @@ import { computed } from "vue";
 export default {
 	name: "App",
 	components: {
+		FeedbackMain,
 		SideNav,
 		HowToPlayMain,
 		StudentMain,
@@ -62,7 +64,6 @@ export default {
 			if (this.userData == null) {
 				this.userData = auth.getUser();
 			}
-			console.log("Trying update");
 			if (this.isLoggedIn && this.apiData) {
 				try {
 					const rpnse = await fetch(
@@ -78,8 +79,6 @@ export default {
 					console.log(err, "clearing");
 					clearInterval(this.interval);
 				}
-			} else {
-//				clearInterval(this.interval);
 			}
 		},
 	},

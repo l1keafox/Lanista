@@ -1,49 +1,55 @@
 <template>
-	<div class="overflow-y-auto max-h-screen bg-blue-900 px-3 w-48">
+	<div class="overflow-y-auto max-h-screen bg-blue-900 w-48">
 		<div
-			class="  font-lux text-base m-2 cursor-pointer sideOptions rounded hover:bg-blue-200 hover:text-black"
+		:class="butnLayout"
 			@click="$emit('changeMain', 'WelcomeMain')">
 			Home
 		</div>
 		<div
-			class=" font-lux text-base m-2 cursor-pointer sideOptions rounded hover:bg-blue-200 hover:text-black"
+		:class="butnLayout"
 			@click="$emit('changeMain', 'HowToPlayMain')">
 			How To Play
 		</div>
 
 		<div v-if="isLoggedIn" class="font-lux text-base">
 			<div
-				class="m-2 cursor-pointer sideOptions rounded hover:bg-blue-200 hover:text-black"
+			:class="butnLayout"
 				@click="$emit('changeMain', 'GladiatorsMain')">
 				Gladiators
 			</div>
 			<div
-				class="m-2 cursor-pointer sideOptions rounded hover:bg-blue-200 hover:text-black"
+			:class="butnLayout"
 				@click="$emit('changeMain', 'SchoolMain')">
 				School
 			</div>
 			<div
-				class="m-2 cursor-pointer sideOptions rounded hover:bg-blue-200 hover:text-black"
+			:class="butnLayout"
 				@click="$emit('changeMain', 'CombatMain')">
 				Combat
 			</div>
 			<div
-				class="m-2 cursor-pointer sideOptions rounded hover:bg-blue-200 hover:text-black"
+			:class="butnLayout"
 				@click="$emit('changeMain', 'StoreMain')">
 				Store
 			</div>
 			<div
-				class="m-2 cursor-pointer sideOptions rounded hover:bg-blue-200 hover:text-black"
+			:class="butnLayout"
 				@click="$emit('changeMain', 'StudentMain')">
 				Students
 			</div>
 			<div
-				class="m-2 cursor-pointer sideOptions rounded hover:bg-blue-200 hover:text-black"
+			:class="butnLayout"
 				@click="$emit('changeMain', 'TournamentMain')">
 				Tournament
 			</div>
 			
 		</div>
+		<div
+			:class="butnLayout"
+			@click="$emit('changeMain', 'feedbackMain')">
+			Feedback/Bugs
+		</div>
+
 	</div>
 </template>
 
@@ -55,6 +61,7 @@ export default {
 	inject: ["getLogged","getOwner","getUser"],
 	data() {
 		return {
+			butnLayout: "font-lux text-base text-center w-fill cursor-pointer sideOptions hover:bg-blue-200 hover:text-black py-4",
 			showLoginModal: false,
 			showCreateModal: false,
 			ownerData: null,
@@ -84,7 +91,7 @@ export default {
 .sideOptions {
 	
 	color: rgb(200, 200, 200);
-	padding: 1rem;
+
 	transition: all .5s linear;
 }
 </style>
