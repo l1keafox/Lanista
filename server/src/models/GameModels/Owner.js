@@ -38,7 +38,7 @@ const ownerSchema = new Schema(
 ownerSchema.methods.getTraining = async function() {
     // This will look at structures available and update training array and return that.
     this.training = this.structures.map( struct =>{
-        if(getStructureEffect(struct).training){
+        if(getStructureEffect(struct) && getStructureEffect(struct).training){
             return getStructureEffect(struct).training;
         } 
     } ).filter((notUndefined) => notUndefined !== undefined);
@@ -49,7 +49,7 @@ ownerSchema.methods.getTraining = async function() {
 ownerSchema.methods.getLearning = async function() {
     // This will look at structures available and update learning array and return that.
     this.learning = this.structures.map( struct =>{
-        if(getStructureEffect(struct).learning){
+        if(getStructureEffect(struct) && getStructureEffect(struct).learning){
             return getStructureEffect(struct).learning;
         } 
     } ).filter((notUndefined) => notUndefined !== undefined);

@@ -1,11 +1,24 @@
 <template>
     <div class="flex flex-col w-full overflow-x-hidden">
-        <div class="bg-slate-900 "> Welcome To Lanista </div>
-        <p> This is an always active game, 24 hours every seven days a week. Your gladiators will always be dueling and trainig even if you are not logged in.</p>
-        <p> You will need to decided how your gladiators will train every day of the week, decide what skills they will learn and how they will use them</p>
-        <p> Last day of the week is tournament week, it rotates from round robin, single elimination, best of three and all of the above tournaments.</p>
+        <h1 class="text-center font-baby text-[7rem]">Lanista</h1>
+        <h2 class="text-center font-neo text-[2rem]"> - a trainer of gladiators -</h2>
         <hr/>
-        <h1> How Duels work </h1>
+        <br/>
+        <div class="font-neo text-2xl"> Welcome to Lanista </div>
+        <p> A pvp dueling game, you will set your gladiator's schedule to train that will run 24 hours every day.
+            They will be dueling and training even if you are not logged in.</p>
+        
+        <p> With a unique duel system, you cannot give them commands, but only give them a set of skills and stats that will determine a duel</p>
+        <br/>
+        <br/>
+        <hr/>
+        <br/>
+        <h1> Play for free! This game is not pay to win, but you need to think of how your weapons, skills and stats all interact</h1>
+        <br/>
+        <br/>
+        <h1> Click on How To Play to the side nav for more details.</h1>
+
+<!--         
         <p> Clash </p>
         <p> Each round of a duel there is a Clash - which is each gladiator will randomly pick one skill from his skill set.</p>
         <p> Compaired it to the other gladiators skill, each skill has effects and win condidtions against each other.</p>
@@ -34,7 +47,7 @@
         <p> longsword - will give you "slash" and increase your strength and dexterity</p>
         <hr/>
         <h1> Memories </h1>
-        <p> Each Tournament round your gladiator will have a Memory of that week, and it will be stored for future gladiators to fight.</p>
+        <p> Each Tournament round your gladiator will have a Memory of that week, and it will be stored for future gladiators to fight.</p> -->
     </div>
 </template>
 
