@@ -6,6 +6,8 @@ module.exports = {
     fontFamily: {
       'neo': ['GFS Neohellenic', 'sans-serif'],
       'lux': ['Luxurious Roman', 'cursive'],
+      'baby': ['Babylonica', 'cursive'],
+      
     },
   },
   plugins: [],

@@ -10,6 +10,7 @@
 
 <script>
 import WelcomeMain from "./views/WelcomeMain.vue";
+import HowToPlayMain from "./views/HowToPlayMain.vue";
 import GladiatorsMain from "./views/GladiatorsMain.vue";
 import SchoolMain from "./views/SchoolMain.vue";
 import CombatMain from "./views/CombatMain.vue";
@@ -26,6 +27,7 @@ export default {
 	name: "App",
 	components: {
 		SideNav,
+		HowToPlayMain,
 		StudentMain,
 		HeaderVue,
 		WelcomeMain,
@@ -42,7 +44,7 @@ export default {
 			timeData: null,
 			userData: null,
 			interval: null,
-			apiData: null,
+			apiData: location.protocol === "https:" ? `https://${window.location.hostname}` : `http://${window.location.hostname}:3001`,
 			ownerData: null,
 		};
 	},
@@ -85,11 +87,6 @@ export default {
 		clearInterval(this.interval);
 	},
 	mounted() {
-		if (location.protocol === "https:") {
-			this.apiData = `https://${window.location.hostname}`;
-		} else {
-			this.apiData = `http://${window.location.hostname}:3001`;
-		}
 		this.updateOwner();
 		this.interval = setInterval(this.updateOwner, 1000);
 	},
@@ -104,7 +101,8 @@ export default {
 			getTime: computed(() => this.timeData),
 			getUser: computed(() => this.userData),
 			getLogged: computed(() => this.isLoggedIn),
-			apiCall: computed(() => this.apiData),
+			apiCall: computed(() => this.apiData)
+			
 		};
 	},
 };

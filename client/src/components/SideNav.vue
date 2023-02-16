@@ -5,6 +5,11 @@
 			@click="$emit('changeMain', 'WelcomeMain')">
 			Home
 		</div>
+		<div
+			class=" font-lux text-base m-2 cursor-pointer sideOptions rounded hover:bg-blue-200 hover:text-black"
+			@click="$emit('changeMain', 'HowToPlayMain')">
+			How To Play
+		</div>
 
 		<div v-if="isLoggedIn" class="font-lux text-base">
 			<div
@@ -80,5 +85,6 @@ export default {
 	
 	color: rgb(200, 200, 200);
 	padding: 1rem;
+	transition: all .5s linear;
 }
 </style>
