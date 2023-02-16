@@ -20,20 +20,20 @@
         </div>
 			<div v-if="!isLoggedIn" class="flex justify-center items-center">
 				<button
-					class="my-2 px-2 cursor-pointer sideOptions text-neo rounded"
+					:class="btnClass"
 					@click="showCreateAcct"
 					:key="isLoggedIn">
 					Create Account
 				</button>
 				<button
-					class="m-2 px-2 cursor-pointer sideOptions text-neo rounded"
+					:class="btnClass"
 					@click="showLogin"
 					:key="isLoggedIn">
 					Login
 				</button>
 			</div>
             <div v-else class="font-lux text-base flex justify-center items-center">
-                <div class="m-2 px-2 cursor-pointer sideOptions rounded" @click="doLogOut">Logout</div>
+                <button :class="btnClass" @click="doLogOut">Logout</button>
             </div>
 		</div>
 		<div v-if="showLoginModal">
@@ -57,6 +57,7 @@ export default {
 	emits: ["logged", "changeMain", "getUser"],
 	data() {
 		return {
+			btnClass:"m-2 px-3 py-2 cursor-pointer font-lux text-xl hover:underline sideOptions",
 			showLoginModal: false,
 			showCreateModal: false,
 			userData: null,
@@ -160,8 +161,8 @@ export default {
 </script>
 
 <style scoped>
-.sideOptions {
-	background-color: rgb(200, 200, 200);
-	color: black;
+button {
+	
+	transition: all .5s linear;
 }
 </style>
