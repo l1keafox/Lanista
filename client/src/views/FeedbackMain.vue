@@ -3,6 +3,7 @@
       <h1 class="text-center font-baby text-[5rem]">Feedback</h1>
       <h2> Thank you for any feedback on bugs, this will be reported directly to my inbox</h2>
       <h2> Please be detailed in what you would like or found</h2>
+      <h2 class="text-red-500"> Currently a work in progress </h2>
       <form ref="form" id="form" @submit.prevent="submit" class="flex flex-col w-full md:w-[40rem]  text-xl">
         <!-- <InputField label="name" id="from_name" name="from_name" v-model="name" :error="errors.name"> </InputField>
         <InputField label="email" id="reply_to" name="reply_to" :error="errors.email" :modelValue="email" @change="handleChange"> </InputField>
