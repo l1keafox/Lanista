@@ -117,7 +117,7 @@ import draggable from "vuedraggable";
 export default {
 	name: "ClashSetting",
 	props: ["gladId"],
-	inject:[,"apiCall"],
+	inject:["apiCall"],
 	components: {
 		draggable,
 	},
