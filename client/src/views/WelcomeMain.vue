@@ -5,24 +5,27 @@
         <hr/>
         <br/>
         <div class="font-neo text-2xl flex flex-col text-center"> Welcome to Lanista 
-        <p> A pvp dueling game, you will set your gladiator's schedule to train that will run 24 hours every day.
+        <p class="m-10"> A pvp dueling game, you will set your gladiator's schedule to train that will run 24 hours every day.
             They will be dueling and training even if you are not logged in.</p>
         
-        <p> With a unique duel system, you cannot give them commands, but only give them a set of skills and stats that will determine a duel</p>
+        <p> With a unique duel system,where you set them up with skills/stats and equipment for success.</p>
+        <br/>
+        <h1> Click on How To Play to the side nav for more details.</h1>
+        <h1 class="text-red-500 text-xl"> Current tick time is 15 secs.  </h1>
         </div>
         <br/>
         <br/>
         <hr/>
         <br/>
-        <div class ="flex flex-col text-center">
+        <div class ="flex flex-col text-center m-10">
             <h1 class="text-red-500 text-3xl"> WARNING - Game is still in alpha! while all features are in, they need to be refined and UI/UX needs to be improved. Items, training, buildings and balancing still needs to be done.</h1>
-            <h1 class="text-red-500 text-xl"> Feedback/Bugs page is the best to send a message to me. </h1>
-            <h1 class="text-red-500 text-xl"> Current Tick time is 15 secs.  </h1>
+            <!-- <h1 class="text-red-500 text-xl"> Feedback/Bugs page is the best to send a message to me. </h1> -->
+            
         </div>
         <!-- <h1> Play for free! This game is not pay to win, but you need to think of how your weapons, skills and stats all interact</h1> -->
         <br/>
         <br/>
-        <h1> Click on How To Play to the side nav for more details.</h1>
+        
 
 <!--         
         <p> Clash </p>
