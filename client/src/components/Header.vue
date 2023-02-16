@@ -47,7 +47,7 @@
 
 <script>
 import auth from "@/mixins/auth";
-// import { getApi } from "@/mixins/apiCall"
+
 import LoginVue from "./LoginVue.vue";
 import CreateAccount from "./CreateAccount.vue";
 
@@ -93,7 +93,7 @@ export default {
 				return;
 			}
 			const rpnse = await fetch(
-				`http://${window.location.hostname}:3001/users/createAcct`,
+				this.apiCall.value+ `/users/createAcct`,
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
@@ -125,7 +125,7 @@ export default {
 				return;
 			}
 			const rpnse = await fetch(
-				this.apiCall.value+'users/login',
+				this.apiCall.value+'/users/login',
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },

@@ -53,6 +53,7 @@ import CombatReview from "@/components/CombatReview";
 
         name:"DuelHistory",
         props: ["gladId"],
+        inject:['apiCall'],
         components:{
           CombatReview
         },
@@ -95,7 +96,7 @@ import CombatReview from "@/components/CombatReview";
             async  loadMorePosts(){
               const addPosts = 15;
               const rpnse = await fetch(
-                `http://${window.location.hostname}:3001/gladiator/someDuels/${this.gladId}/${this.count}/${addPosts}`,
+                this.apiCall.value + `/gladiator/someDuels/${this.gladId}/${this.count}/${addPosts}`,
                 {headers: { "Content-Type": "application/json" }}
               );
               this.count += addPosts;

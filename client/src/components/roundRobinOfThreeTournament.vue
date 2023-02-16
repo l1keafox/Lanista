@@ -40,10 +40,11 @@
     export default {
         name:"roundRobinThenBestOfthree",
         props:['tournamentData'],
+        inject:['apiCall'],
         async mounted(){
             let grab = this.tournamentData.duelReport[0];
             const rpnse = await fetch(
-                `http://${window.location.hostname}:3001/gladiator/getDuel/${grab}`,
+              this.apiCall.value +                `/gladiator/getDuel/${grab}`,
                 {headers: { "Content-Type": "application/json" }}
               );
             let rn = await rpnse.json();

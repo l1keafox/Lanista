@@ -116,7 +116,7 @@
 import draggable from "vuedraggable";
 export default {
 	name: "ClashSetting",
-	props: ["gladId"],
+	props: ["gladId","apiCall"],
 	components: {
 		draggable,
 	},
@@ -137,9 +137,8 @@ export default {
         react: this.react,
         prepare: this.prepare
       }
-//      console.log(clashObj);
       await fetch(
-        `http://${window.location.hostname}:3001/gladiator/updateClash`,
+				this.apiCall.value + '/gladiator/updateClash',
         {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -156,7 +155,7 @@ export default {
 	},
 	async mounted() {
 		const rpnse = await fetch(
-			`http://${window.location.hostname}:3001/gladiator/clashInfo/${ this.gladId }`,
+			this.apiCall.value + `/gladiator/clashInfo/${ this.gladId }`,
 			{
 				headers: { "Content-Type": "application/json" },
 			}

@@ -55,10 +55,11 @@
         learningData:null
       };
     },
-    inject: ['card','cardTitle','smallCard'],
+    inject: ['card','cardTitle','smallCard','apiCall'],
     async mounted() {
       const rpnse = await fetch(
-        `http://${window.location.hostname}:3001/owner/structuresData/${this.userData.ownerId}`,
+        this.apiCall.value +
+        `/owner/structuresData/${this.userData.ownerId}`,
         {
             headers: { "Content-Type": "application/json" },
           }      
@@ -66,7 +67,8 @@
       this.structureData = await rpnse.json();
 
       const rpnse3 = await fetch(
-        `http://${window.location.hostname}:3001/owner/trainingData/${this.userData.ownerId}`,
+        this.apiCall.value +
+        `/owner/trainingData/${this.userData.ownerId}`,
         {
             headers: { "Content-Type": "application/json" },
           }      
@@ -74,7 +76,8 @@
       this.trainingData = await rpnse3.json();
 
       const rpnse2 = await fetch(
-        `http://${window.location.hostname}:3001/owner/learningData/${this.userData.ownerId}`,
+        this.apiCall.value +
+        `/owner/learningData/${this.userData.ownerId}`,
         {
             headers: { "Content-Type": "application/json" },
           }      
@@ -82,7 +85,8 @@
       this.learningData = await rpnse2.json();
 
       const inventory = await fetch(
-        `http://${window.location.hostname}:3001/owner/inventoryData/${this.userData.ownerId}`,{ headers: { "Content-Type": "application/json" }});
+        this.apiCall.value +
+        `/owner/inventoryData/${this.userData.ownerId}`,{ headers: { "Content-Type": "application/json" }});
       this.inventory = await inventory.json();      
     },
   };
