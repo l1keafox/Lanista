@@ -43,6 +43,7 @@ import MemoryStats from './MemoryStats.vue'
     export default {
         name:"MemoryHistory",
         props: ["gladId"],
+        inject:['apiCall'],
         components:{
           MemoryStats
         },
@@ -71,7 +72,7 @@ import MemoryStats from './MemoryStats.vue'
             async  loadMorePosts(){
               const addPosts = 10;
               const rpnse = await fetch(
-                `http://${window.location.hostname}:3001/gladiator/someMemories/${this.gladId}/${this.count}/${addPosts}`,
+                this.apiCall.value + `/gladiator/someMemories/${this.gladId}/${this.count}/${addPosts}`,
                 {headers: { "Content-Type": "application/json" }}
               );
               let rn = await rpnse.json();

@@ -75,6 +75,7 @@
   export default {
     name: "GladiatorStats",
     props: ["gladId"],
+    inject:['apiCall'],
     data() {
       return {
         gladiatorData: null,
@@ -90,7 +91,7 @@
     },
     async mounted() {
       const rpnse = await fetch(
-        `http://${window.location.hostname}:3001/gladiator/${this.gladId}`,
+        this.apiCall.value+ `/gladiator/${this.gladId}`,
         {
           headers: { "Content-Type": "application/json" },
         }

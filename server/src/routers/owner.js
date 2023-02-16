@@ -19,8 +19,11 @@ router.get('/owner/structuresData/:ownerId', async(req, res) => {
     const owner2 = await Owner.findById(req.params.ownerId);
     const rtnData = owner2.structures.map( struct =>{
         let rtn = getStructureEffect(struct);
-        rtn.structure = struct;
-        return rtn;
+        if(rtn){
+            rtn.structure = struct;
+            return rtn;
+
+        }
     });
     res.send(rtnData);
 })
@@ -35,7 +38,7 @@ router.post('/owner/removeItems', async(req, res) => {
 
     // This will go through and clear out 0 and undefined items.
     owner.inventory = owner.inventory.map(item=>{
-        if(item.amount){
+        if(item && item.amount){
             return item;
         }
     }).filter( ele => {

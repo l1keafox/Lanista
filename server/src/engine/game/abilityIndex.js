@@ -5,8 +5,6 @@ Due to abilities been a bit more complex than items, we will do an abilities fol
 
 
 */
-const path = require("path");
-console.log(__dirname);
 const abilityObj = {
     // Now this one should maybe do 
     // Prepare abilities
@@ -14,7 +12,7 @@ const abilityObj = {
 
 
     // Clash Abilities
-    slash: require(__dirname+"/Abilities/Slash"),
+    slash: require("./Abilities/Slash"),
     dodge: require("./Abilities/Dodge"),
     taunt: require("./Abilities/Taunt"),
     stab: require("./Abilities/Stab"),

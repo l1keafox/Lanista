@@ -3,21 +3,21 @@
 		<div class="flex justify-between text-center">
 			<h1
 				@click="$emit('changeMain', 'WelcomeMain')"
-				class="cursor-pointer text-4xl text-center font-bold font-lux p-2 pl-4">
-				LANISTA
+				class="cursor-pointer text-6xl text-center font-bold font-baby p-2 pl-4">
+				Lanista
 			</h1>
-            <div class ="flex w-2/3 justify-between items-center">
-				<h2 :class ="cardTitle">Username: <template v-if="userData">{{ userData.username }}</template></h2>
-				<h2 :class ="cardTitle">GOLD: <template v-if="ownerData"> {{ ownerData.gold }}</template></h2>
-				<h2 :class ="cardTitle">FAME: <template v-if="ownerData"> {{ ownerData.fame }}</template></h2>
-				<div v-if="timeData" class="flex">
-					<h2 :class ="cardTitle">{{timeData.time}}:00</h2>
-					::
-					<h2 :class ="cardTitle">{{timeData.day}}/{{timeData.month}}/{{timeData.year}} </h2>
-					::
-					<h2 :class ="cardTitle">{{timeData.weekDay}}WeekDay</h2>
-				</div>
-            </div>
+        <div class ="flex w-1/2 justify-between items-center">
+					<h2 :class ="cardTitle">Username: <template v-if="userData">{{ userData.username }}</template></h2>
+					<h2 :class ="cardTitle">GOLD: <template v-if="ownerData"> {{ ownerData.gold }}</template></h2>
+					<h2 :class ="cardTitle">FAME: <template v-if="ownerData"> {{ ownerData.fame }}</template></h2>
+					<div v-if="timeData" class="flex">
+						<h2 :class ="cardTitle">{{timeData.time}}:00</h2>
+						::
+						<h2 :class ="cardTitle">{{timeData.day}}/{{timeData.month}}/{{timeData.year}} </h2>
+						::
+						<h2 :class ="cardTitle">{{timeData.weekDay}}WeekDay</h2>
+					</div>
+        </div>
 			<div v-if="!isLoggedIn" class="flex justify-center items-center">
 				<button
 					class="my-2 px-2 cursor-pointer sideOptions text-neo rounded"
@@ -47,7 +47,7 @@
 
 <script>
 import auth from "@/mixins/auth";
-// import { getApi } from "@/mixins/apiCall"
+
 import LoginVue from "./LoginVue.vue";
 import CreateAccount from "./CreateAccount.vue";
 
@@ -60,7 +60,7 @@ export default {
 			showLoginModal: false,
 			showCreateModal: false,
 			userData: null,
-            ownerData:null,
+      ownerData:null,
 			timeData:null,
 			isLoggedIn: auth.loggedIn()
 		};
@@ -72,9 +72,9 @@ export default {
 
 	async mounted() {
 		this.userData = this.getUser;
-        this.ownerData = this.getOwner;
+    this.ownerData = this.getOwner;
 		this.timeData = this.getTime;
-        //this.isLoggedIn = this.userData.isLoggedIn();
+      //this.isLoggedIn = this.userData.isLoggedIn();
 	},
 	methods: {
 		async doLogOut() {
@@ -93,7 +93,7 @@ export default {
 				return;
 			}
 			const rpnse = await fetch(
-				`http://${window.location.hostname}:3001/users/createAcct`,
+				this.apiCall.value+ `/users/createAcct`,
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
@@ -125,7 +125,7 @@ export default {
 				return;
 			}
 			const rpnse = await fetch(
-				this.apiCall.value+'users/login',
+				this.apiCall.value+'/users/login',
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },

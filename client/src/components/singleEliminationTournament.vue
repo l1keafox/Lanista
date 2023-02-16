@@ -79,6 +79,7 @@ import CombatReview from '@/components/CombatReview.vue';
           CombatReview,
         },
         props:['tournamentData'],
+        inject:['apiCall'],
         async mounted(){
           console.log(this.tournamentData.type);
           console.log(this.tournamentData.winner);
@@ -110,7 +111,7 @@ import CombatReview from '@/components/CombatReview.vue';
             //this.tournamentData.tournamentStructure[ openTab ]
             this.glads = [one,two];
             const rpnse = await fetch(
-                `http://${window.location.hostname}:3001/gladiator/getDuel/${duelId}`,
+              this.apiCall.value +                `/gladiator/getDuel/${duelId}`,
                 {headers: { "Content-Type": "application/json" }}
               );
             let rn = await rpnse.json();
