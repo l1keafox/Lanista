@@ -1,5 +1,5 @@
 <template>
-	<div class = "">
+	<div class = "bg-blue-900">
 		<div class="flex justify-between text-center">
 			<h1
 				@click="$emit('changeMain', 'WelcomeMain')"
@@ -109,7 +109,8 @@ export default {
 				this.isLoggedIn = true;
 				auth.login(det.token);
 			} else {
-				alert("Cannot Create Acct");
+				console.log(det);
+				alert(det.error);
 			}
 			this.$emit("logged");
 			this.ownerData = this.getOwner;
