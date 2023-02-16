@@ -1,5 +1,6 @@
 <template>
 	<div class="overflow-y-auto max-h-screen bg-blue-900 w-48">
+		<hr/>
 		<div
 		:class="butnLayout"
 			@click="$emit('changeMain', 'WelcomeMain')">
@@ -10,6 +11,13 @@
 			@click="$emit('changeMain', 'HowToPlayMain')">
 			How To Play
 		</div>
+		<div
+			:class="butnLayout"
+			@click="$emit('changeMain', 'feedbackMain')">
+			Feedback/Bugs
+		</div>
+
+		<hr/>
 
 		<div v-if="isLoggedIn" class="font-lux text-base">
 			<div
@@ -44,12 +52,7 @@
 			</div>
 			
 		</div>
-		<div
-			:class="butnLayout"
-			@click="$emit('changeMain', 'feedbackMain')">
-			Feedback/Bugs
-		</div>
-
+		<hr/>
 	</div>
 </template>
 
