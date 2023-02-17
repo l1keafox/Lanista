@@ -391,7 +391,7 @@ async function doSaveTournament(members,report,saveAs,winner){
 		report.winner=  winner.name;
 		report.ownerId= winner.ownerId;
 }
-	let savedTourny = await new saveTournament({tournament: JSON.stringify( report ),gladiators:gladiator, memories:memory, owners:owner});
+	let savedTourny = await new saveTournament({tournament: JSON.stringify( report ),gladiators:gladiator, memories:memory, owners:owner, createdAt:  new Date() });
 	await savedTourny.save();
 }
 
