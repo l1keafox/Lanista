@@ -11,7 +11,7 @@
         <p> With a unique duel system,where you set them up with skills/stats and equipment for success.</p>
         <br/>
         <h1> Click on How To Play to the side nav for more details.</h1>
-        <h1 class="text-red-500 text-xl"> Current tick time is 15 secs.  </h1>
+        <h1 class="text-red-500 text-xl"> Current tick time is {{ maxTick/1000 }} secs.  </h1>
         </div>
         <br/>
         <br/>
@@ -63,6 +63,7 @@
 <script>
     export default {
         name:"WelcomeMain",
+        props:['maxTick'],
         components:{
         },
         data(){

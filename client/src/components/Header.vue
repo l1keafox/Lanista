@@ -17,6 +17,10 @@
 						<h2 :class ="cardTitle">{{timeData.month}}/{{timeData.day}}/{{timeData.year}} </h2>
 					</div>
         </div>
+				<div v-if="timeData" class ="flex items-center" >
+					<h2 :class ="cardTitle">{{ tickTimer }}</h2>
+				</div>
+
 			<div v-if="!isLoggedIn" class="flex justify-center items-center  mr-5">
 				<button
 					:class="btnClass"
@@ -54,6 +58,7 @@ import SettingModal from "./SettingsModal.vue"
 export default {
 	name: "HeaderVue",
 	inject: ["getUser","getOwner","getTime","apiCall"],
+	props:[ "tickTimer"],
 	emits: ["logged", "changeMain", "getUser"],
 	data() {
 		this.dayMap = {
@@ -86,7 +91,6 @@ export default {
 		this.userData = this.getUser;
     this.ownerData = this.getOwner;
 		this.timeData = this.getTime;
-		console.log(process.env,"TICK TIMES",10000)
 	},
 	methods: {
 		closePopup(){
