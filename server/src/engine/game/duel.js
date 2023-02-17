@@ -297,7 +297,7 @@ function parseDuel(report){
 			idOne = report.final[name].id;
 		}
 	}
-	return { "gladiatorOne":idTwo ,"gladiatorTwo":idOne ,duel: JSON.stringify(report), createdAt: parseInt(new Date())};
+	return { "gladiatorOne":idTwo ,"gladiatorTwo":idOne ,duel: JSON.stringify(report), createdAt: new Date()};
 }
 
 async function parseAndSaveDuel(report){
