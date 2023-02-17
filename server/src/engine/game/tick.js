@@ -15,14 +15,9 @@ let date = {
 
 async function clearSaves(){
 	// This function will go through saveTournaments and saveDuels and delete them based on time pased.
-	const timePassed = 86400000; // this is one real day's time 
-	//let MemoryByAge = await Memory.find({level:mainGlad[0].level, age: { $gt:  mainGlad[0].age-6, $lt:  mainGlad[0].age+6 }})
-	// so current date() - time passed
-	// new date() is now, and timePassed is 
+	const timePassed = 86400000; // 86400000 ( 60 * 60 * 24 * 1000) is one real day's time 
 	const lessThan = new Date() - 86400000; 
-	// This is the date a day from today.
-	// if a memory is older than this date 
-	// 1310785 // it was made 
+	
 	saveDuel.deleteMany( {createdAt:{$lt: lessThan }  } ).then( ()=>{
 		console.log("  -EN> DELETED OLD DUELS")
 	} ).catch((err)=>{
