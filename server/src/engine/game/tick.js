@@ -1,6 +1,6 @@
 // This is what happens in a tick.
 // Game will start on
-const { GameDate, Gladiator, Owner, Memory } = require("./../../models");
+const { GameDate, Gladiator, Owner, Memory, saveTournament, saveDuel } = require("./../../models");
 const { doGrowth } = require("./trainingEffects");
 const { getAbilityEffect } = require("./abilityIndex");
 const { saveModelMemory , saveManyModelMemory } = require('./gladiatorPrep');
@@ -13,9 +13,34 @@ let date = {
 	gladNum:0
 };
 
+async function clearSaves(){
+	// This function will go through saveTournaments and saveDuels and delete them based on time pased.
+	const timePassed = 86400000; // this is one real day's time 
+	//let MemoryByAge = await Memory.find({level:mainGlad[0].level, age: { $gt:  mainGlad[0].age-6, $lt:  mainGlad[0].age+6 }})
+	// so current date() - time passed
+	// new date() is now, and timePassed is 
+	const lessThan = new Date() - 86400000; 
+	// This is the date a day from today.
+	// if a memory is older than this date 
+	// 1310785 // it was made 
+	saveDuel.deleteMany( {createdAt:{$lt: lessThan }  } ).then( ()=>{
+		console.log("  -EN> DELETED OLD")
+	} ).catch((err)=>{
+		console.log('err');
+	});
+	saveTournament.deleteMany( {createdAt:{$lt: lessThan }  } ).then( ()=>{
+		console.log("  -EN> DELETED OLD")
+	} ).catch((err)=>{
+		console.log('err');
+	});
+}
+
 module.exports = {
 	doTick: async function () {
 		return new Promise(async (resolve, reject) => {
+
+			clearSaves();
+
 		let gameDate = await GameDate.find();
 		gameDate = gameDate[0]; // Because there should only be 1 gameDate ever!;
 		await gameDate.addTick();
@@ -72,7 +97,7 @@ module.exports = {
 				let ditto = await nationalTournament(allGladiators, memoryByLvl)
 				await saveGlads(ditto);
 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allGladiators.length} saved:${ditto.usedGlads.length}`);
-
+				clearSaves();
 			} else  
 			if ((date.month === 3 || date.month === 6 || date.month === 9) && date.day == 28	) {
 				
