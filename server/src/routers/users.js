@@ -22,6 +22,10 @@ async function createOwner(user) {
 	return owner;
 }
 
+router.get('/users/gameData',async(req,res)=>{
+	res.status(200).send({tick:process.env.TICK});
+})
+
 router.post("/users", async (req, res) => {
 	// Create a new user
 	try {
