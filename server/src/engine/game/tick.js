@@ -16,8 +16,8 @@ let date = {
 async function clearSaves(){
 	// This function will go through saveTournaments and saveDuels and delete them based on time pased.
 	const timePassed = 86400000; // 86400000 ( 60 * 60 * 24 * 1000) is one real day's time 
-	const lessThan = new Date() - 86400000; 
-	
+	const lessThan = new Date() - timePassed; 
+
 	saveDuel.deleteMany( {createdAt:{$lt: lessThan }  } ).then( ()=>{
 		console.log("  -EN> DELETED OLD DUELS")
 	} ).catch((err)=>{
@@ -33,8 +33,6 @@ async function clearSaves(){
 module.exports = {
 	doTick: async function () {
 		return new Promise(async (resolve, reject) => {
-
-			clearSaves();
 
 		let gameDate = await GameDate.find();
 		gameDate = gameDate[0]; // Because there should only be 1 gameDate ever!;
