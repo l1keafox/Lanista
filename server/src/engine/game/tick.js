@@ -18,12 +18,12 @@ async function clearSaves(){
 	const timePassed = 86400000; // 86400000 ( 60 * 60 * 24 * 1000) is one real day's time 
 	const lessThan = new Date() - timePassed; 
 
-	saveDuel.deleteMany( {createdAt:{$lt: lessThan }  } ).then( ()=>{
+	saveDuel.deleteMany( {createdAt:{$gt: lessThan }  } ).then( ()=>{
 		console.log("  -EN> DELETED OLD DUELS")
 	} ).catch((err)=>{
 		console.log('err');
 	});
-	saveTournament.deleteMany( {createdAt:{$lt: lessThan }  } ).then( ()=>{
+	saveTournament.deleteMany( {createdAt:{$gt: lessThan }  } ).then( ()=>{
 		console.log("  -EN> DELETED OLD TOURNAMENTS")
 	} ).catch((err)=>{
 		console.log('err');
@@ -90,7 +90,6 @@ module.exports = {
 				let ditto = await nationalTournament(allGladiators, memoryByLvl)
 				await saveGlads(ditto);
 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allGladiators.length} saved:${ditto.usedGlads.length}`);
-				clearSaves();
 			} else  
 			if ((date.month === 3 || date.month === 6 || date.month === 9) && date.day == 28	) {
 				
