@@ -90,9 +90,11 @@ export default {
 					const oData = await rpnse.json();
 					this.ownerData = oData.owner;
 					this.timeData = oData.time;
+					this.countDown = this.timeTimer;
+
 				} catch (err) {
 					console.log(err, "clearing");
-					clearInterval(this.interval);
+					// clearInterval(this.interval);
 				}
 			}
 		},
