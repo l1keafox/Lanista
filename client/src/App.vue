@@ -64,7 +64,7 @@ export default {
 			if (this.userData == null) {
 				this.userData = auth.getUser();
 			}
-			if (this.isLoggedIn && this.apiData) {
+			if (this.isLoggedIn && this.apiData && auth.getUser() ) {
 				try {
 					const rpnse = await fetch(
 						this.apiData + `/owner/${auth.getUser().ownerId}`,

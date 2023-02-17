@@ -13,6 +13,7 @@ class AuthService {
 		if(new Date() - new Date(decoded.timeCreated) > 43200000){
 			console.log('Time out on date');
 			this.logout();
+			return false;
 		}
 		return decoded;
 	}

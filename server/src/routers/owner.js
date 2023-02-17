@@ -10,6 +10,18 @@ const {createNewGladiator} = require('./../engine/game/utils')
 const auth = require('../middleware/auth');
 const router = express.Router();
 
+router.get('/owner/:ownerId', async(req, res) => {
+    try{
+        const owner = await Owner.findById( req.params.ownerId ).populate('gladiators',['name','age','winRecord','lossRecord','memoryWinRecord','memoryLossRecord','weekWin','monthWin','quarterWin','yearWin','memoryWeekWin','memoryMonthWin','memoryQuarterWin','memoryYearWin','level']);
+        const gameDate = await GameDate.find();
+        res.send({owner, time:gameDate[0] })
+    }catch(err){
+        console.log(err);
+        res.send({});
+    }
+})
+
+
 router.get('/owner/structures/:ownerId', async(req, res) => {
     const owner2 = await Owner.findById(req.params.ownerId);
     res.send(owner2.structures)
@@ -254,11 +266,6 @@ router.post('/owner/buyItem', async(req, res) => {
     res.send(true);
 })
 
-router.get('/owner/:ownerId', async(req, res) => {
-    const owner = await Owner.findById( req.params.ownerId ).populate('gladiators',['name','age','winRecord','lossRecord','memoryWinRecord','memoryLossRecord','weekWin','monthWin','quarterWin','yearWin','memoryWeekWin','memoryMonthWin','memoryQuarterWin','memoryYearWin','level']);
-    const gameDate = await GameDate.find();
-    res.send({owner, time:gameDate[0] })
-})
 
 router.get('/owner/date', async(req, res) => {
     res.send( gameDate[0] )
