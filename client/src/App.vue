@@ -3,7 +3,7 @@
 		<HeaderVue @logged="update" :tickTimer="toNextTick" />
 		<div class="flex h-[calc(100vh-45px)] w-full">
 			<SideNav @logged="update" @changeMain="changeStage" />
-			<component :is="mainStage" />
+			<component :is="mainStage" :maxTick="this.timeTimer" />
 		</div>
 	</div>
 </template>
@@ -90,10 +90,6 @@ export default {
 					const oData = await rpnse.json();
 					this.ownerData = oData.owner;
 					this.timeData = oData.time;
-					if(this.timeTimer){
-						this.toNextTick = this.timeTimer;
-						this.countDown = this.timeTimer;
-					}
 				} catch (err) {
 					console.log(err, "clearing");
 					clearInterval(this.interval);
@@ -118,6 +114,10 @@ export default {
 		this.interval = setInterval(this.updateOwner, gameData.tick);
 		this.timerInterval = setInterval(this.doTick, 100);
 		this.timeTimer = gameData.tick;
+		this.toNextTick = this.timeTimer;
+		this.countDown = this.timeTimer;
+		const percent = (this.countDown / this.timeTimer);
+		this.toNextTick = percent.toFixed(2);
 
 	},
 	provide() {
