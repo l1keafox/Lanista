@@ -1,6 +1,6 @@
 <template>
 	<div class="flex flex-col h-screen w-screen overflow-hidden">
-		<HeaderVue @logged="update" />
+		<HeaderVue @logged="update" :tickTimer="toNextTick" />
 		<div class="flex h-[calc(100vh-45px)] w-full">
 			<SideNav @logged="update" @changeMain="changeStage" />
 			<component :is="mainStage" />
@@ -40,17 +40,31 @@ export default {
 		SchoolMain,
 	},
 	data() {
+		this.timeTimer;
+		this.countDown;
+		this.interval;
+		this.timerInterval;
+		this.apiData = location.protocol === "https:" ? `https://${window.location.hostname}` : `http://${window.location.hostname}:3001`
 		return {
 			isLoggedIn: auth.loggedIn(),
 			mainStage: "WelcomeMain",
 			timeData: null,
+			toNextTick: 0,
 			userData: null,
-			interval: null,
-			apiData: location.protocol === "https:" ? `https://${window.location.hostname}` : `http://${window.location.hostname}:3001`,
 			ownerData: null,
 		};
 	},
 	methods: {
+		doTick(){
+			if(this.timeData && this.countDown <= 0 ){
+				this.countDown = this.timeTimer
+			} else if(this.countDown){
+				this.countDown -= 100;
+				const percent = (this.countDown / this.timeTimer);
+				this.toNextTick = percent.toFixed(2);
+			}
+		},	
+		
 		changeStage(newStage) {
 			this.mainStage = newStage;
 		},
@@ -61,6 +75,7 @@ export default {
 		},
 
 		async updateOwner() {
+			this.toNextTick = this.timeTimer;
 			if (this.userData == null) {
 				this.userData = auth.getUser();
 			}
@@ -75,6 +90,10 @@ export default {
 					const oData = await rpnse.json();
 					this.ownerData = oData.owner;
 					this.timeData = oData.time;
+					if(this.timeTimer){
+						this.toNextTick = this.timeTimer;
+						this.countDown = this.timeTimer;
+					}
 				} catch (err) {
 					console.log(err, "clearing");
 					clearInterval(this.interval);
@@ -83,23 +102,22 @@ export default {
 		},
 	},
 	unmounted() {
-		console.log("UNMOUNTED?");
 		clearInterval(this.interval);
+		clearInterval(this.timerInterval);
 	},
 	async mounted() {
 		this.updateOwner();
 		
 		const rpnse = await fetch(
-						this.apiData + `/users/gameData`,
-						{
-							headers: { "Content-Type": "application/json" },
-						}
-					);
+			this.apiData + `/users/gameData`,
+			{ headers: { "Content-Type": "application/json" } }
+		);
 
 		const gameData = await rpnse.json();
-		console.log(gameData);
-
+		console.log(' getting tick data, set to :',gameData.tick)
 		this.interval = setInterval(this.updateOwner, gameData.tick);
+		this.timerInterval = setInterval(this.doTick, 100);
+		this.timeTimer = gameData.tick;
 
 	},
 	provide() {
@@ -114,7 +132,6 @@ export default {
 			getUser: computed(() => this.userData),
 			getLogged: computed(() => this.isLoggedIn),
 			apiCall: computed(() => this.apiData)
-			
 		};
 	},
 };
