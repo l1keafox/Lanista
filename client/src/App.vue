@@ -86,9 +86,21 @@ export default {
 		console.log("UNMOUNTED?");
 		clearInterval(this.interval);
 	},
-	mounted() {
+	async mounted() {
 		this.updateOwner();
-		this.interval = setInterval(this.updateOwner, 1000);
+		
+		const rpnse = await fetch(
+						this.apiData + `/users/gameData`,
+						{
+							headers: { "Content-Type": "application/json" },
+						}
+					);
+
+		const gameData = await rpnse.json();
+		console.log(gameData);
+
+		this.interval = setInterval(this.updateOwner, gameData.tick);
+
 	},
 	provide() {
 		return {

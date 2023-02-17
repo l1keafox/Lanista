@@ -86,7 +86,6 @@ export default {
 		this.userData = this.getUser;
     this.ownerData = this.getOwner;
 		this.timeData = this.getTime;
-		console.log(process.env,"TICK TIMES",10000)
 	},
 	methods: {
 		closePopup(){
