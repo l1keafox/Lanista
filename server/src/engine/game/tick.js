@@ -17,18 +17,17 @@ async function clearSaves(){
 	// This function will go through saveTournaments and saveDuels and delete them based on time pased.
 	const timePassed = 86400000; // 86400000 ( 60 * 60 * 24 * 1000) is one real day's time 
 	const lessThan = new Date() - timePassed; 
-let ditto = await	saveDuel.find({createdAt:{$gl: lessThan }  } );
-console.log(ditto.length);
-	// saveDuel.deleteMany( {createdAt:{$gl: lessThan }  } ).then( ()=>{
-	// 	console.log("  -EN> DELETED OLD DUELS")
-	// } ).catch((err)=>{
-	// 	console.log('err');
-	// });
-	// saveTournament.deleteMany( {createdAt:{$gt: lessThan }  } ).then( ()=>{
-	// 	console.log("  -EN> DELETED OLD TOURNAMENTS")
-	// } ).catch((err)=>{
-	// 	console.log('err');
-	// });
+	// saveDuel.find({createdAt:{$gl: lessThan }  } );
+	saveDuel.deleteMany( {createdAt:{$gl: lessThan }  } ).then( ()=>{
+		console.log("  -EN> DELETED OLD DUELS")
+	} ).catch((err)=>{
+		console.log('err');
+	});
+	saveTournament.deleteMany( {createdAt:{$gt: lessThan }  } ).then( ()=>{
+		console.log("  -EN> DELETED OLD TOURNAMENTS")
+	} ).catch((err)=>{
+		console.log('err');
+	});
 }
 
 module.exports = {
