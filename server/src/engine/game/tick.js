@@ -24,12 +24,12 @@ async function clearSaves(){
 	// if a memory is older than this date 
 	// 1310785 // it was made 
 	saveDuel.deleteMany( {createdAt:{$lt: lessThan }  } ).then( ()=>{
-		console.log("  -EN> DELETED OLD")
+		console.log("  -EN> DELETED OLD DUELS")
 	} ).catch((err)=>{
 		console.log('err');
 	});
 	saveTournament.deleteMany( {createdAt:{$lt: lessThan }  } ).then( ()=>{
-		console.log("  -EN> DELETED OLD")
+		console.log("  -EN> DELETED OLD TOURNAMENTS")
 	} ).catch((err)=>{
 		console.log('err');
 	});
@@ -121,6 +121,9 @@ module.exports = {
 			}
 
 			await gameDate.addDay(); // This will set it to the next day.
+			if(date.day == 28){
+				clearSaves()
+			}
 
 		} else {
 			// console.log('  -TICK> allGladiators Age++')
