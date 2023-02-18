@@ -17,6 +17,10 @@
 						<h2 :class ="cardTitle">{{timeData.month}}/{{timeData.day}}/{{timeData.year}} </h2>
 					</div>
         </div>
+				<div v-if="timeData" class ="flex items-center" >
+					<ProgressBar :bgcolor="'#6a1b9a'" :completed ="tickTimer"/>
+				</div>
+
 			<div v-if="!isLoggedIn" class="flex justify-center items-center  mr-5">
 				<button
 					:class="btnClass"
@@ -51,9 +55,11 @@ import gearIcon from "@/assets/gear_icon.png";
 import LoginVue from "./LoginVue.vue";
 import CreateAccount from "./CreateAccount.vue";
 import SettingModal from "./SettingsModal.vue"
+import ProgressBar from "./ProgressBar.vue"
 export default {
 	name: "HeaderVue",
 	inject: ["getUser","getOwner","getTime","apiCall"],
+	props:[ "tickTimer"],
 	emits: ["logged", "changeMain", "getUser"],
 	data() {
 		this.dayMap = {
@@ -79,6 +85,7 @@ export default {
 	components: {
 		LoginVue,
 		SettingModal,
+		ProgressBar,
 		CreateAccount,
 	},
 
@@ -86,7 +93,6 @@ export default {
 		this.userData = this.getUser;
     this.ownerData = this.getOwner;
 		this.timeData = this.getTime;
-		console.log(process.env,"TICK TIMES",10000)
 	},
 	methods: {
 		closePopup(){
@@ -149,7 +155,7 @@ export default {
 				this.isLoggedIn = true;
 				auth.login(det.token);
 			} else {
-				alert("Cannot login");
+				alert(det.error);
 			}
 			this.$emit("logged");
 			this.ownerData = this.getOwner;

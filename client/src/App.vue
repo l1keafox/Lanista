@@ -1,9 +1,9 @@
 <template>
 	<div class="flex flex-col h-screen w-screen overflow-hidden">
-		<HeaderVue @logged="update" />
+		<HeaderVue @logged="update" :tickTimer="toNextTick" />
 		<div class="flex h-[calc(100vh-45px)] w-full">
 			<SideNav @logged="update" @changeMain="changeStage" />
-			<component :is="mainStage" />
+			<component :is="mainStage" :maxTick="this.timeTimer" />
 		</div>
 	</div>
 </template>
@@ -40,17 +40,31 @@ export default {
 		SchoolMain,
 	},
 	data() {
+		this.timeTimer;
+		this.countDown;
+		this.interval;
+		this.timerInterval;
+		this.apiData = location.protocol === "https:" ? `https://${window.location.hostname}` : `http://${window.location.hostname}:3001`
 		return {
 			isLoggedIn: auth.loggedIn(),
 			mainStage: "WelcomeMain",
 			timeData: null,
+			toNextTick: 0,
 			userData: null,
-			interval: null,
-			apiData: location.protocol === "https:" ? `https://${window.location.hostname}` : `http://${window.location.hostname}:3001`,
 			ownerData: null,
 		};
 	},
 	methods: {
+		doTick(){
+			if(this.timeData && this.countDown <= 0 ){
+				this.countDown = this.timeTimer
+			} else if(this.countDown){
+				this.countDown -= 100;
+				const percent = (this.countDown / this.timeTimer)*100;
+				this.toNextTick = parseInt( percent.toFixed() );
+			}
+		},	
+		
 		changeStage(newStage) {
 			this.mainStage = newStage;
 		},
@@ -61,10 +75,11 @@ export default {
 		},
 
 		async updateOwner() {
+			// this.toNextTick = this.timeTimer;
 			if (this.userData == null) {
 				this.userData = auth.getUser();
 			}
-			if (this.isLoggedIn && this.apiData) {
+			if (this.isLoggedIn && this.apiData && auth.getUser() ) {
 				try {
 					const rpnse = await fetch(
 						this.apiData + `/owner/${auth.getUser().ownerId}`,
@@ -75,20 +90,37 @@ export default {
 					const oData = await rpnse.json();
 					this.ownerData = oData.owner;
 					this.timeData = oData.time;
+					this.countDown = this.timeTimer;
+
 				} catch (err) {
 					console.log(err, "clearing");
-					clearInterval(this.interval);
+					// clearInterval(this.interval);
 				}
 			}
 		},
 	},
 	unmounted() {
-		console.log("UNMOUNTED?");
 		clearInterval(this.interval);
+		clearInterval(this.timerInterval);
 	},
-	mounted() {
+	async mounted() {
 		this.updateOwner();
-		this.interval = setInterval(this.updateOwner, 1000);
+		
+		const rpnse = await fetch(
+			this.apiData + `/users/gameData`,
+			{ headers: { "Content-Type": "application/json" } }
+		);
+
+		const gameData = await rpnse.json();
+		console.log(' getting tick data, set to :',gameData.tick)
+		this.interval = setInterval(this.updateOwner, gameData.tick);
+		this.timerInterval = setInterval(this.doTick, 100);
+		this.timeTimer = gameData.tick;
+		// this.toNextTick = this.timeTimer;
+		this.countDown = this.timeTimer;
+		const percent = (this.countDown / this.timeTimer);
+		this.toNextTick = percent.toFixed(2);
+
 	},
 	provide() {
 		return {
@@ -102,7 +134,6 @@ export default {
 			getUser: computed(() => this.userData),
 			getLogged: computed(() => this.isLoggedIn),
 			apiCall: computed(() => this.apiData)
-			
 		};
 	},
 };

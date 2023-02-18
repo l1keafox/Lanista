@@ -10,6 +10,11 @@
       "password": "hamham"
     },
     {
+      "username": "username",
+      "email": "hamster@email.com",
+      "password": "password"
+    },
+    {
       "username": "test",
       "email": "test@email.com",
       "password": "testtest"
