@@ -19,13 +19,14 @@ import TournamentMain from "./views/TournamentMain.vue";
 import StudentMain from "./views/StudentMain.vue";
 import FeedbackMain from "./views/FeedbackMain.vue";
 
-import SideNav from "@/components/SideNav.vue";
-import HeaderVue from "@/components/Header.vue";
+import SideNav from "./components/SideNav.vue";
+import HeaderVue from "./components/Header.vue";
 import auth from "./mixins/auth";
 
 import { computed } from "vue";
 export default {
 	name: "App",
+
 	components: {
 		FeedbackMain,
 		SideNav,
@@ -60,8 +61,8 @@ export default {
 				this.countDown = this.timeTimer
 			} else if(this.countDown){
 				this.countDown -= 100;
-				const percent = (this.countDown / this.timeTimer);
-				this.toNextTick = percent.toFixed(2);
+				const percent = (this.countDown / this.timeTimer)*100;
+				this.toNextTick = parseInt( percent.toFixed() );
 			}
 		},	
 		
@@ -75,7 +76,7 @@ export default {
 		},
 
 		async updateOwner() {
-			this.toNextTick = this.timeTimer;
+			// this.toNextTick = this.timeTimer;
 			if (this.userData == null) {
 				this.userData = auth.getUser();
 			}
@@ -116,7 +117,7 @@ export default {
 		this.interval = setInterval(this.updateOwner, gameData.tick);
 		this.timerInterval = setInterval(this.doTick, 100);
 		this.timeTimer = gameData.tick;
-		this.toNextTick = this.timeTimer;
+		// this.toNextTick = this.timeTimer;
 		this.countDown = this.timeTimer;
 		const percent = (this.countDown / this.timeTimer);
 		this.toNextTick = percent.toFixed(2);

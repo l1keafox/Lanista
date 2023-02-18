@@ -11,6 +11,7 @@
         <p> With a unique duel system,where you set them up with skills/stats and equipment for success.</p>
         <br/>
         <h1> Click on How To Play to the side nav for more details.</h1>
+        <br/>
         <h1 class="text-red-500 text-xl"> Current tick time is {{ maxTick/1000 }} secs.  </h1>
         </div>
         <br/>
@@ -20,7 +21,12 @@
         <div class ="flex flex-col text-center m-10">
             <h1 class="text-red-500 text-3xl"> WARNING - Game is still in alpha! while all features are in, they need to be refined and UI/UX needs to be improved. Items, training, buildings and balancing still needs to be done.</h1>
             <!-- <h1 class="text-red-500 text-xl"> Feedback/Bugs page is the best to send a message to me. </h1> -->
-            
+            <h1 class="text-green-500 text-2xl"> Special accounts to look around:  </h1>
+            <h2 class="text-yellow-500 text-xl"> username / <span class="text-blue-500">password</span> </h2>
+            <h2 class="text-yellow-500 text-xl"> seed / <span class="text-blue-500">seeded</span> </h2>
+            <h2 class="text-yellow-500 text-xl"> cat / <span class="text-blue-500">catcat</span> </h2>
+            <h2 class="text-yellow-500 text-xl"> test / <span class="text-blue-500">testtest</span> </h2>
+            <h2 class="text-yellow-500 text-xl"> hamster / <span class="text-blue-500">hamham</span> </h2>
         </div>
         <!-- <h1> Play for free! This game is not pay to win, but you need to think of how your weapons, skills and stats all interact</h1> -->
         <br/>
@@ -79,5 +85,4 @@
 </script>
 
 <style scoped>
-
 </style>

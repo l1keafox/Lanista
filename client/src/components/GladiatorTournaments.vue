@@ -40,10 +40,10 @@
 </template>
 
 <script>
-import roundRobin from '@/components/roundRobinTournament.vue'
-import singleElimination from '@/components/singleEliminationTournament';
-import bestOfThree from '@/components/bestOfThreeTournament';
-import roundRobinBestOfThree from '@/components/roundRobinOfThreeTournament';
+import roundRobin from './roundRobinTournament.vue'
+import singleElimination from './singleEliminationTournament.vue';
+import bestOfThree from './bestOfThreeTournament.vue';
+import roundRobinBestOfThree from './roundRobinOfThreeTournament.vue';
 
     export default {
         name:"GladiatorTournament",

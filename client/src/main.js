@@ -1,7 +1,6 @@
 import { createApp } from 'vue'
-import App from './App.vue'
+// import './style.css'
 import './assets/tailwind.css'
-const app = createApp(App)
+import App from './App.vue'
 
-// app.config.unwrapInjectedRef = true
-app.mount('#app');
+createApp(App).mount('#app')
