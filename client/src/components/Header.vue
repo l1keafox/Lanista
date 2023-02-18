@@ -18,7 +18,7 @@
 					</div>
         </div>
 				<div v-if="timeData" class ="flex items-center" >
-					<h2 :class ="cardTitle">{{ tickTimer }}</h2>
+					<ProgressBar :bgcolor="'#6a1b9a'" :completed ="tickTimer"/>
 				</div>
 
 			<div v-if="!isLoggedIn" class="flex justify-center items-center  mr-5">
@@ -55,6 +55,7 @@ import gearIcon from "@/assets/gear_icon.png";
 import LoginVue from "./LoginVue.vue";
 import CreateAccount from "./CreateAccount.vue";
 import SettingModal from "./SettingsModal.vue"
+import ProgressBar from "./ProgressBar.vue"
 export default {
 	name: "HeaderVue",
 	inject: ["getUser","getOwner","getTime","apiCall"],
@@ -84,6 +85,7 @@ export default {
 	components: {
 		LoginVue,
 		SettingModal,
+		ProgressBar,
 		CreateAccount,
 	},
 
