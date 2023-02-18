@@ -43,13 +43,13 @@ router.post("/users/createAcct", async (req, res) => {
 	const { username, password, email } = req.body;
 	let userExist = await User.findOne({ username: username });
 	if (userExist) {
-		return res.status(401).send({ error: "Create Acct failed: username" });
+		return res.status(401).send({ error: "Create Acct failed: username exists" });
 	}
 	let existUser = await User.findOne({ email} );
 	if(existUser){
 		return res
 		.status(401)
-		.send({ error: "Create Acct failed: email" });
+		.send({ error: "Create Acct failed: email exists" });
 	}
 
 
@@ -104,7 +104,12 @@ router.post("/users/login", async (req, res) => {
 		
 		res.send({ user, token });
 	} catch (error) {
-		res.status(400).send(error);
+		let userExist = await User.findOne({ username:  req.body.username });
+		if (userExist) {
+			return res.status(401).send({ error: "Login Fail: password" });
+		} else {
+			return res.status(401).send({ error: "Error: No username, Create Account" });
+		}
 	}
 });
 
