@@ -18,7 +18,7 @@ async function clearSaves(){
 	const timePassed = 86400000; // 86400000 ( 60 * 60 * 24 * 1000) is one real day's time 
 	const lessThan = new Date() - timePassed; 
 	// saveDuel.find({createdAt:{$gl: lessThan }  } );
-	saveDuel.deleteMany( {createdAt:{$gl: lessThan }  } ).then( ()=>{
+	saveDuel.deleteMany( {createdAt:{$gt: lessThan }  } ).then( ()=>{
 		console.log("  -EN> DELETED OLD DUELS")
 	} ).catch((err)=>{
 		console.log('err');
