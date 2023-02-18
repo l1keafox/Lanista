@@ -37,7 +37,7 @@
 			</div>
       <div v-else class="font-lux text-base flex justify-center items-center mr-5">
 				<h2 class ="mr-3 text-2xl text-slate-300 cursor-default"><template v-if="userData">{{ userData.username }}</template></h2>
-				<img @click="showModal('SettingModal')" :src="gearIcon" class="hover:cursor-pointer"/>
+				<!-- <img @click="showModal('SettingModal')" :src="gearIcon" class="hover:cursor-pointer"/> -->
         <button :class="btnClass" @click="doLogOut">Logout</button>
       </div>
 		</div>
@@ -49,9 +49,8 @@
 </template>
 
 <script>
-import auth from "@/mixins/auth";
-import gearIcon from "@/assets/gear_icon.png";
-
+import auth from "./../mixins/auth";
+// import gearIcon from "./../assets/gear_icon.png";
 import LoginVue from "./LoginVue.vue";
 import CreateAccount from "./CreateAccount.vue";
 import SettingModal from "./SettingsModal.vue"
@@ -70,7 +69,7 @@ export default {
 			5:"fives",
 			6:"sixes",
 		}
-		this.gearIcon = gearIcon
+		// this.gearIcon = gearIcon
 		return {
 			btnClass:"m-2 px-3 py-2 cursor-pointer font-lux text-xl hover:underline sideOptions",
 			cardTitle:"text-2xl text-slate-300 ",

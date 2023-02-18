@@ -1,51 +1,23 @@
 {
-  "name": "Lanista",
-  "version": "0.1.0",
+  "name": "client2",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "start": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "autoprefixer": "^10",
-    "core-js": "^3.8.3",
     "jwt-decode": "^3.1.2",
-    "postcss": "^8",
-    "tailwindcss": "^3",
-    "vue": "^3.2.13",
-    "eslint-plugin-vue": "^8.0.3",
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
-    "vue-cli-plugin-tailwind": "~3.0.0",
-    "@vue/cli-service": "~5.0.0",
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
-    "eslint": "^7.32.0",
-    "vuedraggable": "^4.1.0"
+    "vue": "^3.2.45",
+    "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
-    
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "@babel/eslint-parser"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead",
-    "not ie 11"
-  ]
+    "@vitejs/plugin-vue": "^4.0.0",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.7",
+    "vite": "^4.1.0"
+  }
 }

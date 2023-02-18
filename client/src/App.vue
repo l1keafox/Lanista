@@ -19,13 +19,14 @@ import TournamentMain from "./views/TournamentMain.vue";
 import StudentMain from "./views/StudentMain.vue";
 import FeedbackMain from "./views/FeedbackMain.vue";
 
-import SideNav from "@/components/SideNav.vue";
-import HeaderVue from "@/components/Header.vue";
+import SideNav from "./components/SideNav.vue";
+import HeaderVue from "./components/Header.vue";
 import auth from "./mixins/auth";
 
 import { computed } from "vue";
 export default {
 	name: "App",
+
 	components: {
 		FeedbackMain,
 		SideNav,
