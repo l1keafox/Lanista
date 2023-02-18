@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import CombatReview from '@/components/CombatReview.vue';
+import CombatReview from './CombatReview.vue';
     export default {
         name:"singleElimination",
         components:{

@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import CombatReview from "@/components/CombatReview";
+import CombatReview from "./CombatReview.vue";
     export default {
 
         name:"DuelHistory",

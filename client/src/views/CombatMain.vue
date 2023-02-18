@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import CombatReview from "@/components/CombatReview";
+import CombatReview from "./../components/CombatReview.vue";
 import auth from "./../mixins/auth";
 export default {
 	name: "CombatMain",

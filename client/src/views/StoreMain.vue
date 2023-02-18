@@ -42,7 +42,7 @@
 
 <script>
 import auth from "./../mixins/auth";
-import itemCard from "./../components/ItemCard"
+import itemCard from "./../components/ItemCard.vue"
 export default {
   inject: ["card", "cardTitle","smallCard",'apiCall'],
   name: "StoreMain",
