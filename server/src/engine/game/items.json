@@ -54,7 +54,7 @@
   
   "shortSpear":{
     "slot":"mainHand",
-    "abilities":["stab","stab"],
+    "abilities":["stab","backstab"],
     "maintenance": 100
   },
   "longSpear":{
