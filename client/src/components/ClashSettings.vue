@@ -25,7 +25,7 @@
 								:list="prepare"
 								sort="false"
 								group="prepare"
-								itemKey="name">
+								itemKey="name"> -->
 								<template #item="{ element }">
 									<div class="list-group-item m-2 bg-pink-300">{{ element }} </div>
 								</template>

@@ -26,7 +26,6 @@ import auth from "./mixins/auth";
 import { computed } from "vue";
 export default {
 	name: "App",
-
 	components: {
 		FeedbackMain,
 		SideNav,
