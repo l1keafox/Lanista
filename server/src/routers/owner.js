@@ -244,9 +244,10 @@ router.get('/owner/store/:ownerId', async(req, res) => {
 
 router.post('/owner/buyItem', async(req, res) => {
     let owner = await Owner.findOne({ userAcct: req.body.id });
-    
+        console.log(req.body.buyThisThing )
     if(owner.gold < req.body.buyThisThing.cost){
         res.send(false);    
+        return;
     }
     owner.gold-=req.body.buyThisThing.cost;
 

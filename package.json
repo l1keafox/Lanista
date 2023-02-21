@@ -14,7 +14,7 @@
     "install": "cd server && npm i && cd ../client && npm i",
     "client": "cd client && npm start",
     "develop": "concurrently \"cd server && npm run develop\" \"cd client && npm run dev\"",
-    "dev": "concurrently \"cd server && npm run develop\" \"cd client && npm run dev\"",
+    "dev": "concurrently \"cd client && npm run dev\" \"cd server && npm run develop\" ",
     "seed": "cd server && npm run seed",
     "install-client": "cd client && npm install",
     "heroku-postbuild": "npm run install-client && npm run build"
@@ -30,12 +30,8 @@
   },
   "homepage": "https://github.com/l1keafox/Lanista#readme",
   "dependencies": {
-    "@emailjs/browser": "^3.10.0",
-    "@vue/cli": "^5.0.8",
     "concurrently": "^7.4.0",
     "jsonwebtoken": "^8.5.1",
-    "node": "^19.6.0",
-    "vee-validate": "^4.7.4",
-    "yup": "^1.0.0"
+    "node": "^19.6.0"
   }
 }

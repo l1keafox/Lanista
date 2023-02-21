@@ -24,13 +24,13 @@
 			<div v-if="!isLoggedIn" class="flex justify-center items-center  mr-5">
 				<button
 					:class="btnClass"
-					@click="showModal('CreateAccount')"
+					@click="showModal('CreateAccountModal')"
 					:key="isLoggedIn">
 					Create Account
 				</button>
 				<button
 					:class="btnClass"
-					@click="showModal('LoginVue')"
+					@click="showModal('LoginModal')"
 					:key="isLoggedIn">
 					Login
 				</button>
@@ -41,7 +41,7 @@
         <button :class="btnClass" @click="doLogOut">Logout</button>
       </div>
 		</div>
-		<div v-if="isModalShown">
+		<div v-if="isModalShown" >
 			<component :is="modalShown" @closeModal="closePopup" @trylogin="tryLogin"  @createAcct="createAcct"/>
 		</div>
 	
@@ -51,7 +51,10 @@
 <script>
 import auth from "./../mixins/auth";
 // import gearIcon from "./../assets/gear_icon.png";
-import LoginVue from "./LoginVue.vue";
+import {unref} from 'vue'
+
+import CreateAccountModal from "./modals/CreateAccountModal.vue";
+import LoginModal from "./modals/loginModal.vue";
 import CreateAccount from "./CreateAccount.vue";
 import SettingModal from "./SettingsModal.vue"
 import ProgressBar from "./ProgressBar.vue"
@@ -82,10 +85,11 @@ export default {
 		};
 	},
 	components: {
-		LoginVue,
+		LoginModal,
 		SettingModal,
 		ProgressBar,
 		CreateAccount,
+		CreateAccountModal
 	},
 
 	async mounted() {
@@ -116,9 +120,9 @@ export default {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
-						"username": username,
-						"password": password,
-						"email": email,
+						"username": unref(username),
+						"password": unref(password),
+						"email": unref(email),
 					}),
 				}
 			);

@@ -3,7 +3,7 @@
 		<HeaderVue @logged="update" :tickTimer="toNextTick" />
 		<div class="flex h-[calc(100vh-45px)] w-full">
 			<SideNav @logged="update" @changeMain="changeStage" />
-			<component :is="mainStage" :maxTick="this.timeTimer" />
+			<component :is="mainStage" />
 		</div>
 	</div>
 </template>
@@ -18,6 +18,8 @@ import StoreMain from "./views/StoreMain.vue";
 import TournamentMain from "./views/TournamentMain.vue";
 import StudentMain from "./views/StudentMain.vue";
 import FeedbackMain from "./views/FeedbackMain.vue";
+import RankingMain from "./views/RankingMain.vue";
+import GamblingMain from "./views/GamblingMain.vue";
 
 import SideNav from "./components/SideNav.vue";
 import HeaderVue from "./components/Header.vue";
@@ -26,8 +28,9 @@ import auth from "./mixins/auth";
 import { computed } from "vue";
 export default {
 	name: "App",
-
 	components: {
+		RankingMain,
+		GamblingMain,
 		FeedbackMain,
 		SideNav,
 		HowToPlayMain,
@@ -105,6 +108,9 @@ export default {
 		clearInterval(this.timerInterval);
 	},
 	async mounted() {
+		if(!this.isLoggedIn){
+			this.mainStage = "WelcomeMain"
+		}
 		this.updateOwner();
 		
 		const rpnse = await fetch(
