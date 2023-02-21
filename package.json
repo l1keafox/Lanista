@@ -14,7 +14,7 @@
     "install": "cd server && npm i && cd ../client && npm i",
     "client": "cd client && npm start",
     "develop": "concurrently \"cd server && npm run develop\" \"cd client && npm run dev\"",
-    "dev": "concurrently \"cd server && npm run develop\" \"cd client && npm run dev\"",
+    "dev": "concurrently \"cd client && npm run dev\" \"cd server && npm run develop\" ",
     "seed": "cd server && npm run seed",
     "install-client": "cd client && npm install",
     "heroku-postbuild": "npm run install-client && npm run build"

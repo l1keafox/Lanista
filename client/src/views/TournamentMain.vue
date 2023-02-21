@@ -92,7 +92,7 @@ export default {
               this.isModalShown = false;
         },
         async  loadMorePosts(){
-              const addPosts = 25;
+              const addPosts = 10;
               const rpnse = await fetch(
                 this.apiCall.value +
                 `/owner/someTournament/${this.userData.ownerId}/${this.count}/${addPosts}`,

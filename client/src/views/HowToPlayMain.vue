@@ -6,7 +6,7 @@
         <button @click="switchHelp(index)" class ="mr-10"> {{ help }}</button>
       </template>
     </nav>
-    <component :is="showTo" class="prose"/>
+    <component :is="showTo" class="prose bg-slate-200"/>
    </div>
 </template>
 
@@ -25,7 +25,7 @@ import Stats from './../content/Stats.md'
         Clash
       },
       data(){
-        this.helpObj = ["Intro","Clash","Memory","Stats"]
+        this.helpObj = ["Intro","Clash","Memory","Stats","Tournaments","Ranking","Equipment","Building","Training"]
           return {
               showTo:"Intro"
           }
