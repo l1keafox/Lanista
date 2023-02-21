@@ -9,7 +9,7 @@
   @input="$emit('update:modelValue',$event.target.value)"
   >
 
-  <p v-if="error" class="errorMessage">
+  <p v-if="error" class="errorMessage text-sm">
     {{  error }}
   </p>
 </template>
