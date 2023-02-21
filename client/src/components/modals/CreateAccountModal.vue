@@ -25,6 +25,11 @@
 
 <script setup>
 import BaseModal from "./BaseModal.vue"
+import { useField, useForm } from 'vee-validate'
+import { object, string } from 'yup'
+import InputField from "./../InputField.vue"
+
+
 </script>
 
 <style scoped>
