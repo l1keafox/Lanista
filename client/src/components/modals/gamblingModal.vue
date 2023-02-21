@@ -1,5 +1,5 @@
 <template>
-  <baseModal>
+  <BaseModal>
     <template v-slot:header>
       <h1> Enter a Gladiator </h1>
     </template>
@@ -11,11 +11,11 @@
     <template v-slot:footer>
       <h1>Footer</h1>
     </template>
-  </baseModal>
+  </BaseModal>
 </template>
 
 <script setup>
-import baseModal from "./baseModal.vue"
+import BaseModal from "./BaseModal.vue"
 
 </script>
 

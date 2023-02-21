@@ -1,5 +1,5 @@
 <template>
-  <baseModal noClose="true">
+  <BaseModal noClose="true">
     <template v-slot:header>
       <h1>Create Account</h1>
     </template>
@@ -20,11 +20,11 @@
       <button @click="$emit('createAcct',{username,password,email})" class="mt-5 w-full border p-2 bg-gradient-to-r from-gray-800 bg-gray-500 text-white rounded-[4px] hover:bg-slate-400 scale-105 duration-300" type="submit">Create Account</button>
       <button @click="$emit('createAcct',{})" class="mt-5 w-full border p-2 bg-gradient-to-r from-gray-800 bg-gray-500 text-white rounded-[4px] hover:bg-slate-400 scale-105 duration-300" type="submit">Close</button>
   </template>
-  </baseModal>
+  </BaseModal>
 </template>
 
 <script setup>
-import baseModal from "./baseModal.vue"
+import BaseModal from "./BaseModal.vue"
 </script>
 
 <style scoped>
