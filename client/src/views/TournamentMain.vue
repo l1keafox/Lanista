@@ -39,10 +39,11 @@
 </template>
 
 <script>
-import roundRobin from './../components/roundRobinTournament.vue';
-import singleElimination from './../components/singleEliminationTournament.vue';
-import bestOfThree from './../components/bestOfThreeTournament.vue';
-import roundRobinBestOfThree from './../components/roundRobinOfThreeTournament.vue';
+import bestOfThree from './../components/modals/BestOfThreeModal.vue';
+
+import roundRobin from './../components/modals/RoundRobin.vue';
+import singleElimination from './../components/modals/SingleElimination.vue';
+import roundRobinBestOfThree from './../components/modals/RoundRobinOfThree.vue';
 
 export default {
     name:"TournamentMain",
