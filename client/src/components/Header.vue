@@ -54,7 +54,7 @@ import auth from "./../mixins/auth";
 import {unref} from 'vue'
 
 import CreateAccountModal from "./modals/CreateAccountModal.vue";
-import LoginModal from "./modals/loginModal.vue";
+import LoginModal from "./modals/LoginModal.vue";
 import SettingModal from "./modals/SettingsModal.vue"
 import ProgressBar from "./ProgressBar.vue"
 export default {
