@@ -12,6 +12,11 @@
 			How To Play
 		</div>
 		<div
+		:class="butnLayout"
+			@click="$emit('changeMain', 'RankingMain')">
+			Ranking
+		</div>
+		<div
 			:class="butnLayout"
 			@click="$emit('changeMain', 'feedbackMain')">
 			Feedback/Bugs
@@ -44,6 +49,11 @@
 			:class="butnLayout"
 				@click="$emit('changeMain', 'StudentMain')">
 				Students
+			</div>
+			<div
+			:class="butnLayout"
+				@click="$emit('changeMain', 'GamblingMain')">
+				Gambling
 			</div>
 			<div
 			:class="butnLayout"
