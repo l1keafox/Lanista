@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import GamblingModal from '../components/modals/GamblingModal.vue';
+import GamblingModal from './../components/modals/GamblingModal.vue';
 import {ref} from 'vue';
 const showModal = ref(false);
 function showEnterModal(){
