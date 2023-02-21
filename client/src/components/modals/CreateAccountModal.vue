@@ -21,7 +21,7 @@
     </template>
 
     <template v-slot:footer >
-      <button @click="$emit('createAcct',{username,password,email})" class="mt-5 w-full border p-2 bg-gradient-to-r from-gray-800 bg-gray-500 text-white rounded-[4px] hover:bg-slate-400 scale-105 duration-300" type="submit">Create Account</button>
+      <button @click="submit" class="mt-5 w-full border p-2 bg-gradient-to-r from-gray-800 bg-gray-500 text-white rounded-[4px] hover:bg-slate-400 scale-105 duration-300" type="submit">Create Account</button>
       <button @click="$emit('createAcct',{})" class="mt-5 w-full border p-2 bg-gradient-to-r from-gray-800 bg-gray-500 text-white rounded-[4px] hover:bg-slate-400 scale-105 duration-300" type="submit">Close</button>
   </template>
   </BaseModal>
@@ -55,7 +55,11 @@ const handleChange = (event) =>{
 const handleChange2 = (event) =>{
   setFieldValue('password',event.target.value)
 }
+
+const emit= defineEmits(['createAcct'])
 const submit = handleSubmit(() => {
+    emit('createAcct',{username,password,email})
+    
     email.value = ''
     username.value = ''
     password.value = ''
