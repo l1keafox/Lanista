@@ -1,5 +1,5 @@
 <template>
-  <baseModal class="absolute top-0">
+  <baseModal class="absolute top-0 "  noClose="true">
     <template v-slot:header>
       <h1>Login To Lanista</h1>
     </template>
@@ -19,7 +19,7 @@
       </div>
     </template>
 
-    <template v-slot:footer noClose="false">
+    <template v-slot:footer>
       <button @click="$emit('trylogin',{username,password})" class="mt-5 w-full border p-2 bg-gradient-to-r from-gray-800 bg-gray-500 text-white rounded-[4px] hover:bg-slate-400 scale-105 duration-300" type="submit">Login</button>
       <button @click="$emit('trylogin',{})" class="mt-5 w-full border p-2 bg-gradient-to-r from-gray-800 bg-gray-500 text-white rounded-[4px] hover:bg-slate-400 scale-105 duration-300" type="submit">Close</button>
   </template>

@@ -1,22 +1,39 @@
 # Clash
 
+Duels are comprised of rounds and each round had an Clash, where each gladiator randomly picks an skill to use.
 
-      <p> Each round of a duel there is a Clash - which is each gladiator will randomly pick one skill from his skill set.</p>
-      <p> Compaired it to the other gladiators skill, each skill has effects and win condidtions against each other.</p>
-      <p> Sort of like Rock/Paper/Scissors, the best example would be Strike/Taunt/Dodge</p>
-      <p> Strike > Taunt > Dodge > Strike </p>
-      <p> If strike is against taunt, it will do hp damage.</p>
-      <p> If Taunt is against Dodge, it will do morale damage</p>
-      <p> If Dodge is against Strike, it will do Stamina Damage</p>
-      <p> Strike vs strike, they both take hits damage based on the other person's strike.</p>
-      <p> Dodge Vs Dodge, they will both take stamina damage based on one's own dodge effect</p>
-      <p> Taunt vs Taunt, the better taunter will do morale damage against the other</p>
-      <p> if  hp, morale or stamina drops to zero, your gladiator will lose.</p>
+Each Skill will have effects and a win condition.
 
-      <p> Prepare/React </p>
-      <p> Each character can do 1 prepare and 1 react per clash round</p>
-      <p> Prepare happens before a clash, and they can have various effects on the clash, but they require a trigger to go in effect.</p>
-      <p> A Example of this would be Coup de Grace, if the target gladiator is below 25% health, replace strike with "Execute"</p>
-      <p> React happens after a clash, and it's trigger is based on winning/losing/ties in the clash</p>
-      <p> A Example of this would be "Heal" if you lose a clash then you can heal.</p>
-      <p> Or "Backstab" if you win a "dodge" clash, you can back stab for extra damage.</p>
+```
+Strike: Does hit damage, and has a hit chance.
+Win condition: Do more damage than the other.
+```
+```
+Dodge: Removes hit chance, at 0 hit chance damage is removed.
+Win condition: Do an successful dodge.
+```
+```
+Taunt: Does Morale Damage, damage will reduce this effect.
+Win condition: Do more morale damage.
+```
+As you can see, one will win against one, and lose against others. 
+
+One Strikes, and the Second Dodges, Dodge will win and Strikes will take Stamina Damage.
+
+One Dodges, and Second Taunts, Taunt will do morale damage to the dodger.
+
+One Taunts, and Second Strikes, Strike will do hits damage to the taunter.
+
+
+Gladiators will have 3 main health bars.
+```
+Hits: Physical damage, can be healed. 
+Morale: Reputation
+Stamina:
+```
+
+If any of these stats hits 0, then the duel is over.
+
+Before an clash, there is an Prepare round, which each character will see what prepare abilities can be triggered.
+
+After an Clash, there is the React round, which will have abilities that trigger based on Duel results.
