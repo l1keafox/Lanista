@@ -30,13 +30,14 @@
 
 <script>
 import auth from "./../mixins/auth";
-import ScheduleManager from "./../components/ScheduleManager.vue";
-import GladiatorStats from "./../components/GladiatorStats.vue";
-import EquipmentScreen from "./../components/EquipmentScreen.vue";
-import GladiatorMemories from "../components/GladiatorMemories.vue";
-import DuelHistory from "./../components/DuelHistory.vue";
-import GladiatorTournament from "./../components/GladiatorTournaments.vue";
-import ClashSettings from "./../components/ClashSettings.vue";
+import ScheduleManager from "./../components/modals/ScheduleManager.vue";
+import GladiatorStats from "./../components/modals/GladiatorStats.vue";
+import ClashSettings from "./../components/modals/ClashSettings.vue";
+import EquipmentScreen from "./../components/modals/EquipmentScreen.vue";
+import GladiatorTournament from "./../components/modals/GladiatorTournamentHistory.vue";
+
+import GladiatorMemories from "../components/modals/GladiatorMemories.vue";
+import DuelHistory from "./../components/modals/DuelHistory.vue";
 
 export default {
     
