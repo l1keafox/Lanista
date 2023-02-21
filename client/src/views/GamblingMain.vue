@@ -8,12 +8,12 @@
       <p> Later on there will be a table of gladiator fights and time for it to calcuate. You can look at stats/skills of gladiators</p>
   </div>
   <div v-if="showModal" >
-    <gamblingModal @closeModal="closeModal2"/>
+    <GamblingModal @closeModal="closeModal2"/>
   </div>
 </template>
 
 <script setup>
-import gamblingModal from '../components/modals/gamblingModal.vue';
+import GamblingModal from '../components/modals/GamblingModal.vue';
 import {ref} from 'vue';
 const showModal = ref(false);
 function showEnterModal(){
