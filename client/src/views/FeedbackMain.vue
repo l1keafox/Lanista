@@ -14,7 +14,7 @@
 
 <script setup>
 
-import emailjs from "@emailjs/browser";
+// import emailjs from "@emailjs/browser";
 import { useField, useForm } from 'vee-validate'
 import { object, string } from 'yup'
 import TextField from "./../components/TextField.vue"
@@ -40,12 +40,12 @@ const handleChange = (event) =>{
   setFieldValue('email',event.target.value)
 }
 const submit = handleSubmit(() => {
-    emailjs.sendForm(
-      "service_3l5kfbj",
-      "template_7630s4a",
-      document.getElementById('form'),
-      "b3A_HBPJ0CCCA_D0d"
-    )
+    // emailjs.sendForm(
+    //   "service_3l5kfbj",
+    //   "template_7630s4a",
+    //   document.getElementById('form'),
+    //   "b3A_HBPJ0CCCA_D0d"
+    // )
     alert("Thank you for sending me a message, I will get back too you asap");
     email.value = ''
     name.value = ''
