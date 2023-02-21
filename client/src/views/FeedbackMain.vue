@@ -15,12 +15,12 @@
 
 <script setup>
 
-// import emailjs from "@emailjs/browser";
-// import { useField, useForm } from 'vee-validate'
-// import { object, string } from 'yup'
+import emailjs from "@emailjs/browser";
+import { useField, useForm } from 'vee-validate'
+import { object, string } from 'yup'
 // import MyButton from "@/components/MyButton.vue"
-// import TextField from "@/components/TextField.vue"
-// import InputField from "@/components/InputField.vue"
+import TextField from "./../components/TextField.vue"
+import InputField from "./../components/InputField.vue"
 
 // const validationSchema = object({
 //     email: string().email("Field should contain a valid e-mail").max(255).required("E-mail is required"),
