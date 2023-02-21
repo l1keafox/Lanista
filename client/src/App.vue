@@ -24,6 +24,7 @@ import GamblingMain from "./views/GamblingMain.vue";
 import SideNav from "./components/SideNav.vue";
 import HeaderVue from "./components/Header.vue";
 import auth from "./mixins/auth";
+import {useTitle} from '@vueuse/core'
 
 import { computed } from "vue";
 export default {
@@ -108,6 +109,9 @@ export default {
 		clearInterval(this.timerInterval);
 	},
 	async mounted() {
+		const title = useTitle();
+		title.value = "Lanista"
+		
 		if(!this.isLoggedIn){
 			this.mainStage = "WelcomeMain"
 		}

@@ -1,14 +1,15 @@
 <template>
   <BaseModal>
     <template v-slot:header>
-      <h1> Enter a Gladiator </h1>
+      <h1> SETTINGS </h1>
     </template>
 
     <template v-slot:content>
-      <h1> Here we should show a options of all gladiators </h1>
+      <h1> NOTHING HERE FOR NOW. </h1>
     </template>
 
     <template v-slot:footer>
+      <h1>Footer</h1>
     </template>
   </BaseModal>
 </template>

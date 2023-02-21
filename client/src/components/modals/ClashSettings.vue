@@ -1,23 +1,11 @@
 <template>
-	<div>
-		<!--Background-->
-		<div class="opacity-25 fixed inset-0 bg-black z-40"></div>
+  <BaseModal>
+    <template v-slot:header>
+      <h3 class="text-3xl font-semibold">Clash Setup</h3>
+    </template>
 
-		<div
-			class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex"
-			data-id="bg"
-			v-on:click="bgClose($event)">
-			<div class="relative w-auto my-6 mx-auto max-w-6xl text-black">
-				<!--content-->
-				<div
-					class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-					<!--header-->
-					<div
-						class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-						<h3 class="text-3xl font-semibold">Clash Setup</h3>
-					</div>
-					<!--body-->
-					<div v-if="skills" class="relative p-6 flex-auto flex">
+    <template v-slot:content>
+      					<div v-if="skills" class="relative p-6 flex-auto flex">
 						<div>
 							<h1>Prepare</h1>
 							<draggable
@@ -89,30 +77,24 @@
 							</draggable>
 						</div>
 					</div>
-					<!--footer-->
-					<div
-						class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-						<button
+
+    </template>
+
+    <template v-slot:footer>
+      						<button
 							class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
 							type="button"
 							v-on:click="saveClash">
 							Save
 						</button>
 
-						<button
-							class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-							type="button"
-							v-on:click="$emit('closeModal')">
-							Close
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    </template>
+  </BaseModal>
 </template>
 
 <script>
+import BaseModal from "./BaseModal.vue"
+
 import draggable from "vuedraggable";
 export default {
 	name: "ClashSetting",
@@ -120,6 +102,7 @@ export default {
 	inject:["apiCall"],
 	components: {
 		draggable,
+    BaseModal
 	},
 
 	data() {
@@ -148,11 +131,6 @@ export default {
         );
       this.$emit("closeModal");
     },
-		bgClose(event) {
-			if (event.target.getAttribute("data-id") === "bg") {
-				this.$emit("closeModal");
-			}
-		},
 	},
 	async mounted() {
 		
@@ -175,4 +153,6 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>
