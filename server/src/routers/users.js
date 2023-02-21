@@ -1,5 +1,5 @@
 const express = require("express");
-const { User, Owner, Gladiator, DayEvents } = require("../models");
+const { User, Owner, Gladiator, DayEvents,Feedback } = require("../models");
 const auth = require("../middleware/auth");
 const {
 	createNewOwner,
@@ -39,6 +39,14 @@ router.post("/users", async (req, res) => {
 		res.status(400).send(error);
 	}
 });
+router.post("/users/sendFeedback", async (req, res) => {
+	const { name, message, email } = req.body;
+	let userExist = await new Feedback({ name, message, email });
+	userExist.save();
+	res.status(200)
+})
+
+
 router.post("/users/createAcct", async (req, res) => {
 	const { username, password, email } = req.body;
 	let userExist = await User.findOne({ username: username });

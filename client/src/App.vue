@@ -98,7 +98,7 @@ export default {
 					this.countDown = this.timeTimer;
 
 				} catch (err) {
-					console.log(err, "clearing");
+					//console.log(err, "clearing");
 					// clearInterval(this.interval);
 				}
 			}
@@ -116,15 +116,18 @@ export default {
 			this.mainStage = "WelcomeMain"
 		}
 		this.updateOwner();
-		
-		const rpnse = await fetch(
+			const rpnse = await fetch(
 			this.apiData + `/users/gameData`,
-			{ headers: { "Content-Type": "application/json" } }
-		);
+				{ headers: { "Content-Type": "application/json" } }
+			);
 
 		const gameData = await rpnse.json();
 		console.log(' getting tick data, set to :',gameData.tick)
-		this.interval = setInterval(this.updateOwner, gameData.tick);
+		if(!gameData.tick){
+			this.interval = setInterval(this.updateOwner, 1000);
+		} else {
+			this.interval = setInterval(this.updateOwner, gameData.tick);
+		}
 		this.timerInterval = setInterval(this.doTick, 100);
 		this.timeTimer = gameData.tick;
 		// this.toNextTick = this.timeTimer;
