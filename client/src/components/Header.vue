@@ -51,11 +51,11 @@
 <script>
 import auth from "./../mixins/auth";
 // import gearIcon from "./../assets/gear_icon.png";
+import {unref} from 'vue'
 
 import CreateAccountModal from "./modals/CreateAccountModal.vue";
 import LoginModal from "./modals/loginModal.vue";
-import CreateAccount from "./CreateAccount.vue";
-import SettingModal from "./SettingsModal.vue"
+import SettingModal from "./modals/SettingsModal.vue"
 import ProgressBar from "./ProgressBar.vue"
 export default {
 	name: "HeaderVue",
@@ -87,7 +87,6 @@ export default {
 		LoginModal,
 		SettingModal,
 		ProgressBar,
-		CreateAccount,
 		CreateAccountModal
 	},
 
@@ -119,9 +118,9 @@ export default {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
-						"username": username,
-						"password": password,
-						"email": email,
+						"username": unref(username),
+						"password": unref(password),
+						"email": unref(email),
 					}),
 				}
 			);

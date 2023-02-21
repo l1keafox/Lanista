@@ -55,12 +55,17 @@ router.post("/users/createAcct", async (req, res) => {
 
 	const newUser = await new User({ username, email, password });
 	console.log("  -NEW USER>-",newUser);
-
-	let newOwner = await createOwner(newUser);
-	await newOwner.save();
-	await newUser.save();
-	const token = await newUser.generateAuthToken();
-	res.send({ newUser, token });
+	try{
+		let newOwner = await createOwner(newUser);
+		await newOwner.save();
+		await newUser.save();
+		const token = await newUser.generateAuthToken();
+		res.send({ newUser, token });
+	}catch(err){
+		res
+		.status(401)
+		.send({ error: "Create Acct failed: email Form" });
+	}
 });
 
 router.post("/users/login", async (req, res) => {

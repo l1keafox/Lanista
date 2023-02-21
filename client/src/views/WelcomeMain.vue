@@ -37,17 +37,16 @@
 <script>
     export default {
         name:"WelcomeMain",
-        // props:['maxTick'],
+        inject:['apiCall'],
         async mounted(){
+            if(this.apiCall){
             const rpnse = await fetch(
-			this.apiData + `/users/gameData`,
-			{ headers: { "Content-Type": "application/json" } }
-		);
-
-		const gameData = await rpnse.json();
-		console.log(' getting tick data, set to :',gameData.tick)
-		this.maxTick =  gameData.tick;
-
+						this.apiCall.value + `/users/gameData`,
+	    				{ headers: { "Content-Type": "application/json" } }
+    				);
+						const gameData = await rpnse.json();
+						this.maxTick =  gameData.tick;
+        	} 
         },
         components:{
         },
