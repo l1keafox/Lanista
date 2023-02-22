@@ -36,11 +36,6 @@
 				</div>
 			</div>
 		</div>
-
-		<slot name='modal' >
-
-		</slot>
-
 	</div>
 </template>
 

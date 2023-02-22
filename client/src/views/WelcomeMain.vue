@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import Character from '../components/Character.vue';
     export default {
         name:"WelcomeMain",
         inject:['apiCall'],
@@ -49,6 +50,7 @@
         	} 
         },
         components:{
+            Character
         },
         data(){
             return {

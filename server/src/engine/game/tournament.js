@@ -39,14 +39,16 @@ async function tournamentRound(group,toRecord) {
 //			 console.log(`  -EN> DUEL ${group[i].name} vs ${group[i + 1].name} : Winner: ${	duelResult.final.winner	} ` );
 
 			// console.log(saved.id,"Saved ID?");
-			if (duelResult.final.winner == group[i].name) {
+			if (duelResult.k.w == 1) {
+			// if (duelResult.final.winner == group[i].name) {
 				 addToRecord2(toRecord,group[i],"winRecord");
 				winnerArray.push(group[i]);
 
 				 addToRecord2(toRecord,group[i+1],"lossRecord");
 				loserArray.push(group[i+1]);
                 
-			} else if (duelResult.final.winner == group[i + 1].name) {
+			// } else if (duelResult.final.winner == group[i + 1].name) {
+			} else if (duelResult.k.w == 2) {
 				 addToRecord2(toRecord,group[i+1],"winRecord");
 				winnerArray.push(group[i + 1]);
 
@@ -90,13 +92,15 @@ async function bestOutOf3Round(group,toRecord) {
 				
 				threeReport.push( {saveId: saved.id, 1: one.name, 2:two.name} );
 //				 string += `ROUND: ${oneWins+twoWins}  ${group[i].name} vs ${group[i + 1].name} : Winner: **${	duelResult.final.winner	}** `;
-				if (duelResult.final.winner == group[i].name) {
+				// if (duelResult.final.winner == group[i].name) {
+				if (duelResult.k.w == 1) {
 					addToRecord2(toRecord,group[i],"winRecord");
 					addToRecord2(toRecord,group[i+1],"lossRecord");
 					// here we should see if anyof these are memories
 					oneWins++;
 					
-				} else if (duelResult.final.winner == group[i + 1].name) {
+				// } else if (duelResult.final.winner == group[i + 1].name) {
+				} else if (duelResult.k.w == 2) {					
 					addToRecord2(toRecord,group[i],"lossRecord");
 					addToRecord2(toRecord,group[i+1],"winRecord");
 					twoWins++;
@@ -271,8 +275,8 @@ This should be small group sthen.
 			// do duel
 			let dResult;
 			if(group[e]){
-        	    let one = await prepGlad(group[i]);
-    	        let two = await prepGlad(group[e]);
+				let one = await prepGlad(group[i]);
+    	  let two = await prepGlad(group[e]);
 				dResult = await doDuel(one,two);
 				let saved = await parseAndSaveDuel(dResult);
 				duelResults.push({saveId: saved.id, 1: one.name, 2:two.name});
@@ -281,14 +285,17 @@ This should be small group sthen.
 			}
 
 			// winner gets winObj++;
-			if (dResult.final.winner == group[i].name) {
+			if(dResult.k.w == 1){
+			//if (dResult.final.winner == group[i].name) {
+
 				addToRecord2(toRecord,group[i],"winRecord");
 				addToRecord2(toRecord,group[e],"lossRecord");
 				if(!winObj[group[i]._id]){
 					winObj[group[i]._id] = 0;	
 				}
 				winObj[group[i]._id]++;
-			} else if (dResult.final.winner == group[e].name) {
+			// } else if (dResult.final.winner == group[e].name) {
+			} else if (dResult.k.w == 2) {	
 				addToRecord2(toRecord,group[i],"lossRecord");
 				addToRecord2(toRecord,group[e],"winRecord");
 				if(!winObj[group[e]._id]){

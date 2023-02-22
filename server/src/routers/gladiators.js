@@ -2,7 +2,7 @@ const express = require('express');
 const {User,Owner,Gladiator,DayEvents,saveDuel,Memory, saveTournament} = require('../models');
 const auth = require('../middleware/auth');
 const { getAbilityEffect } = require("./../engine/game/abilityIndex");
-const { doDuel }= require("../engine/game/duel");
+const { doDuel,parseAndSaveDuel }= require("../engine/game/duel");
 const {saveModelMemory, prepMemoryForFight,prepModelForFight,getMemoryGroup} = require('./../engine/game/gladiatorPrep')
 
 const router = express.Router();
@@ -45,6 +45,9 @@ router.post('/gladiator/doSpar', async(req, res) => {
 
         let report = await doDuel(one,two);
         // this needs to be saved?
+        let saved = await parseAndSaveDuel(report);
+
+
         res.send(report)
     } else {
         res.send({"error":"Glad/Glad2 error"})
@@ -74,10 +77,7 @@ router.post('/gladiator/fightMemory', async(req, res) => {
         } else {
             two = await prepModelForFight(randoMemory);
         }
-        // let two = await prepMemoryForFight(randoMemory);
-        // console.log(two);
         let report = await doDuel(one,two);
-        //    console.log(report);
         res.send(report)
 
     }
@@ -190,7 +190,7 @@ router.delete('/gladiator/deleteDuel/:duelId' , async(req, res) => {
 
 router.get('/gladiator/getDuel/:duelId', async(req, res) => {
     let duel = await saveDuel.find({ _id:req.params.duelId } );
-    // console.log(duel);
+    
     res.send( duel );
 })
 
