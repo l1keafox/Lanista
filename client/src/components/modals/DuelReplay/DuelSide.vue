@@ -8,13 +8,13 @@
         <h1>Stamina:{{ thisGuy.stamina }} / {{ thisGuy.maxStamina }}</h1> 
       </div>
       <div>
-        <template v-if="thisGuy.dmg">
-          Dmg:{{ thisGuy.dmg }}
-        </template>
       </div>
       <Character />
       <ClashDetail :roundInfo="roundInfo" class=" bg-yellow-100 " />
-    </template>
+      <div v-if="thisGuy.dmg" class="bg-green-600">
+        Dmg:{{ thisGuy.dmg }}
+      </div>
+  </template>
   </div>
 </template>
 

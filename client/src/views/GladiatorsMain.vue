@@ -25,11 +25,6 @@
   <div v-if="isModalShown">
     <component :is="modalShown" :gladId="gladiatorId" @closeModal="closeModal"/>
   </div>
-  <div v-if="true">
-    <Suspense>
-      <DuelReplay :duelId="duelId" @closeModal="closeModal"/>
-    </Suspense>
-  </div>
 
 </template>
 
