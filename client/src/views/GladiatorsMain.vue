@@ -1,15 +1,15 @@
 <template>
-  <div  class="flex flex-wrap w-full overflow-y-scroll ">
+  <div  class="flex flex-wrap w-full overflow-y-scroll  ">
     <template  v-if="ownerData"> 
-        <div v-for="glad in ownerData.gladiators" :key="glad" :class="gladiatorCard"> 
-        
+        <div v-for="glad in ownerData.gladiators" :key="glad" :class="gladiatorCard" class="relative"> 
+        <Chracter class="absolute z-50 right-10 top-10 "/>
+
         <h1 :class="cardTitle">{{glad.name}} </h1>
 
         <h2> Level:{{glad.level}} /  Age:{{glad.age}}</h2>
         <h2> Wins:{{glad.winRecord }} / Loss:{{glad.lossRecord }}</h2>
         <h2> Local: {{glad.weekWin }} / Regional : {{glad.monthWin }}</h2>
         <h2> Quarter : {{glad.quarterWin }} / National: {{glad.yearWin }}</h2>
-
         <hr/>
         <button class="bg-yellow-200 m-2 text-purple-900 rounded" @click="openModal($event,'ScheduleManager')" :data-id="glad._id">Schedule  </button>
         <button class="bg-blue-200 m-2 text-purple-700 rounded"   @click="openModal($event,'GladiatorStats')"  :data-id="glad._id">Stats  </button>
@@ -35,6 +35,7 @@ import GladiatorStats from "./../components/modals/GladiatorStats.vue";
 import ClashSettings from "./../components/modals/ClashSettings.vue";
 import EquipmentScreen from "./../components/modals/EquipmentScreen.vue";
 import GladiatorTournament from "./../components/modals/GladiatorTournamentHistory.vue";
+import Chracter from "./../components/Character.vue"
 
 import GladiatorMemories from "../components/modals/GladiatorMemories.vue";
 import DuelHistory from "./../components/modals/DuelHistory.vue";
@@ -64,6 +65,7 @@ export default {
     },
   },
   components:{
+    Chracter,
     ScheduleManager,
     GladiatorMemories,
     GladiatorTournament,
