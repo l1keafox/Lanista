@@ -73,14 +73,14 @@ import DuelReplay from "./DuelReplay.vue";
               //console.log( duel[1], duel[2], duel.saveId )
             } );
           }
-            console.log("THIS:",this.gladiatorObj);
+            // console.log("THIS:",this.gladiatorObj);
         },
         methods:{
             ShowDuel(event){
-              console.log( event.target.getAttribute("data-id"));
-              console.log( this.gladiatorObj [ event.target.getAttribute("data-id") ] )
+              // console.log( event.target.getAttribute("data-id"));
+              // console.log( this.gladiatorObj [ event.target.getAttribute("data-id") ] )
               let sch = document.getElementById(event.target.getAttribute("data-id"));
-              console.log(sch.value );
+              // console.log(sch.value );
               this.gladiatorObj [ event.target.getAttribute("data-id") ]
               if(sch.value !== "empty"){
                 this.duelId = sch.value;
