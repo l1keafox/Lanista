@@ -183,6 +183,7 @@ async function prepMemoryForFight(gladMem) {
 	rtnObj.react = rtnObj.react.map((skill) => getAbilityEffect(skill));
 
 	rtnObj.clash = setupClash(rtnObj);
+	rtnObj.memory = true;
 	rtnObj.effectToDo = {};
 	// now we should take this Memory Object, and recreate prepModelForMemory
 	//	console.log(rtnObj);

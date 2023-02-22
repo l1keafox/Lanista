@@ -22,24 +22,36 @@
 
     <template v-slot:footer>
     </template>
+
+    <template v-slot:modal>
+      <div v-if="isModalShown" class="fixed z-50">
+        <Suspense>
+          <DuelReplay :duelId="duelId" @closeModal="closeModal"/>
+        </Suspense>
+      </div>
+    </template>
+
   </BaseModal>
+  
 </template>
 
 <script>
 import BaseModal from "./BaseModal.vue"
-import CombatReview from "./CombatReview.vue";
+import DuelReplay from "./DuelReplay.vue"
+
     export default {
 
         name:"DuelHistory",
         props: ["gladId"],
         inject:['apiCall'],
         components:{
-          CombatReview,
-          BaseModal
+          BaseModal,
+          DuelReplay
         },
         data(){
           return{
             isModalShown:false,
+            duelId:null,
             combatReport: null,
             count:0,
             posts: []
@@ -60,10 +72,11 @@ import CombatReview from "./CombatReview.vue";
             async showCombat(event){
                 let test = this.posts[event.target.getAttribute("data-index") ];
                 let rpns = await JSON.parse (test.duel);
-                this.combatReport = rpns;
-                this.glads = rpns.fighters;				
-
+                // this.combatReport = rpns;
+                // this.glads = rpns.fighters;				
+                this.duelId = test._id;
                 this.isModalShown = true;
+                console.log("TEST?",this.duelId,this.isModalShown);
             },
             closeModal() {
               this.isModalShown = false;

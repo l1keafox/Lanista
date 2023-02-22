@@ -1,6 +1,6 @@
 <template>
-	<div class="flex flex-col w-full overflow-x-hidden">
-		<h2>Pick gladiator</h2>
+	<div class="flex flex-col w-full overflow-x-hidden p-10">
+		<h2>Duel your own gladiators</h2>
 		<div v-if="ownerData" class="flex">
 			<select
 				name="gladiator"
@@ -34,7 +34,8 @@
 		</div>
 
 		<hr />
-		<h2>Fight against a Memory</h2>
+		<br/>
+		<h2>Spar against a Memory</h2>
 		<div v-if="ownerData" class="flex">
 			<select
 				name="gladiator"
@@ -53,50 +54,49 @@
 				@click="doMemory">
 				Fight Memory
 			</button>
+
 		</div>
+		<hr />
 		
 		<div v-if="isModalShown">
-			<CombatReview
-				:combatReport="combatReport"
-				@closeModal="closeModal"
-				:glads="glads" />
+			<Suspense>
+			<DuelReplay
+				:report="duelReport"
+				@closeModal="this.isModalShown = false"
+				/>
+			</Suspense>
 		</div>
 	</div>
 </template>
 
 <script>
-import CombatReview from "./../components/modals/CombatReview.vue";
+import DuelReplay from "../components/modals/DuelReplay.vue";
 import auth from "./../mixins/auth";
 export default {
 	name: "CombatMain",
 	components: {
-		CombatReview,
+		DuelReplay,
 	},
 	data() {
 		return {
 			ownerData: null,
 			isModalShown: false,
-			combatReport: null,
-			history: null,
-			glads: [],
+			duelReport:null,
 			userData: auth.getUser(),
 		};
 	},
 	computed: {},
 	inject: ["card", "cardTitle",'getOwner','apiCall'],
 	methods: {
-		closeModal() {
-			this.isModalShown = false;
-		},
+
 		async doMemory(){
 			let sch = document.getElementById("memoryGlad");
 			let gladData = this.ownerData.gladiators.find(
 				(glad) => glad.name == sch.value
 			);
-//			console.log("Doing memory fight",gladData,sch.value);
 			if(gladData){
 				const rpnse = await fetch(
-					this.apiCall.value +				`/gladiator/fightMemory`,
+					this.apiCall.value + `/gladiator/fightMemory`,
 					{
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
@@ -107,11 +107,7 @@ export default {
 					}
 				);
 				let rpns = await rpnse.json();
-					
-				// this.glads = rpns.fighters;
-				// console.log(rpns);
-				this.glads = rpns.fighters;		
-				this.combatReport = rpns;
+				this.duelReport = rpns;
 				this.isModalShown = true;				
 			}
 		},	
@@ -139,11 +135,7 @@ export default {
 					}
 				);
 				let rpns = await rpnse.json();
-				//console.log(rpns);
-				//this.glads = [gladData.name, glad2.name];
-				this.glads = rpns.fighters;				
-//				console.log(this.glads);
-				this.combatReport = rpns;
+				this.duelReport = rpns;
 				this.isModalShown = true;
 			}
 		},

@@ -93,31 +93,39 @@ function compareEffects(gladiator,target){
 }
 
 function doEffects(gladiator){
-    let effectReport = {};
+    let effectReport = {
+    };
     for (let effect in gladiator.effectToDo) {
         let num = Math.round( gladiator.effectToDo[effect] );
         switch (effect) {
             case "hitDamage":
                 gladiator.hits -= num;
-                effectReport[effect] = num;
+                if(!effectReport.dmg) effectReport.dmg = {};
+                effectReport.dmg.h = num;
                 break;
             case "moraleDamage":
                 if(num > 15) num = 15;
                 gladiator.morale -= num;
-                effectReport[effect] = num
+                if(!effectReport.dmg) effectReport.dmg = {};
+                effectReport.dmg.m = num
                 break;
             case "staminaDamage":
                 gladiator.stamina -= num
-                effectReport[effect] = num
+                if(!effectReport.dmg) effectReport.dmg = {};
+                effectReport.dmg.s = num
                 break;
         }
       }
       // clearing out effects.
       gladiator.effectToDo = {};
-
-      effectReport.hits = gladiator.hits;
-      effectReport.morale = gladiator.morale;
-      effectReport.stamina = gladiator.stamina;
+      effectReport.pt = {
+        h: gladiator.hits,
+        m: gladiator.morale,
+        s: gladiator.stamina
+      }
+    //   effectReport.hp = ;
+    //   effectReport.mp = ;
+    //   effectReport.sp = ;
       return effectReport;
 }
 

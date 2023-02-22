@@ -56,11 +56,9 @@
 
 <script >
 import BaseModal from "./BaseModal.vue"
-import CombatReview from './CombatReview.vue';
     export default {
         name:"singleElimination",
         components:{
-          CombatReview,
           BaseModal
         },
         props:['tournamentData'],

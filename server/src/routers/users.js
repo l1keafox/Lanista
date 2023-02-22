@@ -119,7 +119,7 @@ router.post("/users/login", async (req, res) => {
 	} catch (error) {
 		let userExist = await User.findOne({ username:  req.body.username });
 		if (userExist) {
-			return res.status(401).send({ error: "Login Fail: password" });
+			return res.status(401).send({ error: "Login Fail: password"+error });
 		} else {
 			return res.status(401).send({ error: "Error: No username, Create Account" });
 		}
