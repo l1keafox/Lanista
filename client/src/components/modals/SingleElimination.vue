@@ -48,7 +48,12 @@
        </div>
       </template>
 
-    <template v-slot:footer>
+    <template v-slot:modal>
+      <div v-if="isModalShown">
+        <Suspense>
+          <DuelReplay :duelId="duelId" :report="combatReport" @closeModal="isModalShown = !isModalShown"/>
+        </Suspense>
+      </div>
     </template>
   </BaseModal>
 
@@ -56,33 +61,27 @@
 
 <script >
 import BaseModal from "./BaseModal.vue"
+import DuelReplay from "./DuelReplay.vue"
     export default {
         name:"singleElimination",
         components:{
-          BaseModal
+          BaseModal,
+          DuelReplay
         },
         props:['tournamentData'],
         inject:['apiCall'],
         async mounted(){
-          // console.log(this.tournamentData.type);
-          // console.log(this.tournamentData.winner);
           if(this.tournamentData){
             const roundOne = this.tournamentData.tournamentStructure[0]
             const roundTwo = this.tournamentData.tournamentStructure[1]
             const roundThree = this.tournamentData.tournamentStructure[2]
             const roundFour = this.tournamentData.tournamentStructure[3]
           }
-          // console.log(roundOne.length);
-          // console.log(roundTwo.length);
-          // console.log(roundThree.length); // Ah this is 1 because there was an die before.
-          // if(roundFour){
-          //   console.log(roundFour.length);
-          // }
 
         },
         data(){
           return{
-            combatReport:null,
+            duelId:null,
             glads:null,
             isModalShown:false,
             openTab: 0,
@@ -90,16 +89,8 @@ import BaseModal from "./BaseModal.vue"
         },
         methods:{
           async showDuel(duelId,one,two){
-            //this.tournamentData.tournamentStructure[ openTab ]
-            this.glads = [one,two];
-            const rpnse = await fetch(
-              this.apiCall.value +                `/gladiator/getDuel/${duelId}`,
-                {headers: { "Content-Type": "application/json" }}
-              );
-            let rn = await rpnse.json();
-            let rpns = await JSON.parse (rn[0].duel);
-            this.combatReport = rpns;
-           this.isModalShown = true;
+            this.duelId = duelId;
+            this.isModalShown = true;
           } ,       
           toggleTabs: function(tabNumber){
             this.openTab = tabNumber
