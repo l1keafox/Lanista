@@ -76,7 +76,7 @@
 </template>
 
 <script setup>
-import BaseModal from "./TwoModal.vue"
+import BaseModal from "./BaseModal.vue"
 import DuelSide from "./DuelReplay/DuelSide.vue"
 
 import { useIntervalFn } from '@vueuse/core'
