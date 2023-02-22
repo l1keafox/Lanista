@@ -81,36 +81,36 @@ module.exports = {
 					glad.save();
 				}
 			}
-// 			if (date.month === 12 && date.day == 28) {
-// // 				// national is roundrobin then a double elimination tournament.
-// // 				// national is the last month, and 28th
-// // 				// So now we grab an random Memories and add our guy to it.
-// // 				// and do a tournament!
-// // 				// Should be 124
-// 				let ditto = await nationalTournament(allGladiators, memoryByLvl)
-// 				await saveGlads(ditto);
-// 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allGladiators.length} saved:${ditto.usedGlads.length}`);
-// 			} else  
-// 			if ((date.month === 3 || date.month === 6 || date.month === 9) && date.day == 28	) {
+			if (date.month === 12 && date.day == 28) {
+// 				// national is roundrobin then a double elimination tournament.
+// 				// national is the last month, and 28th
+// 				// So now we grab an random Memories and add our guy to it.
+// 				// and do a tournament!
+// 				// Should be 124
+				let ditto = await nationalTournament(allGladiators, memoryByLvl)
+				await saveGlads(ditto);
+				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allGladiators.length} saved:${ditto.usedGlads.length}`);
+			} else  
+			if ((date.month === 3 || date.month === 6 || date.month === 9) && date.day == 28	) {
 				
-// 				//Best of three Tournament.
-// 				let ditto = await quarterTournament(allNonSeedGlad, memoryByLvl)
-// 				await saveGlads(ditto);
-// 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.usedGlads.length}`);
+				//Best of three Tournament.
+				let ditto = await quarterTournament(allNonSeedGlad, memoryByLvl)
+				await saveGlads(ditto);
+				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.usedGlads.length}`);
 
-// 			} else if (date.day == 28 ) {
-// 				// Should be 32 fighters
-// 				// Single elimination.
-// 				let ditto = await regionalTournament(allNonSeedGlad,memoryByLvl ); 
-// 				await saveGlads(ditto);
-//  				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.usedGlads.length}`);
+			} else if (date.day == 28 ) {
+				// Should be 32 fighters
+				// Single elimination.
+				let ditto = await regionalTournament(allNonSeedGlad,memoryByLvl ); 
+				await saveGlads(ditto);
+ 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.usedGlads.length}`);
 
-// 			} else {
-// //				Local tournament is a round robin
-// 				let ditto = await localTournament(allNonSeedGlad); 
-// 				await saveGlads(ditto);	
-// 				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.usedGlads.length}`);
-// 			}
+			} else {
+//				Local tournament is a round robin
+				let ditto = await localTournament(allNonSeedGlad); 
+				await saveGlads(ditto);	
+				console.log(`    -EN>Tounry>Tournament Took: ${new Date() - startOfTick}ms / # of Loops${allNonSeedGlad.length} saved:${ditto.usedGlads.length}`);
+			}
 
 			await gameDate.addDay(); // This will set it to the next day.
 			if(date.day == 28){

@@ -56,47 +56,42 @@
 		</div>
 		
 		<div v-if="isModalShown">
-			<CombatReview
-				:combatReport="combatReport"
-				@closeModal="closeModal"
-				:glads="glads" />
+			<DuelReplay
+				:report="duelReport"
+				@closeModal="this.isModalShown = false"
+				/>
 		</div>
 	</div>
 </template>
 
 <script>
-import CombatReview from "./../components/modals/CombatReview.vue";
+import DuelReplay from "./../components/modals/DuelReplay.vue";
 import auth from "./../mixins/auth";
 export default {
 	name: "CombatMain",
 	components: {
-		CombatReview,
+		DuelReplay,
 	},
 	data() {
 		return {
 			ownerData: null,
 			isModalShown: false,
-			combatReport: null,
-			history: null,
-			glads: [],
+			duelReport:null,
 			userData: auth.getUser(),
 		};
 	},
 	computed: {},
 	inject: ["card", "cardTitle",'getOwner','apiCall'],
 	methods: {
-		closeModal() {
-			this.isModalShown = false;
-		},
+
 		async doMemory(){
 			let sch = document.getElementById("memoryGlad");
 			let gladData = this.ownerData.gladiators.find(
 				(glad) => glad.name == sch.value
 			);
-//			console.log("Doing memory fight",gladData,sch.value);
 			if(gladData){
 				const rpnse = await fetch(
-					this.apiCall.value +				`/gladiator/fightMemory`,
+					this.apiCall.value + `/gladiator/fightMemory`,
 					{
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
@@ -107,12 +102,8 @@ export default {
 					}
 				);
 				let rpns = await rpnse.json();
-					
-				// this.glads = rpns.fighters;
-				console.log(rpns);
-				// this.glads = rpns.fighters;		
-				// this.combatReport = rpns;
-				// this.isModalShown = true;				
+				this.duelReport = rpns;
+				this.isModalShown = true;				
 			}
 		},	
 		async doSpar() {
@@ -139,11 +130,7 @@ export default {
 					}
 				);
 				let rpns = await rpnse.json();
-				//console.log(rpns);
-				//this.glads = [gladData.name, glad2.name];
-				this.glads = rpns.fighters;				
-//				console.log(this.glads);
-				this.combatReport = rpns;
+				this.duelReport = rpns;
 				this.isModalShown = true;
 			}
 		},
