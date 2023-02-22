@@ -109,10 +109,10 @@ export default {
 				let rpns = await rpnse.json();
 					
 				// this.glads = rpns.fighters;
-				// console.log(rpns);
-				this.glads = rpns.fighters;		
-				this.combatReport = rpns;
-				this.isModalShown = true;				
+				console.log(rpns);
+				// this.glads = rpns.fighters;		
+				// this.combatReport = rpns;
+				// this.isModalShown = true;				
 			}
 		},	
 		async doSpar() {

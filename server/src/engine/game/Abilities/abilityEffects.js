@@ -99,25 +99,25 @@ function doEffects(gladiator){
         switch (effect) {
             case "hitDamage":
                 gladiator.hits -= num;
-                effectReport[effect] = num;
+                effectReport.hDmg = num;
                 break;
             case "moraleDamage":
                 if(num > 15) num = 15;
                 gladiator.morale -= num;
-                effectReport[effect] = num
+                effectReport.mDmg = num
                 break;
             case "staminaDamage":
                 gladiator.stamina -= num
-                effectReport[effect] = num
+                effectReport.sDmg = num
                 break;
         }
       }
       // clearing out effects.
       gladiator.effectToDo = {};
 
-      effectReport.hits = gladiator.hits;
-      effectReport.morale = gladiator.morale;
-      effectReport.stamina = gladiator.stamina;
+      effectReport.hp = gladiator.hits;
+      effectReport.mp = gladiator.morale;
+      effectReport.sp = gladiator.stamina;
       return effectReport;
 }
 

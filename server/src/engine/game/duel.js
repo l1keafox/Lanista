@@ -127,18 +127,48 @@ class Clash {
 		// }
 		EventResults.report = {};
 		EventResults.report[oneChar.name] = {
-			"winPoints": oneWinPoints,
-			"clashAbility": oneClash.abilityName,
-			"effect": oneEffect
+			// "winPoints": oneWinPoints,
+			"a": oneClash.abilityName,
+			"e": oneEffect
 		};
 		EventResults.report[twoChar.name] = {
-			"winPoints": twoWinPoints,
-			"clashAbility": twoClash.abilityName,
-			"effect": twoEffect
+			// "winPoints": twoWinPoints,
+			"a": twoClash.abilityName,
+			"e": twoEffect
 		};
 
 		return EventResults;
 	}
+}
+
+function startReport(one,two){
+	let newReport = {};
+
+	// So to start with structure of the report is as followed:
+
+	// Key - glad name and assocated Id
+	newReport.k = {
+		1: {
+			n:one.name,
+			m: one.memory ? true:undefined,
+			hp: one.maxHits,
+			mp: one.maxMorale,
+			sp: one.maxStamina,
+			id: one._id
+		},
+		2: {
+			n:two.name,
+			m: two.memory ? true:undefined ,
+			hp: two.maxHits,
+			mp: two.maxMorale,
+			sp: two.maxStamina,
+			id: two._id
+		}
+	}
+
+	one.keyId = 1;
+	two.keyId = 2;
+	return newReport;
 }
 
 async function doDuel(one, two) {
@@ -146,12 +176,13 @@ async function doDuel(one, two) {
 	// So, let's take the glads and rebuild the game object for a one time use.
 	// Most things should return a report? Or should we pass the report to it so it can use it?
 	const startOfTick = new Date();
-	let report = {};
+	let report = startReport(one,two);
+
 	let gladOne = await returnPreparedGladiator(one);
 	let gladTwo = await returnPreparedGladiator(two);
 	if(gladOne.name == gladTwo.name){
-		gladOne.name = gladOne.name + '1';
-		gladTwo.name = gladTwo.name + '2';
+		gladOne.name = gladOne.name + ' 1';
+		gladTwo.name = gladTwo.name + ' 2';
 	}
 	
 	//console.log("  -EN/Duel> ", gladOne.name, "Vs", gladTwo.name);
@@ -160,8 +191,8 @@ async function doDuel(one, two) {
 	do {
 		if (SHOWBATTLE) console.log("NEW ROUND -------------------------------")
 		let roundReport = {};
-		roundReport[gladOne.name] = {};
-		roundReport[gladTwo.name] = {};
+		roundReport[gladOne.keyId] = {};
+		roundReport[gladTwo.keyId] = {};
 		//		let oneReport = {}; // each gladiator will have different reports
 		//		let twoReport = {};
 		roundCnt++;
@@ -190,25 +221,21 @@ async function doDuel(one, two) {
 				`  -EN/Duel>___________________________REACT:${roundCnt}_______________________________`
 			);
 		//console.log( thisClash.report );
-		roundReport[gladOne.name].clash = thisClash.report[gladOne.name];
-		roundReport[gladTwo.name].clash = thisClash.report[gladTwo.name];
+		roundReport[gladOne.keyId].c = thisClash.report[gladOne.name];
+		roundReport[gladTwo.keyId].c = thisClash.report[gladTwo.name];
 		// Do  react
 		if (!thisClash.clashWinner) {
 			if (SHOWBATTLE) console.log("  -EN/Duel>   TIE");
-			gladTwo.clashResult = "tie";
-			gladOne.clashResult = "tie";
-			roundReport[gladOne.name].react = gladOne.clashReact(gladTwo);
-			roundReport[gladTwo.name].react = gladTwo.clashReact(gladOne);
-			roundReport.clashResult = { result: "tie", winner: null };
+			roundReport[gladOne.keyId].react = gladOne.clashReact(gladTwo);
+			roundReport[gladTwo.keyId].react = gladTwo.clashReact(gladOne);
+			roundReport.R = { r: "t" };
 		} else {
-			thisClash.clashWinner.clashResult = "win";
-			thisClash.clashLoser.clashResult = "lose";
-			roundReport[thisClash.clashWinner.name].react =  thisClash.clashWinner.clashReact( thisClash.clashLoser);
-			roundReport[thisClash.clashLoser.name].react = thisClash.clashLoser.clashReact(thisClash.clashWinner);
+			roundReport[thisClash.clashWinner.keyId].react =  thisClash.clashWinner.clashReact( thisClash.clashLoser);
+			roundReport[thisClash.clashLoser.keyId].react = thisClash.clashLoser.clashReact(thisClash.clashWinner);
 
-			roundReport.clashResult = {
-				result: "win",
-				winner: thisClash.clashWinner.name,
+			roundReport.R = {
+				r: "w",
+				w: thisClash.clashWinner.keyId,
 			};
 
 		}
@@ -216,8 +243,8 @@ async function doDuel(one, two) {
 		// Do effects after the clash and before end of round.
 		const reportEffectOne = doEffects(gladOne);
 		const reportEffectTwo = doEffects(gladTwo);
-		roundReport[gladOne.name].effect = reportEffectOne;
-		roundReport[gladTwo.name].effect = reportEffectTwo;
+		roundReport[gladOne.keyId].e = reportEffectOne;
+		roundReport[gladTwo.keyId].e = reportEffectTwo;
 		// Do end of round cooldown reduction, and resets skills if needed.
 		gladOne.endOfRound(); //
 		gladTwo.endOfRound(); //
@@ -240,7 +267,6 @@ async function doDuel(one, two) {
 			);
 
 		report[roundCnt] = roundReport;
-		report.maxRound = roundCnt;
 	} while (
 		gladOne.hits > 0 &&
 		gladTwo.hits > 0 &&
@@ -250,40 +276,39 @@ async function doDuel(one, two) {
 		gladTwo.morale > 0
 	);
 
-	report.final = {};
+	report.k.rC = roundCnt
+
 	const oneDead = (gladOne.hits <= 0 || gladOne.morale <= 0  || gladOne.stamina <= 0  );
 	const twoDead = (gladTwo.hits <= 0 || gladTwo.morale <= 0  || gladTwo.stamina <= 0  );
+
 	// console.log(gladOne.name,gladOne.hits, gladOne.morale, gladOne.stamina);
 	// console.log(gladTwo.name,gladTwo.hits, gladTwo.morale, gladTwo.stamina);
-	if(oneDead && twoDead){
-		report.final.winner = "none";
-	} else if(oneDead){
-		report.final.winner = gladTwo.name;
-	} else if(twoDead){
-		report.final.winner = gladOne.name;
-	}
-//	console.log(oneDead,twoDead)	;
-	
-	// console.log(report.final.winner);
-	report.final[gladOne.name] = {
-		hits: gladOne.hits,
-		morale: gladOne.morale,
-		id: gladOne._id,
-		stamina: gladOne.stamina 
-	};
 
-	report.final[gladTwo.name] = {
-		hits: gladTwo.hits,
-		morale: gladTwo.morale,
-		id: gladTwo._id,
-		stamina: gladTwo.stamina 
-	};
-	report.fighters = [gladOne.name , gladTwo.name];
-	//console.log(test);
-//	 console.log(savedDuel);
-	// let test = await parseAndSaveDuel(report);
-	// console.log(test.id);
-	//console.log(`  -EN> Game DUEL : ${gladOne.name} Vs ${gladTwo.name} TIME: ${new Date() - startOfTick}ms Winner:${report.final.winner} `);
+	if(oneDead && twoDead){
+		report.k.w = null;
+	} else if(oneDead){
+		report.k.w = gladTwo.keyId;
+	} else if(twoDead){
+		report.k.w = gladOne.keyId;
+	}
+
+	
+	// console.log(report.f.winner);
+	// This information can be accessed in report[report.f.rC]
+	// report.f[gladOne.keyId] = {
+	// 	hits: gladOne.hits,
+	// 	morale: gladOne.morale,
+	// 	stamina: gladOne.stamina 
+	// };
+
+	// report.f[gladTwo.keyId] = {
+	// 	hits: gladTwo.hits,
+	// 	morale: gladTwo.morale,
+	// 	stamina: gladTwo.stamina 
+	// };
+
+
+	//console.log(`  -EN> Game DUEL : ${gladOne.name} Vs ${gladTwo.name} TIME: ${new Date() - startOfTick}ms Winner:${report.f.winner} `);
 	return report;
 }
 

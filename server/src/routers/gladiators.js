@@ -74,10 +74,7 @@ router.post('/gladiator/fightMemory', async(req, res) => {
         } else {
             two = await prepModelForFight(randoMemory);
         }
-        // let two = await prepMemoryForFight(randoMemory);
-        // console.log(two);
         let report = await doDuel(one,two);
-        //    console.log(report);
         res.send(report)
 
     }
