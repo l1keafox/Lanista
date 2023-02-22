@@ -13,6 +13,7 @@
         </template>
       </div>
       <Character />
+      <ClashDetail :roundInfo="roundInfo" class=" bg-yellow-100 " />
     </template>
   </div>
 </template>
@@ -20,10 +21,13 @@
 <script setup>
   import { defineProps,toRef } from "vue";
   import Character from "./../../Character.vue"
-  const props = defineProps(['glad'])
+  import ClashDetail from "./ClashDetail.vue"
+
+  const props = defineProps(['glad','roundInfo'])
+  const roundInfo = toRef(props, 'roundInfo')
   const thisGuy = toRef(props, 'glad')
   const bgColor = thisGuy.value.idKey == 1 ? "bg-blue-400" :  "bg-red-400"
-  console.log("Aside getting:",thisGuy.value);
+  console.log("Aside getting:",thisGuy.value,roundInfo);
 </script>
 
 <style lang="scss" scoped>

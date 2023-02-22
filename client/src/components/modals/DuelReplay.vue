@@ -1,28 +1,28 @@
 <template>
   <BaseModal class="w-[800px]">
-    <template v-slot:header>
-      <h1> {{ gladOne.name }}  vs {{gladTwo.name}}</h1>
-      <div v-if="winner">
-        Winner: {{ winner }}
+    <template v-slot:header >
+      <div class="text-xl text-black flex justify-between items-center w-full">
+        <h1> {{ gladOne.name }}  vs {{gladTwo.name}}</h1>
+        <div v-if="winner">  Winner: {{ winner }} </div>
       </div>
     </template>
 
     <template v-slot:content>
       <div class="flex justify-around">
-        <DuelSide :glad="gladOne"/>
-        <div class="w-[300px] flex flex-col justify-between text-black">
-            <ClashDetail :details="report[cIndex][1]" class="h-1/3 bg-blue-300"/>
-            <ClashDetail :details="report[cIndex][2]" class="h-1/3 bg-red-300"/>
+        <DuelSide :glad="gladOne" :roundInfo="report[cIndex][1]"/>
+        <div class="w-[300px] flex flex-col justify-center items-center text-black">
+            {{ report[cIndex].R.r }}:
+            {{ report[cIndex].R.w == 1 ? gladOne.name + "<" :   report[cIndex].R.w == 2 ? gladTwo.name + ">" : "" }}
         </div>
-        <DuelSide :glad="gladTwo"/>
+        <DuelSide :glad="gladTwo" :roundInfo="report[cIndex][2]"/>
       </div>
     </template>
 
     <template v-slot:footer>
-      <h2 class = "text-5xl text-blue-800"> Round:{{ cIndex }}</h2>
+      <h2 class = "text-4xl text-black absolute left-0 ml-5"> {{ cIndex }} / {{ report.k.rC }} </h2>
 
       <button
-      class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+      :class="btnDecor"
       type="button"
       v-on:click="
         cIndex = 1;
@@ -36,6 +36,23 @@
     type="button"
       @click="backRound">
       &lt;&lt;
+    </button>
+    
+
+    <button
+    class = "text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+      v-show="!isActive"
+      type="button"
+      @click="pausePlay">
+      play
+    </button>
+    <button
+    class = "bg-transparent border border-solid border-red-500 bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+      :class = " { btnDecor:isActive }"
+      type="button"
+      v-show="isActive"
+      @click="pausePlay">
+      Stop
     </button>
 
     <button
@@ -62,7 +79,8 @@
 <script setup>
 import BaseModal from "./BaseModal.vue"
 import DuelSide from "./DuelReplay/DuelSide.vue"
-import ClashDetail from "./DuelReplay/ClashDetail.vue"
+
+import { useIntervalFn } from '@vueuse/core'
 import { defineProps,reactive,inject,ref } from "vue";
 
 const props = defineProps({
@@ -141,6 +159,21 @@ function backRound(){
 			cIndex.value--;
 			if (cIndex.value < 1) cIndex.value = 1;
 			updateStats();
+}
+
+let interval;
+
+const { pause, resume, isActive } = useIntervalFn(() => {
+  /* your function */
+  // console.log("SET");
+  forwardRound();
+}, 1500)
+function pausePlay(){
+  if(isActive.value){
+    pause();
+  } else {
+    resume();
+  }
 }
 
 function forwardRound(){

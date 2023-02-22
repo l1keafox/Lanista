@@ -1,6 +1,10 @@
 <template>
   <div>
-    <h1>
+    <template v-if="thisDetails,thisDetails.c">
+      
+        
+      
+    <h1 >
       {{ 
       thisDetails.c.a
      }}
@@ -8,8 +12,9 @@
      {{ 
       thisDetails.c.e
      }}
-     <hr/>
-     <template v-if="thisDetails.e.dmg">
+    </template>
+    <hr/>
+     <template v-if="thisDetails.e && thisDetails.e.dmg">
       damage:
       {{ 
       thisDetails.e.dmg
@@ -20,8 +25,8 @@
 
 <script setup>
   import { defineProps,toRef } from "vue";
-  const props = defineProps(['details'])
-  const thisDetails = toRef(props, 'details')
+  const props = defineProps(['roundInfo'])
+  const thisDetails = toRef(props, 'roundInfo')
 </script>
 
 <style scoped>
