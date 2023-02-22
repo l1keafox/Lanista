@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import DuelReplay from "./../components/modals/DuelReplay.vue";
+import DuelReplay from "../components/modals/DuelReplay.vue";
 import auth from "./../mixins/auth";
 export default {
 	name: "CombatMain",
