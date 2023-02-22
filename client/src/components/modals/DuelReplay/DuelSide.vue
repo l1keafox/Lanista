@@ -1,19 +1,17 @@
 <template>
   <div class="w-[270px] h-[400px] text-slate-900" :class="bgColor">
     <template v-if="thisGuy">
-      {{ thisGuy.name }}
+      <!-- {{ thisGuy.name }} -->
       <div class="flex flex-col">
         <h1>Hits   :{{ thisGuy.hits }} / {{ thisGuy.maxHits }} </h1> 
         <h1>Morale :{{ thisGuy.morale }} / {{ thisGuy.maxMorale }}</h1> 
         <h1>Stamina:{{ thisGuy.stamina }} / {{ thisGuy.maxStamina }}</h1> 
       </div>
-      <div>
-        <template v-if="thisGuy.dmg">
-          Dmg:{{ thisGuy.dmg }}
-        </template>
-      </div>
       <Character />
       <ClashDetail :roundInfo="roundInfo" class=" bg-yellow-100 " />
+      <div v-if="thisGuy.dmg" class ="bg-green-600">
+        Dmg:{{ thisGuy.dmg }}
+      </div>
     </template>
   </div>
 </template>

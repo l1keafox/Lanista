@@ -2,8 +2,9 @@
   <BaseModal class="w-[800px]">
     <template v-slot:header >
       <div class="text-xl text-black flex justify-between items-center w-full">
-        <h1> {{ gladOne.name }}  vs {{gladTwo.name}}</h1>
-        <div v-if="winner">  Winner: {{ winner }} </div>
+        <h1> {{ gladOne.name }} <span v-if="winner == 2">WINNER:</span> </h1> 
+        <h1>vs</h1>
+        <h1><span v-if="winner == 1">WINNER:</span> {{ gladTwo.name }} </h1>
       </div>
     </template>
 
@@ -146,10 +147,10 @@ function updateStats(){
   gladTwo.stamina = report[cIndex.value][2].e.pt.s
 
   if(gladOne.hits <= 0 || gladOne.morale <= 0  || gladOne.stamina <= 0  ){
-    winner.value = gladTwo.name
+    winner.value = 1
   }
   if(gladTwo.hits <= 0 || gladTwo.morale <= 0  || gladTwo.stamina <= 0  ){
-    winner.value = gladOne.name
+    winner.value = 2
   }
 }
 const gladOne = reactive(doStart(report.k[1],1));
