@@ -27,14 +27,12 @@
 
 <script>
 import BaseModal from "./BaseModal.vue"
-import CombatReview from "./CombatReview.vue";
     export default {
 
         name:"DuelHistory",
         props: ["gladId"],
         inject:['apiCall'],
         components:{
-          CombatReview,
           BaseModal
         },
         data(){
