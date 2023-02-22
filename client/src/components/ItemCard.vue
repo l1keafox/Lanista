@@ -6,19 +6,49 @@
         <div>
             <h2 v-if="data.slot"> Slot:{{data.slot}}</h2>
             <h2 v-if="data.cost"> Cost:{{data.cost}} </h2>
-            <h2 v-if="data.abilities"> Abilities:{{data.abilities}} </h2>
+            <h2 v-if="data.abilities"> {{data.abilities}} </h2>
             <h2 v-if="data.description"> {{data.description}} </h2>
         </div>
-        <button class="bg-yellow-200 m-2 text-purple-900" @click="$emit('buyThing')">
-          Buy
-        </button>
+        <div class="flex flex-col">
+            <button class="bg-yellow-100 m-2 text-purple-900" @click="openModal">
+                Details
+            </button>
+              
+            <button class="bg-yellow-200 m-2 text-purple-900" @click="$emit('buyThing')">
+              Buy
+            </button>
+         </div>
         </div>
+    </div>
+    <div v-if="showModal">
+        <ItemCardDetail :item="data"  @closeModal="closeModal"/>
     </div>
 </template>
 
 <script>
+import ItemCardDetail from './modals/ItemCardDetail.vue';
     export default {
         name:"itemCard",
+        components:{
+            ItemCardDetail
+        },
+        methods:{
+            closeModal(){
+                console.log('here?',this.data);
+                this.showModal = false;
+            },
+            openModal(event,modalName){
+                this.gladiatorId = event.target.getAttribute("data-id");
+                this.showModal = true;
+                this.modalShown = modalName;
+            },
+
+        },
+        data(){
+            return{
+                showModal: false
+            }
+        },
         props:["data"],
         inject:["smallCard","cardTitle"],
     }
