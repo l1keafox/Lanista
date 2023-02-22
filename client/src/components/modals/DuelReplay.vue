@@ -127,10 +127,10 @@ function updateStats(){
   gladTwo.stamina = report[cIndex.value][2].e.pt.s
 
   if(gladOne.hits <= 0 || gladOne.morale <= 0  || gladOne.stamina <= 0  ){
-    winner.value = gladOne.name
+    winner.value = gladTwo.name
   }
   if(gladTwo.hits <= 0 || gladTwo.morale <= 0  || gladTwo.stamina <= 0  ){
-    winner.value = gladTwo.name
+    winner.value = gladOne.name
   }
 }
 const gladOne = reactive(doStart(report.k[1],1));
