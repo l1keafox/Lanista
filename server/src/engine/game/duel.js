@@ -313,21 +313,12 @@ async function doDuel(one, two) {
 }
 
 function parseDuel(report){
-	let idOne;
-	let idTwo;
-	for(let name in report.final){
-		if(idOne){
-			idTwo = report.final[name].id;
-		} else {
-			idOne = report.final[name].id;
-		}
-	}
-	return { "gladiatorOne":idTwo ,"gladiatorTwo":idOne ,duel: JSON.stringify(report), createdAt: new Date()};
+	return { "gladiatorOne":report.k[1].id ,"gladiatorTwo":report.k[2].id ,duel: JSON.stringify(report), createdAt: new Date()};
 }
 
 async function parseAndSaveDuel(report){
 	const savedDuel = 	await new saveDuel( parseDuel(report) );
-						await savedDuel.save();
+	await savedDuel.save();
 	return savedDuel;
 }
 

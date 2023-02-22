@@ -41,16 +41,15 @@
 
     <button
     class = "text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-      v-show="!isActive"
+      v-if="!isActive"
       type="button"
       @click="pausePlay">
       play
     </button>
     <button
-    class = "bg-transparent border border-solid border-red-500 bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-      :class = " { btnDecor:isActive }"
+    class = "bg-transparent border border-solid border-red-300 bg-red-700 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
       type="button"
-      v-show="isActive"
+      v-else
       @click="pausePlay">
       Stop
     </button>
@@ -77,7 +76,7 @@
 </template>
 
 <script setup>
-import BaseModal from "./BaseModal.vue"
+import BaseModal from "./TwoModal.vue"
 import DuelSide from "./DuelReplay/DuelSide.vue"
 
 import { useIntervalFn } from '@vueuse/core'
@@ -92,20 +91,22 @@ const btnDecor = "text-red-500 bg-transparent border border-solid border-red-500
 let report = props.report;
 const cIndex = ref(1);
 
-async function getDuel(id){
-const apiCall = inject("apiCall");
+async function blah(duelId){
+  const apiCall = inject("apiCall");
 	const rpnse = await fetch(
-		apiCall.value + `/gladiator/getDuel/${id}`,
+		apiCall.value + `/gladiator/getDuel/${duelId}`,
 		{ headers: { "Content-Type": "application/json" } }
 	);
   let rpns = await rpnse.json();
-  console.log(' DUEL REPORT grabbing off of duelId',report);
-  return rpns;
+  return JSON.parse(rpns[0].duel);
+
 }
 
 if (props.duelId) {
-  report = getDuel(props.duelId)
+  report = await blah(props.duelId)
+  console.log(report);
 }
+
 
 const winner = ref("")
 
@@ -161,13 +162,10 @@ function backRound(){
 			updateStats();
 }
 
-let interval;
-
 const { pause, resume, isActive } = useIntervalFn(() => {
-  /* your function */
-  // console.log("SET");
   forwardRound();
-}, 1500)
+}, 2000)
+
 function pausePlay(){
   if(isActive.value){
     pause();
@@ -184,8 +182,6 @@ function forwardRound(){
 			updateStats();
 
 }
-// console.log(gladOne);
-// console.log(gladTwo);
 
 </script>
 

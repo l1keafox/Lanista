@@ -27,7 +27,7 @@
   const roundInfo = toRef(props, 'roundInfo')
   const thisGuy = toRef(props, 'glad')
   const bgColor = thisGuy.value.idKey == 1 ? "bg-blue-400" :  "bg-red-400"
-  console.log("Aside getting:",thisGuy.value,roundInfo);
+  // console.log("Aside getting:",thisGuy.value,roundInfo);
 </script>
 
 <style lang="scss" scoped>

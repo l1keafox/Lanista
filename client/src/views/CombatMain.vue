@@ -1,6 +1,6 @@
 <template>
-	<div class="flex flex-col w-full overflow-x-hidden">
-		<h2>Pick gladiator</h2>
+	<div class="flex flex-col w-full overflow-x-hidden p-10">
+		<h2>Duel your own gladiators</h2>
 		<div v-if="ownerData" class="flex">
 			<select
 				name="gladiator"
@@ -34,7 +34,8 @@
 		</div>
 
 		<hr />
-		<h2>Fight against a Memory</h2>
+		<br/>
+		<h2>Spar against a Memory</h2>
 		<div v-if="ownerData" class="flex">
 			<select
 				name="gladiator"
@@ -53,13 +54,17 @@
 				@click="doMemory">
 				Fight Memory
 			</button>
+
 		</div>
+		<hr />
 		
 		<div v-if="isModalShown">
+			<Suspense>
 			<DuelReplay
 				:report="duelReport"
 				@closeModal="this.isModalShown = false"
 				/>
+			</Suspense>
 		</div>
 	</div>
 </template>

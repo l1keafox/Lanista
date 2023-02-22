@@ -25,6 +25,11 @@
   <div v-if="isModalShown">
     <component :is="modalShown" :gladId="gladiatorId" @closeModal="closeModal"/>
   </div>
+  <div v-if="true">
+    <Suspense>
+      <DuelReplay :duelId="duelId" @closeModal="closeModal"/>
+    </Suspense>
+  </div>
 
 </template>
 
@@ -36,6 +41,7 @@ import ClashSettings from "./../components/modals/ClashSettings.vue";
 import EquipmentScreen from "./../components/modals/EquipmentScreen.vue";
 import GladiatorTournament from "./../components/modals/GladiatorTournamentHistory.vue";
 import Chracter from "./../components/Character.vue"
+import DuelReplay from "../components/modals/DuelReplay.vue";
 
 import GladiatorMemories from "../components/modals/GladiatorMemories.vue";
 import DuelHistory from "./../components/modals/DuelHistory.vue";
@@ -65,6 +71,7 @@ export default {
     },
   },
   components:{
+    DuelReplay,
     Chracter,
     ScheduleManager,
     GladiatorMemories,
