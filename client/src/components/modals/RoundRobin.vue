@@ -2,7 +2,7 @@
   <BaseModal>
     <template v-slot:header>
       <h3 class="text-3xl font-semibold">
-        RoundRobin - winner : {{ this.tournamentData.winner }}
+        RoundRobin - winner : 
       </h3>
     </template>
 
@@ -48,6 +48,7 @@ import BaseModal from "./BaseModal.vue"
             // We going to use a drop down menu, so let's first organlize the data by users.
             this.gladiatorObj = {};
             console.log(this.tournamentData);
+            if(this.tournamentData){
             this.tournamentData.tournamentStructure.forEach( duel =>{
 
               if(!this.gladiatorObj[duel[1]]){
@@ -62,7 +63,7 @@ import BaseModal from "./BaseModal.vue"
               }
               //console.log( duel[1], duel[2], duel.saveId )
             } );
-
+          }
             console.log(this.gladiatorObj);
         },
         methods:{

@@ -1,7 +1,7 @@
 <template>
   <BaseModal>
     <template v-slot:header>
-      RoundRobin
+      Tournament History
     </template>
 
     <template v-slot:content>
@@ -16,7 +16,10 @@
 
     </template>
 
-    <template v-slot:footer>
+    <template v-slot:modal>
+      <div v-if="isModalShown">
+        <component :is="tournamentType" @closeModal="isModalShown = !isModalShown"> </component>
+      </div>
     </template>
   </BaseModal>
 </template>
@@ -72,9 +75,11 @@ import roundRobinBestOfThree from './RoundRobinOfThree.vue';
             };
 
             this.tournamentType = tournKey[event.target.getAttribute("data-type")];
+            // this.tournamentType = this.tournamentArray[event.target.getAttribute("data-index")].tournament.type
             this.tournamentData = this.tournamentArray[event.target.getAttribute("data-index")].tournament
-            console.log(this.tournamentArray[event.target.getAttribute("data-index")].tournament, event.target.getAttribute("data-index") )
             this.isModalShown = true;
+            console.log(this.tournamentArray[event.target.getAttribute("data-index")].tournament.type, event.target.getAttribute("data-index") )
+            console.log(tournKey[event.target.getAttribute("data-type")],this.isModalShown);
         },
 
             bgClose(event) {

@@ -3,7 +3,7 @@
     <template v-slot:header>
       <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
         <h3 v-if="tournamentData" class="text-3xl font-semibold">
-          {{this.tournamentData.type}} Tournament
+          Tournament
         </h3>
         <div class="text-sm font-medium text-center text-gray-500  border-gray-200 dark:text-gray-400 dark:border-gray-700">
           <ul class="flex flex-wrap -mb-px">
@@ -36,8 +36,8 @@
 
     <template v-slot:content>
       <div class="relative p-6 flex-auto overflow-y-auto bg-yellow-200">
-        <div>
-          <div v-for="(fight, index) in this.tournamentData.tournamentStructure[ openTab ]" :key="index" >
+        <div v-if="tournamentData">
+          <div v-for="(fight, index) in tournamentData.tournamentStructure[ openTab ]" :key="index" >
             <div class ="flex justify-between">
               <div>{{ fight[1]  }} vs  {{ fight[2]  }} </div>
               <button @click="showDuel(fight.saveId,fight[1],fight[2])" > Duel </button>
@@ -66,10 +66,12 @@ import BaseModal from "./BaseModal.vue"
         async mounted(){
           // console.log(this.tournamentData.type);
           // console.log(this.tournamentData.winner);
-          const roundOne = this.tournamentData.tournamentStructure[0]
-          const roundTwo = this.tournamentData.tournamentStructure[1]
-          const roundThree = this.tournamentData.tournamentStructure[2]
-          const roundFour = this.tournamentData.tournamentStructure[3]
+          if(this.tournamentData){
+            const roundOne = this.tournamentData.tournamentStructure[0]
+            const roundTwo = this.tournamentData.tournamentStructure[1]
+            const roundThree = this.tournamentData.tournamentStructure[2]
+            const roundFour = this.tournamentData.tournamentStructure[3]
+          }
           // console.log(roundOne.length);
           // console.log(roundTwo.length);
           // console.log(roundThree.length); // Ah this is 1 because there was an die before.
