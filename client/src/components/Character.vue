@@ -13,15 +13,14 @@ export default {
   name: 'tapp',
   data(){
     return{
-      frame:null,
-      index: 0,
-      activePosition: 0,
-      spritesheet
+
     }
   },
   setup(){
     const index = ref(0)
     const activePosition = ref("")
+
+
     const { pause, resume, isActive } = useIntervalFn(() => {
       if(index.value >= 6){
         index.value = 0;        
@@ -36,7 +35,6 @@ export default {
         height: ${frame.height}px;
       `      
       index.value++
-
     }, 135)
 
     return {

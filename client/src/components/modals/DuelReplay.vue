@@ -1,5 +1,5 @@
 <template>
-  <BaseModal class="w-[800px]">
+  <BaseModal >
     <template v-slot:header >
       <div class="text-xl text-black flex justify-between items-center w-full">
         <h1> {{ gladOne.name }} <span v-if="winner == 1" > : Winner</span> </h1>
@@ -112,7 +112,7 @@ if (props.duelId) {
 
 const winner = ref("")
 
-console.log("Duel Report :",report);
+console.log("Duel Report :",report,props.duelId);
 
 function doStart(obj,idKey){
   return {
