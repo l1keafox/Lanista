@@ -2,8 +2,10 @@
   <div  class="flex flex-wrap w-full overflow-y-scroll  ">
     <template  v-if="ownerData"> 
         <div v-for="glad in ownerData.gladiators" :key="glad" :class="gladiatorCard" class="relative"> 
-        <Chracter class="absolute z-50 right-10 top-10 "/>
 
+        <Chracter class="absolute z-50 right-10 top-10 "/>
+        <span class="absolute z-50 right-10 top-0" > {{ glad.lastGain[0] }} </span>
+        <span class="absolute z-50 right-10 top-16" > {{ glad.lastGain[growthIndex] }} </span>
         <h1 :class="cardTitle">{{glad.name}} </h1>
 
         <h2> Level:{{glad.level}} /  Age:{{glad.age}}</h2>
@@ -40,13 +42,14 @@ import DuelReplay from "../components/modals/DuelReplay.vue";
 
 import GladiatorMemories from "../components/modals/GladiatorMemories.vue";
 import DuelHistory from "./../components/modals/DuelHistory.vue";
-
+import { useIntervalFn } from '@vueuse/core'
 export default {
     
   name: "GladiatorMain",
   data() {
     return {
       userData: auth.getUser(),
+      growthIndex : 1,
       modalShown:null,
       isModalShown:null,
       gladiatorId: null,
@@ -76,8 +79,21 @@ export default {
     EquipmentScreen,
     ClashSettings,
   },
+  setup(){
+
+  },
   async mounted() {
     this.ownerData = this.getOwner;
+    console.log( this.ownerData)
+
+    const { pause, resume, isActive } = useIntervalFn(() => {
+      this.growthIndex++;
+      if(this.growthIndex > 5){
+        this.growthIndex = 1;
+      }
+    }, 2000)
+
+
   },
 };
 </script>

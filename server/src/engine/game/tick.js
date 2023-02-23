@@ -149,6 +149,8 @@ module.exports = {
 					gladiator.schedule[0][date.weekDay][date.time]
 				);
 				// console.log(`  -EN/Tick> ${gladiator.name} is training`, gladiator.schedule[0][date.weekDay][date.time]);
+				gladiator.lastGain  = growth.map( growth =>`+${growth.stat}`)
+				gladiator.lastGain.unshift( `${gladiator.schedule[0][date.weekDay][date.time]}`  )
 				if (growth) {
 					if (!ownersGain[gladiator.ownerId]) {
 						ownersGain[gladiator.ownerId] = {
