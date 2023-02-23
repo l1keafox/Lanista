@@ -20,7 +20,7 @@ animation : String / "run"/ "walk"
 Default for now is that the character is centered.
 */
 
-const {direction,animation,gladName} = defineProps({
+const {direction,animation,gladName,clothes} = defineProps({
   clothes:{
     type:Object
   },
@@ -36,7 +36,6 @@ const {direction,animation,gladName} = defineProps({
     default: "walk"
   }
 })
-
 
 const State = AniState;
 State.genDefaultState();
@@ -54,16 +53,23 @@ onMounted(async () => {
         thisImage.src = apiCall.value+url;
     return thisImage;  
   }
-	const bodyImage = createImg("/assets/char_a_p1/char_a_p1_0bas_humn_v10.png")
-  
-  // const hairImage = new Image();
-  //       hairImage.src = hairSheet;
-  // const underImage = new Image();
-  //       underImage.src = underSheet;
-  //,hairImage,underImage
-  const imageArray = [bodyImage];
+  console.log(clothes.hair, "/assets/char_a_p1/char_a_p1_0bas_humn_v10.png",`/assets/${clothes.hair}`);
+	const bodyImage = createImg(`/assets/${clothes.body}`)
+	const hairImage = createImg(`/assets/${clothes.hair}`)
+  // if()
+	let underImage
+  if(clothes.sex == 'm'){
+    underImage = createImg(`/assets/char_a_p1/1out/char_a_p1_1out_boxr_v01.png`)
+  } else {
+    underImage = createImg(`/assets/char_a_p1/1out/char_a_p1_1out_undi_v01.png`)
+  }
+ 
+  const imageArray = [bodyImage,hairImage,underImage];
 
-
+  // const json = 
+  // const rpns = await fetch(apiCall.value+'/assets/animation-data/hume2.json');
+  // const json = await rpns.json();
+  // console.log(json);
 	function animate(state) {
 		const frameInfo = json.find(
 			(entry) => entry.name == state.indexName + state.animationArray[frameIndex]

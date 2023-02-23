@@ -3,7 +3,7 @@
     <template  v-if="ownerData"> 
         <div v-for="glad in ownerData.gladiators" :key="glad" :class="gladiatorCard" class="relative"> 
 
-        <Chracter class="absolute z-50 -right-[2px] top-[20px] h-[7rem] w-[7rem]" :animation="jobToAnimate()" :direction="jobDirection()" :gladName="glad.name"/>
+        <Chracter class="absolute z-50 -right-[2px] top-[20px] h-[7rem] w-[7rem]" :clothes="{ hair:glad.hairChar, body:glad.bodyChar, sex:glad.sexChar }" :animation="jobToAnimate()" :direction="jobDirection()" :gladName="glad.name"/>
         <span class="absolute z-50 right-10 top-4" > {{ glad.lastGain[0] }} </span>
         <span class="absolute z-50 right-10 top-24" id="growth" > {{ glad.lastGain[growthIndex] }} </span>
         <h1 :class="cardTitle">{{glad.name}} </h1>
