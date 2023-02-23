@@ -47,6 +47,17 @@ const gladiatorSchema = new Schema(
         },
 
 
+        // Physical 
+        hairChar:{
+            type:String
+        },
+        skinChar:{
+            type:String
+        },
+        sexChar:{
+            type:String
+        },
+
         // The following three arrays are linked, learnSkill is the skill learned
         // task Skill is what is replaced
         // Progress Skill is going to be a string that needs to be JSON/Strinify so it tracks

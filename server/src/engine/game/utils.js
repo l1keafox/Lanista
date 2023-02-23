@@ -31,6 +31,29 @@ function modStat4Effect(num,percent){
   return rtn.toFixed()
 }
 
+function getRandomHair(){
+  let version = Math.floor(Math.random()*14);
+  const hairArray = ['bob1','bob2','dap1','flat','fro1','pon1','spk2']
+  if(version < 10){
+    version = "0"+version;
+  } 
+  let type =hairArray[ Math.floor( Math.random()*hairArray.length ) ];
+  return `char_a_p1/4har/char_a_p1_4har_${type}_v${version}.png`;
+}
+function getRandomBody(){
+  let rando = Math.ceil( Math.random()*10 );
+  if(rando < 10){
+    rando = "0"+rando;
+  } 
+  return `char_a_p1/char_a_p1_0bas_humn_v${rando}.png`;
+}
+
+function getRandomSex(){
+  const sexArray = ['m','m','m','m','m','f','f','f','f'];
+  return sexArray[ Math.floor( Math.random()*sexArray.length ) ];
+}
+//C:\Users\Raymond\Desktop\ActJs\Lanista\server\assets\char_a_p1\char_a_p1_0bas_humn_v00.png
+//server\assets\char_a_p1\4har\char_a_p1_4har_bob1_v00.png
 function createNewGladiator(gladType) {
   
   //console.log("  -EN> Creating Glad:",gladType);
@@ -55,8 +78,9 @@ function createNewGladiator(gladType) {
         quarterWin:0,
         yearWin:0,
         age:1,
-
-        
+        hairChar: getRandomHair(),
+        skinChar: getRandomBody(),
+        sexChar: getRandomSex(),
         strength:rollDice(numDice,sideDice),
         dexterity:rollDice(numDice,sideDice),
         agility:rollDice(numDice,sideDice),
