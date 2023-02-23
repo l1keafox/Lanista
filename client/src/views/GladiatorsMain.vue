@@ -3,9 +3,9 @@
     <template  v-if="ownerData"> 
         <div v-for="glad in ownerData.gladiators" :key="glad" :class="gladiatorCard" class="relative"> 
 
-        <Chracter class="absolute z-50 right-10 top-10 "/>
-        <span class="absolute z-50 right-10 top-0" > {{ glad.lastGain[0] }} </span>
-        <span class="absolute z-50 right-10 top-16" id="growth" > {{ glad.lastGain[growthIndex] }} </span>
+        <Chracter class="absolute z-50 right-10 top-16 "/>
+        <span class="absolute z-50 right-10 top-4" > {{ glad.lastGain[0] }} </span>
+        <span class="absolute z-50 right-10 top-24" id="growth" > {{ glad.lastGain[growthIndex] }} </span>
         <h1 :class="cardTitle">{{glad.name}} </h1>
 
         <h2> Level:{{glad.level}} /  Age:{{glad.age}}</h2>
