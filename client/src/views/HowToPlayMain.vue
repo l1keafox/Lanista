@@ -1,12 +1,12 @@
 <template>
   <div class="flex flex-col w-full overflow-x-hidden  bg-slate-600">
     <h1 class="text-center font-baby text-[3rem] text-black">How to play Lanista</h1>
-    <nav class="flex">
+    <nav class="flex overflow-auto">
       <template v-for="(help,index) in helpObj">
         <button @click="switchHelp(index)" class ="mr-10 bg-slate-800 hover:bg-slate-900 p-4"> {{ help }}</button>
       </template>
     </nav>
-    <div class = "p-4 w-full bg-slate-300 ">
+    <div class = "p-4 w-full bg-slate-300 overflow-auto ">
       <component :is="showTo" class="prose"/>
     </div>
    </div>
@@ -40,7 +40,7 @@ import Balance from  './../content/Balance.md'
         Clash
       },
       data(){
-        this.helpObj = ["Intro","Training","Clash","Memory","Stats","Tournament","Ranking","Equipment","Building","Balance"]
+        this.helpObj = ["Intro","Clash","Training","Memory","Stats","Tournament","Ranking","Equipment","Building","Balance"]
           return {
               showTo:"Intro"
           }

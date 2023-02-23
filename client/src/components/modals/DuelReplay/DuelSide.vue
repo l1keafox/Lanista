@@ -7,12 +7,14 @@
         <h1>Morale :{{ thisGuy.morale }} / {{ thisGuy.maxMorale }}</h1> 
         <h1>Stamina:{{ thisGuy.stamina }} / {{ thisGuy.maxStamina }}</h1> 
       </div>
+      <div>
+      </div>
       <Character />
       <ClashDetail :roundInfo="roundInfo" class=" bg-yellow-100 " />
-      <div v-if="thisGuy.dmg" class ="bg-green-600">
+      <div v-if="thisGuy.dmg" class="bg-green-600">
         Dmg:{{ thisGuy.dmg }}
       </div>
-    </template>
+  </template>
   </div>
 </template>
 

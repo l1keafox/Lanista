@@ -2,9 +2,9 @@
   <BaseModal class="w-[800px]">
     <template v-slot:header >
       <div class="text-xl text-black flex justify-between items-center w-full">
-        <h1> {{ gladOne.name }} <span v-if="winner == 2">WINNER:</span> </h1> 
-        <h1>vs</h1>
-        <h1><span v-if="winner == 1">WINNER:</span> {{ gladTwo.name }} </h1>
+        <h1> {{ gladOne.name }} <span v-if="winner == 1" > : Winner</span> </h1>
+        <h1>vs </h1>
+        <h1><span v-if="winner == 2" > : Winner</span>{{gladTwo.name}}</h1>
       </div>
     </template>
 
@@ -47,6 +47,7 @@
       @click="pausePlay">
       play
     </button>
+
     <button
     class = "bg-transparent border border-solid border-red-300 bg-red-700 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
       type="button"
@@ -77,7 +78,7 @@
 </template>
 
 <script setup>
-import BaseModal from "./TwoModal.vue"
+import BaseModal from "./BaseModal.vue"
 import DuelSide from "./DuelReplay/DuelSide.vue"
 
 import { useIntervalFn } from '@vueuse/core'
@@ -147,12 +148,15 @@ function updateStats(){
   gladTwo.stamina = report[cIndex.value][2].e.pt.s
 
   if(gladOne.hits <= 0 || gladOne.morale <= 0  || gladOne.stamina <= 0  ){
-    winner.value = 1
-  }
-  if(gladTwo.hits <= 0 || gladTwo.morale <= 0  || gladTwo.stamina <= 0  ){
     winner.value = 2
   }
+  if(gladTwo.hits <= 0 || gladTwo.morale <= 0  || gladTwo.stamina <= 0  ){
+    winner.value = 1
+
+  }
 }
+
+
 const gladOne = reactive(doStart(report.k[1],1));
 const gladTwo = reactive(doStart(report.k[2],2));
 updateStats();

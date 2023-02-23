@@ -17,6 +17,7 @@ const gladiatorSchema = new Schema(
             type:Boolean
         },
         schedule:[],
+        lastGain:[String],
 
         winRecord:{
             type:Number

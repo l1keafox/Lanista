@@ -1,37 +1,59 @@
 <template>
-  <div class="sprite" style="background-position-x: ${activePosition}px; "></div>
+  <div  >
+    <img :src="spritesheet" class="sprite" :style="activePosition">
+  </div>
 </template>
 
-<script setup>
-import { onMounted,ref } from 'vue'
-const activePosition = ref(0)
-onMounted(() => {
-  setInterval(()=>{
-    activePosition.value = -25;
-  },500);
+<script>
+import json from './../assets/animation-data/hume2.json'
+import spritesheet from './../assets/hume1.png'
+import { useIntervalFn } from '@vueuse/core'
+import {ref} from 'vue'
+export default {
+  name: 'tapp',
+  data(){
+    return{
+      frame:null,
+      index: 0,
+      activePosition: 0,
+      spritesheet
+    }
+  },
+  setup(){
+    const index = ref(0)
+    const activePosition = ref("")
+    const { pause, resume, isActive } = useIntervalFn(() => {
+      if(index.value >= 6){
+        index.value = 0;        
+      }
+      let frame = json.find(entry=>entry.name == "walkRight"+index.value)
+      if(frame)
+      activePosition.value = `
 
-})
+        background-position-x: -${frame.x}px; 
+        background-position-y: -${frame.y}px;
+        width: ${frame.width}px;
+        height: ${frame.height}px;
+      `      
+      index.value++
+
+    }, 135)
+
+    return {
+      index,
+      activePosition
+    }
+  },
+
+}
 </script>
-
 <style scoped>
 .sprite {
   /* display the image*/
-  background: url("./../assets/char_a_p1_0bas_humn_v01.png") no-repeat;
-
-  /* each frame is 75px wide so limit container to display one at a time */
-  width: 15px; 
-
-  /* main is roughly 150px tall */
-  height: 30px;
-
-  /* the image has some space on top and bottom so this accounts for that 
-    So next frame would be at 50 x 
-    // -25
-    // -87 
-    35 is the Y axis
-  */
-   
+  background: url("./../assets/hume1.png") no-repeat;
+  width: 14px; 
+  height: 29px;
   background-position-x: -25px ;
-  background-position-y: -462px ;
+  background-position-y: -399px ;
 }
 </style>

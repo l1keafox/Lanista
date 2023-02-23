@@ -21,10 +21,10 @@
 
     <template v-slot:footer>
     </template>
+    <template v-slot:modal>
+      <GladiatorStats @closeModal="closeModal" :gladMemory="Memory"  v-if="isModalShown" />
+    </template>
   </BaseModal>
-  <!-- <div v-if="isModalShown">
-    <GladiatorStats @closeModal="closeModal" :gladMemory="Memory" />
-  </div> -->
 
 </template>
 

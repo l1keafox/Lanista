@@ -37,7 +37,7 @@
 				</div>
 			</div>
 		</div>
-
+		<!-- MODAL -->
 		<slot name='modal' >
 
 		</slot>

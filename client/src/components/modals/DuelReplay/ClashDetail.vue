@@ -14,12 +14,6 @@
      }}
     </template>
     <hr/>
-     <!-- <template v-if="thisDetails.e && thisDetails.e.dmg">
-      damage:
-      {{ 
-      thisDetails.e.dmg
-      }}
-      </template> -->
   </div>
 </template>
 

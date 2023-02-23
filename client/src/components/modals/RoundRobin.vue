@@ -2,7 +2,7 @@
   <BaseModal>
     <template v-slot:header>
       <h3 class="text-3xl font-semibold">
-        RoundRobin - winner : {{ this.tournamentData.winner }}
+        RoundRobin - winner : 
       </h3>
     </template>
 
@@ -11,13 +11,13 @@
         <div v-for="(glad,index) in this.gladiatorObj " :key="index" class="flex justify-between">  
             <h1> {{index}} </h1> 
             <div>
-            <select name="mainHand" class="bg-cyan-100 w-28" id="mainHand"> 
-              <option value="empty">vs select</option>
+            <select name="mainHand" class="bg-cyan-100 w-28" :id="index" ref="myDiv"> 
+              <option value="">vs select</option>
               <template v-for="(vsGlad, index) in glad" :key="index">
                 <option :value="vsGlad.duelId">{{ vsGlad.vs }} </option>
               </template>
             </select>
-            <button @click="ShowDuel">
+            <button :data-id="index" @click="ShowDuel($event)">
               Show
             </button>
             </div>
@@ -25,21 +25,30 @@
       </div>
     </template>
 
-    <template v-slot:footer>
+    <template v-slot:modal>
+      <div v-if="isModalShown">
+        <Suspense>
+          <DuelReplay :duelId="duelId" @closeModal="isModalShown = !isModalShown" />
+        </Suspense>
+      </div>
     </template>
   </BaseModal>
 </template>
 
 <script>
 import BaseModal from "./BaseModal.vue"
+import DuelReplay from "./DuelReplay.vue";
     export default {
         name:"roundRobinReview",
         props:['tournamentData'],
         components:{
-          BaseModal
+          BaseModal,
+          DuelReplay
         },
         data(){
           return {
+            isModalShown : false,
+            duelId:null,
             gladiatorObj : {}
           }
         },
@@ -48,6 +57,7 @@ import BaseModal from "./BaseModal.vue"
             // We going to use a drop down menu, so let's first organlize the data by users.
             this.gladiatorObj = {};
             console.log(this.tournamentData);
+            if(this.tournamentData){
             this.tournamentData.tournamentStructure.forEach( duel =>{
 
               if(!this.gladiatorObj[duel[1]]){
@@ -62,17 +72,20 @@ import BaseModal from "./BaseModal.vue"
               }
               //console.log( duel[1], duel[2], duel.saveId )
             } );
-
-            console.log(this.gladiatorObj);
+          }
+            // console.log("THIS:",this.gladiatorObj);
         },
         methods:{
-            bgClose(event) {
-                if (event.target.getAttribute("data-id") === "bg") {
-                    this.$emit('closeModal')
-                }
-            },
-            ShowDuel(){
-
+            ShowDuel(event){
+              // console.log( event.target.getAttribute("data-id"));
+              // console.log( this.gladiatorObj [ event.target.getAttribute("data-id") ] )
+              let sch = document.getElementById(event.target.getAttribute("data-id"));
+              // console.log(sch.value );
+              this.gladiatorObj [ event.target.getAttribute("data-id") ]
+              if(sch.value !== "empty"){
+                this.duelId = sch.value;
+                this.isModalShown = true;
+              }
             }
 
         },

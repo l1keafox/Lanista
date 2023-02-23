@@ -1,39 +1,39 @@
 <template>
-  <div class="flex flex-col w-full overflow-y-auto">
+  <div class="w-full overflow-x-hidden">
 
-    <div v-if="structData"  class="flex overflow-x-auto  shrink-0">
+    <div v-if="structData"  class="flex overflow-x-auto ">
       <template v-for="(struct, index) in structData" :key="index">
-        <itemCard :data="struct" @buyThing="buyThing('struct',index)"/>
+        <itemCard :data="struct" @buyThing="buyThing('structData',index)"/>
       </template>
     </div>
     <hr/>
-    <div v-if="headData" class="flex overflow-x-auto  shrink-0">
+    <div v-if="headData" class="flex overflow-x-auto ">
       <template v-for="(item, index) in headData" :key="index" >
-        <itemCard :data="item" @buyThing="buyThing('item',index)"/>
+        <itemCard :data="item" @buyThing="buyThing('headData',index)"/>
       </template>
     </div>
     <hr />
-    <div v-if="bodyData" class="flex overflow-x-auto  shrink-0">
+    <div v-if="bodyData" class="flex overflow-x-auto">
       <template v-for="(item, index) in bodyData" :key="index" >
-        <itemCard :data="item" @buyThing="buyThing('item',index)"/>
+        <itemCard :data="item" @buyThing="buyThing('bodyData',index)"/>
       </template>
     </div>
     <hr />
-    <div v-if="mainData" class="flex overflow-x-auto  shrink-0">
+    <div v-if="mainData" class="flex  overflow-x-auto  ">
       <template v-for="(item, index) in mainData" :key="index" >
-        <itemCard :data="item" @buyThing="buyThing('item',index)"/>
+        <itemCard :data="item" @buyThing="buyThing('mainData',index)"/>
       </template>
     </div>
     <hr />
-    <div v-if="offData" class="flex overflow-x-auto  shrink-0">
+    <div v-if="offData" class="flex overflow-x-auto ">
       <template v-for="(item, index) in offData" :key="index" >
-        <itemCard :data="item" @buyThing="buyThing('item',index)"/>
+        <itemCard :data="item" @buyThing="buyThing('offData',index)"/>
       </template>
     </div>
     <hr />
-    <div v-if="bootsData" class="flex overflow-x-auto  shrink-0">
+    <div v-if="bootsData" class="flex overflow-x-auto ">
       <template v-for="(item, index) in bootsData" :key="index" >
-        <itemCard :data="item" @buyThing="buyThing('item',index)"/>
+        <itemCard :data="item" @buyThing="buyThing('bootsData',index)"/>
       </template>
     </div>
     <hr />
@@ -48,21 +48,8 @@ export default {
   name: "StoreMain",
   methods: {
     async buyThing(type, index) {
-      let buyThisThing = {
-        cost: 0,
-      };
-
-      switch (type) {
-        case "struct":
-          buyThisThing.cost = this.structData[index].cost;
-          buyThisThing.structure = this.structData[index].type;
-          break;
-
-        case "item":
-          buyThisThing.cost = this.itemData[index].cost;
-          buyThisThing.item = this.itemData[index].type;
-          break;
-      }
+      
+      let buyThisThing = this[type][index]
 
       const rpnse = await fetch(
         this.apiCall.value +
@@ -76,10 +63,11 @@ export default {
       let success = await rpnse.json();
       
       console.log("Buying:", buyThisThing, "Result", success);
-
       if (success) {
         alert("Bought Item");
         this.updateStore();
+      } else {
+        console.log("Not enough gold")
       }
     },
     async updateStore(){
