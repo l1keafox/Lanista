@@ -152,6 +152,7 @@ function updateStats(){
   }
   if(gladTwo.hits <= 0 || gladTwo.morale <= 0  || gladTwo.stamina <= 0  ){
     winner.value = 1
+
   }
 }
 
