@@ -1,7 +1,5 @@
 <template>
-  <div id="characterWrap" >
-	  <canvas :id="gladName" v-bind="$attrs" ></canvas>
-  </div>
+	<canvas :id="gladName" v-bind="$attrs" ></canvas>
 </template>
 
 <script setup>
@@ -24,8 +22,10 @@ animation : String / "run"/ "walk"
 Default for now is that the character is centered.
 */
 
-const canvads = ref("can")
 const {direction,animation,gladName} = defineProps({
+  clothes:{
+    type:Object
+  },
   gladName:{
     type:String
   },
@@ -95,13 +95,13 @@ onMounted(() => {
 });
 </script>
 
+top:-32px;
+left:-32px;
 
 <style scoped>
 canvas {
 	display: block;
   position: absolute;
-  top:-32px;
-  left:-32px;
 }
 
 #characterWrap{

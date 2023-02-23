@@ -9,7 +9,7 @@
       </div>
       <div>
       </div>
-      <Character />
+      <Character :gladName="thisGuy.name"/>
       <ClashDetail :roundInfo="roundInfo" class=" bg-yellow-100 " />
       <div v-if="thisGuy.dmg" class="bg-green-600">
         Dmg:{{ thisGuy.dmg }}
