@@ -51,7 +51,7 @@ const gladiatorSchema = new Schema(
         hairChar:{
             type:String
         },
-        bodyChar:{
+        skinChar:{
             type:String
         },
         sexChar:{
