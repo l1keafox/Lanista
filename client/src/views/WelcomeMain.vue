@@ -1,5 +1,5 @@
     <template>
-    <div class="flex flex-col w-full overflow-x-hidden">
+    <div class="flex flex-col w-full overflow-x-hidden relative">
         <h1 class="text-center font-baby text-[7rem]">Lanista</h1>
         <h2 class="text-center font-neo text-[2rem]"> - a trainer of gladiators -</h2>
         <hr/>
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import Character from '../components/Character.vue';
+// import Character from '../components/Character.vue';
     export default {
         name:"WelcomeMain",
         inject:['apiCall'],
@@ -50,7 +50,7 @@ import Character from '../components/Character.vue';
         	} 
         },
         components:{
-            Character
+            // Character
         },
         data(){
             return {
