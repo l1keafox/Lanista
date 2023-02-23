@@ -5,7 +5,7 @@
 
         <Chracter class="absolute z-50 right-10 top-10 "/>
         <span class="absolute z-50 right-10 top-0" > {{ glad.lastGain[0] }} </span>
-        <span class="absolute z-50 right-10 top-16" > {{ glad.lastGain[growthIndex] }} </span>
+        <span class="absolute z-50 right-10 top-16" id="growth" > {{ glad.lastGain[growthIndex] }} </span>
         <h1 :class="cardTitle">{{glad.name}} </h1>
 
         <h2> Level:{{glad.level}} /  Age:{{glad.age}}</h2>
@@ -91,11 +91,26 @@ export default {
       if(this.growthIndex > 5){
         this.growthIndex = 1;
       }
-    }, 2000)
+    }, 1950)
 
 
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+@keyframes redGlow {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 100;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+#growth {
+	animation: redGlow 2.1s infinite;
+}
+</style>
