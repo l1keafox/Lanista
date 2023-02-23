@@ -3,7 +3,7 @@
     <template  v-if="ownerData"> 
         <div v-for="glad in ownerData.gladiators" :key="glad" :class="gladiatorCard" class="relative"> 
 
-        <Chracter class="absolute z-50 right-10 top-16 "/>
+        <Chracter class="absolute z-50 -right-[2px] top-[20px] h-[7rem] w-[7rem]" :animation="jobToAnimate()" :direction="jobDirection()" :gladName="glad.name"/>
         <span class="absolute z-50 right-10 top-4" > {{ glad.lastGain[0] }} </span>
         <span class="absolute z-50 right-10 top-24" id="growth" > {{ glad.lastGain[growthIndex] }} </span>
         <h1 :class="cardTitle">{{glad.name}} </h1>
@@ -37,7 +37,7 @@ import GladiatorStats from "./../components/modals/GladiatorStats.vue";
 import ClashSettings from "./../components/modals/ClashSettings.vue";
 import EquipmentScreen from "./../components/modals/EquipmentScreen.vue";
 import GladiatorTournament from "./../components/modals/GladiatorTournamentHistory.vue";
-import Chracter from "./../components/Character.vue"
+import Chracter from "../components/Character.vue"
 import DuelReplay from "../components/modals/DuelReplay.vue";
 
 import GladiatorMemories from "../components/modals/GladiatorMemories.vue";
@@ -47,6 +47,24 @@ export default {
     
   name: "GladiatorMain",
   data() {
+    this.jobToAnimate = function(job){
+      switch(job){
+        default:
+          let rando = ["walk","stand","push","pull","jump","run"];
+          let random = Math.floor(Math.random()*rando.length)
+          return rando[random]
+        }
+    }
+
+    this.jobDirection = function(job){
+      switch(job){
+        default:
+          let rando = ["up","down","left","right"];
+          let random = Math.floor(Math.random()*rando.length)
+          return rando[random]
+      }
+    }
+
     return {
       userData: auth.getUser(),
       growthIndex : 1,
@@ -84,7 +102,7 @@ export default {
   },
   async mounted() {
     this.ownerData = this.getOwner;
-    console.log( this.ownerData)
+    // console.log( this.ownerData)
 
     const { pause, resume, isActive } = useIntervalFn(() => {
       this.growthIndex++;

@@ -1,5 +1,5 @@
 <template>
-  <BaseModal class="absolute top-0 "  noClose="true">
+  <BaseModal noClose="true">
     <template v-slot:header>
       <h1>Login To Lanista</h1>
     </template>
