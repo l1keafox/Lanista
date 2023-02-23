@@ -30,6 +30,7 @@ function modStat4Effect(num,percent){
   let rtn = getRandomAround(num/100,percent);
   return rtn.toFixed()
 }
+
 function getRandomHair(){
   let version = Math.floor(Math.random()*14);
   const hairArray = ['bob1','bob2','dap1','flat','fro1','pon1','spk2']
@@ -48,7 +49,7 @@ function getRandomBody(){
 }
 
 function getRandomSex(){
-  const sexArray = ['m','f'];
+  const sexArray = ['m','m','m','m','m','f','f','f','f'];
   return sexArray[ Math.floor( Math.random()*sexArray.length ) ];
 }
 //C:\Users\Raymond\Desktop\ActJs\Lanista\server\assets\char_a_p1\char_a_p1_0bas_humn_v00.png
@@ -78,7 +79,7 @@ function createNewGladiator(gladType) {
         yearWin:0,
         age:1,
         hairChar: getRandomHair(),
-        bodyChar: getRandomBody(),
+        skinChar: getRandomBody(),
         sexChar: getRandomSex(),
         strength:rollDice(numDice,sideDice),
         dexterity:rollDice(numDice,sideDice),

@@ -12,8 +12,8 @@
       <div class="flex justify-around">
         <DuelSide :glad="gladOne" :roundInfo="report[cIndex][1]"/>
         <div class="w-[300px] flex flex-col justify-center items-center text-black">
-            {{ report[cIndex].R.r }}:
-            {{ report[cIndex].R.w == 1 ? gladOne.name + "<" :   report[cIndex].R.w == 2 ? gladTwo.name + ">" : "" }}
+            <!-- {{ report[cIndex].R.r }}: -->
+            {{ report[cIndex].R.w == 1 ?  "<<<<"+ gladOne.name :   report[cIndex].R.w == 2 ? gladTwo.name + ">>>>" : "" }}
         </div>
         <DuelSide :glad="gladTwo" :roundInfo="report[cIndex][2]"/>
       </div>
@@ -26,7 +26,7 @@
       :class="btnDecor"
       type="button"
       v-on:click="
-        cIndex = 1;
+        cIndex = 0;
         updateStats();
       ">
       Restart
@@ -91,7 +91,7 @@ const props = defineProps({
 const btnDecor = "text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
 
 let report = props.report;
-const cIndex = ref(1);
+const cIndex = ref(0);
 
 async function blah(duelId){
   const apiCall = inject("apiCall");
@@ -108,6 +108,7 @@ if (props.duelId) {
   report = await blah(props.duelId)
   console.log(report);
 }
+
 
 
 const winner = ref("")
@@ -159,22 +160,49 @@ function updateStats(){
 
 const gladOne = reactive(doStart(report.k[1],1));
 const gladTwo = reactive(doStart(report.k[2],2));
+
+// hard coding round 0, 
+report[0] = {
+  1:{
+    e: {
+      pt:{
+        h: gladOne.maxHits,
+        m: gladOne.maxMorale,
+        s: gladOne.maxStamina
+      }
+    }
+  },
+  2:{
+    e: {
+      pt:{
+        h: gladTwo.maxHits,
+        m: gladTwo.maxMorale,
+        s: gladTwo.maxStamina
+      }
+    }
+  },
+  R:{
+    r: "t"
+  }
+}
 updateStats();
 
 function backRound(){
 			cIndex.value--;
-			if (cIndex.value < 1) cIndex.value = 1;
+			if (cIndex.value < 0) cIndex.value = 0;
 			updateStats();
 }
 
 const { pause, resume, isActive } = useIntervalFn(() => {
   forwardRound();
 }, 2000)
+pause();
 
 function pausePlay(){
   if(isActive.value){
     pause();
   } else {
+    cIndex.value++;
     resume();
   }
 }

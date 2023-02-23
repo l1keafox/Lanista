@@ -13,20 +13,20 @@ class State {
     this.generateState("stand","Up",[0]);
     this.generateState("stand","Down",[0]);
 
-    this.generateState("push","Left",[0,1]);
-    this.generateState("push","Right",[0,1]);
-    this.generateState("push","Up",[0,1]);
-    this.generateState("push","Down",[0,1]);
+    this.generateState("push","Left",[0,0,1,1]);
+    this.generateState("push","Right",[0,0,1,1]);
+    this.generateState("push","Up",[0,0,1,1]);
+    this.generateState("push","Down",[0,0,1,1]);
 
-    this.generateState("pull","Left",[0,1]);
-    this.generateState("pull","Right",[0,1]);
-    this.generateState("pull","Up",[0,1]);
-    this.generateState("pull","Down",[0,1]);
+    this.generateState("pull","Left",[0,0,0,1,1,1]);
+    this.generateState("pull","Right",[0,0,0,1,1,1]);
+    this.generateState("pull","Up",[0,0,0,1,1,1]);
+    this.generateState("pull","Down",[0,0,0,1,1,1]);
 
-    this.generateState("run","Left",[0,1]);
-    this.generateState("run","Right",[0,1]);
-    this.generateState("run","Up",[0,1]);
-    this.generateState("run","Down",[0,1]);
+    this.generateState("run","Left",[0,1,2,3,4,5]);
+    this.generateState("run","Right",[0,1,2,3,4,5]);
+    this.generateState("run","Up",[0,1,2,3,4,5]);
+    this.generateState("run","Down",[0,1,2,3,4,5]);
 
     this.generateState("jump","Left",[0,1,2,0]);
     this.generateState("jump","Right",[0,1,2,0]);
@@ -34,11 +34,11 @@ class State {
     this.generateState("jump","Down",[0,1,2,0]);
 
   }
-  generateState(animation,direction, arrayIndex){
+  generateState(animation, direction, arrayIndex, frames){
     animation = animation.toLowerCase();
     direction = direction.toLowerCase();
     direction = direction.toLowerCase().charAt(0).toUpperCase() + direction.slice(1)
-
+    if(!frames) frames = 135;
     if (!this.states[animation]){
       this.states[animation] = {};
     }
@@ -46,6 +46,7 @@ class State {
         this.states[animation][direction] = {
           indexName: animation+direction,
           animationArray: arrayIndex,
+          frames
         }
       }
   }
