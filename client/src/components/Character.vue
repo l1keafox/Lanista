@@ -37,7 +37,6 @@ const {direction,animation,gladName,clothes} = defineProps({
   }
 })
 
-console.log(clothes);
 const State = AniState;
 State.genDefaultState();
 
@@ -67,7 +66,10 @@ onMounted(async () => {
  
   const imageArray = [bodyImage,hairImage,underImage];
 
-
+  // const json = 
+  // const rpns = await fetch(apiCall.value+'/assets/animation-data/hume2.json');
+  // const json = await rpns.json();
+  // console.log(json);
 	function animate(state) {
 		const frameInfo = json.find(
 			(entry) => entry.name == state.indexName + state.animationArray[frameIndex]
