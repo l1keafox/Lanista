@@ -3,6 +3,7 @@
 		<HeaderVue @logged="update" :tickTimer="toNextTick" />
 		<div class="flex h-[calc(100vh-120px)] w-full">
 			<SideNav @logged="update" @changeMain="changeStage" />
+				<!-- <Char2/> -->
 			<component :is="mainStage" />
 		</div>
 	</div>
