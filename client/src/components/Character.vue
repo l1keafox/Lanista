@@ -6,13 +6,11 @@
 import json from "../assets/animation-data/hume1.json";
 import { ref, onMounted , defineProps } from "vue";
 
-import bodySheet from "./../assets/char_a_p1/char_a_p1_0bas_humn_v00.png";
-import hairSheet from "./../assets/char_a_p1/4har/char_a_p1_4har_bob1_v01.png";
-import underSheet from "./../assets/body1.png";
-
 import { useIntervalFn } from "@vueuse/core";
 import AniState from "../composables/AnimateState";
+import { inject } from 'vue'
 
+const apiCall = inject('apiCall');
 /* Interface 
 
 gladName : required due to 
@@ -43,21 +41,27 @@ const {direction,animation,gladName} = defineProps({
 const State = AniState;
 State.genDefaultState();
 
-onMounted(() => {
+onMounted(async () => {
+
 	const canvas = document.getElementById(gladName);
 	const context = canvas.getContext("2d");
 	let width = (canvas.width = 64);
 	let height = (canvas.height = 64);
 	let frameIndex = 0;
 
-	// bodyImage.src = "./../assets/char_a_p1/char_a_p1_0bas_humn_v00.png";
-	const bodyImage = new Image();
-	      bodyImage.src = bodySheet;
-  const hairImage = new Image();
-        hairImage.src = hairSheet;
-  const underImage = new Image();
-        underImage.src = underSheet;
-  const imageArray = [bodyImage,hairImage,underImage];
+  function createImg(url){
+    const thisImage = new Image();
+        thisImage.src = apiCall.value+url;
+    return thisImage;  
+  }
+	const bodyImage = createImg("/assets/char_a_p1/char_a_p1_0bas_humn_v10.png")
+  
+  // const hairImage = new Image();
+  //       hairImage.src = hairSheet;
+  // const underImage = new Image();
+  //       underImage.src = underSheet;
+  //,hairImage,underImage
+  const imageArray = [bodyImage];
 
 
 	function animate(state) {

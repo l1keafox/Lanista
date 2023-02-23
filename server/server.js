@@ -4,6 +4,7 @@ require('dotenv').config({});
 const userRouter = require('./src/routers/users');
 const gladiatorRouter = require('./src/routers/gladiators');
 const ownerRouter = require('./src/routers/owner');
+// const assetsRouter = require('./src/routers/assets');
 
 const db = require("./src/config/connection");
 const cors = require('cors');
@@ -29,6 +30,9 @@ app.use(express.json());
 app.use(userRouter);
 app.use(gladiatorRouter);
 app.use(ownerRouter);
+app.use(express.static('public')); 
+app.use('/assets', express.static('assets'));
+// app.use(assetsRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/dist")));
