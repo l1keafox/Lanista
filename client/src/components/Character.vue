@@ -4,9 +4,9 @@
 
 <script setup>
 import keyMapJson from "../assets/animation-data/p1.json";
-import { onMounted, defineProps } from "vue";
+import { onMounted, defineProps, onUnmounted } from "vue";
 
-import { useIntervalFn } from "@vueuse/core";
+import { promiseTimeout, useTimeout } from "@vueuse/core";
 import { inject, toRefs } from "vue";
 import keyFrames from "./../assets/animation-data/AnimeKeyframes.json";
 import createImg2 from "./../composables/AnimateFrames";
@@ -43,11 +43,13 @@ const props = defineProps({
 	},
 });
 
-const { direction, animation } = toRefs(props)
+const { direction, animation } = toRefs(props);
 const gladName = props.gladName;
 const clothes = props.clothes;
-console.log( direction, animation, gladName, clothes)
-
+let timeOut;
+onUnmounted(async()=>{
+	clearTimeout(timeOut)
+})
 onMounted(async () => {
 	const canvas = document.getElementById(gladName);
 	const context = canvas.getContext("2d");
@@ -81,11 +83,13 @@ onMounted(async () => {
 	function goGetFrameInfo(research) {
 		let { direction, animation } = research;
 		let strDirection = direction.value.toLowerCase();
-		strDirection = strDirection.toLowerCase().charAt(0).toUpperCase() + strDirection.slice(1);
+		strDirection =
+			strDirection.toLowerCase().charAt(0).toUpperCase() +
+			strDirection.slice(1);
 		return Array.from(keyFrames[animation.value][strDirection]);
 	}
 
-	function addNextFrame(){
+	function addNextFrame() {
 		//
 		//			Here we create newKeyFrames to add on to keyFrameArray
 		//
@@ -108,13 +112,13 @@ onMounted(async () => {
 		newKeyFrames = newKeyFrames.map((keyFrame) => {
 			// here we now look for frame Data from JSON
 			// Here we need to look at the key to determine what keyMapJson it should be using.
-			switch(keyFrame.key){
+			switch (keyFrame.key) {
 				case "p1":
 					keyFrame.frameData = keyMapJson[keyFrame.fNm];
 					return keyFrame;
 				default:
 					keyFrame.frameData = keyMapJson[keyFrame.fNm];
-				return keyFrame;
+					return keyFrame;
 			}
 		});
 
@@ -126,7 +130,6 @@ onMounted(async () => {
 		if (keyFrameArray.length < 20)
 			keyFrameArray = keyFrameArray.concat(newKeyFrames);
 
-		
 		// Now that should be looking rlike above.
 
 		/*
@@ -150,7 +153,7 @@ onMounted(async () => {
 		addNextFrame();
 	}
 
-	function getOutfitURL(clothes,key) {
+	function getOutfitURL(clothes, key) {
 		// if (!clothes)
 		// 	return createImg2(
 		// 		`/assets/char_a_${key}/1out/char_a_${key}_1out_fstr_v02.png`,
@@ -162,7 +165,7 @@ onMounted(async () => {
 		// 		`/assets/char_a_${key}/1out/char_a_${key}_1out_fstr_v02.png`,
 		// 		apiCall.value
 		// 	);
-		// } else 
+		// } else
 		if (clothes && clothes.sex == "m") {
 			return createImg2(
 				`/assets/char_a_${key}/1out/char_a_${key}_1out_boxr_v01.png`,
@@ -177,32 +180,38 @@ onMounted(async () => {
 		return null;
 	}
 
-	function getSkinURL(clothes,key) {
+	function getSkinURL(clothes, key) {
 		if (!clothes || !clothes.skin)
 			return createImg2(
 				`/assets/char_a_p1/char_a_p1_0bas_demn_v02.png`,
 				apiCall.value
 			);
-//  return `char_a_p1/char_a_p1_0bas_humn_v${rando}.png`;			
-			return createImg2(`/assets/char_a_${key}/char_a_${key}_0bas_${clothes.skin}`, apiCall.value);
-		}
-	function getHairURL(clothes,key) {
+		//  return `char_a_p1/char_a_p1_0bas_humn_v${rando}.png`;
+		return createImg2(
+			`/assets/char_a_${key}/char_a_${key}_0bas_${clothes.skin}`,
+			apiCall.value
+		);
+	}
+	function getHairURL(clothes, key) {
 		if (!clothes || !clothes.skin)
 			return createImg2(
 				`/assets/char_a_p1/4har/char_a_p1_4har_dap1_v02.png`,
 				apiCall.value
 			);
 		//return `${type}_v${version}.png`;
-		return createImg2(`/assets/char_a_${key}/4har/char_a_${key}_4har_${clothes.hair}`, apiCall.value);
+		return createImg2(
+			`/assets/char_a_${key}/4har/char_a_${key}_4har_${clothes.hair}`,
+			apiCall.value
+		);
 	}
 
 	// This is the array of which the canvas will be painted via image.
 	const imageArray = [
-		getSkinURL(clothes,keyFrameArray[0].key), //		skinLayer, 0bot (sub-layer, fully behind the character sprite)
-		getOutfitURL(clothes,keyFrameArray[0].key), //   createImg(`/assets/${clothes.skin}`); // 1out (outfit, lowest layer)
+		getSkinURL(clothes, keyFrameArray[0].key), //		skinLayer, 0bot (sub-layer, fully behind the character sprite)
+		getOutfitURL(clothes, keyFrameArray[0].key), //   createImg(`/assets/${clothes.skin}`); // 1out (outfit, lowest layer)
 		null, //   createImg(`/assets/${clothes.skin}`); // 2clo (cloaks, capes, and mantles)
 		null, //   createImg(`/assets/${clothes.skin}`); // 3fac (face items, like glasses and masks)
-		getHairURL(clothes,keyFrameArray[0].key), //4har (hair)
+		getHairURL(clothes, keyFrameArray[0].key), //4har (hair)
 		null, //   createImg(`/assets/${clothes.skin}`); //5hat (hats and hoods)
 		null, //   createImg(`/assets/${clothes.skin}`); //6tla (primary tool layer, weapons and such)
 		null, //   createImg(`/assets/${clothes.skin}`); //7tlb (secondary tool layer, shields and off-hand weapons, highest layer)
@@ -210,14 +219,20 @@ onMounted(async () => {
 
 	// console.log(keyFrameArray[0].fTm, "Doing first animate");
 
-		animate(keyFrameArray[0].frameData);
-		setTimeout(doNextFrame,keyFrameArray[0].fTm);
+	animate(keyFrameArray[0].frameData);
+
+	timeOut =	setTimeout(doNextFrame, keyFrameArray[0].fTm);
 
 	function doNextFrame() {
-		if(gladName == "Heidi Isa")
-		console.log(gladName,'Doing imag eneed key?',keyFrameArray[0],keyFrameArray.length)
-			keyFrameArray.shift();
-	// here we should o an setTimeout
+		// if (gladName == "Heidi Isa")
+		// 	console.log(
+		// 		gladName,
+		// 		"Doing imag eneed key?",
+		// 		keyFrameArray[0],
+		// 		keyFrameArray.length
+		// 	);
+		keyFrameArray.shift();
+		// here we should o an setTimeout
 
 		// we will need an objectMap, to point which frameName matches with png/json and return acutal path.
 		// const keyMap = {
@@ -235,15 +250,15 @@ onMounted(async () => {
 		// #### HERE IS WHERE YOU WILL WANT TO CODE NEXT STUFF ####
 
 		// This is when you shift() keyFrameArray to get rid of the 0 posistion.
-		
+
 		context.clearRect(0, 0, width, height);
-		if(keyFrameArray[0]){
+		if (keyFrameArray[0]) {
 			animate(keyFrameArray[0].frameData);
-			setTimeout(doNextFrame,keyFrameArray[0].fTm);
+			timeOut =	setTimeout(doNextFrame, keyFrameArray[0].fTm);
 		} else {
-			addNextFrame()
+			addNextFrame();
 			animate(keyFrameArray[0].frameData);
-			setTimeout(doNextFrame,keyFrameArray[0].fTm);
+			timeOut =	setTimeout(doNextFrame, keyFrameArray[0].fTm);
 		}
 
 		// Once animation array is cleared it will go back to standing or it can loop?
