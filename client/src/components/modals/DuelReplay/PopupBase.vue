@@ -42,16 +42,20 @@ let remove = 2000;
 update()
 onUpdated(() => {
   // text content should be the same as current `count.value`
+	console.log('upda?')
 	update()
 	remove = 2000;
 })
-setTimeout(() => {
+
+setInterval(() => {
   // this is where we should trigger the removal.
 	remove-=100;
+	console.log('upda?',remove,showSelf.value)
 	if(remove < 0){
 		showSelf.value = false;
 	}
 }, 100);
+
 
 </script>
 

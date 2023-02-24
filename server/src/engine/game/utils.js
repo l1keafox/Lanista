@@ -38,14 +38,16 @@ function getRandomHair(){
     version = "0"+version;
   } 
   let type =hairArray[ Math.floor( Math.random()*hairArray.length ) ];
-  return `char_a_p1/4har/char_a_p1_4har_${type}_v${version}.png`;
+  return `${type}_v${version}.png`;
+  //return `char_a_p1/4har/char_a_p1_4har_${type}_v${version}.png`;
 }
 function getRandomBody(){
-  let rando = Math.ceil( Math.random()*10 );
-  if(rando < 10){
-    rando = "0"+rando;
+  let bodyType = Math.ceil( Math.random()*10 );
+  if(bodyType < 10){
+    bodyType = "0"+bodyType;
   } 
-  return `char_a_p1/char_a_p1_0bas_humn_v${rando}.png`;
+  return `humn_v${bodyType}.png`;
+//  return `char_a_p1/char_a_p1_0bas_humn_v${rando}.png`;
 }
 
 function getRandomSex(){

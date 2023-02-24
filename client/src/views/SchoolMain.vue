@@ -12,10 +12,11 @@
       <hr/>
 
       <div v-if="trainingData" class="flex overflow-x-auto">
-        <div v-for="train in trainingData" :key="train" :class="smallCard"> 
-          <h1 :class="cardTitle">{{train.training}} </h1>
-          <hr/>
+        <div v-for="train in trainingData" :key="train" :class="smallCard" class="flex justify-between"> 
+          <h1 :class="cardTitle">{{train.training}} <hr/> </h1>
+          
           <p> {{train.description}}</p>
+          <button class="bg-red-500 text-black"> disable</button>
         </div>
       </div>
       <hr/>

@@ -94,7 +94,38 @@ export default {
 						}
 					);
 					const oData = await rpnse.json();
-					this.ownerData = oData.owner;
+
+					// What this piece of code below is instead of shocking gladiators and 
+					// creating new array with new refs, lets just update the old one
+					// this should trigger refs better than recreating it completely.
+					if(this.ownerData){
+						for(let index in oData.owner){
+							if(oData.owner[index] != this.ownerData[index]){
+								if(!oData.owner[index].length){
+									this.ownerData[index] = oData.owner[index]
+								} else if(index == 'gladiators'){
+									for(let gladIndex in oData.owner[index]){
+										let thisOne = oData.owner[index][gladIndex];
+										let oldOne = this.ownerData[index][gladIndex];
+
+											for(let info in thisOne){
+												if(info == 'lastGain'){
+													oldOne[info] = thisOne[info];
+												} else if(thisOne[info] != oldOne[info] ) {
+													oldOne[info] = thisOne[info];
+												}
+											}
+
+									}
+								} else if(oData.owner[index].length != this.ownerData[index].length ) {
+									this.ownerData[index] = oData.owner[index]
+								}
+							}
+						}
+					} else {
+						this.ownerData = oData.owner;
+					}
+
 					this.timeData = oData.time;
 					this.countDown = this.timeTimer;
 
