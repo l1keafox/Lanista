@@ -1,0 +1,44 @@
+{
+	"walk": {
+		"Up": [
+			{ "fNm": "walkUp0", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkUp1", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkUp2", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkUp3", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkUp4", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkUp5", "fTm": 135 , "key":"p1"  }
+		],
+		"Down": [
+			{ "fNm": "walkDown0", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkDown1", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkDown2", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkDown3", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkDown4", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkDown5", "fTm": 135 , "key":"p1"  }
+		],
+		"Left": [
+			{ "fNm": "walkLeft0", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkLeft1", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkLeft2", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkLeft3", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkLeft4", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkLeft5", "fTm": 135 , "key":"p1"  }
+		],
+		"Right": [
+			{ "fNm": "walkRight0", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkRight1", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkRight2", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkRight3", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkRight4", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkRight5", "fTm": 135 , "key":"p1"  }
+		]    
+	},
+
+	"run": {
+		"up": [
+			{ "fNm": "walkUp1", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "walkUp2", "fTm": 135 , "key":"p1"  },
+			{ "fNm": "runUp1", "fTm": 135 , "key":"p1"  }
+		]
+	}  
+}
