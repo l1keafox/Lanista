@@ -45,6 +45,22 @@
   "training":["agiRoom4"]
 },
 
+"dexRoom1":{
+  "description":"Placeholder for dex gain - tier 1",
+  "training":["dexRoom1"]
+},
+"dexRoom2":{
+  "description":"Placeholder for dex gain, no gain gold",
+  "training":["dexRoom2"]
+},
+"dexRoom3":{
+  "description":"Placeholder for dex gain, cost little gold/stats",
+  "training":["dexRoom3"]
+},
+"dexRoom4":{
+  "description":"Placeholder for dex gain, cost high gold/stats",
+  "training":["dexRoom4"]
+},
 
 
 
@@ -154,7 +170,22 @@
   "description":"Placeholder for pie gain, cost high gold/stats",
   "training":["pieRoom4"]
 },
-
+"senRoom1":{
+  "description":"Placeholder for sen gain - tier 1",
+  "training":["senRoom1"]
+},
+"senRoom2":{
+  "description":"Placeholder for sen gain, no gain gold",
+  "training":["senRoom2"]
+},
+"senRoom3":{
+  "description":"Placeholder for sen gain, cost little gold/stats",
+  "training":["senRoom3"]
+},
+"senRoom4":{
+  "description":"Placeholder for sen gain, cost high gold/stats",
+  "training":["senRoom4"]
+},
 
 "lucRoom1":{
   "description":"Placeholder for luc gain - tier 1",

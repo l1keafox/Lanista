@@ -58,6 +58,7 @@
 		</div>
 		<hr />
 		<h2> Spar against an person's gladiator</h2>
+		<h3 class="text-red-700"> NOT WORKING </h3>
 		<div>
 			Id:
 			<InputField/>

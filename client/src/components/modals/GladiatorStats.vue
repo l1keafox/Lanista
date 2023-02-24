@@ -4,7 +4,7 @@
       <h1 v-if="gladiatorData" class="text-3xl font-semibold">
         {{ gladiatorData.name }}
       </h1>
-      <h2  class="text-lg font-semibold">
+      <h2 v-if="gladiatorData" class="text-lg font-semibold">
         Id: {{ gladiatorData._id }}
       </h2>
 

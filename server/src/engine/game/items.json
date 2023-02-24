@@ -1,8 +1,4 @@
 {
-  "gladius":{
-    "slot":"mainHand",
-    "abilities":["slash"]
-  },
   "galea":{
     "slot":"head",
     "abilities":["taunt"]
@@ -15,18 +11,48 @@
     "slot":"head",
     "abilities":["insult"]
   },
+  "helm01":{
+    "slot":"head",
+    "abilities":["helm01"]
+  },
+  "helm02":{
+    "slot":"head",
+    "abilities":["helm02"]
+  },
+  "helm03":{
+    "slot":"head",
+    "abilities":["helm03"]
+  },
+
+
+
   "clothArmor":{
     "slot":"body",
     "abilities":["dodge"]
-  },
-  "mace":{
-    "slot":"mainHand",
-    "abilities":["bash"]
   },
   "plateArmor":{
     "slot":"body",
     "abilities":["brace"]
   },
+  "body01":{
+    "slot":"body",
+    "abilities":["body01"]
+  },
+  "body02":{
+    "slot":"body",
+    "abilities":["body02"]
+  },
+  "body03":{
+    "slot":"body",
+    "abilities":["body03"]
+  },
+  "body04":{
+    "slot":"body",
+    "abilities":["body03"]
+  },
+
+
+
   "mediumShield":{
     "slot":"offHand",
     "abilities":["block"]
@@ -43,6 +69,15 @@
     "slot":"offHand",
     "abilities":["parry"]
   },
+  "offHand01":{
+    "slot":"offHand",
+    "abilities":["offHand01"]
+  },
+  "offHand02":{
+    "slot":"offHand",
+    "abilities":["offHand02"]
+  },
+
   "shortBoots":{
     "slot":"boots",
     "abilities":["kick"]
@@ -51,7 +86,33 @@
     "slot":"boots",
     "abilities":["knee"]
   },
-  
+  "boots01":{
+    "slot":"boots",
+    "abilities":["boots01"]
+  },
+  "boots02":{
+    "slot":"boots",
+    "abilities":["boots02"]
+  },
+  "boots03":{
+    "slot":"boots",
+    "abilities":["boots03"]
+  },
+  "boots04":{
+    "slot":"boots",
+    "abilities":["boots04"]
+  },
+
+
+
+  "gladius":{
+    "slot":"mainHand",
+    "abilities":["slash"]
+  },
+  "mace":{
+    "slot":"mainHand",
+    "abilities":["bash"]
+  },
   "shortSpear":{
     "slot":"mainHand",
     "abilities":["stab","backstab"],
