@@ -1,18 +1,41 @@
 {
-  "weights": {
-    "description": "Weight Training in weightRoom",
+  "strRoom1":{
+    "description":"Placeholder for str gain - tier 1",
     "strength": {
       "min": 10,
       "max": 20,
       "growth": true
-    },
-    "charisma": {
-      "min": 5,
-      "max": 10,
+    }
+  },
+  "strRoom2":{
+    "description":"Placeholder for str gain, no gain gold",
+    "strength": {
+      "min": 20,
+      "max": 30,
       "growth": true
     }
 
+  },
+  "strRoom3":{
+    "description":"Placeholder for str gain, cost little gold/stats",
+    "strength": {
+      "min": 30,
+      "max": 50,
+      "growth": true
+    },
+    "goldCost": 50 
+
+  },
+  "strRoom4":{
+    "description":"Placeholder for str gain, cost high gold/stats",
+    "strength": {
+      "min": 40,
+      "max": 60,
+      "growth": true
+    }
   },  
+
+
   "chopWood": {
     "description": "Chopping Wood to increase strength, constiution and gold",
     "strength": {
@@ -134,4 +157,9 @@
       "growth": true
     }
   }
+
+
+
+
+
 }

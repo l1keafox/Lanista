@@ -13,7 +13,7 @@
   },
   "strRoom1":{
     "description":"Placeholder for str gain - tier 1",
-    "training":["weights"]
+    "training":["strRoom1"]
   },
   "strRoom2":{
     "description":"Placeholder for str gain, no gain gold",

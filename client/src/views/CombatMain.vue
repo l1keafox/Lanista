@@ -57,7 +57,14 @@
 
 		</div>
 		<hr />
-		
+		<h2> Spar against an person's gladiator</h2>
+		Text input for an document Id
+		<button
+		class="bg-yellow-200 text-emerald-800 w-48 p-2 m-2"
+		@click="doMemory">
+			Fight Memory
+		</button>
+
 		<div v-if="isModalShown">
 			<Suspense>
 			<DuelReplay
