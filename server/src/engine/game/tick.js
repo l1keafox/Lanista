@@ -51,7 +51,7 @@ module.exports = {
 		// Why not have it optional?
 		let allGladiators = await Gladiator.find();
 		date.gladNum = allGladiators.length;
-		doPointRanking(allGladiators)
+		
 		let ownersGain = {};
 		if (date.weekDay == 7) {
 			const startOfTick = new Date();
@@ -119,6 +119,7 @@ module.exports = {
 			await gameDate.addDay(); // This will set it to the next day.
 			if(date.day == 28){
 				clearSaves()
+				doPointRanking(allGladiators)
 			}
 
 		} else {

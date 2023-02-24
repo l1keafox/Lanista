@@ -8,7 +8,7 @@ module.exports = {
       'neo': ['GFS Neohellenic', 'sans-serif'],
       'lux': ['Luxurious Roman', 'cursive'],
       'baby': [ 'Shantell Sans', 'cursive'],
-      
+      '8bit': ['Press Start 2P', 'cursive']
     },
   },
   plugins: [
