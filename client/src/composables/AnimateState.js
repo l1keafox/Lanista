@@ -3,25 +3,6 @@ class State {
     this.states= {}
   }
   genDefaultState(){
-    this.generateState("walk","Left",[0,1,2,3,4,5]);
-    this.generateState("walk","Right",[0,1,2,3,4,5]);
-    this.generateState("walk","Up",[0,1,2,3,4,5]);
-    this.generateState("walk","Down",[0,1,2,3,4,5]);
-
-    this.generateState("stand","Left",[0]);
-    this.generateState("stand","Right",[0]);
-    this.generateState("stand","Up",[0]);
-    this.generateState("stand","Down",[0]);
-
-    this.generateState("push","Left",[0,0,1,1]);
-    this.generateState("push","Right",[0,0,1,1]);
-    this.generateState("push","Up",[0,0,1,1]);
-    this.generateState("push","Down",[0,0,1,1]);
-
-    this.generateState("pull","Left",[0,0,0,1,1,1]);
-    this.generateState("pull","Right",[0,0,0,1,1,1]);
-    this.generateState("pull","Up",[0,0,0,1,1,1]);
-    this.generateState("pull","Down",[0,0,0,1,1,1]);
 
     this.generateState("run","Left",[0,1,2,3,4,5]);
     this.generateState("run","Right",[0,1,2,3,4,5]);

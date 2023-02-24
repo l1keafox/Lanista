@@ -12,8 +12,7 @@
       <Character :gladName="thisGuy.id" animation="stand" class="h-[16rem] w-[16rem] bottom-16"/>
       <ClashDetail :roundInfo="roundInfo" class=" bg-yellow-100 " />
       <template v-if="thisGuy.dmg" >
-        {{ thisGuy.dmg }}
-        <Popup :dmg="thisGuy.dmg" class=" "/>
+        <Popup :dmg="thisGuy.dmg" class="pup "/>
       </template>
   </template>
   </div>
