@@ -90,8 +90,8 @@ onMounted(async () => {
       const research = nextFrameArray[0];
       	// Taking the request, it should now ask for frame information
 	      // Looking at a JSON file, it will be frameName and frameTime in an array.
-        doFrameArray = goGetFrameInfo(research);
-	      // doFrameArray = [{frameName:null, frameTime: 100}]
+        newDoFrameArray = goGetFrameInfo(research);
+	      // newDoFrameArray = [{frameName:null, frameTime: 100}]
         // doFrameArray.push
 
 	      // next taking that array above and finding the frameData 
@@ -112,12 +112,14 @@ onMounted(async () => {
 
 	    // next taking that decodeJson above and finding the frameData 
 
-      //doFrameArray =[{frameName:null, frameTime: 100, frameData:{"anime": "jumpUp2",json:"jsonKey", png:"pngKey", "x": 448, "y": 64, "width": 64, "height": 64 }}]
+      //newDoFrameArray =[{frameName:null, frameTime: 100, frameData:{"anime": "jumpUp2",json:"jsonKey", png:"pngKey", "x": 448, "y": 64, "width": 64, "height": 64 }}]
 
       // Now that should be looking rlike above.
     	// we will need an objectMap, to point which frameName matches with png/json and return acutal path.
 
 
+      // Once the newDoFrameArray is done,
+      // concat it with doFrameArray;
 
       	// Once it has that array filled with doFrameArray,
         // It will count how much time has passed 

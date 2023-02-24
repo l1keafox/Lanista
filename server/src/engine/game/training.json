@@ -36,6 +36,450 @@
   },  
 
 
+  "agiRoom1":{
+    "description":"Placeholder for agi gain - tier 1",
+    "agility": {
+      "min": 10,
+      "max": 20,
+      "growth": true
+    }
+  },
+  "agiRoom2":{
+    "description":"Placeholder for agi gain, no gain gold",
+    "agiength": {
+      "min": 20,
+      "max": 30,
+      "growth": true
+    }
+
+  },
+  "agiRoom3":{
+    "description":"Placeholder for agi gain, cost little gold/stats",
+    "agiength": {
+      "min": 30,
+      "max": 50,
+      "growth": true
+    },
+    "goldCost": 50 
+
+  },
+  "agiRoom4":{
+    "description":"Placeholder for agi gain, cost high gold/stats",
+    "agiength": {
+      "min": 40,
+      "max": 60,
+      "growth": true
+    }
+  },  
+
+
+  "dexRoom1":{
+    "description":"Placeholder for dex gain - tier 1",
+    "dexterity": {
+      "min": 10,
+      "max": 20,
+      "growth": true
+    }
+  },
+  "dexRoom2":{
+    "description":"Placeholder for dex gain, no gain gold",
+    "dexterity": {
+      "min": 20,
+      "max": 30,
+      "growth": true
+    }
+
+  },
+  "dexRoom3":{
+    "description":"Placeholder for dex gain, cost little gold/stats",
+    "dexterity": {
+      "min": 30,
+      "max": 50,
+      "growth": true
+    },
+    "goldCost": 50 
+
+  },
+  "dexRoom4":{
+    "description":"Placeholder for dex gain, cost high gold/stats",
+    "dexterity": {
+      "min": 40,
+      "max": 60,
+      "growth": true
+    }
+  },  
+
+
+  "conRoom1":{
+    "description":"Placeholder for con gain - tier 1",
+    "constitution": {
+      "min": 10,
+      "max": 20,
+      "growth": true
+    }
+  },
+  "conRoom2":{
+    "description":"Placeholder for con gain, no gain gold",
+    "constitution": {
+      "min": 20,
+      "max": 30,
+      "growth": true
+    }
+
+  },
+  "conRoom3":{
+    "description":"Placeholder for con gain, cost little gold/stats",
+    "constitution": {
+      "min": 30,
+      "max": 50,
+      "growth": true
+    },
+    "goldCost": 50 
+
+  },
+  "conRoom4":{
+    "description":"Placeholder for con gain, cost high gold/stats",
+    "constitution": {
+      "min": 40,
+      "max": 60,
+      "growth": true
+    }
+  },  
+
+
+  "vitRoom1":{
+    "description":"Placeholder for vit gain - tier 1",
+    "vitality": {
+      "min": 10,
+      "max": 20,
+      "growth": true
+    }
+  },
+  "vitRoom2":{
+    "description":"Placeholder for vit gain, no gain gold",
+    "vitality": {
+      "min": 20,
+      "max": 30,
+      "growth": true
+    }
+
+  },
+  "vitRoom3":{
+    "description":"Placeholder for vit gain, cost little gold/stats",
+    "vitality": {
+      "min": 30,
+      "max": 50,
+      "growth": true
+    },
+    "goldCost": 50 
+
+  },
+  "vitRoom4":{
+    "description":"Placeholder for vit gain, cost high gold/stats",
+    "vitality": {
+      "min": 40,
+      "max": 60,
+      "growth": true
+    }
+  },  
+
+
+  "intRoom1":{
+    "description":"Placeholder for int gain - tier 1",
+    "intelligence": {
+      "min": 10,
+      "max": 20,
+      "growth": true
+    }
+  },
+  "intRoom2":{
+    "description":"Placeholder for int gain, no gain gold",
+    "intelligence": {
+      "min": 20,
+      "max": 30,
+      "growth": true
+    }
+
+  },
+  "intRoom3":{
+    "description":"Placeholder for int gain, cost little gold/stats",
+    "intelligence": {
+      "min": 30,
+      "max": 50,
+      "growth": true
+    },
+    "goldCost": 50 
+
+  },
+  "intRoom4":{
+    "description":"Placeholder for int gain, cost high gold/stats",
+    "intelligence": {
+      "min": 40,
+      "max": 60,
+      "growth": true
+    }
+  },  
+
+
+  "wisRoom1":{
+    "description":"Placeholder for wis gain - tier 1",
+    "wisdom": {
+      "min": 10,
+      "max": 20,
+      "growth": true
+    }
+  },
+  "wisRoom2":{
+    "description":"Placeholder for wis gain, no gain gold",
+    "wisdom": {
+      "min": 20,
+      "max": 30,
+      "growth": true
+    }
+
+  },
+  "wisRoom3":{
+    "description":"Placeholder for wis gain, cost little gold/stats",
+    "wisdom": {
+      "min": 30,
+      "max": 50,
+      "growth": true
+    },
+    "goldCost": 50 
+
+  },
+  "wisRoom4":{
+    "description":"Placeholder for wis gain, cost high gold/stats",
+    "wisdom": {
+      "min": 40,
+      "max": 60,
+      "growth": true
+    }
+  },  
+
+
+  "braRoom1":{
+    "description":"Placeholder for bra gain - tier 1",
+    "bravery": {
+      "min": 10,
+      "max": 20,
+      "growth": true
+    }
+  },
+  "braRoom2":{
+    "description":"Placeholder for bra gain, no gain gold",
+    "bravery": {
+      "min": 20,
+      "max": 30,
+      "growth": true
+    }
+
+  },
+  "braRoom3":{
+    "description":"Placeholder for bra gain, cost little gold/stats",
+    "bravery": {
+      "min": 30,
+      "max": 50,
+      "growth": true
+    },
+    "goldCost": 50 
+
+  },
+  "braRoom4":{
+    "description":"Placeholder for bra gain, cost high gold/stats",
+    "bravery": {
+      "min": 40,
+      "max": 60,
+      "growth": true
+    }
+  },  
+
+
+  "pieRoom1":{
+    "description":"Placeholder for pie gain - tier 1",
+    "piety": {
+      "min": 10,
+      "max": 20,
+      "growth": true
+    }
+  },
+  "pieRoom2":{
+    "description":"Placeholder for pie gain, no gain gold",
+    "piety": {
+      "min": 20,
+      "max": 30,
+      "growth": true
+    }
+
+  },
+  "pieRoom3":{
+    "description":"Placeholder for pie gain, cost little gold/stats",
+    "piety": {
+      "min": 30,
+      "max": 50,
+      "growth": true
+    },
+    "goldCost": 50 
+
+  },
+  "pieRoom4":{
+    "description":"Placeholder for pie gain, cost high gold/stats",
+    "piety": {
+      "min": 40,
+      "max": 60,
+      "growth": true
+    }
+  },  
+
+
+  "senRoom1":{
+    "description":"Placeholder for sen gain - tier 1",
+    "sensitivity": {
+      "min": 10,
+      "max": 20,
+      "growth": true
+    }
+  },
+  "senRoom2":{
+    "description":"Placeholder for sen gain, no gain gold",
+    "sensitivity": {
+      "min": 20,
+      "max": 30,
+      "growth": true
+    }
+
+  },
+  "senRoom3":{
+    "description":"Placeholder for sen gain, cost little gold/stats",
+    "sensitivity": {
+      "min": 30,
+      "max": 50,
+      "growth": true
+    },
+    "goldCost": 50 
+
+  },
+  "senRoom4":{
+    "description":"Placeholder for sen gain, cost high gold/stats",
+    "sensitivity": {
+      "min": 40,
+      "max": 60,
+      "growth": true
+    }
+  },  
+
+
+  "lucRoom1":{
+    "description":"Placeholder for luc gain - tier 1",
+    "luck": {
+      "min": 10,
+      "max": 20,
+      "growth": true
+    }
+  },
+  "lucRoom2":{
+    "description":"Placeholder for luc gain, no gain gold",
+    "luck": {
+      "min": 20,
+      "max": 30,
+      "growth": true
+    }
+
+  },
+  "lucRoom3":{
+    "description":"Placeholder for luc gain, cost little gold/stats",
+    "luck": {
+      "min": 30,
+      "max": 50,
+      "growth": true
+    },
+    "goldCost": 50 
+
+  },
+  "lucRoom4":{
+    "description":"Placeholder for luc gain, cost high gold/stats",
+    "luck": {
+      "min": 40,
+      "max": 60,
+      "growth": true
+    }
+  },  
+
+
+  "repRoom1":{
+    "description":"Placeholder for rep gain - tier 1",
+    "reputation": {
+      "min": 10,
+      "max": 20,
+      "growth": true
+    }
+  },
+  "repRoom2":{
+    "description":"Placeholder for rep gain, no gain gold",
+    "reputation": {
+      "min": 20,
+      "max": 30,
+      "growth": true
+    }
+
+  },
+  "repRoom3":{
+    "description":"Placeholder for rep gain, cost little gold/stats",
+    "reputation": {
+      "min": 30,
+      "max": 50,
+      "growth": true
+    },
+    "goldCost": 50 
+
+  },
+  "repRoom4":{
+    "description":"Placeholder for rep gain, cost high gold/stats",
+    "reputation": {
+      "min": 40,
+      "max": 60,
+      "growth": true
+    }
+  },  
+
+
+  "chaRoom1":{
+    "description":"Placeholder for cha gain - tier 1",
+    "charisma": {
+      "min": 10,
+      "max": 20,
+      "growth": true
+    }
+  },
+  "chaRoom2":{
+    "description":"Placeholder for cha gain, no gain gold",
+    "charisma": {
+      "min": 20,
+      "max": 30,
+      "growth": true
+    }
+
+  },
+  "chaRoom3":{
+    "description":"Placeholder for cha gain, cost little gold/stats",
+    "charisma": {
+      "min": 30,
+      "max": 50,
+      "growth": true
+    },
+    "goldCost": 50 
+
+  },
+  "chaRoom4":{
+    "description":"Placeholder for cha gain, cost high gold/stats",
+    "charisma": {
+      "min": 40,
+      "max": 60,
+      "growth": true
+    }
+  },  
+
+
   "chopWood": {
     "description": "Chopping Wood to increase strength, constiution and gold",
     "strength": {
