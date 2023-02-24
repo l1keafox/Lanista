@@ -109,6 +109,30 @@
             "type":"altar",
             "fame":400,
             "cost":7500
-        }
+        },
+
+
+
+          {
+            "type":"agiRoom1",
+            "fame":2000,
+            "cost":1500
+          },
+          {
+            "type":"agiRoom2",
+            "fame":16000,
+            "cost":15000
+          },
+          {
+            "type":"agiRoom3",
+            "fame":128000,
+            "cost":127500
+          },
+          {
+            "type":"agiRoom4",
+            "fame":1016000,
+            "cost":1007500
+          }
+          
     ]
 }

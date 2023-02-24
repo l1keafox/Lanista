@@ -10,6 +10,7 @@ import { useIntervalFn } from "@vueuse/core";
 import AniState from "../composables/AnimateState";
 import { inject } from "vue";
 
+import createImg2 from "./../composables/AnimateFrames"
 const apiCall = inject("apiCall");
 /* Interface 
 
@@ -24,6 +25,7 @@ clothes: {
 }
 Default for now is that the character is centered.
 */
+console.log(createImg2);
 
 const { direction, animation, gladName, clothes } = defineProps({
 	clothes: {
@@ -52,31 +54,26 @@ onMounted(async () => {
 	let height = (canvas.height = 64);
 	let frameIndex = 0;
 
-	function createImg(url) {
-		const thisImage = new Image();
-		thisImage.src = apiCall.value + url;
-		return thisImage;
-	}
-
 	function getOutfitURL(clothes) {
-    if(!clothes) return createImg(`/assets/char_a_p1/1out/char_a_p1_1out_fstr_v02.png`);
+    if(!clothes) return createImg2(`/assets/char_a_p1/1out/char_a_p1_1out_fstr_v02.png`,apiCall.value);
 		if (clothes.body) {
 			// As time goes on here is where we will do equipment.
-			return createImg(`/assets/char_a_p1/1out/char_a_p1_1out_fstr_v02.png`);
+			return createImg2(`/assets/char_a_p1/1out/char_a_p1_1out_fstr_v02.png`,apiCall.value);
 		} else if (clothes.sex == "m") {
-			return createImg(`/assets/char_a_p1/1out/char_a_p1_1out_boxr_v01.png`);
+			return createImg2(`/assets/char_a_p1/1out/char_a_p1_1out_boxr_v01.png`,apiCall.value);
 		} else {
-			return createImg(`/assets/char_a_p1/1out/char_a_p1_1out_undi_v01.png`);
+			return createImg2(`/assets/char_a_p1/1out/char_a_p1_1out_undi_v01.png`,apiCall.value);
 		}
 		return null;
 	}
   function getSkinURL(clothes){
-    if(!clothes || !clothes.skin) return createImg(`/assets/char_a_p1/char_a_p1_0bas_demn_v02.png`);
-    return createImg(`/assets/${clothes.skin}`);
+
+    if(!clothes || !clothes.skin) return createImg2(`/assets/char_a_p1/char_a_p1_0bas_demn_v02.png`,apiCall.value);
+    return createImg2(`/assets/${clothes.skin}`,apiCall.value);
   }
   function getHairURL(clothes){
-    if(!clothes || !clothes.skin) return createImg(`/assets/char_a_p1/4har/char_a_p1_4har_dap1_v02.png`);
-    return createImg(`/assets/${clothes.hair}`)
+    if(!clothes || !clothes.skin) return createImg2(`/assets/char_a_p1/4har/char_a_p1_4har_dap1_v02.png`,apiCall.value);
+    return createImg2(`/assets/${clothes.hair}`,apiCall.value)
   }
 
 	const imageArray = [
