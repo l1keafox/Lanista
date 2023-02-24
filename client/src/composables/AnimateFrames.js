@@ -17,7 +17,7 @@ First an animation is requested. -> "Request"
   Looking at 0 pos of the array, look at what the frameData says and to do a setTime in frameTime
 */
 let cachePng;
-function createImg2(url,apiCalld){
+function createImg(url,apiCalld){
   if(!cachePng){
     cachePng = {};
   }
@@ -32,4 +32,4 @@ function createImg2(url,apiCalld){
   cachePng[url] = thisImage;
   return thisImage;
 }
-export default createImg2;
+export default createImg;
