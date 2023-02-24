@@ -58,12 +58,15 @@
 		</div>
 		<hr />
 		<h2> Spar against an person's gladiator</h2>
-		Text input for an document Id
-		<button
-		class="bg-yellow-200 text-emerald-800 w-48 p-2 m-2"
-		@click="doMemory">
-			Fight Memory
-		</button>
+		<div>
+			Id:
+			<InputField/>
+			<button
+			class="bg-yellow-200 text-emerald-800 w-48 p-2 m-2"
+			@click="doMemory">
+				Fight Gladiator
+			</button>
+		</div>
 
 		<div v-if="isModalShown">
 			<Suspense>
@@ -78,11 +81,14 @@
 
 <script>
 import DuelReplay from "../components/modals/DuelReplay.vue";
+import InputField from "../components/InputField.vue";
+
 import auth from "./../mixins/auth";
 export default {
 	name: "CombatMain",
 	components: {
 		DuelReplay,
+		InputField,
 	},
 	data() {
 		return {

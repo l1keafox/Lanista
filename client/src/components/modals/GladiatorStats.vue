@@ -1,9 +1,12 @@
 <template>
   <BaseModal>
     <template v-slot:header>
-      <h3 v-if="gladiatorData" class="text-3xl font-semibold">
+      <h1 v-if="gladiatorData" class="text-3xl font-semibold">
         {{ gladiatorData.name }}
-      </h3>
+      </h1>
+      <h2  class="text-lg font-semibold">
+        Id: {{ gladiatorData._id }}
+      </h2>
 
     </template>
 
@@ -57,6 +60,7 @@
     </template>
 
     <template v-slot:footer>
+      
     </template>
   </BaseModal>
 </template>
