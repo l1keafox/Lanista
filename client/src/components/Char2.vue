@@ -7,7 +7,6 @@ import keyMapJson from "../assets/animation-data/p1.json";
 import { onMounted, defineProps } from "vue";
 
 import { useIntervalFn } from "@vueuse/core";
-import AniState from "../composables/AnimateState";
 import { inject } from "vue";
 import keyFrames from "./../assets/animation-data/AnimeKeyframes.json";
 import createImg2 from "./../composables/AnimateFrames";
@@ -44,8 +43,6 @@ const { direction, animation, gladName, clothes } = defineProps({
 	},
 });
 
-const State = AniState;
-State.genDefaultState();
 
 onMounted(async () => {
 	const canvas = document.getElementById(gladName);

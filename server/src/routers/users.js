@@ -1,5 +1,5 @@
 const express = require("express");
-const { User, Owner, Gladiator, DayEvents,Feedback } = require("../models");
+const { User, Owner, Gladiator, RankList ,Feedback } = require("../models");
 const auth = require("../middleware/auth");
 const {
 	createNewOwner,
@@ -21,6 +21,12 @@ async function createOwner(user) {
 	user.ownerId = owner._id;
 	return owner;
 }
+
+router.get('/users/getRankings',async(req,res)=>{
+	const ranking = await RankList.find();
+	res.status(200).send(ranking);
+})
+
 
 router.get('/users/gameData',async(req,res)=>{
 	res.status(200).send({tick:process.env.TICK});

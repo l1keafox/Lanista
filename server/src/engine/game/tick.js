@@ -5,6 +5,8 @@ const { doGrowth } = require("./trainingEffects");
 const { getAbilityEffect } = require("./abilityIndex");
 const { saveModelMemory , saveManyModelMemory } = require('./gladiatorPrep');
 const { localTournament,regionalTournament,quarterTournament, nationalTournament } = require('./tournament');
+const { doPointRanking } = require('./ranking')
+
 let date = {
 	time: 1, // This is # of events per day maxed at 8
 	day: 1, // Days maxed at 30
@@ -49,7 +51,7 @@ module.exports = {
 		// Why not have it optional?
 		let allGladiators = await Gladiator.find();
 		date.gladNum = allGladiators.length;
-
+		doPointRanking(allGladiators)
 		let ownersGain = {};
 		if (date.weekDay == 7) {
 			const startOfTick = new Date();
@@ -59,6 +61,8 @@ module.exports = {
 				glad.age++;
 				return !glad.seed 
 			});
+
+			
 			await saveManyModelMemory(allGladiators); // uncertain if this works as intended.
 
  		  	console.log(`  -EN> Saved Gladiators Time: ${new Date()-startOfTick}  :: ${allNonSeedGlad.length}# of glads`);
