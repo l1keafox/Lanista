@@ -1,7 +1,7 @@
     <template>
     <div class="flex flex-col w-full overflow-x-hidden relative">
         <!-- <Character animation="walk" direction="Down" /> -->
-        <h1 class="text-center font-baby text-[7rem]">Lanista</h1>
+        <h1 class="text-center font-8bit text-[7rem]">Lanista</h1>
         <h2 class="text-center font-neo text-[2rem]"> - a trainer of gladiators -</h2>
         <hr/>
         <br/>

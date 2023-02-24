@@ -18,17 +18,17 @@
 		{
 			"type": "helm01",
 			"cost": 1000,
-			"fame": 2000
+			"fame": 4000
 		},
 		{
 			"type": "helm02",
 			"cost": 1000,
-			"fame": 2000
+			"fame": 8000
 		},
 		{
 			"type": "helm03",
 			"cost": 1000,
-			"fame": 2000
+			"fame": 16000
 		},
 
 		{
@@ -49,17 +49,17 @@
 		{
 			"type": "boots02",
 			"cost": 300,
-			"fame": 2000
+			"fame": 4000
 		},
 		{
 			"type": "boots03",
 			"cost": 300,
-			"fame": 2000
+			"fame": 8000
 		},
 		{
 			"type": "boots04",
 			"cost": 300,
-			"fame": 2000
+			"fame": 16000
 		},
 
 		{
@@ -75,22 +75,22 @@
 		{
 			"type": "mediumShield",
 			"cost": 1000,
-			"fame": 1
+			"fame": 2000
 		},
 		{
 			"type": "largeShield",
 			"cost": 5000,
-			"fame": 2000
+			"fame": 4000
 		},
 		{
 			"type": "offHand01",
 			"cost": 100,
-			"fame": 2000
+			"fame": 8000
 		},
 		{
 			"type": "offHand02",
 			"cost": 100,
-			"fame": 2000
+			"fame": 16000
 		},
 
 
@@ -112,17 +112,17 @@
 		{
 			"type": "body02",
 			"cost": 100,
-			"fame": 2000
+			"fame": 4000
 		},
 		{
 			"type": "body03",
 			"cost": 100,
-			"fame": 2000
+			"fame": 8000
 		},
 		{
 			"type": "body04",
 			"cost": 100,
-			"fame": 2000
+			"fame": 16000
 		},
 
 

@@ -5,11 +5,9 @@
 <script setup>
 import keyMapJson from "../assets/animation-data/p1.json";
 import { onMounted, defineProps, onUnmounted } from "vue";
-
-import { promiseTimeout, useTimeout } from "@vueuse/core";
 import { inject, toRefs } from "vue";
 import keyFrames from "./../assets/animation-data/AnimeKeyframes.json";
-import createImg2 from "./../composables/AnimateFrames";
+import createImg from "./../composables/AnimateFrames";
 const apiCall = inject("apiCall");
 /* Interface 
 
@@ -24,7 +22,7 @@ clothes: {
 }
 Default for now is that the character is centered.
 */
-// console.log(createImg2);
+// console.log(createImg);
 
 const props = defineProps({
 	clothes: {
@@ -94,7 +92,9 @@ onMounted(async () => {
 		//			Here we create newKeyFrames to add on to keyFrameArray
 		//
 		//const research = nextInFrame[0];
-		let newKeyFrames = goGetFrameInfo(nextInFrame[0], nextInFrame);
+		// console.log(nextInFrame);
+		nextInFrame.forEach(inFrame=>{
+			let newKeyFrames = goGetFrameInfo(inFrame, nextInFrame);
 		// Taking the request, it should now ask for frame information
 		// Looking at a JSON file, it will be frameName and frameTime in an array.
 		// newKeyFrames = goGetFrameInfo(research);
@@ -127,8 +127,9 @@ onMounted(async () => {
 		//newKeyFrames =[{frameName:null, frameTime: 100, frameData:{"anime": "jumpUp2",json:"jsonKey", png:"pngKey", "x": 448, "y": 64, "width": 64, "height": 64 }}]
 		// console.log(' AFter ',newKeyFrames);
 
-		if (keyFrameArray.length < 20)
 			keyFrameArray = keyFrameArray.concat(newKeyFrames);
+
+		})
 
 		// Now that should be looking rlike above.
 
@@ -154,25 +155,14 @@ onMounted(async () => {
 	}
 
 	function getOutfitURL(clothes, key) {
-		// if (!clothes)
-		// 	return createImg2(
-		// 		`/assets/char_a_${key}/1out/char_a_${key}_1out_fstr_v02.png`,
-		// 		apiCall.value
-		// 	);
-		// if (clothes.body) {
-		// 	// As time goes on here is where we will do equipment.
-		// 	return createImg2(
-		// 		`/assets/char_a_${key}/1out/char_a_${key}_1out_fstr_v02.png`,
-		// 		apiCall.value
-		// 	);
-		// } else
+
 		if (clothes && clothes.sex == "m") {
-			return createImg2(
+			return createImg(
 				`/assets/char_a_${key}/1out/char_a_${key}_1out_boxr_v01.png`,
 				apiCall.value
 			);
 		} else {
-			return createImg2(
+			return createImg(
 				`/assets/char_a_${key}/1out/char_a_${key}_1out_undi_v01.png`,
 				apiCall.value
 			);
@@ -182,24 +172,24 @@ onMounted(async () => {
 
 	function getSkinURL(clothes, key) {
 		if (!clothes || !clothes.skin)
-			return createImg2(
+			return createImg(
 				`/assets/char_a_p1/char_a_p1_0bas_demn_v02.png`,
 				apiCall.value
 			);
 		//  return `char_a_p1/char_a_p1_0bas_humn_v${rando}.png`;
-		return createImg2(
+		return createImg(
 			`/assets/char_a_${key}/char_a_${key}_0bas_${clothes.skin}`,
 			apiCall.value
 		);
 	}
 	function getHairURL(clothes, key) {
 		if (!clothes || !clothes.skin)
-			return createImg2(
+			return createImg(
 				`/assets/char_a_p1/4har/char_a_p1_4har_dap1_v02.png`,
 				apiCall.value
 			);
 		//return `${type}_v${version}.png`;
-		return createImg2(
+		return createImg(
 			`/assets/char_a_${key}/4har/char_a_${key}_4har_${clothes.hair}`,
 			apiCall.value
 		);

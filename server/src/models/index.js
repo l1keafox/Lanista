@@ -5,6 +5,8 @@ const Owner = require('./GameModels/Owner')
 const Gladiator = require('./GameModels/Gladiator')
 const saveDuel = require('./GameModels/saveDuel');
 const Memory = require('./GameModels/Memory');
+const RankEntry = require('./GameModels/RankEntry');
+const RankList = require('./GameModels/RankList');
 const saveTournament = require('./GameModels/saveTournament');
 
-module.exports = {GameDate,User,Owner ,Gladiator,saveDuel,Memory,saveTournament, Feedback};
+module.exports = {GameDate,User,Owner ,Gladiator,saveDuel,Memory,saveTournament, Feedback,RankEntry,RankList};

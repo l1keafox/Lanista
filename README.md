@@ -13,7 +13,9 @@
 
 ## Usage
 
-Run 'node index.js' and answer the prompts given
+NPM install in all three directories, root/client/server
+npm run seed in root -
+npm run dev 
 
 ![Website](/assets/images/readme.PNG)
 
