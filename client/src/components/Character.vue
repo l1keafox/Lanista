@@ -25,7 +25,7 @@ clothes: {
 }
 Default for now is that the character is centered.
 */
-console.log(createImg2);
+// console.log(createImg2);
 
 const { direction, animation, gladName, clothes } = defineProps({
 	clothes: {
@@ -54,6 +54,42 @@ onMounted(async () => {
 	let height = (canvas.height = 64);
 	let frameIndex = 0;
 
+	/*
+
+		All Animation is based on the first request - which will look
+		and see what frame data it needs.
+
+	*/
+
+	let request = ""; 
+	// frameArray is what hold's the object of current animation.
+	// if it is empty it will be standing.
+
+	// Tatking the request, it should now ask for frame information
+
+	// Looking at a JSON file, it will be frameName and frameTime in an array.
+	
+	//[{frameName:null, frameTime: 100, frameData:{ "name": "jumpUp2", png:"pngMap", "x": 448, "y": 64, "width": 64, "height": 64 }}]
+	/*
+		name is the search by frameName i guess we don't really needs this framData with it but.
+		png: is the pngName to find in a map
+		x/y - key info of that frame and png.
+		w/h - key info
+	*/
+
+	// next taking that array above and finding the frameData 
+
+	// we will need an second map, to point which frameName matches with png/json
+
+	// using the json data it will find it via name, and grab that info or be able to grab it later.
+
+	// Once it has that array filled with frameData,
+
+	// It will start the animation, starting with the framedata finding the right png's and 
+	// set the nextTimeOut or interval to be based on the frameTime. It will unshift the array and start a new timer.
+
+	// Once animation array is cleared it will go back to standing or it can loop.
+	
 	function getOutfitURL(clothes) {
     if(!clothes) return createImg2(`/assets/char_a_p1/1out/char_a_p1_1out_fstr_v02.png`,apiCall.value);
 		if (clothes.body) {
