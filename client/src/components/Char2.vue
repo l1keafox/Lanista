@@ -74,7 +74,6 @@ onMounted(async () => {
 	// Here we will emit back to the parent who is making this animation request to empty the request letter.
 	if (animation && nextInFrame.length == 0) {
 		nextInFrame.push({ animation, direction });
-		console.log(animation, nextInFrame);
 	}
 
 	function goGetFrameInfo(research) {
@@ -126,7 +125,7 @@ onMounted(async () => {
 		if (keyFrameArray.length < 20)
 			keyFrameArray = keyFrameArray.concat(newKeyFrames);
 
-		console.log(keyFrameArray);
+		
 		// Now that should be looking rlike above.
 
 		/*
@@ -151,18 +150,19 @@ onMounted(async () => {
 	}
 
 	function getOutfitURL(clothes,key) {
-		if (!clothes)
-			return createImg2(
-				`/assets/char_a_${key}/1out/char_a_${key}_1out_fstr_v02.png`,
-				apiCall.value
-			);
-		if (clothes.body) {
-			// As time goes on here is where we will do equipment.
-			return createImg2(
-				`/assets/char_a_${key}/1out/char_a_${key}_1out_fstr_v02.png`,
-				apiCall.value
-			);
-		} else if (clothes.sex == "m") {
+		// if (!clothes)
+		// 	return createImg2(
+		// 		`/assets/char_a_${key}/1out/char_a_${key}_1out_fstr_v02.png`,
+		// 		apiCall.value
+		// 	);
+		// if (clothes.body) {
+		// 	// As time goes on here is where we will do equipment.
+		// 	return createImg2(
+		// 		`/assets/char_a_${key}/1out/char_a_${key}_1out_fstr_v02.png`,
+		// 		apiCall.value
+		// 	);
+		// } else 
+		if (clothes && clothes.sex == "m") {
 			return createImg2(
 				`/assets/char_a_${key}/1out/char_a_${key}_1out_boxr_v01.png`,
 				apiCall.value
@@ -196,7 +196,7 @@ onMounted(async () => {
 	}
 
 	// This is the array of which the canvas will be painted via image.
-	console.log('Doing imag eneed key?',keyFrameArray[0].key)
+	// console.log('Doing imag eneed key?',keyFrameArray[0].key)
 	const imageArray = [
 		getSkinURL(clothes,keyFrameArray[0].key), //		skinLayer, 0bot (sub-layer, fully behind the character sprite)
 		getOutfitURL(clothes,keyFrameArray[0].key), //   createImg(`/assets/${clothes.skin}`); // 1out (outfit, lowest layer)
@@ -208,7 +208,7 @@ onMounted(async () => {
 		null, //   createImg(`/assets/${clothes.skin}`); //7tlb (secondary tool layer, shields and off-hand weapons, highest layer)
 	];
 
-	console.log(keyFrameArray[0].fTm, "Doing first animate");
+	// console.log(keyFrameArray[0].fTm, "Doing first animate");
 
 		animate(keyFrameArray[0].frameData);
 		setTimeout(doNextFrame,keyFrameArray[0].fTm);

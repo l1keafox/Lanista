@@ -34,11 +34,120 @@
 		]    
 	},
 
-	"run": {
-		"up": [
-			{ "fNm": "walkUp1", "fTm": 135 , "key":"p1"  },
-			{ "fNm": "walkUp2", "fTm": 135 , "key":"p1"  },
-			{ "fNm": "runUp1", "fTm": 135 , "key":"p1"  }
-		]
-	}  
+	"jump": {
+		"Up": [
+			{ "fNm": "jumpUp0", "fTm": 300 , "key":"p1"  },
+			{ "fNm": "jumpUp1", "fTm": 150 , "key":"p1"  },
+			{ "fNm": "jumpUp2", "fTm": 100 , "key":"p1"  },
+			{ "fNm": "jumpUp0", "fTm": 300 , "key":"p1"  }
+		],
+		"Down": [
+			{ "fNm": "jumpDown0", "fTm": 300 , "key":"p1"  },
+			{ "fNm": "jumpDown1", "fTm": 150 , "key":"p1"  },
+			{ "fNm": "jumpDown2", "fTm": 100 , "key":"p1"  },
+			{ "fNm": "jumpDown0", "fTm": 300 , "key":"p1"  }
+		],
+		"Left": [
+			{ "fNm": "jumpLeft0", "fTm": 300 , "key":"p1"  },
+			{ "fNm": "jumpLeft1", "fTm": 150 , "key":"p1"  },
+			{ "fNm": "jumpLeft2", "fTm": 100 , "key":"p1"  },
+			{ "fNm": "jumpLeft0", "fTm": 300 , "key":"p1"  }
+		],
+		"Right": [
+			{ "fNm": "jumpRight0", "fTm": 300 , "key":"p1"  },
+			{ "fNm": "jumpRight1", "fTm": 150 , "key":"p1"  },
+			{ "fNm": "jumpRight2", "fTm": 100 , "key":"p1"  },
+			{ "fNm": "jumpRight0", "fTm": 300 , "key":"p1"  }
+		]    
+	},
+
+
+	"stand": {
+		"Up": [
+			{ "fNm": "standUp0", "fTm": 300 , "key":"p1"  }
+		],
+		"Down": [
+			{ "fNm": "standDown0", "fTm": 300 , "key":"p1"  }
+		],
+		"Left": [
+			{ "fNm": "standLeft0", "fTm": 300 , "key":"p1"  }
+		],
+		"Right": [
+			{ "fNm": "standRight0", "fTm": 300 , "key":"p1"  }
+		]    
+	},
+
+
+	"push": {
+		"Up": [
+			{ "fNm": "pushUp0", "fTm": 300 , "key":"p1"  },
+			{ "fNm": "pushUp1", "fTm": 300 , "key":"p1"  }
+		],
+		"Down": [
+			{ "fNm": "pushDown0", "fTm": 300 , "key":"p1"  },
+			{ "fNm": "pushDown1", "fTm": 300 , "key":"p1"  }
+		],
+		"Left": [
+			{ "fNm": "pushLeft0", "fTm": 300 , "key":"p1"  },
+			{ "fNm": "pushLeft1", "fTm": 300 , "key":"p1"  }
+		],
+		"Right": [
+			{ "fNm": "pushRight0", "fTm": 300 , "key":"p1"  },
+			{ "fNm": "pushRight1", "fTm": 300 , "key":"p1"  }
+		]    
+	},
+	"pull": {
+		"Up": [
+			{ "fNm": "pullUp0", "fTm": 400 , "key":"p1"  },
+			{ "fNm": "pullUp1", "fTm": 400 , "key":"p1"  }
+		],
+		"Down": [
+			{ "fNm": "pullDown0", "fTm": 400 , "key":"p1"  },
+			{ "fNm": "pullDown1", "fTm": 400 , "key":"p1"  }
+		],
+		"Left": [
+			{ "fNm": "pullLeft0", "fTm": 400 , "key":"p1"  },
+			{ "fNm": "pullLeft1", "fTm": 400 , "key":"p1"  }
+		],
+		"Right": [
+			{ "fNm": "pullRight0", "fTm": 400 , "key":"p1"  },
+			{ "fNm": "pullRight1", "fTm": 400 , "key":"p1"  }
+		]    
+	},
+
+
+  "run": {
+		"Up": [
+			{ "fNm": "runUp0", "fTm": 80 , "key":"p1"  },
+			{ "fNm": "runUp1", "fTm": 55 , "key":"p1"  },
+			{ "fNm": "runUp2", "fTm": 125 , "key":"p1"  },
+			{ "fNm": "runUp3", "fTm": 80 , "key":"p1"  },
+			{ "fNm": "runUp4", "fTm": 55 , "key":"p1"  },
+			{ "fNm": "runUp5", "fTm": 125 , "key":"p1"  }
+		],
+		"Down": [
+			{ "fNm": "runDown0", "fTm": 80 , "key":"p1"  },
+			{ "fNm": "runDown1", "fTm": 55 , "key":"p1"  },
+			{ "fNm": "runDown2", "fTm": 125 , "key":"p1"  },
+			{ "fNm": "runDown3", "fTm": 80 , "key":"p1"  },
+			{ "fNm": "runDown4", "fTm": 55 , "key":"p1"  },
+			{ "fNm": "runDown5", "fTm": 125 , "key":"p1"  }
+		],
+		"Left": [
+			{ "fNm": "runLeft0", "fTm": 80 , "key":"p1"  },
+			{ "fNm": "runLeft1", "fTm": 55 , "key":"p1"  },
+			{ "fNm": "runLeft2", "fTm": 125 , "key":"p1"  },
+			{ "fNm": "runLeft3", "fTm": 80 , "key":"p1"  },
+			{ "fNm": "runLeft4", "fTm": 55 , "key":"p1"  },
+			{ "fNm": "runLeft5", "fTm": 125 , "key":"p1"  }
+		],
+		"Right": [
+			{ "fNm": "runRight0", "fTm": 80 , "key":"p1"  },
+			{ "fNm": "runRight1", "fTm": 55 , "key":"p1"  },
+			{ "fNm": "runRight2", "fTm": 125 , "key":"p1"  },
+			{ "fNm": "runRight3", "fTm": 80 , "key":"p1"  },
+			{ "fNm": "runRight4", "fTm": 55 , "key":"p1"  },
+			{ "fNm": "runRight5", "fTm": 125 , "key":"p1"  }
+		]    
+	}
 }
