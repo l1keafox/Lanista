@@ -21,6 +21,7 @@ import StudentMain from "./views/StudentMain.vue";
 import FeedbackMain from "./views/FeedbackMain.vue";
 import RankingMain from "./views/RankingMain.vue";
 import GamblingMain from "./views/GamblingMain.vue";
+import CreditMain from "./views/CreditMain.vue";
 
 import SideNav from "./components/SideNav.vue";
 import HeaderVue from "./components/Header.vue";
@@ -32,6 +33,7 @@ export default {
 	name: "App",
 	components: {
 		RankingMain,
+		CreditMain,
 		GamblingMain,
 		FeedbackMain,
 		SideNav,
