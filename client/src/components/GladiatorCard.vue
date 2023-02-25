@@ -1,7 +1,7 @@
 <template>
   <div  class="flex flex-wrap">
       <div v-if="glad" :class="gladiatorCard" class="relative"> 
-        <Character class="absolute z-50 -right-[2px] top-[20px] h-[7rem] w-[7rem]" :clothes="makeClothes(glad)" :animation="jobToAnimate" :direction="jobDirection" :gladName="glad.name"/>
+        <Character class="absolute z-10 -right-[2px] top-[20px] h-[7rem] w-[7rem]" :clothes="makeClothes(glad)" :animation="jobToAnimate" :direction="jobDirection" :gladName="glad.name"/>
         <span class="absolute z-50 right-10 top-4" v-if="training"> {{ training[0] }} </span>
         <span class="absolute z-50 right-10 top-24"  v-if="training" id="growth" > {{ training[growthIndex] }} </span>
         <h1 :class="cardTitle">{{glad.name}} </h1>
