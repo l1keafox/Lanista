@@ -63,6 +63,10 @@ function setupStats(glad) {
 	rtnObj.luck = glad.luck;
 	rtnObj.reputation = glad.reputation;
 	rtnObj._id = glad._id;
+	rtnObj.hairChar = glad.hairChar;
+	rtnObj.skinChar = glad.skinChar;
+	rtnObj.sexChar = glad.sexChar;
+
 	return rtnObj;
 }
 
