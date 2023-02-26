@@ -24,8 +24,10 @@
             </slot>
 					</div>
 					<!--footer-->
-					<div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-            <slot  name='footer' >
+					<!-- <div v-if="!noFooter" class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b"> -->
+					<template v-if="!noFooter">
+					<BaseFooter>
+            <slot  name='footer' >	
 
             </slot>
 						<template v-if="!noClose">
@@ -33,7 +35,9 @@
 	              Close
             	</button>
 						</template>
-					</div>
+					</BaseFooter>
+				</template>
+					<!-- </div> -->
 				</div>
 			</div>
 		</div>
@@ -46,9 +50,17 @@
 </template>
 
 <script>
+import BaseFooter from './BaseFooter.vue';
 export default {
 	name: "baseModal",
+	components:{
+		BaseFooter
+	},
 	props: {
+		noFooter:{
+			type:Boolean,
+			default:false
+		},
   	noClose: {
     	type: Boolean,
     	default: false
