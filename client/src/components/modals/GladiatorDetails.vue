@@ -1,5 +1,5 @@
 <template>
-  <BaseModal noFooter="true">
+  <BaseModal :noFooter="true">
     <template v-slot:header>
       <h1 v-if="gladiatorData" class="text-3xl font-semibold">
         {{ gladiatorData.name }}
