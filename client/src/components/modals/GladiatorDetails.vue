@@ -23,12 +23,13 @@ import BaseTabs from "./BaseTabs.vue"
 
 import Equipment from "./Tabs/EquipmentTab.vue"
 import Clash from "./Tabs/ClashTab.vue"
-
+import Stats from "./Tabs/StatsTab.vue"
   export default {
     name: "GladiatorStats",
     props: ["gladId","gladMemory"],
     components:{
       Equipment,
+      Stats,
       Clash,
       BaseModal,
       BaseTabs
