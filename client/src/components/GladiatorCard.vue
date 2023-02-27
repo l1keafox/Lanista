@@ -13,7 +13,7 @@
         <hr/>
         <button class="bg-blue-200 m-2 text-purple-700 rounded"   @click="openModal($event,'GladiatorDetails')"  :data-id="glad._id">Details  </button>
         <button class="bg-yellow-200 m-2 text-purple-900 rounded" @click="openModal($event,'ScheduleManager')" :data-id="glad._id">Schedule  </button>
-        <button class="bg-purple-200 m-2 text-purple-700 rounded" @click="openModal($event,'GladiatorMemories')"   :data-id="glad._id">History/Memories  </button>
+        <button class="bg-purple-200 m-2 text-purple-700 rounded" @click="openModal($event,'HistoryModal')"   :data-id="glad._id">History/Memories  </button>
         <!-- <button class="bg-slate-200 m-2 text-purple-700 rounded" @click="openModal($event,'DuelHistory')"      :data-id="glad._id">Duel History  </button>
         <button class="bg-pink-200 m-2 text-purple-700 rounded" @click="openModal($event,'GladiatorTournament')"      :data-id="glad._id">Tournament History</button> -->
         
@@ -33,8 +33,9 @@ import GladiatorTournament from "./../components/modals/GladiatorTournamentHisto
 import Character from "../components/Character.vue"
 import DuelReplay from "../components/modals/DuelReplay.vue";
 
+import HistoryModal from "../components/modals/HistoryModal.vue"
 import GladiatorMemories from "../components/modals/GladiatorMemories.vue";
-import DuelHistory from "./../components/modals/DuelHistory.vue";
+import DuelHistory from "./../components/modals/DuelHistory.vue"; 
 import { useIntervalFn } from '@vueuse/core'
 export default {
     
@@ -91,6 +92,7 @@ export default {
   },
   components:{
     DuelReplay,
+    HistoryModal,
     Character,
     ScheduleManager,
     GladiatorMemories,
