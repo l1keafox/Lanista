@@ -29,8 +29,6 @@ amountBlock
 
 */
 
-
-
 function compareEffects(gladiator,target){
 //    console.log(`  ->B4 ${gladiator.name}`,gladiator.effectToDo);
     for(let effect in gladiator.effectToDo){
