@@ -17,7 +17,7 @@ let date = {
 
 async function clearSaves(){
 	// This function will go through saveTournaments and saveDuels and delete them based on time pased.
-	const timePassed = 86400000; // 86400000 ( 60 * 60 * 24 * 1000) is one real day's time 
+	const timePassed = 43200000; // 86400000 ( 60 * 60 * 24 * 1000) is one real day's time 
 	const lessThan = new Date() - timePassed; 
 	// saveDuel.find({createdAt:{$gl: lessThan }  } );
 	saveDuel.deleteMany( {createdAt:{$lt: lessThan }  } ).then( ()=>{
@@ -127,7 +127,15 @@ module.exports = {
 
 			await allGladiators.forEach(async (gladiator) => {
 			// before we do growth we need to check too see if this is current a skill replacement.
-			if(gladiator.taskSkill[0] ==  gladiator.schedule[0][date.weekDay][date.time] )			{
+				let weekDay = date.weekDay;
+			if(gladiator.scheduleType == "Week"){
+				//console.log(gladiator.scheduleType)
+				//weekDay = date.weekDay;
+			} else {
+				weekDay = 1;
+			}
+
+			if(gladiator.taskSkill[0] ==  gladiator.schedule[0][weekDay][date.time] )			{
 				// now it's replaces we need to 				
 				let progress = JSON.parse(gladiator.progressSkill);
 				let skill = getAbilityEffect( gladiator.learnSkill[0]);
@@ -151,11 +159,11 @@ module.exports = {
 
 				const growth = await doGrowth(
 					gladiator,
-					gladiator.schedule[0][date.weekDay][date.time]
+					gladiator.schedule[0][weekDay][date.time]
 				);
 				// console.log(`  -EN/Tick> ${gladiator.name} is training`, gladiator.schedule[0][date.weekDay][date.time]);
 				gladiator.lastGain  = growth.map( growth =>`+${growth.amount} ${growth.stat[0]+growth.stat[1]+growth.stat[2]+growth.stat[3]}`)
-				gladiator.lastGain.unshift( `${gladiator.schedule[0][date.weekDay][date.time]}`  )
+				gladiator.lastGain.unshift( `${gladiator.schedule[0][weekDay][date.time]}`  )
 				if (growth) {
 					if (!ownersGain[gladiator.ownerId]) {
 						ownersGain[gladiator.ownerId] = {
@@ -172,7 +180,7 @@ module.exports = {
 						ownersGain[gladiator.ownerId].fame += fameGrowth.amount;
 					}
 				}
-				} 
+			} 
 
 
 			if (date.time === 8) {

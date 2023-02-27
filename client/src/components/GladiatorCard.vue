@@ -13,8 +13,6 @@
         <hr/>
         <button class="bg-blue-200 m-2 text-purple-700 rounded"   @click="openModal($event,'GladiatorDetails')"  :data-id="glad._id">Details  </button>
         <button class="bg-yellow-200 m-2 text-purple-900 rounded" @click="openModal($event,'ScheduleManager')" :data-id="glad._id">Schedule  </button>
-        <!-- <button class="bg-red-200 m-2 text-purple-700 rounded" @click="openModal($event,'EquipmentScreen')"    :data-id="glad._id">Equipment  </button>
-        <button class="bg-green-200 m-2 text-purple-700 rounded" @click="openModal($event,'ClashSettings')"    :data-id="glad._id">Clash  </button> -->
         <button class="bg-purple-200 m-2 text-purple-700 rounded" @click="openModal($event,'GladiatorMemories')"   :data-id="glad._id">History/Memories  </button>
         <!-- <button class="bg-slate-200 m-2 text-purple-700 rounded" @click="openModal($event,'DuelHistory')"      :data-id="glad._id">Duel History  </button>
         <button class="bg-pink-200 m-2 text-purple-700 rounded" @click="openModal($event,'GladiatorTournament')"      :data-id="glad._id">Tournament History</button> -->
@@ -31,8 +29,6 @@
 import auth from "./../mixins/auth";
 import ScheduleManager from "./../components/modals/ScheduleManager.vue";
 import GladiatorDetails from "./../components/modals/GladiatorDetails.vue";
-import ClashSettings from "./../components/modals/ClashSettings.vue";
-import EquipmentScreen from "./../components/modals/EquipmentScreen.vue";
 import GladiatorTournament from "./../components/modals/GladiatorTournamentHistory.vue";
 import Character from "../components/Character.vue"
 import DuelReplay from "../components/modals/DuelReplay.vue";
@@ -101,8 +97,6 @@ export default {
     GladiatorTournament,
     GladiatorDetails,
     DuelHistory,
-    EquipmentScreen,
-    ClashSettings,
   },
   setup(){
 

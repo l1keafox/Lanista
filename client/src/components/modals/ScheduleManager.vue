@@ -2,25 +2,11 @@
   <BaseModal>
     <template v-slot:header>
       <h3 class="text-3xl font-semibold">Week Schedule</h3>
-      <div class="text-sm font-medium text-center text-gray-500  border-gray-200 dark:text-gray-400 dark:border-gray-700">
-        <ul class="flex flex-wrap -mb-px">
-
-          <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-            <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal" v-on:click="toggleTabs(0)" v-bind:class="{'text-pink-600 bg-white': openTab !== 0, 'text-white bg-pink-600': openTab === 0}">
-              Simple
-            </a>
-          </li>
-          <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-            <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal" v-on:click="toggleTabs(1)" v-bind:class="{'text-pink-600 bg-white': openTab !== 1, 'text-white bg-pink-600': openTab === 1}">
-              Advanced
-            </a>
-          </li>
-        </ul>
-      </div>   			
+      <BaseTabs :tabs="tabs" v-model="currentTab"/>
     </template>
 
     <template v-slot:content>
-      <div v-if="gladiatorData" class="flex overflow-x-auto">
+      <div v-if="gladiatorData && currentTab=='Week'" class="flex overflow-x-auto">
         <div v-for="(day, key2) in gladiatorData.schedule[0]" :key="key2">
           <h1>Day {{ key2 }}</h1>
           <div class="relative flex-auto bg-slate-200">
@@ -40,6 +26,25 @@
             </div>
           </div>
         </div>
+      </div>
+      <div v-if="gladiatorData  && currentTab=='Day' "  >
+          <div class="relative flex-auto bg-slate-200">
+            <div
+              v-for="(event, key) in gladiatorData.schedule[0][1]"
+              :key="key"
+              class="bg-blue-500 w-48">
+              {{ key }}:00 Event
+              <select :name="key" class="bg-green-800 schedule">
+                <option value="fir">{{ event }}</option>
+                <template
+                  v-for="(training, index) in trainingData"
+                  :key="index">
+                  <option value="index">{{ training }}</option>
+                </template>
+              </select>
+            </div>
+          </div>
+
       </div>
       <div class="bg-slate-700 p-2">
         <h1>Skills Learning</h1>
@@ -124,23 +129,28 @@
 
 <script>
 import BaseModal from "./BaseModal.vue"
+import BaseTabs from "./BaseTabs.vue"
 
 import auth from "./../../mixins/auth";
 export default {
 	name: "ScheduleManager",
 	props: ["gladId"],
 	data() {
+    this.tabs = ["Day","Week"]
+    this.daysOfWeek = ["One", "Two", "Three", "Four", "Five", "Six", "Seven"]
 		return {
 			gladiatorData: null,
+      currentTab: this.tabs[0],
 			userData: auth.getUser(),
 			trainingData: null,
 			learningData: null,
 			daySelected: 0,
-			daysOfWeek: ["One", "Two", "Three", "Four", "Five", "Six", "Seven"],
+			
 		};
 	},
 	components: {
-    BaseModal
+    BaseModal,
+    BaseTabs
   },
 	inject:['apiCall'],
 	methods: {
@@ -171,6 +181,8 @@ export default {
 				//console.log(saveObj[index],dayCount);
 			}
 
+      
+
 			rtnObj[dayCount] = currentDay;
 			// console.log(rtnObj);
 			//here we should do a post to save it.
@@ -179,7 +191,7 @@ export default {
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({ "id": this.gladId, "week": rtnObj }),
+					body: JSON.stringify({ "id": this.gladId, "week": rtnObj, "scheduleType": this.currentTab }),
 				}
 			);
 
@@ -211,7 +223,9 @@ export default {
 			}
 		);
 		this.gladiatorData = await rpnse.json();
-		
+    console.log(this.gladiatorData.scheduleType);
+    this.currentTab = this.gladiatorData.scheduleType;
+
 		if(this.gladiatorData.progressSkill){
 			this.gladiatorData.progressSkill = JSON.parse( this.gladiatorData.progressSkill )
 		}

@@ -106,18 +106,21 @@ export default {
 								if(!oData.owner[index].length){
 									this.ownerData[index] = oData.owner[index]
 								} else if(index == 'gladiators'){
-									for(let gladIndex in oData.owner[index]){
-										let thisOne = oData.owner[index][gladIndex];
-										let oldOne = this.ownerData[index][gladIndex];
+									if( oData.owner[index].length != this.ownerData[index].length){
+										this.ownerData[index] = oData.owner[index]
+									} else {
+										for(let gladIndex in oData.owner[index]){
+											let thisOne = oData.owner[index][gladIndex];
+											let oldOne = this.ownerData[index][gladIndex];
 
-											for(let info in thisOne){
-												if(info == 'lastGain'){
-													oldOne[info] = thisOne[info];
-												} else if(thisOne[info] != oldOne[info] ) {
-													oldOne[info] = thisOne[info];
+												for(let info in thisOne){
+													if(info == 'lastGain'){
+														oldOne[info] = thisOne[info];
+													} else if(thisOne[info] != oldOne[info] ) {
+														oldOne[info] = thisOne[info];
+													}
 												}
-											}
-
+										}
 									}
 								} else if(oData.owner[index].length != this.ownerData[index].length ) {
 									this.ownerData[index] = oData.owner[index]

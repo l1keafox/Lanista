@@ -34,9 +34,6 @@ import Stats from "./Tabs/StatsTab.vue"
       BaseModal,
       BaseTabs
     },
-    updated(){
-      console.log(currentTab);
-    },
     inject:['apiCall'],
     data() {
       this.tabs = ["Stats","Equipment","Clash"]

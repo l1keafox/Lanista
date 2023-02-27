@@ -150,6 +150,7 @@ router.post('/gladiator/saveWeek', async(req, res) => {
     let glad = await Gladiator.findOne({ _id: req.body.id });
     
     glad.schedule = [req.body.week];
+    glad.scheduleType = req.body.scheduleType;
     // So given that this is now an week array we need req.body.weekDay
     glad.save();
     console.log('  -EN> savingWeek',glad.name);
