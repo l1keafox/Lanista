@@ -1,12 +1,14 @@
 <template>
 	<div class="flex flex-col h-screen w-screen overflow-hidden">
+
 		<HeaderVue @logged="update" :tickTimer="toNextTick" />
 		<div class="flex h-[calc(100vh-120px)] w-full">
 			<SideNav @logged="update" @changeMain="changeStage" />
-				<!-- <Char2/> -->
 			<component :is="mainStage" />
 		</div>
 	</div>
+	<BaseTutoralModal v-if="showTutorialModal" v-model="showTutorialModal" :tutorialName="tutorialName" :showWindow="showWindow" :textWindow="textWindow"/>
+
 </template>
 
 <script>
@@ -23,15 +25,19 @@ import RankingMain from "./views/RankingMain.vue";
 import GamblingMain from "./views/GamblingMain.vue";
 import CreditMain from "./views/CreditMain.vue";
 
+
 import SideNav from "./components/SideNav.vue";
 import HeaderVue from "./components/Header.vue";
+import BaseTutoralModal from "./components/modals/BaseTutorialModal.vue";
 import auth from "./mixins/auth";
 import {useTitle} from '@vueuse/core'
 
 import { computed } from "vue";
+
 export default {
 	name: "App",
 	components: {
+		BaseTutoralModal,
 		RankingMain,
 		CreditMain,
 		GamblingMain,
@@ -50,11 +56,15 @@ export default {
 	data() {
 		this.timeTimer;
 		this.countDown;
+		this.showWindow;
+		this.textWindow;
 		this.interval;
 		this.timerInterval;
 		this.apiData = location.protocol === "https:" ? `https://${window.location.hostname}` : `http://${window.location.hostname}:3001`
+		this.tutorialName;
 		return {
 			isLoggedIn: auth.loggedIn(),
+			showTutorialModal: false,
 			mainStage: "WelcomeMain",
 			timeData: null,
 			toNextTick: 0,
@@ -184,7 +194,22 @@ export default {
 			getTime: computed(() => this.timeData),
 			getUser: computed(() => this.userData),
 			getLogged: computed(() => this.isLoggedIn),
-			apiCall: computed(() => this.apiData)
+			apiCall: computed(() => this.apiData),
+			showTutorial: (vue,contentArray)=>{
+				console.log("Show tutorial?", auth.getUser().showTutorial);
+				console.log(contentArray);
+				// if(auth.getUser().showTutorial && !localStorage.getItem(vue)){
+					console.log('trigger show',vue,this.textWindow,this.showWindow);
+					this.showWindow = {height:"100px",width:"100px",top:"20rem",left:"20rem"};
+					this.textWindow = {content:"Hi",style:null};
+
+					this.tutorialName = vue;
+					this.showTutorialModal = true;
+//				}
+				// Here we will check if it has already been shown, via localStorage
+				// If not, we will showTutorail true
+				// then we will 
+			},
 		};
 	},
 };
