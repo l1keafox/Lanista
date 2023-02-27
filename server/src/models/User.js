@@ -9,6 +9,10 @@ const userSchema = new Schema(
 			unique: true,
 			trim: true,
 		},
+		tutorial:{
+			type: Boolean,
+			default: true
+		},
 		email: {
 			type: String,
 			required: true,
