@@ -1,9 +1,9 @@
 <template>
   <div  class="flex flex-wrap">
       <div v-if="glad" :class="gladiatorCard" class="relative"> 
-        <Character class="absolute z-50 -right-[2px] top-[20px] h-[7rem] w-[7rem]" :clothes="makeClothes(glad)" :animation="jobToAnimate" :direction="jobDirection" :gladName="glad.name"/>
-        <span class="absolute z-50 right-10 top-4" v-if="training"> {{ training[0] }} </span>
-        <span class="absolute z-50 right-10 top-24"  v-if="training" id="growth" > {{ training[growthIndex] }} </span>
+        <Character class="absolute z-10 -right-[2px] top-[20px] h-[7rem] w-[7rem]" :clothes="makeClothes(glad)" :animation="jobToAnimate" :direction="jobDirection" :gladName="glad.name"/>
+        <span class="absolute z-10 right-10 top-4" v-if="training"> {{ training[0] }} </span>
+        <span class="absolute z-10 right-10 top-24"  v-if="training" id="growth" > {{ training[growthIndex] }} </span>
         <h1 :class="cardTitle">{{glad.name}} </h1>
 
         <h2> Level:{{glad.level}} /  Age:{{glad.age}}</h2>
@@ -11,13 +11,11 @@
         <h2> Local: {{glad.weekWin }} / Regional : {{glad.monthWin }}</h2>
         <h2> Quarter : {{glad.quarterWin }} / National: {{glad.yearWin }}</h2>
         <hr/>
+        <button class="bg-blue-200 m-2 text-purple-700 rounded"   @click="openModal($event,'GladiatorDetails')"  :data-id="glad._id">Details  </button>
         <button class="bg-yellow-200 m-2 text-purple-900 rounded" @click="openModal($event,'ScheduleManager')" :data-id="glad._id">Schedule  </button>
-        <button class="bg-blue-200 m-2 text-purple-700 rounded"   @click="openModal($event,'GladiatorStats')"  :data-id="glad._id">Stats  </button>
-        <button class="bg-red-200 m-2 text-purple-700 rounded" @click="openModal($event,'EquipmentScreen')"    :data-id="glad._id">Equipment  </button>
-        <button class="bg-green-200 m-2 text-purple-700 rounded" @click="openModal($event,'ClashSettings')"    :data-id="glad._id">Clash  </button>
-        <button class="bg-purple-200 m-2 text-purple-700 rounded" @click="openModal($event,'GladiatorMemories')"   :data-id="glad._id">Memories  </button>
-        <button class="bg-slate-200 m-2 text-purple-700 rounded" @click="openModal($event,'DuelHistory')"      :data-id="glad._id">Duel History  </button>
-        <button class="bg-pink-200 m-2 text-purple-700 rounded" @click="openModal($event,'GladiatorTournament')"      :data-id="glad._id">Tournament History</button>
+        <button class="bg-purple-200 m-2 text-purple-700 rounded" @click="openModal($event,'HistoryModal')"   :data-id="glad._id">History/Memories  </button>
+        <!-- <button class="bg-slate-200 m-2 text-purple-700 rounded" @click="openModal($event,'DuelHistory')"      :data-id="glad._id">Duel History  </button>
+        <button class="bg-pink-200 m-2 text-purple-700 rounded" @click="openModal($event,'GladiatorTournament')"      :data-id="glad._id">Tournament History</button> -->
         
       </div>
   </div>
@@ -30,15 +28,14 @@
 <script>
 import auth from "./../mixins/auth";
 import ScheduleManager from "./../components/modals/ScheduleManager.vue";
-import GladiatorStats from "./../components/modals/GladiatorStats.vue";
-import ClashSettings from "./../components/modals/ClashSettings.vue";
-import EquipmentScreen from "./../components/modals/EquipmentScreen.vue";
+import GladiatorDetails from "./../components/modals/GladiatorDetails.vue";
 import GladiatorTournament from "./../components/modals/GladiatorTournamentHistory.vue";
 import Character from "../components/Character.vue"
 import DuelReplay from "../components/modals/DuelReplay.vue";
 
+import HistoryModal from "../components/modals/HistoryModal.vue"
 import GladiatorMemories from "../components/modals/GladiatorMemories.vue";
-import DuelHistory from "./../components/modals/DuelHistory.vue";
+import DuelHistory from "./../components/modals/DuelHistory.vue"; 
 import { useIntervalFn } from '@vueuse/core'
 export default {
     
@@ -95,14 +92,13 @@ export default {
   },
   components:{
     DuelReplay,
+    HistoryModal,
     Character,
     ScheduleManager,
     GladiatorMemories,
     GladiatorTournament,
-    GladiatorStats,
+    GladiatorDetails,
     DuelHistory,
-    EquipmentScreen,
-    ClashSettings,
   },
   setup(){
 

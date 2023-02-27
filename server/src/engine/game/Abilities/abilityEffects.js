@@ -16,9 +16,11 @@ staminaDamage
 hitHeal
 
 
+
 // This is the chance to hit/miss, this is an all or nothing effect. 
 // This is in the compareEffects - cause it cancels out another effect.
 missChance
+
 hitChance
 
 

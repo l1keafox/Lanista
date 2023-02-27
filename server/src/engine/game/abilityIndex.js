@@ -12,12 +12,13 @@ const abilityObj = {
 
 
     // Clash Abilities
+    
     slash: require("./Abilities/Slash"),
     dodge: require("./Abilities/Dodge"),
     taunt: require("./Abilities/Taunt"),
     stab: require("./Abilities/Stab"),
+    
     kick: require("./Abilities/Kick"),
-
 
     // React abilities.
     heal: require("./Abilities/Heal"),

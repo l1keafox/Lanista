@@ -2,10 +2,11 @@
   <BaseModal>
     <template v-slot:header>
       <h3 class="text-3xl font-semibold">Week Schedule</h3>
+      <BaseTabs :tabs="tabs" v-model="currentTab"/>
     </template>
 
     <template v-slot:content>
-      <div v-if="gladiatorData" class="flex overflow-x-auto">
+      <div v-if="gladiatorData && currentTab=='Week'" class="flex overflow-x-auto">
         <div v-for="(day, key2) in gladiatorData.schedule[0]" :key="key2">
           <h1>Day {{ key2 }}</h1>
           <div class="relative flex-auto bg-slate-200">
@@ -26,6 +27,25 @@
           </div>
         </div>
       </div>
+      <div v-if="gladiatorData  && currentTab=='Day' "  >
+          <div class="relative flex-auto bg-slate-200">
+            <div
+              v-for="(event, key) in gladiatorData.schedule[0][1]"
+              :key="key"
+              class="bg-blue-500 w-48">
+              {{ key }}:00 Event
+              <select :name="key" class="bg-green-800 schedule">
+                <option value="fir">{{ event }}</option>
+                <template
+                  v-for="(training, index) in trainingData"
+                  :key="index">
+                  <option value="index">{{ training }}</option>
+                </template>
+              </select>
+            </div>
+          </div>
+
+      </div>
       <div class="bg-slate-700 p-2">
         <h1>Skills Learning</h1>
         <div class="flex">
@@ -42,6 +62,7 @@
                 </option>
               </template>
             </select>
+
             <h1>instead of doing this task:</h1>
             <select name="task1" id="task1">
               <option>{{ this.gladiatorData.taskSkill[0] }}</option>
@@ -108,23 +129,28 @@
 
 <script>
 import BaseModal from "./BaseModal.vue"
+import BaseTabs from "./BaseTabs.vue"
 
 import auth from "./../../mixins/auth";
 export default {
 	name: "ScheduleManager",
 	props: ["gladId"],
 	data() {
+    this.tabs = ["Day","Week"]
+    this.daysOfWeek = ["One", "Two", "Three", "Four", "Five", "Six", "Seven"]
 		return {
 			gladiatorData: null,
+      currentTab: this.tabs[0],
 			userData: auth.getUser(),
 			trainingData: null,
 			learningData: null,
 			daySelected: 0,
-			daysOfWeek: ["One", "Two", "Three", "Four", "Five", "Six", "Seven"],
+			
 		};
 	},
 	components: {
-    BaseModal
+    BaseModal,
+    BaseTabs
   },
 	inject:['apiCall'],
 	methods: {
@@ -133,7 +159,7 @@ export default {
 			let saveObj = {};
 			for (let i in sch) {
 				if (sch[i] && sch[i].name && sch[i].selectedOptions) {
-					//console.log( !sch[i].name , accept.includes(parseInt(sch[1].name)) );
+					console.log( !sch[i].name  );
 					saveObj[parseInt(i) + 1] = sch[i].selectedOptions[0].innerText;
 				}
 			}
@@ -142,8 +168,10 @@ export default {
 			let dayCount = 1;
 			let rtnObj = {};
 			for (let index in saveObj) {
+        if(index > 48){
+          continue;
+        }
 				timeCount++;
-
 				if (timeCount > 8) {
 					timeCount = 1;
 					//  console.log( currentDay );
@@ -155,6 +183,8 @@ export default {
 				//console.log(saveObj[index],dayCount);
 			}
 
+      
+
 			rtnObj[dayCount] = currentDay;
 			// console.log(rtnObj);
 			//here we should do a post to save it.
@@ -163,7 +193,7 @@ export default {
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({ "id": this.gladId, "week": rtnObj }),
+					body: JSON.stringify({ "id": this.gladId, "week": rtnObj, "scheduleType": this.currentTab }),
 				}
 			);
 
@@ -195,7 +225,9 @@ export default {
 			}
 		);
 		this.gladiatorData = await rpnse.json();
-		
+    console.log(this.gladiatorData.scheduleType);
+    this.currentTab = this.gladiatorData.scheduleType;
+
 		if(this.gladiatorData.progressSkill){
 			this.gladiatorData.progressSkill = JSON.parse( this.gladiatorData.progressSkill )
 		}

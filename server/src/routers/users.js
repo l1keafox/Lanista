@@ -18,6 +18,7 @@ async function createOwner(user) {
 		glad.save();
 	}
 	owner.userAcct = user._id;
+	owner.userName = user.username;
 	user.ownerId = owner._id;
 	return owner;
 }
