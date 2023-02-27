@@ -21,6 +21,11 @@
 			@click="$emit('changeMain', 'feedbackMain')">
 			Feedback/Bugs
 		</div>
+		<div
+			:class="butnLayout"
+			@click="$emit('changeMain', 'CreditMain')">
+			Credit
+		</div>
 
 		<hr/>
 

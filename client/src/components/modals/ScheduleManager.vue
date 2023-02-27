@@ -2,6 +2,21 @@
   <BaseModal>
     <template v-slot:header>
       <h3 class="text-3xl font-semibold">Week Schedule</h3>
+      <div class="text-sm font-medium text-center text-gray-500  border-gray-200 dark:text-gray-400 dark:border-gray-700">
+        <ul class="flex flex-wrap -mb-px">
+
+          <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+            <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal" v-on:click="toggleTabs(0)" v-bind:class="{'text-pink-600 bg-white': openTab !== 0, 'text-white bg-pink-600': openTab === 0}">
+              Simple
+            </a>
+          </li>
+          <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+            <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal" v-on:click="toggleTabs(1)" v-bind:class="{'text-pink-600 bg-white': openTab !== 1, 'text-white bg-pink-600': openTab === 1}">
+              Advanced
+            </a>
+          </li>
+        </ul>
+      </div>   			
     </template>
 
     <template v-slot:content>
@@ -42,6 +57,7 @@
                 </option>
               </template>
             </select>
+
             <h1>instead of doing this task:</h1>
             <select name="task1" id="task1">
               <option>{{ this.gladiatorData.taskSkill[0] }}</option>
