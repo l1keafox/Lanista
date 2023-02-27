@@ -159,7 +159,7 @@ export default {
 			let saveObj = {};
 			for (let i in sch) {
 				if (sch[i] && sch[i].name && sch[i].selectedOptions) {
-					//console.log( !sch[i].name , accept.includes(parseInt(sch[1].name)) );
+					console.log( !sch[i].name  );
 					saveObj[parseInt(i) + 1] = sch[i].selectedOptions[0].innerText;
 				}
 			}
@@ -168,8 +168,10 @@ export default {
 			let dayCount = 1;
 			let rtnObj = {};
 			for (let index in saveObj) {
+        if(index > 48){
+          continue;
+        }
 				timeCount++;
-
 				if (timeCount > 8) {
 					timeCount = 1;
 					//  console.log( currentDay );
