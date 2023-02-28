@@ -1,18 +1,23 @@
-const {modStat4Effect} = require('./../utils');
-module.exports = {
-    abilityName: "dodge",
-    type:"clash",
-    doAbility(casterChar, target) {
-      // Dodge has a bonus, because there's nothing to win it, doesn't do damage or morale damage, it just dodging.
-      // Might get an react from this.
-        const dodgeChance = modStat4Effect(casterChar.abilityMix({"agility":100,"sensitivity":15,"luck":15}),10);
-      casterChar.addEffect("missChance", dodgeChance);
-      return ({"missChance": dodgeChance});
-    },
-  
-    winCondition(casterChar, target) {
-      let points = 0;
-        points = casterChar.effectToDo.missChance;
-      return points;
-    },
+const {calcEffect,calcWin} = require("./AbilityParts");
+
+const Dodge = ()=>{
+  const state = {
+     abilityName : "dodge",
+     type : "clash",
+     effect : {
+        missChance:{
+         target:"caster",
+         agility:100,
+         sensitivity:15,
+         luck:15
+       }
+     },
+     winStats:{
+       target:"casterChar",
+       effect:"missChance"
+     }
   };
+  return { ...calcEffect(state),...calcWin(state),...state }
+}
+
+module.exports = Dodge;

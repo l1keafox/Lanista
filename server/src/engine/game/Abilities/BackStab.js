@@ -7,7 +7,7 @@ module.exports = {
     resultWanted:'win',
     abilityWanted:'dodge',
     //effectWanted:'missChance',
-    doClash(caster, target) {
+    doReact(caster, target) {
 //        console.log(' BACK STAB wants to win a dodge clash.',caster.effectToDo );
       if (caster.clashResult === this.resultWanted  && caster.clashAbility === "dodge" ) {
         

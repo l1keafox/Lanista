@@ -64,7 +64,7 @@ async function loadMorePosts() {
 	memories.value.push(...rn);
 }
 function closeModal() {
-	isModalShown = false;
+	isModalShown.value = false;
 }
 </script>
 

@@ -1,12 +1,12 @@
 <template>
   <BaseModal>
     <template v-slot:header>
-      <h3 class="text-3xl font-semibold">Week Schedule</h3>
+      <h3 class="text-3xl font-semibold">Manage Schedule</h3>
       <BaseTabs :tabs="tabs" v-model="currentTab"/>
     </template>
 
     <template v-slot:content>
-      <div v-if="gladiatorData && currentTab=='Week'" class="flex overflow-x-auto">
+      <div id="dayDiv" v-if="gladiatorData && currentTab=='Week'" class="flex overflow-x-auto z-20">
         <div v-for="(day, key2) in gladiatorData.schedule[0]" :key="key2">
           <h1>Day {{ key2 }}</h1>
           <div class="relative flex-auto bg-slate-200">
@@ -27,7 +27,7 @@
           </div>
         </div>
       </div>
-      <div v-if="gladiatorData  && currentTab=='Day' "  >
+      <div v-if="gladiatorData  && currentTab=='Day'"  >
           <div class="relative flex-auto bg-slate-200">
             <div
               v-for="(event, key) in gladiatorData.schedule[0][1]"
@@ -44,8 +44,7 @@
               </select>
             </div>
           </div>
-
-      </div>
+        </div>
       <div class="bg-slate-700 p-2">
         <h1>Skills Learning</h1>
         <div class="flex">
@@ -140,7 +139,7 @@ export default {
     this.daysOfWeek = ["One", "Two", "Three", "Four", "Five", "Six", "Seven"]
 		return {
 			gladiatorData: null,
-      currentTab: this.tabs[0],
+      currentTab:null,
 			userData: auth.getUser(),
 			trainingData: null,
 			learningData: null,
@@ -152,7 +151,7 @@ export default {
     BaseModal,
     BaseTabs
   },
-	inject:['apiCall'],
+	inject:['apiCall','showTutorial'],
 	methods: {
 		async doSave() {
 			let sch = document.getElementsByTagName("select");
@@ -258,7 +257,8 @@ export default {
 			}
 		}
 		this.learningData = learningData;
-		
+    this.showTutorial({elementId:"dayDiv",message:"A day is broken into 8 time frames, each time frame will train skills depending on what you have setup", orientation:"bottom"});
+
 	},
 };
 
