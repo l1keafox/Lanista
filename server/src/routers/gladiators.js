@@ -120,7 +120,7 @@ router.post('/gladiator/fightMemory', async(req, res) => {
 
 router.get('/gladiator/clashInfo/:gladiatorId', async(req, res) => {
 //    let glad = await Gladiator.findOne({ _id: req.body.id });
-if(!req.params.gladatorId){
+if(!req.params.gladiatorId){
     res.status(400)
     return;
 }
