@@ -14,7 +14,7 @@ const abilityObj = {
     // Clash Abilities
     
     slash: require("./Abilities/Slash"),
-    dodge: require("./Abilities/Dodge"),
+    dodge: require("./Abilities/dodge"),
     taunt: require("./Abilities/Taunt"),
     stab: require("./Abilities/Stab"),
     
@@ -26,7 +26,13 @@ const abilityObj = {
 };
 
 function getAbilityEffect(skillName) {
-  return abilityObj[skillName];
+  // Create an new object this might be memory intensive?
+  console.log( require("./Abilities/NewDodge2.js") );
+  const ability = abilityObj[skillName];
+  if(skillName == "dodge"){
+    console.log(skillName,abilityObj[skillName]);
+  }
+  return ability;
 }
 async function doLearn(gladiator,skillName){
   const learnSkill = abilityObj[skillName];

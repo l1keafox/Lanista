@@ -47,6 +47,7 @@ function compareEffects(gladiator,target){
                 // Damage is 150 multiplier
                 // agility should be 100 
                 target.effectToDo.staminaDamage = gladiator.effectToDo.hitDamage - (gladiator.agility*0.01);
+                if(!target.effectToDo.staminaDamage) target.effectToDo.staminaDamage = 0;
                 gladiator.effectToDo.hitDamage = 0;
             }
 
@@ -62,17 +63,26 @@ function compareEffects(gladiator,target){
             }
         break;
         case "taunting":
-            // If taunter this glad, is taking damage, then taunting is set to 0.
+            // If taunter this glad, is taking damage, then taunting is removed by that amount.
             if( gladiator.effectToDo.hitDamage && gladiator.effectToDo.taunting ){
                 gladiator.effectToDo.taunting -= gladiator.effectToDo.hitDamage;
+                if(!gladiator.effectToDo.taunting) gladiator.effectToDo.taunting = 0;
             } 
              
-            // If this glad is taunting and the other target is dodging 
+            // If this glad is taunting and the other target is dodging
+            // Note moraleDamage is done at the end of this.
             if(target.effectToDo.missChance) {
                 target.effectToDo.missChance = 0;
-                target.effectToDo.moraleDamage = gladiator.effectToDo.taunting;
             }
 
+            //target.effectToDo.moraleDamage = gladiator.effectToDo.taunting;
+            // will need to refractor here. Because we will have different types of taunt
+
+            // Their moraleDamage will be put into effect here.
+            
+
+            // Then we will see if they both take moraleDamage,
+            // and then we calcuate ite.
             // If target is taunting.
             if(target.effectToDo.taunting){
                 // So if both are taunting.
@@ -80,12 +90,16 @@ function compareEffects(gladiator,target){
                 // If target taunting is greater than glad taunting.
                 if(target.effectToDo.taunting > gladiator.effectToDo.taunting){
                     gladiator.effectToDo.moraleDamage = target.effectToDo.taunting - gladiator.effectToDo.taunting
-                } else {
+                } else{
                     target.effectToDo.moraleDamage = gladiator.effectToDo.taunting - target.effectToDo.taunting
-                } 
+                }
                 target.effectToDo.taunting = 0;
                 gladiator.effectToDo.taunting = 0;
+            } else {
+                target.effectToDo.moraleDamage = gladiator.effectToDo.taunting;                
             }
+
+
             break;
     }
 }
