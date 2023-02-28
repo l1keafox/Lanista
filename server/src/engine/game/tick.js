@@ -17,7 +17,7 @@ let date = {
 
 async function clearSaves(){
 	// This function will go through saveTournaments and saveDuels and delete them based on time pased.
-	const timePassed = 43200000; // 86400000 ( 60 * 60 * 24 * 1000) is one real day's time 
+	const timePassed = process.env.TIMEPASSED ?? 43200000; // 86400000 ( 60 * 60 * 24 * 1000) is one real day's time 
 	const lessThan = new Date() - timePassed; 
 	// saveDuel.find({createdAt:{$gl: lessThan }  } );
 	saveDuel.deleteMany( {createdAt:{$lt: lessThan }  } ).then( ()=>{

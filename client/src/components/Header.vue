@@ -6,12 +6,12 @@
 				class="cursor-pointer text-6xl text-center font-bold font-baby p-2 pl-4">
 				Lanista
 			</h1>
-        <div class ="flex w-1/3 justify-between items-center font-lux cursor-default">
-					<div id="goldFame" class="flex w-1/3 justify-between">
+        <div class ="flex w-1/2 justify-between items-center font-lux cursor-default">
+					<div id="goldFame" class="flex w-1/3 p-4 justify-between">
 						<h2 :class ="cardTitle" v-if="ownerData" >G: {{ ownerData.gold }} </h2>
 						<h2 :class ="cardTitle" v-if="ownerData" >F: {{ ownerData.fame }} </h2>
 					</div>
-					<div id="dateTutorial" v-if="timeData" class="flex w-1/2  justify-between">
+					<div id="dateTutorial" v-if="timeData" class="p-4 flex w-1/2  justify-between">
 						<h2 :class ="cardTitle">{{timeData.time}}:00</h2>
 						<h2 :class ="cardTitle">{{this.dayMap[timeData.weekDay]}}day</h2>
 						<h2 :class ="cardTitle">{{timeData.month}}/{{timeData.day}}/{{timeData.year}} </h2>
