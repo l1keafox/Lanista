@@ -7,7 +7,7 @@
 			<component :is="mainStage" />
 		</div>
 	</div>
-	<BaseTutoralModal v-if="showTutorialModal" v-model="showTutorialModal" :tutorialName="tutorialName" :tutorialArray="contentArray"/>
+	<BaseTutoralModal v-if="showTutorialModal" v-model="showTutorialModal" :tutorialArray="tutorialArray"/>
 
 </template>
 
@@ -62,6 +62,7 @@ export default {
 		this.timerInterval;
 		this.apiData = location.protocol === "https:" ? `https://${window.location.hostname}` : `http://${window.location.hostname}:3001`
 		this.tutorialName;
+		this.mountedDone = false;
 		return {
 			isLoggedIn: auth.loggedIn(),
 			showTutorialModal: false,
@@ -70,6 +71,7 @@ export default {
 			toNextTick: 0,
 			userData: null,
 			ownerData: null,
+			tutorialArray: []
 		};
 	},
 	methods: {
@@ -181,7 +183,10 @@ export default {
 		this.countDown = this.timeTimer;
 		const percent = (this.countDown / this.timeTimer);
 		this.toNextTick = percent.toFixed(2);
-
+		if(this.tutorialArray.length){
+			this.showTutorialModal = true;
+			this.mountedDone = true;
+		}
 	},
 	provide() {
 		return {
@@ -195,20 +200,14 @@ export default {
 			getUser: computed(() => this.userData),
 			getLogged: computed(() => this.isLoggedIn),
 			apiCall: computed(() => this.apiData),
-			showTutorial: (vue,contentArray)=>{
-				console.log("Show tutorial?", auth.getUser().showTutorial);
-				console.log(contentArray);
-				// if(auth.getUser().showTutorial && !localStorage.getItem(vue)){
-					console.log('trigger show',vue,contentArray);
-					// this.showWindow = {height:"100px",width:"100px",top:"20rem",left:"20rem"};
-					// this.textWindow = {content:"Hi",style:null};
+			showTutorial: (tutorial)=>{
+				// if(auth.getUser().showTutorial && !localStorage.getItem(tutorial.elementId)){
+
+				this.tutorialArray.push( tutorial)
+				if(this.mountedDone){
 					this.showTutorialModal = true;
-					this.tutorialName = vue;
-					this.contentArray = contentArray;
-//				}
-				// Here we will check if it has already been shown, via localStorage
-				// If not, we will showTutorail true
-				// then we will 
+				}
+				// }
 			},
 		};
 	},

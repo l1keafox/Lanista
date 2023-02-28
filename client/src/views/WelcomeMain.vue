@@ -66,20 +66,11 @@ export default {
 	name: "WelcomeMain",
 	inject: ["apiCall", "showTutorial"],
 	async mounted() {
-        var div = document.getElementById("gladSideNav");
-        const rect = div.getBoundingClientRect();
-        var show = {}
-        for (const key in rect) {
-            if (typeof rect[key] !== "function") {
-                show[key] = rect[key]
-            }
-        }        
-        show.top += 44;
 
-		this.showTutorial("welcome",[
-            {text:{content:"Start here to see your gladiators",style:"bottom"},show},
-        ]);
-
+		
+		
+        
+        
 		if (this.apiCall) {
 			const rpnse = await fetch(this.apiCall.value + `/users/gameData`, {
 				headers: { "Content-Type": "application/json" },

@@ -4,11 +4,10 @@
 
     <div class="opacity-25 fixed inset-0 bg-black z-100"></div>
     <div id="window" class=" fixed z-100 "></div>
-    <div id="info" class="cursor-disabled fixed z-100   top-[10rem] left-[10rem] bg-white opacity-100">
-      <h1 v-if="textWindow"> {{textWindow.content}} </h1>
+    <div id="info" class="cursor-disabled fixed z-100 text-black bg-white opacity-100">
+      <h1 v-if="tutMessage"> {{tutMessage}} </h1>
       <div class="flex">
-        <button class="text-red-700" v-if="tutorialArray.length-1 > index" @click="next"> Next </button>
-        <button class="text-red-700" v-else @click="saveAndClose"> Close </button>
+        <button class="text-red-700" @click="next"> Next </button>
       </div>
     </div>
   </div>
@@ -18,105 +17,110 @@
 /*
 
   interface:
-    I did not want to create many tutorals, so the idea is that the page that triggers the modal, will also give it parameters below:
+    elementId
+    message
+    orientation
 
-    showWindow - height, width, top, left,bottom,right 
-    textWindow - content, style , height, width, top, left,bottom,right
-    Text content
 */
 import {defineEmits, onMounted ,ref } from 'vue'
 
 const showSelf = ref(true);
-const showWindow = ref();
-const textWindow= ref();
-const index = ref(0)
+const tutMessage= ref();
+
 const emit = defineEmits(['update:modelValue'])
-const {model_value, tutorialName ,tutorialArray} = defineProps({
-  tutorialName:{
-    type:String
-  },
+const {model_value, tutorialArray} = defineProps({
   model_value:{
     type: String,
   },
   tutorialArray:{
   }
 })
+
 onMounted(()=>{
   update()
 })
 
 
 function update(){
-  if(tutorialArray[index.value]){
-    console.log("WHAT",tutorialArray[index.value]);
-  
-  showWindow.value = tutorialArray[index.value].show;
-  const windowEle = document.getElementById("window")
-  console.log(showWindow.value.top);
-  windowEle.style.height = showWindow.value.height+"px";
-  windowEle.style.width = showWindow.value.width+"px";
-  windowEle.style.top = showWindow.value.top+"px";
-  windowEle.style.left = showWindow.value.left+"px";
-  windowEle.style.bottom = showWindow.value.bottom+"px";
-  windowEle.style.right = showWindow.value.right+"px";
-  console.log(windowEle,"Whjat is the style")
+    console.log(tutorialArray[0]);
+    const {elementId,message,orientation} = tutorialArray[0];
+    const element = document.getElementById(elementId);
+    if(!element) {
+      console.log('  -> no element, ERROR ',elementId,tutorialArray)
+      let old = tutorialArray.shift();
+      tutorialArray.push(old);
+      return;
+    }
+    const bounding= element.getBoundingClientRect();
 
-  const infoEle = document.getElementById("info")
-      console.log("That way?",tutorialArray[index.value],tutorialArray[index.value].text.style ); 
-      textWindow.value = tutorialArray[index.value].text
+    function toObj(rect){
+            let show = {}
+            for (const key in rect) {
+                if (typeof rect[key] !== "function") {
+                    show[key] = rect[key]
+                }
+            }        
+            return show;
+    }
+    const window = toObj(bounding) ;
 
-      /*
-      infoEle.style.top = showWindow.value.top+"px";
-      infoEle.style.left = showWindow.value.left+"px";
-      infoEle.style.bottom = showWindow.value.bottom+"px";
-      infoEle.style.right = showWindow.value.right+"px";
+    const windowEle = document.getElementById("window")
+          windowEle.style.height = window.height+"px";
+          windowEle.style.width = window.width+"px";
+          windowEle.style.top = window.top+"px";
+          windowEle.style.left = window.left+"px";
+          windowEle.style.bottom = window.bottom+"px";
+          windowEle.style.right = window.right+"px";
 
-      */
-      if(tutorialArray[index.value].text.style == "left"){
-        // infoEle.style.height = showWindow.value.height+"px";
-        // infoEle.style.width = showWindow.value.width+"px";
-        infoEle.style.top = showWindow.value.top+"px";
-        infoEle.style.left = showWindow.value.right-showWindow.value.left+"px";
-        infoEle.style.bottom = showWindow.value.bottom+"px";
-      } else if(tutorialArray[index.value].text.style == "right"){
-        infoEle.style.top = showWindow.value.top+"px";
-        infoEle.style.left = showWindow.value.right+showWindow.value.left+"px";
-        infoEle.style.bottom = showWindow.value.bottom+"px";
-      } else if(tutorialArray[index.value].text.style == "top"){
-        infoEle.style.top = showWindow.value.top - showWindow.value.height+"px";
-        infoEle.style.left = showWindow.value.left+"px";
-      } else if(tutorialArray[index.value].text.style == "bottom"){
-        infoEle.style.top = showWindow.value.top+showWindow.value.height+"px";
-        infoEle.style.left = showWindow.value.left+"px";
-      } else {
-        console.log("here?");
-        infoEle.style.height = textWindow.value.height;
-        infoEle.style.width = textWindow.value.width;
-        infoEle.style.top = textWindow.value.top;
-        infoEle.style.left = textWindow.value.left;
-        infoEle.style.bottom = textWindow.value.bottom;
-        infoEle.style.right = textWindow.value.right;
+    const infoEle = document.getElementById("info")
+         tutMessage.value = message
 
-        console.log(infoEle, "info style");
-      }
-  }
+        if(orientation == "left"){
+          // infoEle.style.height = window.height+"px";
+          // infoEle.style.width = window.width+"px";
+          infoEle.style.top = window.top+"px";
+          infoEle.style.left = window.right-window.left+"px";
+          infoEle.style.bottom = window.bottom+"px";
+        } else if(orientation == "right"){
+          infoEle.style.top = window.top+"px";
+          infoEle.style.left = window.right+window.left+"px";
+          infoEle.style.bottom = window.bottom+"px";
+        } else if(orientation == "top"){
+          infoEle.style.top = window.top - window.height+"px";
+          infoEle.style.left = window.left+"px";
+        } else if(orientation == "bottom"){
+          infoEle.style.top = window.top+window.height+"px";
+          infoEle.style.left = window.left+"px";
+        } else {
+          infoEle.style.height = message.value.height;
+          infoEle.style.width = message.value.width;
+          infoEle.style.top = message.value.top;
+          infoEle.style.left = message.value.left;
+          infoEle.style.bottom = message.value.bottom;
+          infoEle.style.right = message.value.right;
+        }
 }
 
 function next(){
-  index.value++;
-  update()
+  localStorage.setItem(tutorialArray[0].elementId, true);
+  tutorialArray.shift();
+  if(tutorialArray.length == 0){
+    emit('update:modelValue')
+  } else {
+    update()
+  }
 }
 function saveAndClose(){
-  localStorage.setItem(tutorialName, true);
-  showSelf.value = false;
-  // emit('update:modelValue')
+  localStorage.setItem(tutorialArray[0].elementId, true);
+  tutorialArray.shift();
+  if(tutorialArray.length == 0){
+    emit('update:modelValue')
+  }
 }
 </script>
 
 <style scoped>
 #window {
-  width: 150px;
-  height: 150px;
   border: 1px solid red;
   box-shadow: 0 0 0 99999px rgba(220, 220, 220, .25)
 }

@@ -80,7 +80,7 @@ import auth from "./../mixins/auth";
 
 export default {
 	name: "SideNav",
-	inject: ["getLogged","getOwner","getUser"],
+	inject: ["getLogged","getOwner","getUser",'showTutorial'],
 	data() {
 		this.butnLayout = "font-lux text-base text-center w-fill cursor-pointer sideOptions hover:bg-blue-200 hover:text-black py-4 select-none"
 		return {
@@ -97,7 +97,7 @@ export default {
 		this.ownerData = this.getOwner;
 		this.userData = this.getUser;
 		this.isLoggedIn = this.getLogged;
-		
+		this.showTutorial({elementId:"gladSideNav",message:"Start here to see what gladiators you  have", orientation:"bottom"});
 	},
 	
 	emits: ["logged", "changeMain","getUser"],
