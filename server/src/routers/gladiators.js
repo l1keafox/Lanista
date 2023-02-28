@@ -8,11 +8,20 @@ const {saveModelMemory, prepMemoryForFight,prepModelForFight,getMemoryGroup} = r
 const router = express.Router();
 
 router.get('/gladiator/:gladiatorId', async(req, res) => {
+    if(!req.params.gladiatorId){
+        res.status(400)
+        return;
+    }
     let gladiator = await Gladiator.findById(req.params.gladiatorId);
     res.send(gladiator)
 })
 
 router.post('/gladiator/updateEquipment', async(req, res) => {
+    if(!req.body.id){
+        res.status(400)
+        return
+    }
+
     let gladiator = await Gladiator.findOne({ _id: req.body.id });
     req.body.save.forEach(item => {
         gladiator[item.slot] = item.newEquip;
@@ -22,6 +31,11 @@ router.post('/gladiator/updateEquipment', async(req, res) => {
 })
 
 router.post('/gladiator/updateClash', async(req, res) => {
+    if(!req.body.id){
+        res.status(400)
+        return;
+    }
+
     let gladiator = await Gladiator.findOne({ _id: req.body.id });
     // validate
     
@@ -36,6 +50,11 @@ router.post('/gladiator/updateClash', async(req, res) => {
 })
 
 router.post('/gladiator/doSpar', async(req, res) => {
+    if(!req.body.gladatorId || !req.body.gladatorId2  ){
+        res.status(400)
+        return
+    }
+
     let glad = await Gladiator.findOne({ _id: req.body.gladatorId });
     let glad2 = await Gladiator.findOne({ _id: req.body.gladatorId2 });
     if(glad && glad2){
@@ -55,6 +74,11 @@ router.post('/gladiator/doSpar', async(req, res) => {
 })
 
 router.post('/gladiator/fightMemory', async(req, res) => {
+    if(!req.body.gladatorId){
+        res.status(400)
+        return;
+    }
+
     let glad = await Gladiator.findOne({ _id: req.body.gladatorId });
 
     if(glad){
@@ -96,6 +120,11 @@ router.post('/gladiator/fightMemory', async(req, res) => {
 
 router.get('/gladiator/clashInfo/:gladiatorId', async(req, res) => {
 //    let glad = await Gladiator.findOne({ _id: req.body.id });
+if(!req.params.gladiatorId){
+    res.status(400)
+    return;
+}
+
     let glad = await Gladiator.findById(req.params.gladiatorId);
     // So let's take all the skills and abilities put them in one array as unassigned
     // Then we will organize it as needed, returning an object that will hold 
@@ -147,9 +176,14 @@ router.get('/gladiator/clashInfo/:gladiatorId', async(req, res) => {
 //     res.send(glad)
 // })
 router.post('/gladiator/saveWeek', async(req, res) => {
+    if(!req.body.id){
+        res.status(400)
+        return;
+    }
     let glad = await Gladiator.findOne({ _id: req.body.id });
     
     glad.schedule = [req.body.week];
+    glad.scheduleType = req.body.scheduleType;
     // So given that this is now an week array we need req.body.weekDay
     glad.save();
     console.log('  -EN> savingWeek',glad.name);
@@ -157,6 +191,11 @@ router.post('/gladiator/saveWeek', async(req, res) => {
 })
 
  router.get('/gladiator/someTournaments/:gladId/:offset/:limit', async(req, res) => {
+    if(!req.params.gladId || !req.params.offset || !req.params.limit ){
+        res.status(400)
+        return;
+    }
+
     let mongoose = require('mongoose');
     let id =  mongoose.Types.ObjectId(req.params.gladId);
     let tournaments = await saveTournament.find({ 'gladiators': { $elemMatch: {$eq:id} } })
@@ -168,6 +207,10 @@ router.post('/gladiator/saveWeek', async(req, res) => {
  })
 
 router.get('/gladiator/someMemories/:gladId/:offset/:limit', async(req, res) => {
+    if(!req.params.gladId || !req.params.offset || !req.params.limit ){
+        res.status(400)
+        return;
+    }
     let memories = await Memory.find({ gladiatorId : req.params.gladId }).skip(req.params.offset).limit(req.params.limit); 
     res.send(memories);
 })
@@ -179,22 +222,31 @@ router.get('/gladiator/someMemories/:gladId/:offset/:limit', async(req, res) => 
 //     res.send(duels);
 // })
 router.get('/gladiator/someDuels/:gladId/:offset/:limit', async(req, res) => {
+    if(!req.params.gladId || !req.params.offset || !req.params.limit ){
+        res.status(400)
+        return;
+    }    
     let duels = await saveDuel.find({ $or:[{gladiatorOne : req.params.gladId},{gladiatorTwo : req.params.gladId} ] }).populate('gladiatorTwo',['name']).populate('gladiatorOne',['name']).skip(req.params.offset).limit(req.params.limit); 
     
     res.send(duels);
 })
 
-router.delete('/gladiator/deleteDuel/:duelId' , async(req, res) => {
-    
-})
-
 router.get('/gladiator/getDuel/:duelId', async(req, res) => {
+    if(!req.params.duelId){
+        res.status(400)
+        return;
+    }    
+
     let duel = await saveDuel.find({ _id:req.params.duelId } );
-    
     res.send( duel );
 })
 
 router.post('/gladiator/saveLearning', async(req, res) => {
+    if(!req.body.id){
+        res.status(400)
+        return;
+    }    
+
     let glad = await Gladiator.findOne({ _id: req.body.id });
     
     glad.learnSkill = [req.body.skill];

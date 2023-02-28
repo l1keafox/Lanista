@@ -9,3 +9,17 @@ Provoke -Wins against attack- Does increase morale damaged with the damage it ta
 Dodge - Wins against slash - Does stamina damage when attack MediaSession, does stamina damage against dodge
 Block - wins against dodge - Does no stamina damage, reduces damage from attack, doesn't work with hit. Does best against other dodge types.
 feint - wins against taunt - Does morale damage against taunt, wins against dodge, low stamina against self. 
+
+    Sl  ba  st  ta  in  pr  do  bl  fe
+Sl  =   --  ++  ++  ++  --  --  -   ++
+ba  ++  =   +++ +++ +++ --- --- ++  +++
+st  --  --- =   +   ++  -   +   --  +
+
+ta
+in
+pr
+
+
+do
+bl
+fe

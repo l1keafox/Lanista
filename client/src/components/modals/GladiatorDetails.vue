@@ -25,7 +25,7 @@ import Equipment from "./Tabs/EquipmentTab.vue"
 import Clash from "./Tabs/ClashTab.vue"
 import Stats from "./Tabs/StatsTab.vue"
   export default {
-    name: "GladiatorStats",
+    name: "GladiatorDetails",
     props: ["gladId","gladMemory"],
     components:{
       Equipment,
@@ -33,9 +33,6 @@ import Stats from "./Tabs/StatsTab.vue"
       Clash,
       BaseModal,
       BaseTabs
-    },
-    updated(){
-      console.log(currentTab);
     },
     inject:['apiCall'],
     data() {

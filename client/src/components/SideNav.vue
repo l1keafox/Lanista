@@ -31,22 +31,26 @@
 
 		<div v-if="isLoggedIn" class="font-lux text-base">
 			<div
-			:class="butnLayout"
+				:class="butnLayout"
+				id ="gladSideNav"
 				@click="$emit('changeMain', 'GladiatorsMain')">
 				Gladiators
 			</div>
 			<div
-			:class="butnLayout"
+				:class="butnLayout"
+				id ="schoolSideNav"
 				@click="$emit('changeMain', 'SchoolMain')">
 				School
 			</div>
 			<div
 			:class="butnLayout"
+			id ="combatSideNav"
 				@click="$emit('changeMain', 'CombatMain')">
 				Combat
 			</div>
 			<div
 			:class="butnLayout"
+			id ="storeSideNav"
 				@click="$emit('changeMain', 'StoreMain')">
 				Store
 			</div>
@@ -76,10 +80,10 @@ import auth from "./../mixins/auth";
 
 export default {
 	name: "SideNav",
-	inject: ["getLogged","getOwner","getUser"],
+	inject: ["getLogged","getOwner","getUser",'showTutorial'],
 	data() {
+		this.butnLayout = "font-lux text-base text-center w-fill cursor-pointer sideOptions hover:bg-blue-200 hover:text-black py-4 select-none"
 		return {
-			butnLayout: "font-lux text-base text-center w-fill cursor-pointer sideOptions hover:bg-blue-200 hover:text-black py-4",
 			showLoginModal: false,
 			showCreateModal: false,
 			ownerData: null,
@@ -93,8 +97,15 @@ export default {
 		this.ownerData = this.getOwner;
 		this.userData = this.getUser;
 		this.isLoggedIn = this.getLogged;
-		
+		if(this.isLoggedIn){
+			this.showTutorial({elementId:"gladSideNav",message:"Start here to see what gladiators you  have", orientation:"bottom"});
+		}		
 	},
+	updated(){
+		if(this.isLoggedIn){
+			this.showTutorial({elementId:"gladSideNav",message:"Start here to see what gladiators you  have", orientation:"bottom"});
+		}		
+},
 	
 	emits: ["logged", "changeMain","getUser"],
 	methods: {

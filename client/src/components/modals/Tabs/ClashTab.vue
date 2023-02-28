@@ -112,13 +112,12 @@ const react = ref(null);
 
 
 onMounted(async ()=>{
-  const rpnse = await fetch(
+  	const rpnse = await fetch(
 			apiCall.value + `/gladiator/clashInfo/${gladId}`,
 			{
 				headers: { "Content-Type": "application/json" },
 			}
 		);
-
 		const gladData = await rpnse.json();
 		skills.value = gladData;
 		unPrepare.value = gladData.unPrepare;

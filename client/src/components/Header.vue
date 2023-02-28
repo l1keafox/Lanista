@@ -6,18 +6,18 @@
 				class="cursor-pointer text-6xl text-center font-bold font-baby p-2 pl-4">
 				Lanista
 			</h1>
-        <div class ="flex w-1/3 justify-between items-center font-lux cursor-default">
-					<div class="flex w-1/3 justify-between">
+        <div class ="flex w-1/2 justify-between items-center font-lux cursor-default">
+					<div id="goldFame" class="flex w-1/3 p-4 justify-between">
 						<h2 :class ="cardTitle" v-if="ownerData" >G: {{ ownerData.gold }} </h2>
 						<h2 :class ="cardTitle" v-if="ownerData" >F: {{ ownerData.fame }} </h2>
 					</div>
-					<div v-if="timeData" class="flex w-1/2  justify-between">
+					<div id="dateTutorial" v-if="timeData" class="p-4 flex w-1/2  justify-between">
 						<h2 :class ="cardTitle">{{timeData.time}}:00</h2>
 						<h2 :class ="cardTitle">{{this.dayMap[timeData.weekDay]}}day</h2>
 						<h2 :class ="cardTitle">{{timeData.month}}/{{timeData.day}}/{{timeData.year}} </h2>
 					</div>
         </div>
-				<div v-if="timeData" class ="flex items-center" >
+				<div id="tickTutorial" v-if="timeData" class ="flex items-center" >
 					<ProgressBar :bgcolor="'#6a1b9a'" :completed ="tickTimer"/>
 				</div>
 
@@ -59,7 +59,7 @@ import SettingModal from "./modals/SettingsModal.vue"
 import ProgressBar from "./ProgressBar.vue"
 export default {
 	name: "HeaderVue",
-	inject: ["getUser","getOwner","getTime","apiCall"],
+	inject: ["getUser","getOwner","getTime","apiCall","showTutorial"],
 	props:[ "tickTimer"],
 	emits: ["logged", "changeMain", "getUser"],
 	data() {
@@ -89,11 +89,19 @@ export default {
 		ProgressBar,
 		CreateAccountModal
 	},
+	updated(){
+		// console.log("header update",this.isLoggedIn)
+
+	},
 
 	async mounted() {
 		this.userData = this.getUser;
     this.ownerData = this.getOwner;
 		this.timeData = this.getTime;
+		if(this.isLoggedIn){
+			this.showTut()
+		}
+		
 	},
 	methods: {
 		closePopup(){
@@ -106,7 +114,13 @@ export default {
 		showModal(targetModal){
 			this.modalShown = targetModal
 			this.isModalShown = true;
-		},	
+		},
+		showTut(){
+		this.showTutorial({elementId:"dateTutorial",message:"This is the current tick and date", orientation:"bottom"});
+		this.showTutorial({elementId:"goldFame",message:"Fame is an requirement, and gold to purchase things", orientation:"bottom"});
+		this.showTutorial({elementId:"tickTutorial",message:"Timer to determine when the next tick will occur", orientation:"bottom"});
+
+		},
 		async createAcct({ username, password, email }) {
 			if (!username || !password || !email) {
 				this.isModalShown = false;
@@ -136,6 +150,7 @@ export default {
 			this.ownerData = this.getOwner;
 			this.userData = this.getUser;
 			this.isModalShown = false;
+			this.showTut()
 		},
 
 		async tryLogin({ username, password }) {
@@ -162,6 +177,7 @@ export default {
 			this.ownerData = this.getOwner;
 			this.userData = this.getUser;
 			this.isModalShown = false;
+			this.showTut()
 		}
 	},
 };
