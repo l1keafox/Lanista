@@ -1,5 +1,6 @@
 <template>
   <div class="w-[270px] h-[400px] text-slate-900" :class="bgColor">
+    <button class="bg-red-500 w-1/3" @click="showStats"> Stats </button>
     <template v-if="thisGuy">
       <!-- {{ thisGuy.name }} -->
       <div class="flex flex-col">
@@ -18,7 +19,6 @@
         <!-- <Popup :dmg="thisGuy.dmg" class="pup "/> -->
       </template>
   </template>
-  <button class="bg-red-500 w-full" @click="showStats"> Stats </button>
 </div>
 </template>
 
@@ -40,7 +40,6 @@
   const gladiatorData = ref(null)
   function makeClothes(glad){
     if(glad){
-      console.log(glad.hairChar,"HAIR");
       return { hair:glad.hairChar, skin:glad.skinChar, sex:glad.sexChar, body:1 }
     }
   }
@@ -54,12 +53,10 @@
           }
         );
         gladiatorData.value = await rpnse.json();
-        console.log(gladiatorData,);
         makeClothes(gladiatorData)
   })
   async function showStats(){
-    console.log('Showing stats for ',thisGuy.value.id,apiCall);
-        console.log(gladiatorData,);
+    console.log('Showing stats for ',thisGuy.value.id,gladiatorData);
           
   }
   // We should do a fetch for clothes for this guy?
