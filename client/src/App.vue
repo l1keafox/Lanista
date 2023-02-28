@@ -7,7 +7,7 @@
 			<component :is="mainStage" />
 		</div>
 	</div>
-	<BaseTutoralModal v-if="showTutorialModal" v-model="showTutorialModal" :tutorialName="tutorialName" :showWindow="showWindow" :textWindow="textWindow"/>
+	<BaseTutoralModal v-if="showTutorialModal" v-model="showTutorialModal" :tutorialName="tutorialName" :tutorialArray="contentArray"/>
 
 </template>
 
@@ -56,7 +56,7 @@ export default {
 	data() {
 		this.timeTimer;
 		this.countDown;
-		this.showWindow;
+		this.contentArray;
 		this.textWindow;
 		this.interval;
 		this.timerInterval;
@@ -199,12 +199,12 @@ export default {
 				console.log("Show tutorial?", auth.getUser().showTutorial);
 				console.log(contentArray);
 				// if(auth.getUser().showTutorial && !localStorage.getItem(vue)){
-					console.log('trigger show',vue,this.textWindow,this.showWindow);
-					this.showWindow = {height:"100px",width:"100px",top:"20rem",left:"20rem"};
-					this.textWindow = {content:"Hi",style:null};
-
-					this.tutorialName = vue;
+					console.log('trigger show',vue,contentArray);
+					// this.showWindow = {height:"100px",width:"100px",top:"20rem",left:"20rem"};
+					// this.textWindow = {content:"Hi",style:null};
 					this.showTutorialModal = true;
+					this.tutorialName = vue;
+					this.contentArray = contentArray;
 //				}
 				// Here we will check if it has already been shown, via localStorage
 				// If not, we will showTutorail true

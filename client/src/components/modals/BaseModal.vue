@@ -53,6 +53,11 @@
 import BaseFooter from './BaseFooter.vue';
 export default {
 	name: "baseModal",
+	data(){
+		return{
+			showModal: true
+		}
+	},
 	components:{
 		BaseFooter
 	},

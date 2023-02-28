@@ -1,7 +1,7 @@
 <template>
   <BaseModal>
     <template v-slot:header>
-      <h3 class="text-3xl font-semibold">Week Schedule</h3>
+      <h3 class="text-3xl font-semibold">Manage Schedule</h3>
       <BaseTabs :tabs="tabs" v-model="currentTab"/>
     </template>
 

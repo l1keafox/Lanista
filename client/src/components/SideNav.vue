@@ -31,22 +31,26 @@
 
 		<div v-if="isLoggedIn" class="font-lux text-base">
 			<div
-			:class="butnLayout"
+				:class="butnLayout"
+				id ="gladSideNav"
 				@click="$emit('changeMain', 'GladiatorsMain')">
 				Gladiators
 			</div>
 			<div
-			:class="butnLayout"
+				:class="butnLayout"
+				id ="schoolSideNav"
 				@click="$emit('changeMain', 'SchoolMain')">
 				School
 			</div>
 			<div
 			:class="butnLayout"
+			id ="combatSideNav"
 				@click="$emit('changeMain', 'CombatMain')">
 				Combat
 			</div>
 			<div
 			:class="butnLayout"
+			id ="storeSideNav"
 				@click="$emit('changeMain', 'StoreMain')">
 				Store
 			</div>
@@ -78,8 +82,8 @@ export default {
 	name: "SideNav",
 	inject: ["getLogged","getOwner","getUser"],
 	data() {
+		this.butnLayout = "font-lux text-base text-center w-fill cursor-pointer sideOptions hover:bg-blue-200 hover:text-black py-4 select-none"
 		return {
-			butnLayout: "font-lux text-base text-center w-fill cursor-pointer sideOptions hover:bg-blue-200 hover:text-black py-4",
 			showLoginModal: false,
 			showCreateModal: false,
 			ownerData: null,

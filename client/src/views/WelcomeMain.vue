@@ -1,7 +1,7 @@
 <template>
 	<div class="flex flex-col w-full overflow-x-hidden relative">
 		<!-- <Character animation="walk" direction="Down" /> -->
-		<h1 class="text-center font-8bit text-[7rem]">Lanista</h1>
+		<h1 id="header" class="text-center font-8bit text-[7rem]">Lanista</h1>
 		<h2 class="text-center font-neo text-[2rem]">
 			- a trainer of gladiators -
 		</h2>
@@ -66,9 +66,18 @@ export default {
 	name: "WelcomeMain",
 	inject: ["apiCall", "showTutorial"],
 	async mounted() {
+        var div = document.getElementById("gladSideNav");
+        const rect = div.getBoundingClientRect();
+        var show = {}
+        for (const key in rect) {
+            if (typeof rect[key] !== "function") {
+                show[key] = rect[key]
+            }
+        }        
+        show.top += 44;
 
 		this.showTutorial("welcome",[
-            {text:{content:"Stuff",style:null},show:{height:"80px",width:"80px",top:"30rem",left:"30rem"}}
+            {text:{content:"Start here to see your gladiators",style:"bottom"},show},
         ]);
 
 		if (this.apiCall) {

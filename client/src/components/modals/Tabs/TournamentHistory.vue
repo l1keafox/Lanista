@@ -51,7 +51,7 @@ onMounted(()=>{
 })
 
 function closeModal(){
-  isModalShown = false;
+  isModalShown.value = false;
 }
 
 function showDetailModal(event){
@@ -66,7 +66,7 @@ function showDetailModal(event){
 
             tournamentType.value = tournKey[event.target.getAttribute("data-type")];
             tournamentData.value = tournamentArray.value[event.target.getAttribute("data-index")].tournament
-            isModalShown = true;
+            isModalShown.value = true;
         }
 
             async function loadMorePosts(){
