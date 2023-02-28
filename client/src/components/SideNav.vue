@@ -97,8 +97,15 @@ export default {
 		this.ownerData = this.getOwner;
 		this.userData = this.getUser;
 		this.isLoggedIn = this.getLogged;
-		this.showTutorial({elementId:"gladSideNav",message:"Start here to see what gladiators you  have", orientation:"bottom"});
+		if(this.isLoggedIn){
+			this.showTutorial({elementId:"gladSideNav",message:"Start here to see what gladiators you  have", orientation:"bottom"});
+		}		
 	},
+	updated(){
+		if(this.isLoggedIn){
+			this.showTutorial({elementId:"gladSideNav",message:"Start here to see what gladiators you  have", orientation:"bottom"});
+		}		
+},
 	
 	emits: ["logged", "changeMain","getUser"],
 	methods: {

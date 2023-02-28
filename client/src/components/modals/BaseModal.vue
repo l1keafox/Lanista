@@ -1,14 +1,13 @@
 <template>
-	<div >
+	<div class = "" >
 		<!--Background-->
-		<div class="opacity-25 fixed inset-0 bg-black z-40"></div>
-
+		<div class="opacity-25 fixed inset-0 bg-black z-30"></div>
 		<div
-			class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex"
+			class="overflow-x-hidden overflow-y-auto fixed inset-0  outline-none focus:outline-none justify-center items-center flex z-30"
 			data-id="bg"
 			v-bind="$attrs"
 			v-on:click="bgClose($event)">
-			<div class="relative w-auto my-6 mx-auto max-w-6xl" >
+			<div class="relative w-auto my-6 mx-auto max-w-6xl " >
 				<!--content-->
 				<div   v-bind="$attrs" class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
 					<!--header-->

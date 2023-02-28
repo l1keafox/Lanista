@@ -89,15 +89,18 @@ export default {
 		ProgressBar,
 		CreateAccountModal
 	},
+	updated(){
+		// console.log("header update",this.isLoggedIn)
+
+	},
 
 	async mounted() {
 		this.userData = this.getUser;
     this.ownerData = this.getOwner;
 		this.timeData = this.getTime;
-		
-		this.showTutorial({elementId:"dateTutorial",message:"This is the current tick and date", orientation:"bottom"});
-		this.showTutorial({elementId:"goldFame",message:"Fame is an requirement, and gold to purchase things", orientation:"bottom"});
-		this.showTutorial({elementId:"tickTutorial",message:"Timer to determine when the next tick will occur", orientation:"bottom"});
+		if(this.isLoggedIn){
+			this.showTut()
+		}
 		
 	},
 	methods: {
@@ -111,7 +114,13 @@ export default {
 		showModal(targetModal){
 			this.modalShown = targetModal
 			this.isModalShown = true;
-		},	
+		},
+		showTut(){
+		this.showTutorial({elementId:"dateTutorial",message:"This is the current tick and date", orientation:"bottom"});
+		this.showTutorial({elementId:"goldFame",message:"Fame is an requirement, and gold to purchase things", orientation:"bottom"});
+		this.showTutorial({elementId:"tickTutorial",message:"Timer to determine when the next tick will occur", orientation:"bottom"});
+
+		},
 		async createAcct({ username, password, email }) {
 			if (!username || !password || !email) {
 				this.isModalShown = false;
@@ -141,6 +150,7 @@ export default {
 			this.ownerData = this.getOwner;
 			this.userData = this.getUser;
 			this.isModalShown = false;
+			this.showTut()
 		},
 
 		async tryLogin({ username, password }) {
@@ -167,6 +177,7 @@ export default {
 			this.ownerData = this.getOwner;
 			this.userData = this.getUser;
 			this.isModalShown = false;
+			this.showTut()
 		}
 	},
 };

@@ -1,7 +1,7 @@
 <template>
-	<div class="flex flex-col w-full overflow-x-hidden relative">
+	<div class="flex flex-col w-full overflow-x-hidden relative ">
 		<!-- <Character animation="walk" direction="Down" /> -->
-		<h1 id="header" class="text-center font-8bit text-[7rem]">Lanista</h1>
+		<h1 id="header" class="text-center font-8bit text-[7rem] z-5">Lanista</h1>
 		<h2 class="text-center font-neo text-[2rem]">
 			- a trainer of gladiators -
 		</h2>
@@ -64,13 +64,8 @@
 import Character from "../components/Char2.vue";
 export default {
 	name: "WelcomeMain",
-	inject: ["apiCall", "showTutorial"],
+	inject: ["apiCall"],
 	async mounted() {
-
-		
-		
-        
-        
 		if (this.apiCall) {
 			const rpnse = await fetch(this.apiCall.value + `/users/gameData`, {
 				headers: { "Content-Type": "application/json" },

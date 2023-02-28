@@ -9,17 +9,21 @@
       </div>
       <div>
       </div>
-      <Character :gladName="thisGuy.id" animation="stand" class="h-[16rem] w-[16rem] bottom-16"/>
+      <template v-if="gladiatorData">
+        <Character  :clothes="makeClothes(gladiatorData)" :gladName="thisGuy.id" animation="stand" :direction="dir" class="h-[16rem] w-[16rem] bottom-16"/>
+      </template>
       <ClashDetail :roundInfo="roundInfo" class=" bg-yellow-100 " />
       <template v-if="thisGuy.dmg" >
-        <Popup :dmg="thisGuy.dmg" class="pup "/>
+        {{ thisGuy.dmg }}
+        <!-- <Popup :dmg="thisGuy.dmg" class="pup "/> -->
       </template>
   </template>
-  </div>
+  <button class="bg-red-500 w-full" @click="showStats"> Stats </button>
+</div>
 </template>
 
 <script setup>
-  import { defineProps,toRef } from "vue";
+  import { defineProps,toRef,inject,onMounted,ref } from "vue";
   import Character from "./../../Character.vue"
   import ClashDetail from "./ClashDetail.vue"
   import pointsBar from "./pointsBar.vue";
@@ -29,9 +33,35 @@
   const roundInfo = toRef(props, 'roundInfo')
   const thisGuy = toRef(props, 'glad')
   const bgColor = thisGuy.value.idKey == 1 ? "bg-blue-400" :  "bg-red-400"
+  const dir = thisGuy.value.idKey == 1 ? "right" :  "left"
+  const gladId = thisGuy.id + thisGuy.value.idKey == 1 ? "right" :  "left" ;
   const bot = "10rem";
   const left = "8rem"
-  console.log("Aside getting:",thisGuy.value.id);
+  const gladiatorData = ref(null)
+  function makeClothes(glad){
+    if(glad){
+      console.log(glad.hairChar,"HAIR");
+      return { hair:glad.hairChar, skin:glad.skinChar, sex:glad.sexChar, body:1 }
+    }
+  }
+
+  const apiCall = inject('apiCall')
+    onMounted( async ()=>{
+    const rpnse = await fetch(
+          apiCall.value + `/gladiator/${thisGuy.value.id}`,
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        gladiatorData.value = await rpnse.json();
+        console.log(gladiatorData,);
+        makeClothes(gladiatorData)
+  })
+  async function showStats(){
+    console.log('Showing stats for ',thisGuy.value.id,apiCall);
+        console.log(gladiatorData,);
+          
+  }
   // We should do a fetch for clothes for this guy?
 </script>
 

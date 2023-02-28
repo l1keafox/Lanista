@@ -28,7 +28,7 @@ import Memories from "./Tabs/MemoryTab.vue"
 import Duels from "./Tabs/DuelHistory.vue"
 import Tournaments from "./Tabs/TournamentHistory.vue"
 export default {
-    name: "GladiatorStats",
+    name: "HistoryModal",
     props: ["gladId"],
     components:{
       Memories,

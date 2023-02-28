@@ -19,7 +19,7 @@
       </button>
 
 		</BaseFooter>
-    <div v-if="isModalShown" class="fixed z-50">
+    <div v-if="isModalShown" >
       <Suspense>
         <DuelReplay :duelId="duelId" @closeModal="closeModal"/>
       </Suspense>
@@ -37,6 +37,10 @@ const {gladId} = defineProps({
     type:String
   }
 })
+
+function showCombat(evt){
+  
+}
 
 const isModalShown = ref(false)
 const duelId = ref(null)

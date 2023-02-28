@@ -1,13 +1,17 @@
 <template>
-	<div class="flex flex-col h-screen w-screen overflow-hidden">
-
+	<div class="flex flex-col h-screen w-screen overflow-hidden z-0">
 		<HeaderVue @logged="update" :tickTimer="toNextTick" />
 		<div class="flex h-[calc(100vh-120px)] w-full">
 			<SideNav @logged="update" @changeMain="changeStage" />
 			<component :is="mainStage" />
 		</div>
 	</div>
-	<BaseTutoralModal v-if="showTutorialModal" v-model="showTutorialModal" :tutorialArray="tutorialArray"/>
+	<BaseTutoralModal
+		v-if="showTutorialModal && isLoggedIn"
+		v-model="showTutorialModal"
+		:tutorialArray="tutorialArray"
+		style="'z-index: 0'"
+		 />	
 
 </template>
 
@@ -25,12 +29,11 @@ import RankingMain from "./views/RankingMain.vue";
 import GamblingMain from "./views/GamblingMain.vue";
 import CreditMain from "./views/CreditMain.vue";
 
-
 import SideNav from "./components/SideNav.vue";
 import HeaderVue from "./components/Header.vue";
 import BaseTutoralModal from "./components/modals/BaseTutorialModal.vue";
 import auth from "./mixins/auth";
-import {useTitle} from '@vueuse/core'
+import { useTitle } from "@vueuse/core";
 
 import { computed } from "vue";
 
@@ -60,7 +63,10 @@ export default {
 		this.textWindow;
 		this.interval;
 		this.timerInterval;
-		this.apiData = location.protocol === "https:" ? `https://${window.location.hostname}` : `http://${window.location.hostname}:3001`
+		this.apiData =
+			location.protocol === "https:"
+				? `https://${window.location.hostname}`
+				: `http://${window.location.hostname}:3001`;
 		this.tutorialName;
 		this.mountedDone = false;
 		return {
@@ -71,20 +77,20 @@ export default {
 			toNextTick: 0,
 			userData: null,
 			ownerData: null,
-			tutorialArray: []
+			tutorialArray: [],
 		};
 	},
 	methods: {
-		doTick(){
-			if(this.timeData && this.countDown <= 0 ){
-				this.countDown = this.timeTimer
-			} else if(this.countDown){
+		doTick() {
+			if (this.timeData && this.countDown <= 0) {
+				this.countDown = this.timeTimer;
+			} else if (this.countDown) {
 				this.countDown -= 100;
-				const percent = (this.countDown / this.timeTimer)*100;
-				this.toNextTick = parseInt( percent.toFixed() );
+				const percent = (this.countDown / this.timeTimer) * 100;
+				this.toNextTick = parseInt(percent.toFixed());
 			}
-		},	
-		
+		},
+
 		changeStage(newStage) {
 			this.mainStage = newStage;
 		},
@@ -92,13 +98,10 @@ export default {
 			this.isLoggedIn = auth.loggedIn();
 			this.userData = auth.getUser();
 			this.updateOwner();
-			console.log('App Update',this.tutorialArray.length);
-			if(this.tutorialArray.length){
-				setTimeout(() => {
+			console.log("App Update", this.tutorialArray.length);
+			if (this.tutorialArray.length) {
 					this.showTutorialModal = true;
-				}, 750);
 			}
-
 		},
 
 		async updateOwner() {
@@ -106,7 +109,7 @@ export default {
 			if (this.userData == null) {
 				this.userData = auth.getUser();
 			}
-			if (this.isLoggedIn && this.apiData && auth.getUser() ) {
+			if (this.isLoggedIn && this.apiData && auth.getUser()) {
 				try {
 					const rpnse = await fetch(
 						this.apiData + `/owner/${auth.getUser().ownerId}`,
@@ -116,33 +119,37 @@ export default {
 					);
 					const oData = await rpnse.json();
 
-					// What this piece of code below is instead of shocking gladiators and 
+					// What this piece of code below is instead of shocking gladiators and
 					// creating new array with new refs, lets just update the old one
 					// this should trigger refs better than recreating it completely.
-					if(this.ownerData){
-						for(let index in oData.owner){
-							if(oData.owner[index] != this.ownerData[index]){
-								if(!oData.owner[index].length){
-									this.ownerData[index] = oData.owner[index]
-								} else if(index == 'gladiators'){
-									if( oData.owner[index].length != this.ownerData[index].length){
-										this.ownerData[index] = oData.owner[index]
+					if (this.ownerData) {
+						for (let index in oData.owner) {
+							if (oData.owner[index] != this.ownerData[index]) {
+								if (!oData.owner[index].length) {
+									this.ownerData[index] = oData.owner[index];
+								} else if (index == "gladiators") {
+									if (
+										oData.owner[index].length != this.ownerData[index].length
+									) {
+										this.ownerData[index] = oData.owner[index];
 									} else {
-										for(let gladIndex in oData.owner[index]){
+										for (let gladIndex in oData.owner[index]) {
 											let thisOne = oData.owner[index][gladIndex];
 											let oldOne = this.ownerData[index][gladIndex];
 
-												for(let info in thisOne){
-													if(info == 'lastGain'){
-														oldOne[info] = thisOne[info];
-													} else if(thisOne[info] != oldOne[info] ) {
-														oldOne[info] = thisOne[info];
-													}
+											for (let info in thisOne) {
+												if (info == "lastGain") {
+													oldOne[info] = thisOne[info];
+												} else if (thisOne[info] != oldOne[info]) {
+													oldOne[info] = thisOne[info];
 												}
+											}
 										}
 									}
-								} else if(oData.owner[index].length != this.ownerData[index].length ) {
-									this.ownerData[index] = oData.owner[index]
+								} else if (
+									oData.owner[index].length != this.ownerData[index].length
+								) {
+									this.ownerData[index] = oData.owner[index];
 								}
 							}
 						}
@@ -152,7 +159,6 @@ export default {
 
 					this.timeData = oData.time;
 					this.countDown = this.timeTimer;
-
 				} catch (err) {
 					//console.log(err, "clearing");
 					// clearInterval(this.interval);
@@ -166,20 +172,19 @@ export default {
 	},
 	async mounted() {
 		const title = useTitle();
-		title.value = "Lanista"
-		
-		if(!this.isLoggedIn){
-			this.mainStage = "WelcomeMain"
+		title.value = "Lanista";
+
+		if (!this.isLoggedIn) {
+			this.mainStage = "WelcomeMain";
 		}
 		this.updateOwner();
-			const rpnse = await fetch(
-			this.apiData + `/users/gameData`,
-				{ headers: { "Content-Type": "application/json" } }
-			);
+		const rpnse = await fetch(this.apiData + `/users/gameData`, {
+			headers: { "Content-Type": "application/json" },
+		});
 
 		const gameData = await rpnse.json();
-		console.log(' getting tick data, set to :',gameData.tick)
-		if(!gameData.tick){
+		console.log(" getting tick data, set to :", gameData.tick);
+		if (!gameData.tick) {
 			this.interval = setInterval(this.updateOwner, 1000);
 		} else {
 			this.interval = setInterval(this.updateOwner, gameData.tick);
@@ -188,33 +193,35 @@ export default {
 		this.timeTimer = gameData.tick;
 		// this.toNextTick = this.timeTimer;
 		this.countDown = this.timeTimer;
-		const percent = (this.countDown / this.timeTimer);
+		const percent = this.countDown / this.timeTimer;
 		this.toNextTick = percent.toFixed(2);
-		if(this.isLoggedIn && this.tutorialArray.length){
-				this.showTutorialModal = true;
-				this.mountedDone = true;
+		if (this.isLoggedIn && this.tutorialArray.length) {
+			this.showTutorialModal = true;
 		}
-
 	},
 	provide() {
 		return {
 			card: "h-80 w-56 p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
-			smallCard: "h-64 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
-			largeCard: "h-96 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
-			gladiatorCard: "h-[27rem] aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
+			smallCard:
+				"h-64 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
+			largeCard:
+				"h-96 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
+			gladiatorCard:
+				"h-[27rem] aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
 			cardTitle: "text-xl text-sky-400",
 			getOwner: computed(() => this.ownerData),
 			getTime: computed(() => this.timeData),
 			getUser: computed(() => this.userData),
 			getLogged: computed(() => this.isLoggedIn),
 			apiCall: computed(() => this.apiData),
-			showTutorial: (tutorial)=>{
-				if( !localStorage.getItem(tutorial.elementId)){
-//					console.log( "ADDING TUTORIAL:",tutorial);
-				this.tutorialArray.push( tutorial)
-				if(this.mountedDone){
+			showTutorial: (tutorial) => {
+				if (!localStorage.getItem(tutorial.elementId)) {
+					setTimeout(() => {
+
+					this.tutorialArray.push(tutorial);
 					this.showTutorialModal = true;
-				}
+					console.log("ADDING TUTORIAL:",tutorial.message,this.tutorialArray,this.showTutorialModal);
+					}, 750);
 				}
 			},
 		};

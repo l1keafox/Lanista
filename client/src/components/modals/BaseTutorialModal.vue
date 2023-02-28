@@ -1,10 +1,8 @@
 <template>
-  <div v-if ="showSelf && getLogged">
-		<!--Background-->
-
-    <div class="opacity-25 fixed inset-0 bg-black z-100"></div>
-    <div id="window" class=" fixed z-100 "></div>
-    <div id="info" class="cursor-disabled fixed z-100 text-black bg-white opacity-100">
+    <div class="opacity-25 fixed inset-0 bg-black z-50"></div>
+    <div v-bind:="$attrs">
+    <div id="window" class="fixed z-50"></div>
+    <div id="info" class="cursor-disabled fixed text-black bg-white opacity-100 z-50">
       <h1 v-if="tutMessage" class="m-2"> {{tutMessage}} </h1>
       <div class="flex">
         <button class="text-red-700 w-full bg-slate-300 m-2" @click="next"> Next </button>
@@ -24,7 +22,6 @@
 */
 import {defineEmits, onMounted ,ref,inject } from 'vue'
 
-const showSelf = ref(true);
 const tutMessage= ref();
 const getLogged = inject('getLogged');
 const emit = defineEmits(['update:modelValue'])
