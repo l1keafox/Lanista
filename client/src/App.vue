@@ -92,7 +92,7 @@ export default {
 			this.isLoggedIn = auth.loggedIn();
 			this.userData = auth.getUser();
 			this.updateOwner();
-			console.log('App Update');
+			console.log('App Update',this.tutorialArray.length);
 			if(this.tutorialArray.length){
 				setTimeout(() => {
 					this.showTutorialModal = true;
@@ -209,8 +209,8 @@ export default {
 			getLogged: computed(() => this.isLoggedIn),
 			apiCall: computed(() => this.apiData),
 			showTutorial: (tutorial)=>{
-				if(auth.getUser().showTutorial && !localStorage.getItem(tutorial.elementId)){
-
+				if( !localStorage.getItem(tutorial.elementId)){
+//					console.log( "ADDING TUTORIAL:",tutorial);
 				this.tutorialArray.push( tutorial)
 				if(this.mountedDone){
 					this.showTutorialModal = true;
