@@ -43,7 +43,6 @@ onMounted(()=>{
 
 function update(){
     if(!getLogged.value){ return;}
-    console.log(tutorialArray[0],getLogged);
     const {elementId,message,orientation} = tutorialArray[0];
     const element = document.getElementById(elementId);
     if(!element) {

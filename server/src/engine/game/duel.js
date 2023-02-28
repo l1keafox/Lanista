@@ -43,7 +43,7 @@ async function returnPreparedGladiator(gladiator) {
 		  total += this[stat] * [statObj[stat]];
 		}
 		return total;
-	  }
+	}
 	  
 
 	gladiator.addEffect = function (effectName, effectStr) {
@@ -78,7 +78,7 @@ async function returnPreparedGladiator(gladiator) {
 //			console.log(aReaction.cooldown , aReaction.maxCooldown)
 			//aReaction.cooldown = aReaction.maxCooldown;
 //			console.log("REACT ABILITY",aReaction)
-			return aReaction.doClash(this, target);
+			return aReaction.doReact(this, target);
 		}
 	};
 //	console.log(gladiator);
@@ -103,6 +103,7 @@ class Clash {
 		compareEffects(twoChar, oneChar);
 
 		// Determine win condidtion
+		
 		const oneWinPoints = oneClash.winCondition(oneChar, twoChar); // win condidtions also do the effects too.
 		const twoWinPoints = twoClash.winCondition(twoChar, oneChar); // win condidtions also do the effects too.
 

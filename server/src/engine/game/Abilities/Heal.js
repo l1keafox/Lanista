@@ -6,7 +6,7 @@ module.exports = {
     description:"Losing a clash will gain some hits",
     resultWanted:'lose',
     learnSpeed:0.25,
-    doClash(caster, target) {
+    doReact(caster, target) {
       if (caster.clashResult === this.resultWanted) {
         console.log(`   ${caster.name}-> DOING HEALING! because : ${caster.clashResult}`, caster.hits);
         caster.hits++;

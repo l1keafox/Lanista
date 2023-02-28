@@ -1,19 +1,23 @@
-const {modStat4Effect} = require('./../utils');
-module.exports = {
-    abilityName: "taunt",
-    type:"clash",
-    doAbility(casterChar, target) {
+  const {calcEffect,calcWin} = require("./AbilityParts");
 
-      let amnt = modStat4Effect( casterChar.abilityMix({"charisma":50,"reputation":50 }) ,25);
-      //console.log(this.abilityName, "   ->This ability does no damage but....",amnt);
-      casterChar.addEffect("taunting", amnt);
-      return {"taunting":amnt};
-    },
+  const Taunt = ()=>{
+    const ability = {
+       abilityName : "taunt",
+       type : "clash",
+       effect : {
+        taunting:{
+          target:"caster",
+          charisma: 50,
+          reputation:50
+        },
+     },
+       winStats:{
+         target:"caster",
+         effect:"taunting"
+       }
+    };
+    return { ...calcEffect(ability),...calcWin(ability),...ability }
+  }
   
-    winCondition(casterChar, target) {
-      let points = 0;
-        points = casterChar.effectToDo.taunting;
-      return points;
-    },
-  };
+  module.exports = Taunt;
   
