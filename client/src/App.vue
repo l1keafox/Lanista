@@ -92,6 +92,13 @@ export default {
 			this.isLoggedIn = auth.loggedIn();
 			this.userData = auth.getUser();
 			this.updateOwner();
+			console.log('App Update');
+			if(this.tutorialArray.length){
+				setTimeout(() => {
+					this.showTutorialModal = true;
+				}, 750);
+			}
+
 		},
 
 		async updateOwner() {
@@ -183,10 +190,11 @@ export default {
 		this.countDown = this.timeTimer;
 		const percent = (this.countDown / this.timeTimer);
 		this.toNextTick = percent.toFixed(2);
-		if(this.tutorialArray.length){
-			this.showTutorialModal = true;
-			this.mountedDone = true;
+		if(this.isLoggedIn && this.tutorialArray.length){
+				this.showTutorialModal = true;
+				this.mountedDone = true;
 		}
+
 	},
 	provide() {
 		return {
@@ -201,13 +209,13 @@ export default {
 			getLogged: computed(() => this.isLoggedIn),
 			apiCall: computed(() => this.apiData),
 			showTutorial: (tutorial)=>{
-				// if(auth.getUser().showTutorial && !localStorage.getItem(tutorial.elementId)){
+				if(auth.getUser().showTutorial && !localStorage.getItem(tutorial.elementId)){
 
 				this.tutorialArray.push( tutorial)
 				if(this.mountedDone){
 					this.showTutorialModal = true;
 				}
-				// }
+				}
 			},
 		};
 	},

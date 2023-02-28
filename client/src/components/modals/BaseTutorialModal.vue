@@ -1,5 +1,5 @@
 <template>
-  <div v-if ="showSelf">
+  <div v-if ="showSelf && getLogged">
 		<!--Background-->
 
     <div class="opacity-25 fixed inset-0 bg-black z-100"></div>
@@ -22,11 +22,11 @@
     orientation
 
 */
-import {defineEmits, onMounted ,ref } from 'vue'
+import {defineEmits, onMounted ,ref,inject } from 'vue'
 
 const showSelf = ref(true);
 const tutMessage= ref();
-
+const getLogged = inject('getLogged');
 const emit = defineEmits(['update:modelValue'])
 const {model_value, tutorialArray} = defineProps({
   model_value:{
@@ -42,13 +42,14 @@ onMounted(()=>{
 
 
 function update(){
-    console.log(tutorialArray[0]);
+    if(!getLogged.value){ return;}
+    console.log(tutorialArray[0],getLogged);
     const {elementId,message,orientation} = tutorialArray[0];
     const element = document.getElementById(elementId);
     if(!element) {
       console.log('  -> no element, ERROR ',elementId,tutorialArray)
-      let old = tutorialArray.shift();
-      tutorialArray.push(old);
+      // let old = tutorialArray.shift();
+      // tutorialArray.push(old);
       return;
     }
     const bounding= element.getBoundingClientRect();
