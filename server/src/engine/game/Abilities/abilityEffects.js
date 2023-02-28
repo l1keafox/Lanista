@@ -64,8 +64,8 @@ function compareEffects(gladiator,target){
         case "taunting":
             // If taunter this glad, is taking damage, then taunting is set to 0.
             if( gladiator.effectToDo.hitDamage && gladiator.effectToDo.taunting ){
-                gladiator.effectToDo.taunting = 0;
-             } 
+                gladiator.effectToDo.taunting -= gladiator.effectToDo.hitDamage;
+            } 
              
             // If this glad is taunting and the other target is dodging 
             if(target.effectToDo.missChance) {
@@ -104,7 +104,6 @@ function doEffects(gladiator){
                 effectReport.dmg.h = num;
                 break;
             case "moraleDamage":
-                if(num > 15) num = 15;
                 gladiator.morale -= num;
                 if(!effectReport.dmg) effectReport.dmg = {};
                 effectReport.dmg.m = num
