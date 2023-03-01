@@ -14,11 +14,18 @@ const abilityObj = {
     heal: require("./Abilities/Prepare/Heal"),
 
     // Clash Abilities
-    
     slash: require("./Abilities/Offensive/Slash"),
-    dodge: require("./Abilities/Defensive/Dodge"),
-    taunt: require("./Abilities/Morale/Taunt"),
     stab: require("./Abilities/Offensive/Stab"),
+    smash: require("./Abilities/Offensive/smash"),
+
+    dodge: require("./Abilities/Defensive/Dodge"),
+    block: require("./Abilities/Defensive/Block"),
+    feint: require("./Abilities/Defensive/Feint"),
+
+    taunt: require("./Abilities/Morale/Taunt"),
+    provoke: require("./Abilities/Morale/Provoke"),
+    insult: require("./Abilities/Morale/Insult"),
+
     kick: require("./Abilities/WorkInProgress/Kick"),
 
     // React abilities.
@@ -27,11 +34,14 @@ const abilityObj = {
 
 function getAbilityEffect(skillName) {
   // Create an new object this might be memory intensive?
-
   if(!skillName){
 //    console.log(" ERR OR undefined skillname:",skillName);
     return;
   }
+  skillName = skillName.toLowerCase();
+  
+  // console.log(abilityObj[skillName]().doAbility());
+  //  console.log(skillName);
   return abilityObj[skillName]();
 }
 async function doLearn(gladiator,skillName){

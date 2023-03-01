@@ -8,6 +8,7 @@ const Insult = ()=>{
      effect : {
       taunting:{
         target:"caster",
+        reducer:['hitChance','hitDamage'],
         sensitivity: 50,
         reputation: 50,
         bravery: 20,

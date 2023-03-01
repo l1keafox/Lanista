@@ -54,6 +54,11 @@ function getRandomSex(){
   const sexArray = ['m','m','m','m','m','f','f','f','f'];
   return sexArray[ Math.floor( Math.random()*sexArray.length ) ];
 }
+
+
+function getRandomFromArray(ranArray){
+  return ranArray[randomBetween(0,ranArray.length)]
+}
 //C:\Users\Raymond\Desktop\ActJs\Lanista\server\assets\char_a_p1\char_a_p1_0bas_humn_v00.png
 //server\assets\char_a_p1\4har\char_a_p1_4har_bob1_v00.png
 function createNewGladiator(gladType) {
@@ -102,17 +107,17 @@ function createNewGladiator(gladType) {
         reputation:rollDice(numDice,sideDice),
   
         skills:[],
-        mainHand:"gladius",
-        body:"clothArmor",
-        head:"galea",
+        mainHand:getRandomFromArray(['gladius','mace','dagger']),
+        offHand:getRandomFromArray(['mediumShield','gloves','largeShield']),
+        head:getRandomFromArray(['galea','halfHelm','fullHelm']),
         schedule:[
           {
-          1:{1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:"chopWood"},
-          2:{1:"community",2:"woodCarv",3:"hiking",4:"readBook",5:"pray",6:"lookLost",7:"woodCarv",8:"chopWood"},
-          3:{1:"woodCarv",2:"hiking",3:"readBook",4:"pray",5:"lookLost",6:"chopWood",7:"chopWood",8:"woodCarv"},
-          4:{1:"hiking",2:"readBook",3:"pray",4:"lookLost",5:"hiking",6:"chopWood",7:"lookLost",8:"community"},
-          5:{1:"readBook",2:"pray",3:"lookLost",4:"readBook",5:"chopWood",6:"pray",7:"community",8:"woodCarv"},
-          6:{1:"pray",2:"lookLost",3:"hiking",4:"chopWood",5:"readBook",6:"community",7:"woodCarv",8:"hiking"},
+            1:{1:"train1",2:"train3",3:"train2",4:"train4",5:"train5",6:"train6",7:"train7",8:getRandomFromArray(['train1','train3','train2','train4','train5','train6','train7'])},
+            2:{1:"train1",2:"train3",3:"train2",4:"train4",5:"train5",6:"train6",7:"train7",8:getRandomFromArray(['train1','train3','train2','train4','train5','train6','train7'])},
+            3:{1:"train1",2:"train3",3:"train2",4:"train4",5:"train5",6:"train6",7:"train7",8:getRandomFromArray(['train1','train3','train2','train4','train5','train6','train7'])},
+            4:{1:"train1",2:"train3",3:"train2",4:"train4",5:"train5",6:"train6",7:"train7",8:getRandomFromArray(['train1','train3','train2','train4','train5','train6','train7'])},
+            5:{1:"train1",2:"train3",3:"train2",4:"train4",5:"train5",6:"train6",7:"train7",8:getRandomFromArray(['train1','train3','train2','train4','train5','train6','train7'])},
+            6:{1:"train1",2:"train3",3:"train2",4:"train4",5:"train5",6:"train6",7:"train7",8:getRandomFromArray(['train1','train3','train2','train4','train5','train6','train7'])},
           }
         ]
   

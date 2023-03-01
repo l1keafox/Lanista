@@ -1,5 +1,7 @@
 const {calcEffect,calcWin} = require("../AbilityParts");
 // provoke wins against Offensive.
+// Currently it loses against hitChance
+// so it'll 'win' against high damage.
 const Provoke = ()=>{
   const ability = {
      abilityName : "Provoke",
@@ -7,6 +9,7 @@ const Provoke = ()=>{
      effect : {
       taunting:{
         target:"caster",
+        reducer:['hitChance'],
         charisma: 40,
         reputation:40
       },

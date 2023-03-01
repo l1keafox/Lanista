@@ -3,13 +3,12 @@ function abilityMix (glad,statObj){
   // num is an whole num * .01;
   // { "stat":num, }
   let total = 0;
-  const accept = ['sensitivity','reputation','luck'];
   for(let stat in statObj){
-    if(accept.find( (stat) => stat == 'target')){
-    if(statObj[stat] > 1){
-      statObj[stat] = statObj[stat] * 0.01;
-    }
-    total += glad[stat] * [statObj[stat]];
+    if(glad[stat]){
+      if(statObj[stat] > 1){
+        statObj[stat] = statObj[stat] * 0.01;
+      }
+      total += glad[stat] * [statObj[stat]];
     }
   }
   return total;
@@ -37,9 +36,15 @@ const calcEffect = (ability) =>({
       thisAbility = ability.effect[abilityName];
       const chanceEffect = modStat4Effect(abilityMix(caster,thisAbility),10);
       if(thisAbility.target == "caster"){
-        caster.addEffect(  abilityName ,chanceEffect)
+        if(ability.effect[abilityName].reducer){
+          caster.addEffect( 'reducer' ,ability.effect[abilityName].reducer)
+        }
+        caster.addEffect( abilityName ,chanceEffect)
         reportObj[ abilityName] = chanceEffect
       } else {
+        if(ability.effect[abilityName].reducer){
+          target.addEffect( 'reducer' ,ability.effect[abilityName].reducer)
+        }
         target.addEffect( abilityName ,chanceEffect)
         reportObj[ abilityName] = chanceEffect
       }
@@ -85,4 +90,4 @@ const calcWin = (ability)=>({
   }
 })
 
-module.exports = {calcEffect,calcWin}
+module.exports = {calcEffect,calcWin,calcReact}

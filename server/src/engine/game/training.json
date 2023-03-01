@@ -1,4 +1,127 @@
 {
+  "train1": {
+    "strength": {
+      "min": 2,
+      "max": 12,
+      "growth": true
+    },
+    "sensitivity": {
+      "diceSide": 2,
+      "diceNumber": 12,
+      "growth": true
+    },
+    "gold": {
+      "diceSide": 1,
+      "diceNumber": 2,
+      "growth": true
+    }
+  },
+  "train2": {
+    "dexterity": {
+      "min": 2,
+      "max": 12,
+      "growth": true
+    },
+    "piety": {
+      "min": 2,
+      "max": 12,
+      "growth": true
+    },
+    "fame": {
+      "min": 1,
+      "max": 2,
+      "growth": true
+    }
+  },
+
+  "train3": {
+    "dexterity": {
+      "min": 2,
+      "max": 12,
+      "growth": true
+    },
+    "bravery": {
+      "min": 2,
+      "max": 12,
+      "growth": true
+    },
+    "gold": {
+      "min": 1,
+      "max": 2,
+      "growth": true
+    }
+  },
+  "train4": {
+    "constitution": {
+      "min": 2,
+      "max": 12,
+      "growth": true
+    },
+    "reputation": {
+      "min": 2,
+      "max": 12,
+      "growth": true
+    },
+    "fame": {
+      "min": 1,
+      "max": 2,
+      "growth": true
+    }
+
+  },
+  "train5": {
+    "vitality": {
+      "min": 2,
+      "max": 12,
+      "growth": true
+    },
+    "wisdom": {
+      "min": 2,
+      "max": 12,
+      "growth": true
+    },
+    "gold": {
+      "min": 1,
+      "max": 2,
+      "growth": true
+    }
+  },
+  "train6": {
+    "intelligence": {
+      "min": 2,
+      "max": 12,
+      "growth": true
+    },
+    "charisma": {
+      "min": 2,
+      "max": 12,
+      "growth": true
+    },
+    "fame": {
+      "min": 1,
+      "max": 2,
+      "growth": true
+    }
+  },
+  "train7": {
+    "luck": {
+      "min": 4,
+      "max": 24,
+      "growth": true
+    },
+    "gold": {
+      "min": 1,
+      "max": 1,
+      "growth": true
+    },
+    "fame": {
+      "min": 1,
+      "max": 1,
+      "growth": true
+    }
+  },
+
+
   "strRoom1":{
     "description":"Placeholder for str gain - tier 1",
     "strength": {
@@ -475,129 +598,6 @@
     "charisma": {
       "min": 40,
       "max": 60,
-      "growth": true
-    }
-  },  
-
-
-  "chopWood": {
-    "description": "Chopping Wood to increase strength, constiution and gold",
-    "strength": {
-      "min": 2,
-      "max": 12,
-      "growth": true
-    },
-    "constitution": {
-      "diceSide": 6,
-      "diceNumber": 2,
-      "growth": true
-    },
-    "gold": {
-      "diceSide": 1,
-      "diceNumber": 2,
-      "growth": true
-    }
-  },
-  "community": {
-    "description": "Doing Community Service, to increase charisma, reputation and fame",
-    "charisma": {
-      "min": 5,
-      "max": 10,
-      "growth": true
-    },
-    "reputation": {
-      "min": 2,
-      "max": 11,
-      "growth": true
-    },
-    "fame": {
-      "min": 1,
-      "max": 2,
-      "growth": true
-    }
-  },
-  "woodCarv": {
-    "description": "Carving wood, increases dexterity, agility and gold",
-    "dexterity": {
-      "min": 2,
-      "max": 12,
-      "growth": true
-    },
-    "agility": {
-      "min": 2,
-      "max": 12,
-      "growth": true
-    },
-    "gold": {
-      "min": 1,
-      "max": 2,
-      "growth": true
-    }
-  },
-  "hiking": {
-    "description": "Hiking and looking for plants, increases vitality and gold",
-    "vitality": {
-      "min": 2,
-      "max": 12,
-      "growth": true
-    },
-    "gold": {
-      "min": 1,
-      "max": 2,
-      "growth": true
-    }
-  },
-  "readBook": {
-    "description": "Reading books too increases intelligence, senitivity and fame",
-    "intelligence": {
-      "min": 2,
-      "max": 12,
-      "growth": true
-    },
-    "sensitivity": {
-      "min": 2,
-      "max": 12,
-      "growth": true
-    },
-    "fame": {
-      "min": 1,
-      "max": 2,
-      "growth": true
-    }
-  },
-  "pray": {
-    "description": "Praying will increase piety, wisdom and fame",
-    "piety": {
-      "min": 2,
-      "max": 12,
-      "growth": true
-    },
-    "wisdom": {
-      "min": 2,
-      "max": 12,
-      "growth": true
-    },
-    "fame": {
-      "min": 1,
-      "max": 2,
-      "growth": true
-    }
-  },
-  "lookLost": {
-    "description": "Looking for lost items, increase luck, bravery and gold",
-    "luck": {
-      "min": 2,
-      "max": 12,
-      "growth": true
-    },
-    "bravery": {
-      "min": 5,
-      "max": 10,
-      "growth": true
-    },
-    "gold": {
-      "min": 1,
-      "max": 2,
       "growth": true
     }
   }

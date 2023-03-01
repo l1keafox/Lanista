@@ -8,6 +8,7 @@
         taunting:{
           target:"caster",
           charisma: 50,
+          reducer:['hitDamage'],
           reputation:50
         },
      },
