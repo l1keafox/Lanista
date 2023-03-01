@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="relative p-6 flex-auto  overflow-y-auto bg-yellow-200">
+		<div id="memoryTut" class="relative p-6 flex-auto  overflow-y-auto bg-yellow-200">
         <template v-for="(memory,index) in memories"
         :key="index">
         <div class="flex justify-between">
@@ -36,6 +36,8 @@ const { gladId } = defineProps({
 });
 
 const apiCall = inject("apiCall");
+const showTutorial = inject("showTutorial");
+
 const isModalShown = ref(false);
 
 const count = ref(0);
@@ -47,6 +49,12 @@ onMounted(() => {
 		loadMorePosts();
 	});
 	observer.observe(document.getElementById("intersection"));
+	showTutorial({
+				elementId: "memoryTut",
+				message: "Memories are old version of your gladiator that are saved to fight other gladiators of the same age.",
+				orientation: "bottom",
+			});
+
 });
 async function showMemory(event) {
 	Memory.value = memories[event.target.getAttribute("data-index")];

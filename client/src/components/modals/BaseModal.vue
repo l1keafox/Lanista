@@ -11,7 +11,7 @@
 				<!--content-->
 				<div   v-bind="$attrs" class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
 					<!--header-->
-					<div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t text-3xl">
+					<div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t text-3xl text-slate-600">
             <slot name='header' >
 
             </slot>

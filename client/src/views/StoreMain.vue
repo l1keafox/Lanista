@@ -44,7 +44,7 @@
 import auth from "./../mixins/auth";
 import itemCard from "./../components/ItemCard.vue"
 export default {
-  inject: ["card", "cardTitle","smallCard",'apiCall'],
+  inject: ["card", "cardTitle","smallCard",'apiCall','showTutorial'],
   name: "StoreMain",
   methods: {
     async buyThing(type, index) {
@@ -124,6 +124,12 @@ export default {
   },
   async mounted() {
     this.updateStore();
+    this.showTutorial({
+				elementId: "studentsSideNav",
+				message: "Student tab is where you can get new gladiators",
+				orientation: "bottom",
+			});
+
   },
 };
 </script>

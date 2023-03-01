@@ -1,39 +1,63 @@
 # Clash
 
-Duels are comprised of rounds and each round had an Clash, where each gladiator randomly picks an skill to use.
+Duels are comprised of rounds of clashes.
 
-Each Skill will have effects and a win condition.
-
-```
-Strike: Does hit damage, and has a hit chance.
-Win condition: Do more damage than the other.
-```
-```
-Dodge: Removes hit chance, at 0 hit chance damage is removed.
-Win condition: Do an successful dodge.
-```
-```
-Taunt: Does Morale Damage, damage will reduce this effect.
-Win condition: Do more morale damage.
-```
-As you can see, one will win against one, and lose against others. 
-
-One Strikes, and the Second Dodges, Dodge will win and Strikes will take Stamina Damage.
-
-One Dodges, and Second Taunts, Taunt will do morale damage to the dodger.
-
-One Taunts, and Second Strikes, Strike will do hits damage to the taunter.
-
+A Round has this flow: Prepare -> Clash -> React
 
 Gladiators will have 3 main health bars.
 ```
 Hits: Physical damage, can be healed. 
 Morale: Reputation
-Stamina:
+Stamina: 
 ```
 
 If any of these stats hits 0, then the duel is over.
 
-Before an clash, there is an Prepare round, which each character will see what prepare abilities can be triggered.
+## Prepare
 
-After an Clash, there is the React round, which will have abilities that trigger based on Duel results.
+Prepare occurs before an Clash, this will look at the conditions of the battle, and one ability from prepare will be triggered. 
+```
+Light Heal:
+If damaged heal 1 hp
+```
+```
+Burn:
+damage 1 hp
+```
+
+## Clash
+
+At the start of the Clash, each gladiator will randomly pick an ability.  Both abilities will be compared to each other and have interactions, and win conditions.
+
+Here is an example of a few:
+
+Strike > Taunt > Dodge > Strike
+
+```
+Strike: Does medium _hit damage_, and medium _hit chance_.
+Win condition: Do more damage than the other.
+Stats used : Strength, Dexterity, Wisdom, luck
+```
+```
+Dodge: Removes _hit chance_, at 0 _hit chance_ damage is removed.
+Win condition: Do an successful dodge.
+Stats used : Agility, Intelligence, Sensitivty, luck
+```
+```
+Taunt: Does morale damage, and hit damage will reduce this effect.
+Win condition: Do more morale damage.
+Stats used : Reputation, charisma and luck
+```
+
+Win conditions produce points, and who ever has a 5% greater than other will win the round.
+
+
+## React
+
+React occurs after an Clash, this will take a look at the result and will see if it triggers an ability.
+
+```
+BackStab:
+After an successful dodge, will do lots of damage based on agility.
+Cooldown of 7 rounds
+```
