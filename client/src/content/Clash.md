@@ -15,7 +15,15 @@ If any of these stats hits 0, then the duel is over.
 
 ## Prepare
 
-Prepare occurs before an Clash, this will look at the conditions of the battle and abilities will be triggered in order.
+Prepare occurs before an Clash, this will look at the conditions of the battle, and one ability from prepare will be triggered. 
+```
+Light Heal:
+If damaged heal 1 hp
+```
+```
+Burn:
+damage 1 hp
+```
 
 ## Clash
 
@@ -48,3 +56,8 @@ Win conditions produce points, and who ever has a 5% greater than other will win
 
 React occurs after an Clash, this will take a look at the result and will see if it triggers an ability.
 
+```
+BackStab:
+After an successful dodge, will do lots of damage based on agility.
+Cooldown of 7 rounds
+```
