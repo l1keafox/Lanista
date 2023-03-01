@@ -13,9 +13,21 @@
 
       <div v-if="trainingData" class="flex overflow-x-auto">
         <div v-for="train in trainingData" :key="train" :class="smallCard" class="flex justify-between"> 
-          <h1 :class="cardTitle">{{train.training}} <hr/> </h1>
-          
-          <p> {{train.description}}</p>
+          <div>
+            <h1 :class="cardTitle">{{train.training}} </h1>
+            <hr/>
+          </div>
+          <div>
+          <template v-for="(bonus,key) in trainJson[train.training]" :key="key">
+            <template v-if="bonus.min">
+              <h3>{{ key }} {{bonus.min}}-{{bonus.max}}</h3>
+            </template>
+            <template v-else-if="bonus.diceSide">
+              <h3>{{ key }} {{bonus.diceNumber}}d{{bonus.diceSide}}</h3>
+            </template>
+          </template>
+          </div>
+
           <button class="bg-red-500 text-black"> disable</button>
         </div>
       </div>
@@ -45,9 +57,12 @@
   
   <script>
   import auth from "../mixins/auth";
+  import cacheJson from "../composables/cacheJson"
+  
   export default {
     name: "StructuresMain",
     data() {
+      this.trainJson;
       return {
         userData: auth.getUser(),
         structureData: null,
@@ -58,6 +73,9 @@
     },
     inject: ['card','cardTitle','smallCard','apiCall','showTutorial'],
     async mounted() {
+      
+      this.trainJson = await cacheJson(`/assets/json/training`, this.apiCall.value )
+
       const rpnse = await fetch(
         this.apiCall.value +
         `/owner/structuresData/${this.userData.ownerId}`,
