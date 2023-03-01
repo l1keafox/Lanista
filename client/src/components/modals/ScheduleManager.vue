@@ -17,7 +17,7 @@
               class="text-slate-800 w-48 flex justify-around border border-sky-200">
               {{ key }}:00 Event
               <div>
-            <div  @mouseover="showToolTip( createTool(event) )" @mouseleave="hideToolTip">
+            <!-- <div  @mouseover="showToolTip( createTool(event) )" @mouseleave="hideToolTip"> -->
               <select :name="key" class="text-slate-800 schedule" >
                 <option value="fir">{{ event }}</option>
                 <template
@@ -26,7 +26,7 @@
                   <option value="index">{{ training }}</option>
                 </template>
               </select>
-              </div>
+              
             </div>
             </div>
           </div>
@@ -39,7 +39,7 @@
               :key="key"
               class="bg-blue-500 w-48 flex justify-around p-1 border border-sky-200">
               <h3>{{ key }}:00 </h3>
-              <div  @mouseover="showToolTip( createTool(event) )" @mouseleave="hideToolTip">
+              <!-- <div  @mouseover="showToolTip( createTool(event) )" @mouseleave="hideToolTip"> -->
               <select :name="key" class="bg-green-800 schedule"  >
                 
                 <option value="fir" >{{ event }}</option>
@@ -55,7 +55,6 @@
                 </template>
 
               </select>
-            </div>
             </div>
           </div>
         </template>
@@ -116,7 +115,16 @@
           </template>
         </div>
       </div>
-
+      <div class="flex flex-wrap">
+      <div class="flex px-4"
+          v-for="(training, index) in trainingData"
+          :key="index">
+        <div class="border p-1 border-yellow-800 flex justify-around text-black">
+          <h1>{{training}} </h1>
+          <h2> ={{createTool(training)}}</h2>
+        </div>
+      </div>
+     </div>
     </template>
 
     <template v-slot:footer>
