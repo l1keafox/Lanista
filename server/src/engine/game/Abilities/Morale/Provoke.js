@@ -7,6 +7,7 @@ const Provoke = ()=>{
      effect : {
       taunting:{
         target:"caster",
+        reducer:['hitChance'],
         charisma: 40,
         reputation:40
       },

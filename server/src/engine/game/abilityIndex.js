@@ -18,6 +18,7 @@ const abilityObj = {
     slash: require("./Abilities/Offensive/Slash"),
     dodge: require("./Abilities/Defensive/Dodge"),
     taunt: require("./Abilities/Morale/Taunt"),
+    // Taunt: require("./Abilities/Morale/Taunt"),
     stab: require("./Abilities/Offensive/Stab"),
     kick: require("./Abilities/WorkInProgress/Kick"),
 
@@ -27,11 +28,14 @@ const abilityObj = {
 
 function getAbilityEffect(skillName) {
   // Create an new object this might be memory intensive?
-
   if(!skillName){
 //    console.log(" ERR OR undefined skillname:",skillName);
     return;
   }
+  skillName = skillName.toLowerCase();
+  
+  // console.log(abilityObj[skillName]().doAbility());
+  // console.log(abilityObj[skillName]().winCondition());
   return abilityObj[skillName]();
 }
 async function doLearn(gladiator,skillName){

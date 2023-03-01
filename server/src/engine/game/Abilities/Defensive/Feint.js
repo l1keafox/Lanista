@@ -1,22 +1,23 @@
 const {calcEffect,calcWin} = require("../AbilityParts");
-// wins against morale
-// Loses against offensive.
-// wins against dodge and block.
+// This needs to win against morale attacks - will reduce taunting/reflect
+// but lose against other defensive - so has high stamina when time End. 
+// anmd win against weak hit - has week miss chance
 const Feint= ()=>{
   const state = {
      abilityName : "Feint",
      type : "clash",
      effect : {
-        taunting:{
-         target:"caster",
+        reduce:{
+         target:"target",
+         reducer:['taunting'],
          dexterity:40,
-         reputation:25,
-         intelligence:25
+         reputation:40,
+         intelligence:40
        }
      },
      winStats:{
-       target:"casterChar",
-       effect:"taunting"
+       target:"target",
+       effect:"reduce"
      }
   };
   return { ...calcEffect(state),...calcWin(state),...state }

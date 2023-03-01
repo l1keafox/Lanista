@@ -7,16 +7,17 @@ const Block = ()=>{
      abilityName : "Block",
      type : "clash",
      effect : {
-        reduceDamage:{
+        reduce:{
           target:"caster",
-          strength:60,
+          reducer:['Damage'],
+          strength:30,
           bravery: 30,
           luck:10
         },
      },
      winStats:{
        target:"casterChar",
-       effect:"reduceDamage"
+       effect:"reduce"
      }
   };
   return { ...calcEffect(state),...calcWin(state),...state }
