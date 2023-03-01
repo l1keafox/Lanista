@@ -3,14 +3,14 @@ function abilityMix (glad,statObj){
   // num is an whole num * .01;
   // { "stat":num, }
   let total = 0;
+  const accept = ['sensitivity','reputation','luck'];
   for(let stat in statObj){
-    if(stat == 'target'){
-      continue;
-    }
+    if(accept.find( (stat) => stat == 'target')){
     if(statObj[stat] > 1){
       statObj[stat] = statObj[stat] * 0.01;
     }
     total += glad[stat] * [statObj[stat]];
+    }
   }
   return total;
 }   
@@ -48,13 +48,38 @@ const calcEffect = (ability) =>({
   }
 });
 
+const calcReact = (ability)=>({
+  doReact: (caster, target) =>{
+
+    if(caster.clashResult === ability.resultWanted  && caster.clashAbility === ability.abilityWanted ) {
+      for(abilityName in ability.effect){
+        thisAbility = ability.effect[abilityName];
+  
+      const dodgeChance = modStat4Effect(caster.abilityMix({"dexterity":30,"agility":30,"sensitivity":30,"luck":15}),10);
+      target.hits -= dodgeChance;
+      ability.cooldown = ability.maxCooldown;
+      return {name:this.abilityName, effect:`hits: -${dodgeChance}` }
+
+      }
+    }
+  }
+})
+
+const calcPrepare = (ability)=>({
+  doPrepare: (caster, target) =>{
+
+  }
+})
+
 
 
 const calcWin = (ability)=>({
   winCondition:(caster,target) => {
     if(ability.winStats.target === 'caster'){
+      // console.log( caster.effectToDo[ability.winStats.effect] );
       return caster.effectToDo[ability.winStats.effect]
     } else {
+      // console.log( caster.effectToDo[ability.winStats.effect] );
       return target.effectToDo[ability.winStats.effect]
     }
   }

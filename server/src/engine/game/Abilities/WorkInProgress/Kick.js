@@ -1,7 +1,7 @@
 // Slash currently has 150 Modifity to damage and
 // 100 modifier to dodge.
 
-const {calcEffect,calcWin} = require("./AbilityParts");
+const {calcEffect,calcWin} = require("../AbilityParts");
 
 const Kick = ()=>{
   const state = {

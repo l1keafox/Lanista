@@ -1,8 +1,10 @@
-const {calcEffect,calcWin} = require("./AbilityParts");
+const {calcEffect,calcWin} = require("../AbilityParts");
+// wins against offensive hit.
+// loses against block.
 
 const Dodge = ()=>{
   const state = {
-     abilityName : "dodge",
+     abilityName : "Dodge",
      type : "clash",
      effect : {
         missChance:{

@@ -10,18 +10,19 @@ const abilityObj = {
     // Prepare abilities
     // heal: require(path.join(__dirname, "@/src/engine/game/abilities/Heal") ),
 
+    // Prepare abilities
+    heal: require("./Abilities/Prepare/Heal"),
 
     // Clash Abilities
     
-    slash: require("./Abilities/Slash"),
-    dodge: require("./Abilities/Dodge"),
-    taunt: require("./Abilities/Taunt"),
-    stab: require("./Abilities/Stab"),
-    kick: require("./Abilities/Kick"),
+    slash: require("./Abilities/Offensive/Slash"),
+    dodge: require("./Abilities/Defensive/Dodge"),
+    taunt: require("./Abilities/Morale/Taunt"),
+    stab: require("./Abilities/Offensive/Stab"),
+    kick: require("./Abilities/WorkInProgress/Kick"),
 
     // React abilities.
-    heal: require("./Abilities/Heal"),
-    backstab: require("./Abilities/BackStab"),
+    backstab: require("./Abilities/React/BackStab"),
 };
 
 function getAbilityEffect(skillName) {
