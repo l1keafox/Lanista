@@ -7,7 +7,7 @@ import keyMapJson from "../assets/animation-data/p1.json";
 import { onMounted, defineProps, onUnmounted } from "vue";
 import { inject, toRefs } from "vue";
 import keyFrames from "./../assets/animation-data/AnimeKeyframes.json";
-import createImg from "./../composables/AnimateFrames";
+import createImg from "../composables/cacheSpriteSheet";
 const apiCall = inject("apiCall");
 /* Interface 
 

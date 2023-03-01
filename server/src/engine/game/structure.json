@@ -1,7 +1,7 @@
 {
   "School":{
     "description":"Starting building that provides basic training options.",
-    "training":["train1","train3","train2","train4","train5","train6","train7"]
+    "training":["liftRocks","yoga","pray","running","hiking","reading","fishing"]
   },
   "altar":{
     "description":"Heal Prepare becomes available.",

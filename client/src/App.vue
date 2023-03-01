@@ -10,9 +10,13 @@
 		v-if="showTutorialModal && isLoggedIn"
 		v-model="showTutorialModal"
 		:tutorialArray="tutorialArray"
-		style="'z-index: 0'"
-		 />	
-
+	/>	
+	<BaseToolTipModal
+		v-if="showToolTipModal"
+		:message="toolTipMessage"
+	/>	
+ 
+		 
 </template>
 
 <script>
@@ -32,6 +36,7 @@ import CreditMain from "./views/CreditMain.vue";
 import SideNav from "./components/SideNav.vue";
 import HeaderVue from "./components/Header.vue";
 import BaseTutoralModal from "./components/modals/BaseTutorialModal.vue";
+import BaseToolTipModal from "./components/modals/BaseToolTipModal.vue";
 import auth from "./mixins/auth";
 import { useTitle } from "@vueuse/core";
 
@@ -41,6 +46,7 @@ export default {
 	name: "App",
 	components: {
 		BaseTutoralModal,
+		BaseToolTipModal,
 		RankingMain,
 		CreditMain,
 		GamblingMain,
@@ -72,6 +78,8 @@ export default {
 		return {
 			isLoggedIn: auth.loggedIn(),
 			showTutorialModal: false,
+			showToolTipModal: false,
+			toolTipMessage:null,
 			mainStage: "WelcomeMain",
 			timeData: null,
 			toNextTick: 0,
@@ -224,6 +232,14 @@ export default {
 					}, 750);
 				}
 			},
+			showToolTip: (message)=>{
+				this.showToolTipModal = true;
+				this.toolTipMessage = message;
+			},
+			hideToolTip: ()=>{
+				this.showToolTipModal = false;
+			}
+
 		};
 	},
 };

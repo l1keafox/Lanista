@@ -7,7 +7,6 @@
             <h2>hits:{{gladiatorData.hits}}</h2>
             <h2>stamina:{{gladiatorData.stamina}}</h2>
             <h2>morale:{{gladiatorData.morale}} </h2>
-            <h2>mana:{{gladiatorData.mana}} </h2>
           </div>
           <div class="flex p-2 flex-col h-48 w-48 bg-green-800"  id="recordTut">
             <h1> Record </h1>
