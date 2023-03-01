@@ -12,10 +12,11 @@ function modifyStatsFromItems(glad) {
 				console.log(" Error no item return", glad[slot]);
 			} else if (item && item.stats) {
 				for (let stat in item.stats) {
-					console.log(stat, "b4:", rtnObj[stat]);
-					rtnObj[stat] = rtnObj[stat] +=
-						rtnObj[stat] * (item.stats[stat] * 0.01);
-					console.log(stat, "after:", rtnObj[stat]);
+					// console.log(stat, "b4:", rtnObj);
+					// console.log(stat, "b4:", rtnObj[stat]);
+					// rtnObj[stat] = rtnObj[stat] += 
+					// 	rtnObj[stat] * (item.stats[stat] * 0.01);
+					// console.log(stat, "after:", rtnObj[stat]);
 				}
 			}
 		}

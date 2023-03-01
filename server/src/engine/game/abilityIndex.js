@@ -16,10 +16,17 @@ const abilityObj = {
     // Clash Abilities
     
     slash: require("./Abilities/Offensive/Slash"),
-    dodge: require("./Abilities/Defensive/Dodge"),
-    taunt: require("./Abilities/Morale/Taunt"),
-    // Taunt: require("./Abilities/Morale/Taunt"),
     stab: require("./Abilities/Offensive/Stab"),
+    smash: require("./Abilities/Offensive/smash"),
+
+    dodge: require("./Abilities/Defensive/Dodge"),
+    block: require("./Abilities/Defensive/Block"),
+    feint: require("./Abilities/Defensive/Feint"),
+
+    taunt: require("./Abilities/Morale/Taunt"),
+    provoke: require("./Abilities/Morale/Provoke"),
+    insult: require("./Abilities/Morale/Insult"),
+    // Taunt: require("./Abilities/Morale/Taunt"),
     kick: require("./Abilities/WorkInProgress/Kick"),
 
     // React abilities.
@@ -35,7 +42,7 @@ function getAbilityEffect(skillName) {
   skillName = skillName.toLowerCase();
   
   // console.log(abilityObj[skillName]().doAbility());
-  // console.log(abilityObj[skillName]().winCondition());
+  //  console.log(skillName);
   return abilityObj[skillName]();
 }
 async function doLearn(gladiator,skillName){

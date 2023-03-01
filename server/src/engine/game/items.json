@@ -116,7 +116,7 @@
   "dagger":{
     "description":"+agi, -str",
     "slot": "mainHand",
-    "abilities": ["stab","backstab"],
+    "abilities": ["stab"],
     "stats":{
         "agility":10,
         "strength":-10

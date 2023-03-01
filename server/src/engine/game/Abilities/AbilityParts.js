@@ -90,4 +90,4 @@ const calcWin = (ability)=>({
   }
 })
 
-module.exports = {calcEffect,calcWin}
+module.exports = {calcEffect,calcWin,calcReact}
