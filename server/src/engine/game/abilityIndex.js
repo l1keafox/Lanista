@@ -10,27 +10,38 @@ const abilityObj = {
     // Prepare abilities
     // heal: require(path.join(__dirname, "@/src/engine/game/abilities/Heal") ),
 
+    // Prepare abilities
+    heal: require("./Abilities/Prepare/Heal"),
 
     // Clash Abilities
-    
-    slash: require("./Abilities/Slash"),
-    dodge: require("./Abilities/Dodge"),
-    taunt: require("./Abilities/Taunt"),
-    stab: require("./Abilities/Stab"),
-    kick: require("./Abilities/Kick"),
+    slash: require("./Abilities/Offensive/Slash"),
+    stab: require("./Abilities/Offensive/Stab"),
+    smash: require("./Abilities/Offensive/smash"),
+
+    dodge: require("./Abilities/Defensive/Dodge"),
+    block: require("./Abilities/Defensive/Block"),
+    feint: require("./Abilities/Defensive/Feint"),
+
+    taunt: require("./Abilities/Morale/Taunt"),
+    provoke: require("./Abilities/Morale/Provoke"),
+    insult: require("./Abilities/Morale/Insult"),
+
+    kick: require("./Abilities/WorkInProgress/Kick"),
 
     // React abilities.
-    heal: require("./Abilities/Heal"),
-    backstab: require("./Abilities/BackStab"),
+    backstab: require("./Abilities/React/BackStab"),
 };
 
 function getAbilityEffect(skillName) {
   // Create an new object this might be memory intensive?
-
   if(!skillName){
 //    console.log(" ERR OR undefined skillname:",skillName);
     return;
   }
+  skillName = skillName.toLowerCase();
+  
+  // console.log(abilityObj[skillName]().doAbility());
+  //  console.log(skillName);
   return abilityObj[skillName]();
 }
 async function doLearn(gladiator,skillName){

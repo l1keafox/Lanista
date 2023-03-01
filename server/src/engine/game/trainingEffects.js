@@ -4,7 +4,7 @@ Each training will have an abbprivated name, and that training can have random e
 */
 // There are two different types, min/max and dice numbers/side being that the math is different chances.
 
-const trainingObj = require("./training.json");
+const trainingObj = require("./../../../assets/json/training.json");
 const { randomBetween, rollDice } = require("./utils");
 
 // Level 1

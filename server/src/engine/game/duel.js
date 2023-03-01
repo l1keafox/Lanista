@@ -63,7 +63,7 @@ async function returnPreparedGladiator(gladiator) {
 	gladiator.clashPrepare = function (target) {
 		for (let aPrepare of this.prepare) {
 			if (aPrepare.cooldown) continue;
-			aPrepare.forClash(this, target);
+			aPrepare.doPrepare(this, target);
 		}
 	};
 

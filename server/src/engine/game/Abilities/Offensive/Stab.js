@@ -1,5 +1,5 @@
-const {calcEffect,calcWin} = require("./AbilityParts");
-
+const {calcEffect,calcWin} = require("../AbilityParts");
+// wins against defensive.
 const Stab = ()=>{
   const state = {
      abilityName : "stab",

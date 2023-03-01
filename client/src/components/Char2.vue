@@ -9,7 +9,7 @@ import { onMounted, defineProps } from "vue";
 import { useIntervalFn } from "@vueuse/core";
 import { inject } from "vue";
 import keyFrames from "./../assets/animation-data/AnimeKeyframes.json";
-import createImg2 from "./../composables/AnimateFrames";
+import createImg2 from "../composables/cacheSpriteSheet";
 const apiCall = inject("apiCall");
 /* Interface 
 

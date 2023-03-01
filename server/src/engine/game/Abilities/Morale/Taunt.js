@@ -1,5 +1,5 @@
-  const {calcEffect,calcWin} = require("./AbilityParts");
-
+  const {calcEffect,calcWin} = require("../AbilityParts");
+// Wins against Defensive.
   const Taunt = ()=>{
     const ability = {
        abilityName : "taunt",
@@ -8,6 +8,7 @@
         taunting:{
           target:"caster",
           charisma: 50,
+          reducer:['hitDamage'],
           reputation:50
         },
      },

@@ -8,14 +8,28 @@
 		{
 			"type": "fullHelm",
 			"cost": 1000,
-			"fame": 1
+			"fame": 1000
 		},
 		{
 			"type": "halfHelm",
 			"cost": 1000,
-			"fame": 1
+			"fame": 2000
 		},
-
+		{
+			"type": "helm01",
+			"cost": 1000,
+			"fame": 4000
+		},
+		{
+			"type": "helm02",
+			"cost": 1000,
+			"fame": 8000
+		},
+		{
+			"type": "helm03",
+			"cost": 1000,
+			"fame": 16000
+		},
 
 		{
 			"type": "shortBoots",
@@ -30,7 +44,22 @@
 		{
 			"type": "boots01",
 			"cost": 300,
-			"fame": 1
+			"fame": 2000
+		},
+		{
+			"type": "boots02",
+			"cost": 300,
+			"fame": 4000
+		},
+		{
+			"type": "boots03",
+			"cost": 300,
+			"fame": 8000
+		},
+		{
+			"type": "boots04",
+			"cost": 300,
+			"fame": 16000
 		},
 
 		{
@@ -46,7 +75,22 @@
 		{
 			"type": "mediumShield",
 			"cost": 1000,
-			"fame": 1
+			"fame": 2000
+		},
+		{
+			"type": "largeShield",
+			"cost": 5000,
+			"fame": 4000
+		},
+		{
+			"type": "offHand01",
+			"cost": 100,
+			"fame": 8000
+		},
+		{
+			"type": "offHand02",
+			"cost": 100,
+			"fame": 16000
 		},
 
 
@@ -63,13 +107,48 @@
 		{
 			"type": "body01",
 			"cost": 100,
-			"fame": 1
+			"fame": 2000
+		},
+		{
+			"type": "body02",
+			"cost": 100,
+			"fame": 4000
+		},
+		{
+			"type": "body03",
+			"cost": 100,
+			"fame": 8000
+		},
+		{
+			"type": "body04",
+			"cost": 100,
+			"fame": 16000
 		},
 
 
 		{
 			"type": "gladius",
 			"cost": 100,
+			"fame": 1
+		},
+		{
+			"type": "shortSpear",
+			"cost": 500,
+			"fame": 1
+		},
+		{
+			"type": "longSword",
+			"cost": 1000,
+			"fame": 1
+		},
+		{
+			"type": "shortSword",
+			"cost": 300,
+			"fame": 1
+		},
+		{
+			"type": "longSpear",
+			"cost": 1200,
 			"fame": 1
 		},
 		{
@@ -87,18 +166,13 @@
 	"structures": [
 		{
 			"type": "kickingRoom",
-			"fame": 1,
+			"fame": 100,
 			"cost": 10000
 		},
 		{
 			"type": "altar",
-			"fame": 1,
-			"cost": 5000
-		},
-		{
-			"type": "burn",
-			"fame": 1,
-			"cost": 5000
+			"fame": 400,
+			"cost": 7500
 		},
 
 		{

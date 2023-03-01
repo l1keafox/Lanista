@@ -65,6 +65,7 @@ import Character from "../components/Char2.vue";
 export default {
 	name: "WelcomeMain",
 	inject: ["apiCall"],
+	
 	async mounted() {
 		if (this.apiCall) {
 			const rpnse = await fetch(this.apiCall.value + `/users/gameData`, {

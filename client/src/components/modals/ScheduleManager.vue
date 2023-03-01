@@ -1,7 +1,7 @@
 <template>
   <BaseModal>
     <template v-slot:header>
-      <h3 class="text-3xl font-semibold">Manage Schedule</h3>
+      <h3 class="text-3xl font-semibold" >Manage Schedule</h3>
       <BaseTabs :tabs="tabs" v-model="currentTab"/>
     </template>
 
@@ -10,13 +10,15 @@
         <template v-if="gladiatorData && currentTab=='Week'">
         <div v-for="(day, key2) in gladiatorData.schedule[0]" :key="key2">
           <h1>Day {{ key2 }}</h1>
-          <div class="relative flex-auto bg-slate-200">
+          <div class="relative flex-auto bg-slate-300">
             <div
               v-for="(event, key) in day"
               :key="key"
-              class="bg-blue-500 w-48">
+              class="text-slate-800 w-48 flex justify-around border border-sky-200">
               {{ key }}:00 Event
-              <select :name="key" class="bg-green-800 schedule">
+              <div>
+            <!-- <div  @mouseover="showToolTip( createTool(event) )" @mouseleave="hideToolTip"> -->
+              <select :name="key" class="text-slate-800 schedule" >
                 <option value="fir">{{ event }}</option>
                 <template
                   v-for="(training, index) in trainingData"
@@ -24,6 +26,8 @@
                   <option value="index">{{ training }}</option>
                 </template>
               </select>
+              
+            </div>
             </div>
           </div>
         </div>
@@ -33,15 +37,23 @@
             <div
               v-for="(event, key) in gladiatorData.schedule[0][1]"
               :key="key"
-              class="bg-blue-500 w-48">
-              {{ key }}:00 Event
-              <select :name="key" class="bg-green-800 schedule">
-                <option value="fir">{{ event }}</option>
+              class="bg-blue-500 w-48 flex justify-around p-1 border border-sky-200">
+              <h3>{{ key }}:00 </h3>
+              <!-- <div  @mouseover="showToolTip( createTool(event) )" @mouseleave="hideToolTip"> -->
+              <select :name="key" class="bg-green-800 schedule"  >
+                
+                <option value="fir" >{{ event }}</option>
                 <template
                   v-for="(training, index) in trainingData"
-                  :key="index">
-                  <option value="index">{{ training }}</option>
+                  :key="index"
+                  >
+                  
+                  <option value="index" >
+                      {{ training }}
+                  </option>
+                  
                 </template>
+
               </select>
             </div>
           </div>
@@ -103,7 +115,16 @@
           </template>
         </div>
       </div>
-
+      <div class="flex flex-wrap">
+      <div class="flex px-4"
+          v-for="(training, index) in trainingData"
+          :key="index">
+        <div class="border p-1 border-yellow-800 flex justify-around text-black">
+          <h1>{{training}} </h1>
+          <h2> ={{createTool(training)}}</h2>
+        </div>
+      </div>
+     </div>
     </template>
 
     <template v-slot:footer>
@@ -121,6 +142,7 @@
 <script>
 import BaseModal from "./BaseModal.vue"
 import BaseTabs from "./BaseTabs.vue"
+import cacheJson from "./../../composables/cacheJson"
 
 import auth from "./../../mixins/auth";
 export default {
@@ -129,6 +151,7 @@ export default {
 	data() {
     this.tabs = ["Day","Week"]
     this.daysOfWeek = ["One", "Two", "Three", "Four", "Five", "Six", "Seven"]
+    this.trainJson
 		return {
 			gladiatorData: null,
       currentTab:null,
@@ -143,8 +166,20 @@ export default {
     BaseModal,
     BaseTabs
   },
-	inject:['apiCall','showTutorial'],
+	inject:['apiCall','showTutorial',"showToolTip","hideToolTip"],
 	methods: {
+    createTool(event){
+      let rtnStrng = ""
+      for(let key in this.trainJson[event]){
+        if(this.trainJson[event][key].min){
+          rtnStrng += `${this.trainJson[event][key].growth?"+":"-"}${key.slice(0,4)}(${this.trainJson[event][key].min}-${this.trainJson[event][key].max}) `;
+        }else if (this.trainJson[event][key].diceSide){
+          rtnStrng += `${this.trainJson[event][key].growth?"+":"-"}${key.slice(0,4)}(${this.trainJson[event][key].diceNumber}d${this.trainJson[event][key].diceSide}) `;
+        }
+      }
+      
+      return rtnStrng;
+    },
 		async doSave() {
 			// let sch = document.getElementsByTagName("select");
       const sch = document.getElementsByClassName("schedule");
@@ -210,6 +245,9 @@ export default {
 		},
 	},
 	async mounted() {
+    this.trainJson = await cacheJson(`/assets/json/training`, this.apiCall.value )
+    console.log('SCH',this.trainJson);
+    
 		const rpnse = await fetch(
 			this.apiCall.value +			`/gladiator/${this.gladId}`,
 			{

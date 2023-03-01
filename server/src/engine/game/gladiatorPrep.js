@@ -4,7 +4,7 @@ const { Memory } = require("./../../models");
 const slots = ["mainHand", "offHand", "head", "body", "boots"];
 function modifyStatsFromItems(glad) {
 	// Here we will go through items and adjust stats based on items.
-
+	// BROKEN MODIFY STATS
 	slots.forEach((slot) => {
 		if (glad[slot] !== null) {
 			let item = getItemEffect(glad[slot]);
@@ -12,10 +12,11 @@ function modifyStatsFromItems(glad) {
 				console.log(" Error no item return", glad[slot]);
 			} else if (item && item.stats) {
 				for (let stat in item.stats) {
-					console.log(stat, "b4:", rtnObj[stat]);
-					rtnObj[stat] = rtnObj[stat] +=
-						rtnObj[stat] * (item.stats[stat] * 0.01);
-					console.log(stat, "after:", rtnObj[stat]);
+					// console.log(stat, "b4:", rtnObj);
+					// console.log(stat, "b4:", rtnObj[stat]);
+					// rtnObj[stat] = rtnObj[stat] += 
+					// 	rtnObj[stat] * (item.stats[stat] * 0.01);
+					// console.log(stat, "after:", rtnObj[stat]);
 				}
 			}
 		}
@@ -130,7 +131,7 @@ async function prepModelForMemory(glad) {
 	// glad is to create an object that is prepared for save.
 	await glad.calcuateGladiator();
 	let rtnObj = setupStats(glad);
-	modifyStatsFromItems(glad);
+	//modifyStatsFromItems(glad);
 	glad.calcuateStats();
 	rtnObj.prepare = glad.prepare;
 	rtnObj.react = glad.react;
@@ -152,7 +153,7 @@ async function prepModelForFight(glad) {
 	// or it will go through
 	await glad.calcuateGladiator();
 	let rtnObj = setupStats(glad);
-	modifyStatsFromItems(glad);
+	//modifyStatsFromItems(glad);
 	glad.calcuateStats();
 	rtnObj.name = glad.name;
 	rtnObj.maxHits = glad.hits;

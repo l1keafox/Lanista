@@ -5,7 +5,7 @@
   },
   "fullHelm":{
     "slot":"head",
-    "abilities":["challenge"]
+    "abilities":["provoke"]
   },
   "halfHelm":{
     "slot":"head",
@@ -57,17 +57,17 @@
     "slot":"offHand",
     "abilities":["block"]
   },
-  "gauntlet":{
+  "gloves":{
     "slot":"offHand",
-    "abilities":["bash"]
+    "abilities":["dodge"]
   },
   "largeShield":{
     "slot":"offHand",
-    "abilities":["block","shieldBash"]
+    "abilities":["feint"]
   },
   "parryDagger":{
     "slot":"offHand",
-    "abilities":["parry"]
+    "abilities":["parryDagger"]
   },
   "offHand01":{
     "slot":"offHand",
@@ -111,8 +111,18 @@
   },
   "mace":{
     "slot":"mainHand",
-    "abilities":["bash"]
+    "abilities":["smash"]
   },
+  "dagger":{
+    "slot": "mainHand",
+    "abilities": ["stab"],
+    "stats":{
+        "agility":10,
+        "strength":-10
+    },
+    "maintenance": 75
+  },
+
   "shortSpear":{
     "slot":"mainHand",
     "abilities":["stab","backstab"],
@@ -136,17 +146,7 @@
         "strength":10
     },
     "maintenance": 100
-  },
-  "dagger":{
-      "description":"+agi, -str",
-      "slot": "mainHand",
-      "abilities": ["stab","backstab"],
-      "stats":{
-          "agility":10,
-          "strength":-10
-      },
-      "maintenance": 75
-    }
+  }
 }
 
 
