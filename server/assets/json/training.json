@@ -1,5 +1,5 @@
 {
-  "train1": {
+  "liftRocks": {
     "strength": {
       "min": 2,
       "max": 12,
@@ -16,7 +16,7 @@
       "growth": true
     }
   },
-  "train2": {
+  "pray": {
     "dexterity": {
       "min": 2,
       "max": 12,
@@ -34,8 +34,8 @@
     }
   },
 
-  "train3": {
-    "dexterity": {
+  "yoga": {
+    "agility": {
       "min": 2,
       "max": 12,
       "growth": true
@@ -51,7 +51,7 @@
       "growth": true
     }
   },
-  "train4": {
+  "running": {
     "constitution": {
       "min": 2,
       "max": 12,
@@ -69,7 +69,7 @@
     }
 
   },
-  "train5": {
+  "hiking": {
     "vitality": {
       "min": 2,
       "max": 12,
@@ -86,7 +86,7 @@
       "growth": true
     }
   },
-  "train6": {
+  "reading": {
     "intelligence": {
       "min": 2,
       "max": 12,
@@ -103,7 +103,7 @@
       "growth": true
     }
   },
-  "train7": {
+  "fishing": {
     "luck": {
       "min": 4,
       "max": 24,

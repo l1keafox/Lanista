@@ -112,12 +112,12 @@ function createNewGladiator(gladType) {
         head:getRandomFromArray(['galea','halfHelm','fullHelm']),
         schedule:[
           {
-            1:{1:"train1",2:"train3",3:"train2",4:"train4",5:"train5",6:"train6",7:"train7",8:getRandomFromArray(['train1','train3','train2','train4','train5','train6','train7'])},
-            2:{1:"train1",2:"train3",3:"train2",4:"train4",5:"train5",6:"train6",7:"train7",8:getRandomFromArray(['train1','train3','train2','train4','train5','train6','train7'])},
-            3:{1:"train1",2:"train3",3:"train2",4:"train4",5:"train5",6:"train6",7:"train7",8:getRandomFromArray(['train1','train3','train2','train4','train5','train6','train7'])},
-            4:{1:"train1",2:"train3",3:"train2",4:"train4",5:"train5",6:"train6",7:"train7",8:getRandomFromArray(['train1','train3','train2','train4','train5','train6','train7'])},
-            5:{1:"train1",2:"train3",3:"train2",4:"train4",5:"train5",6:"train6",7:"train7",8:getRandomFromArray(['train1','train3','train2','train4','train5','train6','train7'])},
-            6:{1:"train1",2:"train3",3:"train2",4:"train4",5:"train5",6:"train6",7:"train7",8:getRandomFromArray(['train1','train3','train2','train4','train5','train6','train7'])},
+            1:{1:"liftRocks",2:"yoga",3:"pray",4:"running",5:"hiking",6:"reading",7:"fishing",8:getRandomFromArray(['liftRocks','yoga','pray','running','hiking','reading','fishing'])},
+            2:{1:"liftRocks",2:"yoga",3:"pray",4:"running",5:"hiking",6:"reading",7:"fishing",8:getRandomFromArray(['liftRocks','yoga','pray','running','hiking','reading','fishing'])},
+            3:{1:"liftRocks",2:"yoga",3:"pray",4:"running",5:"hiking",6:"reading",7:"fishing",8:getRandomFromArray(['liftRocks','yoga','pray','running','hiking','reading','fishing'])},
+            4:{1:"liftRocks",2:"yoga",3:"pray",4:"running",5:"hiking",6:"reading",7:"fishing",8:getRandomFromArray(['liftRocks','yoga','pray','running','hiking','reading','fishing'])},
+            5:{1:"liftRocks",2:"yoga",3:"pray",4:"running",5:"hiking",6:"reading",7:"fishing",8:getRandomFromArray(['liftRocks','yoga','pray','running','hiking','reading','fishing'])},
+            6:{1:"liftRocks",2:"yoga",3:"pray",4:"running",5:"hiking",6:"reading",7:"fishing",8:getRandomFromArray(['liftRocks','yoga','pray','running','hiking','reading','fishing'])},
           }
         ]
   
