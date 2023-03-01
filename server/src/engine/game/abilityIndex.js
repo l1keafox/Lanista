@@ -14,7 +14,6 @@ const abilityObj = {
     heal: require("./Abilities/Prepare/Heal"),
 
     // Clash Abilities
-    
     slash: require("./Abilities/Offensive/Slash"),
     stab: require("./Abilities/Offensive/Stab"),
     smash: require("./Abilities/Offensive/smash"),
@@ -26,7 +25,7 @@ const abilityObj = {
     taunt: require("./Abilities/Morale/Taunt"),
     provoke: require("./Abilities/Morale/Provoke"),
     insult: require("./Abilities/Morale/Insult"),
-    // Taunt: require("./Abilities/Morale/Taunt"),
+
     kick: require("./Abilities/WorkInProgress/Kick"),
 
     // React abilities.

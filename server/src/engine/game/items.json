@@ -114,7 +114,6 @@
     "abilities":["smash"]
   },
   "dagger":{
-    "description":"+agi, -str",
     "slot": "mainHand",
     "abilities": ["stab"],
     "stats":{

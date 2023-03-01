@@ -112,12 +112,12 @@ function createNewGladiator(gladType) {
         head:getRandomFromArray(['galea','halfHelm','fullHelm']),
         schedule:[
           {
-            1:{1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:getRandomFromArray(['chopWood','community','woodCarv','hiking','readBook','pray','lookLost'])},
-            2:{1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:getRandomFromArray(['chopWood','community','woodCarv','hiking','readBook','pray','lookLost'])},
-            3:{1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:getRandomFromArray(['chopWood','community','woodCarv','hiking','readBook','pray','lookLost'])},
-            4:{1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:getRandomFromArray(['chopWood','community','woodCarv','hiking','readBook','pray','lookLost'])},
-            5:{1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:getRandomFromArray(['chopWood','community','woodCarv','hiking','readBook','pray','lookLost'])},
-            6:{1:"chopWood",2:"community",3:"woodCarv",4:"hiking",5:"readBook",6:"pray",7:"lookLost",8:getRandomFromArray(['chopWood','community','woodCarv','hiking','readBook','pray','lookLost'])},
+            1:{1:"train1",2:"train3",3:"train2",4:"train4",5:"train5",6:"train6",7:"train7",8:getRandomFromArray(['train1','train3','train2','train4','train5','train6','train7'])},
+            2:{1:"train1",2:"train3",3:"train2",4:"train4",5:"train5",6:"train6",7:"train7",8:getRandomFromArray(['train1','train3','train2','train4','train5','train6','train7'])},
+            3:{1:"train1",2:"train3",3:"train2",4:"train4",5:"train5",6:"train6",7:"train7",8:getRandomFromArray(['train1','train3','train2','train4','train5','train6','train7'])},
+            4:{1:"train1",2:"train3",3:"train2",4:"train4",5:"train5",6:"train6",7:"train7",8:getRandomFromArray(['train1','train3','train2','train4','train5','train6','train7'])},
+            5:{1:"train1",2:"train3",3:"train2",4:"train4",5:"train5",6:"train6",7:"train7",8:getRandomFromArray(['train1','train3','train2','train4','train5','train6','train7'])},
+            6:{1:"train1",2:"train3",3:"train2",4:"train4",5:"train5",6:"train6",7:"train7",8:getRandomFromArray(['train1','train3','train2','train4','train5','train6','train7'])},
           }
         ]
   

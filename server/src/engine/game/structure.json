@@ -1,16 +1,21 @@
 {
   "School":{
     "description":"Starting building that provides basic training options.",
-    "training":["chopWood","community","woodCarv","hiking","readBook","pray","lookLost"]
+    "training":["train1","train3","train2","train4","train5","train6","train7"]
   },
   "altar":{
-    "description":"Can learn Heal spell.",
+    "description":"Heal Prepare becomes available.",
     "learning":["heal"]
   },
   "kickingRoom":{
-    "description":"A room to learn how to kick",
+    "description":"Kick Clash becomes available",
     "learning":["kick"]
   },
+  "burn":{
+    "description":"Burn Prepare becomes available",
+    "learning":["burn"]
+  },
+  
   "strRoom1":{
     "description":"Placeholder for str gain - tier 1",
     "training":["strRoom1"]
