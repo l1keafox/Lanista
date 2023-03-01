@@ -1,8 +1,8 @@
 // Slash currently has 150 Modifity to damage and
 // 100 modifier to dodge.
 
-const {calcEffect,calcWin} = require("./AbilityParts");
-
+const {calcEffect,calcWin} = require("../AbilityParts");
+// Wins against offensive
 const Slash = ()=>{
   const state = {
      abilityName : "slash",
@@ -17,8 +17,9 @@ const Slash = ()=>{
       },
       hitChance:{
         target:"target",
-        dexterity:80,
-        wisdom:10,
+        dexterity:25,
+        sensitivity:20,
+        piety:20,
         luck:10
       }
     },
