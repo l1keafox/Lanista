@@ -16,7 +16,7 @@ const abilityObj = {
     // Clash Abilities
     slash: require("./Abilities/Offensive/Slash"),
     stab: require("./Abilities/Offensive/Stab"),
-    smash: require("./Abilities/Offensive/smash"),
+    smash: require("./Abilities/Offensive/Smash"),
 
     dodge: require("./Abilities/Defensive/Dodge"),
     block: require("./Abilities/Defensive/Block"),
