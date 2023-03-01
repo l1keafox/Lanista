@@ -33,7 +33,7 @@ const fillerStyles = computed(() => {
 		width: `${completed.toFixed()}%`,
 		backgroundColor: bgcolor.value,
 		// borderRadius: "inherit",
-		textAlign: "right",
+		textAlign: "bottom",
 	};
 });
 </script>

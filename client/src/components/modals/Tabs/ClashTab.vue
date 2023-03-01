@@ -1,7 +1,7 @@
 <template>
   <div>
-			<div v-if="skills" class="relative p-6 flex-auto flex text-black ">
-				<div>
+			<div id="clashTut" v-if="skills" class="relative p-6 flex-auto flex text-black ">
+				<div >
 					<h1>Prepare</h1>
 					<draggable
 						class="list-group w-64 bg-yellow-100 h-48 m-2"
@@ -101,6 +101,7 @@ const { gladId }  = defineProps({
 });
 const emit = defineEmits(["closeModal"])
 const apiCall = inject('apiCall');
+const showTutorial = inject('showTutorial');
 
 const skills = ref(null);
 const unReact = ref(null);
@@ -125,6 +126,12 @@ onMounted(async ()=>{
 		clash.value = gladData.clash;
 		prepare.value = gladData.prepare;
 		react.value = gladData.react;
+		showTutorial({
+				elementId: "clashTut",
+				message: "These are your clash abilities, ",
+				orientation: "bottom",
+			});
+
 })
 
 async function 		 saveClash() {

@@ -11,7 +11,7 @@
       <div>
       </div>
       <template v-if="gladiatorData">
-        <Character  :clothes="makeClothes(gladiatorData)" :gladName="thisGuy.id" animation="stand" :direction="dir" class="h-[16rem] w-[16rem] bottom-16"/>
+        <Character  :clothes="makeClothes(gladiatorData)" :gladName="props.glad.idKey" animation="stand" :direction="dir" class="h-[16rem] w-[16rem] bottom-16"/>
       </template>
       <ClashDetail :roundInfo="roundInfo" class=" bg-yellow-100 " />
       <template v-if="thisGuy.dmg" >
@@ -30,6 +30,7 @@
   import Popup from "./PopupBase.vue"
 
   const props = defineProps(['glad','roundInfo'])
+  console.log(props.glad.idKey);
   const roundInfo = toRef(props, 'roundInfo')
   const thisGuy = toRef(props, 'glad')
   const bgColor = thisGuy.value.idKey == 1 ? "bg-blue-400" :  "bg-red-400"

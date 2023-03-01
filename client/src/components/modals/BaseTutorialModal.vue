@@ -80,7 +80,7 @@ function update(){
           infoEle.style.bottom = window.bottom+"px";
         } else if(orientation == "right"){
           infoEle.style.top = window.top+"px";
-          infoEle.style.left = window.right+window.left+"px";
+          infoEle.style.left = window.right+"px";
           infoEle.style.bottom = window.bottom+"px";
         } else if(orientation == "top"){
           infoEle.style.top = window.top - window.height+"px";

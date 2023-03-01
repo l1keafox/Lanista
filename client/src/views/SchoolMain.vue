@@ -56,7 +56,7 @@
         learningData:null
       };
     },
-    inject: ['card','cardTitle','smallCard','apiCall'],
+    inject: ['card','cardTitle','smallCard','apiCall','showTutorial'],
     async mounted() {
       const rpnse = await fetch(
         this.apiCall.value +
@@ -88,7 +88,14 @@
       const inventory = await fetch(
         this.apiCall.value +
         `/owner/inventoryData/${this.userData.ownerId}`,{ headers: { "Content-Type": "application/json" }});
-      this.inventory = await inventory.json();      
+      this.inventory = await inventory.json();     
+      
+			this.showTutorial({
+				elementId: "combatSideNav",
+				message: "Combat is where you can spar, these will not effect your record.",
+				orientation: "bottom",
+			});
+      
     },
   };
   </script>
