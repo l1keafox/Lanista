@@ -8,6 +8,7 @@
 		</div>
 		<div
 		:class="butnLayout"
+		id ="howToPlayNav"
 			@click="$emit('changeMain', 'HowToPlayMain')">
 			How To Play
 		</div>
@@ -56,16 +57,19 @@
 			</div>
 			<div
 			:class="butnLayout"
+			id ="studentsSideNav"
 				@click="$emit('changeMain', 'StudentMain')">
 				Students
 			</div>
 			<div
 			:class="butnLayout"
+			id ="gamblingSideNav"
 				@click="$emit('changeMain', 'GamblingMain')">
 				Gambling
 			</div>
 			<div
 			:class="butnLayout"
+			id ="tournamentSideNav"
 				@click="$emit('changeMain', 'TournamentMain')">
 				Tournament
 			</div>

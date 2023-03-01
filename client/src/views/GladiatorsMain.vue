@@ -61,6 +61,12 @@ export default {
 				message: "This is where you can see past duels and tournaments",
 				orientation: "bottom",
 			});
+
+			this.showTutorial({
+				elementId: "schoolSideNav",
+				message: "School is where you can see what buildings, training, skills and items",
+				orientation: "bottom",
+			});
   },
 	components: {
 		GladiatorCard,

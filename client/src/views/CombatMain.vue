@@ -68,7 +68,9 @@
 				Fight Gladiator
 			</button>
 		</div>
-
+		<hr/>
+		<br/>
+		<Clash class="prose bg-slate-300 w-[100rem] p-5"/>
 		<div v-if="isModalShown">
 			<Suspense>
 			<DuelReplay
@@ -83,12 +85,13 @@
 <script>
 import DuelReplay from "../components/modals/DuelReplay.vue";
 import InputField from "../components/InputField.vue";
-
+import Clash from './../content/Clash.md'
 import auth from "./../mixins/auth";
 export default {
 	name: "CombatMain",
 	components: {
 		DuelReplay,
+		Clash,
 		InputField,
 	},
 	data() {
@@ -100,7 +103,7 @@ export default {
 		};
 	},
 	computed: {},
-	inject: ["card", "cardTitle",'getOwner','apiCall'],
+	inject: ["card", "cardTitle",'getOwner','apiCall','showTutorial'],
 	methods: {
 
 		async doMemory(){
@@ -162,6 +165,12 @@ export default {
 		} catch (err) {
 			console.log(err);
 		}
+		this.showTutorial({
+				elementId: "storeSideNav",
+				message: "Store is where you can buy items and buildings",
+				orientation: "bottom",
+			});
+      		
 	},
 };
 </script>

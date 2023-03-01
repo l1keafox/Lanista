@@ -6,7 +6,8 @@
     </template>
 
     <template v-slot:content>
-      <div id="dayDiv" v-if="gladiatorData && currentTab=='Week'" class="flex overflow-x-auto z-20">
+      <div id="weekDiv" class="flex overflow-x-auto z-20">
+        <template v-if="gladiatorData && currentTab=='Week'">
         <div v-for="(day, key2) in gladiatorData.schedule[0]" :key="key2">
           <h1>Day {{ key2 }}</h1>
           <div class="relative flex-auto bg-slate-200">
@@ -26,8 +27,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div v-if="gladiatorData  && currentTab=='Day'"  >
+        </template>
+        <template v-else-if="gladiatorData  && currentTab=='Day'">
           <div class="relative flex-auto bg-slate-200">
             <div
               v-for="(event, key) in gladiatorData.schedule[0][1]"
@@ -44,12 +45,12 @@
               </select>
             </div>
           </div>
-        </div>
+        </template>
+      </div>
       <div class="bg-slate-700 p-2">
-        <h1>Skills Learning</h1>
         <div class="flex">
-          <template v-if="this.gladiatorData && this.gladiatorData.learnSkill[0]">
-            
+          <div v-if="this.gladiatorData && this.gladiatorData.learnSkill[0]" id="learnSkiTut">
+            <div class="flex ">
             <h1>Learn this :</h1>
             <select name="skill1" id="skill1">
               <option>{{ this.gladiatorData.learnSkill[0] }}</option>
@@ -61,7 +62,8 @@
                 </option>
               </template>
             </select>
-
+          </div>
+            <div class="flex ">
             <h1>instead of doing this task:</h1>
             <select name="task1" id="task1">
               <option>{{ this.gladiatorData.taskSkill[0] }}</option>
@@ -71,9 +73,12 @@
                 <option :value="training">{{ training }}</option>
               </template>
             </select>		
-            <h1>Current Progres:</h1> 						
+          </div>
+            <div class="flex ">
+            <h1>Current Progress:</h1> 						
             <p> {{ this.gladiatorData.progressSkill[ this.gladiatorData.learnSkill[0] ] }} </p>
-          </template>
+            </div>
+          </div>
           <template v-else>
             <h1>Learn this :</h1>
             <select name="skill1" id="skill1">
@@ -97,19 +102,6 @@
             </select>
           </template>
         </div>
-        <p>
-          Pick the "Learn" in the schedule, the select the skill you would
-          like to learn in the dropdown. Instead of doing that task, the
-          gladiator will go and learn this skill.
-        </p>
-      </div>
-      <div class="bg-green-700 p-2">
-        <h1>Seventh Day Tournaments</h1>
-        <p>
-          Tournaments take up a sunday. If its the last week of the year, it is an National tournament with the biggest prize,
-          If it is the last week every 3 months it is the 2nd biggest Tournament. Last Week of a month is regional, and every week that doesn't have any of the above is local. 
-          
-        </p>
       </div>
 
     </template>
@@ -154,11 +146,12 @@ export default {
 	inject:['apiCall','showTutorial'],
 	methods: {
 		async doSave() {
-			let sch = document.getElementsByTagName("select");
+			// let sch = document.getElementsByTagName("select");
+      const sch = document.getElementsByClassName("schedule");
+      
 			let saveObj = {};
 			for (let i in sch) {
 				if (sch[i] && sch[i].name && sch[i].selectedOptions) {
-					console.log( !sch[i].name  );
 					saveObj[parseInt(i) + 1] = sch[i].selectedOptions[0].innerText;
 				}
 			}
@@ -257,7 +250,9 @@ export default {
 			}
 		}
 		this.learningData = learningData;
-    this.showTutorial({elementId:"dayDiv",message:"A day is broken into 8 time frames, each time frame will train skills depending on what you have setup", orientation:"bottom"});
+    this.showTutorial({elementId:"weekDiv",message:"A day is broken into 8 time frames, each time frame will train skills depending on what you have setup", orientation:"bottom"});
+    this.showTutorial({elementId:"learnSkiTut",message:"Pick the 'Learn' in the schedule, the select the skill you would like to learn in the dropdown. Instead of doing that task, the gladiator will go and learn this skill.", orientation:"bottom"});
+    
 
 	},
 };

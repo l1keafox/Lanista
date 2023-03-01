@@ -64,7 +64,7 @@
 <script>
 export default {
 	name: "studentMain",
-    inject:["gladiatorCard","getOwner","cardTitle",'apiCall'],
+    inject:["gladiatorCard","getOwner","cardTitle",'apiCall','showTutorial'],
 	data() {
 		return {
             showStudent:null,
@@ -74,6 +74,12 @@ export default {
 	mounted() {
         this.ownerData = this.getOwner;
 		this.getNewGladiator();
+        this.showTutorial({
+				elementId: "howToPlayNav",
+				message: "Click here to learn about everything else ",
+				orientation: "right",
+			});
+
 	},
 	methods: {
 		async getNewGlad() {

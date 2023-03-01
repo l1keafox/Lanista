@@ -1,6 +1,6 @@
 <template> 
   <div>
-      <div class="relative p-6 flex-auto" v-if="gladiatorData && inventoryData">
+      <div id="eqTut" class="relative p-6 flex-auto" v-if="gladiatorData && inventoryData">
 
 
         <div class="flex justify-between"> 
@@ -83,6 +83,8 @@ import { inject , defineProps, onMounted, ref } from 'vue';
 
 
 const apiCall = inject('apiCall');
+const showTutorial = inject('showTutorial');
+
 const emit = defineEmits(["closeModal"])
 
 const {gladId} = defineProps({
@@ -96,6 +98,11 @@ const gladiatorData = ref(null)
 const inventoryData = ref(null)
 
 onMounted( async ()=>{
+	showTutorial({
+				elementId: "eqTut",
+				message: "This is where you can equip other items. They will appear once you have purchased them.",
+				orientation: "bottom",
+			});
 
   const rpnse = await fetch(
       apiCall.value+ `/gladiator/${gladId}`,
