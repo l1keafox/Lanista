@@ -41,7 +41,7 @@
   const gladiatorData = ref(null)
   function makeClothes(glad){
     if(glad){
-      return { hair:glad.hairChar, skin:glad.skinChar, sex:glad.sexChar, body:1 }
+      return { hair:glad.hairChar, style:glad.hairStyleChar, skin:glad.skinChar, sex:glad.sexChar, body:1 }
     }
   }
 

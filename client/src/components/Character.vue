@@ -92,19 +92,9 @@ onMounted(async () => {
 			strDirection.toLowerCase().charAt(0).toUpperCase() +
 			strDirection.slice(1);
 			if(!keyFrames[animation.value]){
-				console.log(animation.value, strDirection,"ERRTS")
+				console.log(animation.value, strDirection,"ERRTS",keyFrames.stand.Down)
+				return keyFrames.stand.Down
 			}
-		
-			// // here are the ones that only ave left/right or 1 type.
-			// if(animation.value == 'smith'){
-			// 	if(strDirection == 'Up'){
-			// 		strDirection = "Right"
-			// 	}
-			// 	if(strDirection == 'Down'){
-			// 		strDirection = "Left"
-			// 	}
-			// }
-
 
 		return Array.from(keyFrames[animation.value][strDirection]);
 	}
@@ -218,7 +208,7 @@ onMounted(async () => {
 			);
 		//  return `char_a_p1/char_a_p1_0bas_humn_v${rando}.png`;
 		return createImg(
-			`/assets/char_a_${key}/char_a_${key}_0bas_${clothes.skin}`,
+			`/assets/char_a_${key}/char_a_${key}_0bas_${clothes.skin}.png`,
 			apiCall.value
 		);
 		
@@ -232,13 +222,13 @@ onMounted(async () => {
 		// pONE1 is an special battle it wil
 		if(key === 'pONE1' || key === 'pONE2' || key == 'pONE3'){
 			// return createImg(
-			// 	`/assets/char_a_${key}/4har/char_a_${key}_4har_dap1_v01.png`,
+			// 	`/assets/char_a_${key}/4har/char_a_${key}_4har_dap1_v${clothes.hair}.png`,
 			// 	apiCall.value
 			// );
 
 		} else {
 			return createImg(
-				`/assets/char_a_${key}/4har/char_a_${key}_4har_${clothes.hair}`,
+				`/assets/char_a_${key}/4har/char_a_${key}_4har_${clothes.style}_v${clothes.hair}.png`,
 				apiCall.value
 			);
 		}
@@ -252,7 +242,7 @@ onMounted(async () => {
 		// pONE1 is an special battle it wil
 		if(key === 'pONE1' || key === 'pONE2' || key == 'pONE3'){
 			return createImg(
-				`/assets/char_a_${key}/5hat/char_a_${key}_5hat_pfht_v03.png`,
+				`/assets/char_a_${key}/5hat/char_a_${key}_5hat_pfht_v05.png`,
 				apiCall.value
 			);
 

@@ -89,7 +89,7 @@ export default {
         }
     },
     makeClothes(glad){
-      return { hair:glad.hairChar, skin:glad.skinChar, sex:glad.sexChar, body:1 }
+      return { hair:glad.hairChar, style:glad.hairStyleChar, skin:glad.skinChar, sex:glad.sexChar, body:1 }
     },
     openModal(event,modalName){
       // this.gladiatorId = event.target.getAttribute("data-id");

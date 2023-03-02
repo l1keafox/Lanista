@@ -31,24 +31,25 @@ function modStat4Effect(num,percent){
   return rtn.toFixed()
 }
 
-function getRandomHair(){
+function getHairColor(){
   let version = Math.floor(Math.random()*14);
-  const hairArray = ['bob1','bob2','dap1','flat','fro1','pon1','spk2']
   if(version < 10){
     version = "0"+version;
   } 
-  let type =hairArray[ Math.floor( Math.random()*hairArray.length ) ];
-  return `${type}_v${version}.png`;
-  //return `char_a_p1/4har/char_a_p1_4har_${type}_v${version}.png`;
+  return `${version}`;
 }
 function getRandomBody(){
   let bodyType = Math.ceil( Math.random()*10 );
   if(bodyType < 10){
     bodyType = "0"+bodyType;
   } 
-  return `humn_v${bodyType}.png`;
+  return `humn_v${bodyType}`;
 //  return `char_a_p1/char_a_p1_0bas_humn_v${rando}.png`;
 }
+function getRandomStyle(){
+  const hairArray = ['bob1','bob2','dap1','flat','fro1','pon1','spk2']
+  return hairArray[ Math.floor( Math.random()*hairArray.length ) ];
+};
 
 function getRandomSex(){
   const sexArray = ['m','m','m','m','m','f','f','f','f'];
@@ -85,7 +86,8 @@ function createNewGladiator(gladType) {
         quarterWin:0,
         yearWin:0,
         age:1,
-        hairChar: getRandomHair(),
+        hairChar: getHairColor(),
+        hairStyleChar: getRandomStyle(),
         skinChar: getRandomBody(),
         sexChar: getRandomSex(),
         strength:rollDice(numDice,sideDice),
