@@ -5,7 +5,7 @@
         :key="index">
         <div class="flex justify-between">
             <div class="flex justify-between text-black"> Age:{{memory.age}}  Lvl:{{memory.level}} Record:{{memory.winRecord}}/{{memory.lossRecord}} Tournament:{{ memory.weekWin }}/{{ memory.monthWin }}/{{ memory.quarterWin }}/{{ memory.yearWin }} </div> 
-						<button class="bg-blue-300 text-black px-1 border border-black" :data-index="memory._id" @click="showMemory($event)"> Memory </button>
+						<button class="bg-blue-300 text-black px-1 border border-black" :data-index="index" @click="showMemory($event)"> Memory </button>
         </div>
         </template>
         <div id="intersection"> </div>
@@ -48,7 +48,6 @@ const Memory = ref(null);
 const MemId = ref();
 onMounted(() => {
 	let observer = new IntersectionObserver(() => {
-		console.log("BOVSER?");
 		loadMorePosts();
 	});
 	observer.observe(document.getElementById("intersection"));
@@ -60,7 +59,8 @@ onMounted(() => {
 
 });
 async function showMemory(event) {
-	let Memory2 = memories.value.find(ele=>ele._id == event.target.getAttribute("data-index"));
+	// let Memory2 = memories.value.find(ele=>ele._id == );
+	const Memory2 = memories.value[event.target.getAttribute("data-index") ]
 	if(Memory2){
 		Memory.value = Memory2;
 	}

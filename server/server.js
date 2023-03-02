@@ -5,6 +5,7 @@ const userRouter = require('./src/routers/users');
 const gladiatorRouter = require('./src/routers/gladiators');
 const ownerRouter = require('./src/routers/owner');
 
+
 const db = require("./src/config/connection");
 const cors = require('cors');
 const { Engine } = require("./src/engine/");
@@ -29,6 +30,7 @@ app.use('/assets', express.static('assets'));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/dist")));
+
 }
 
 app.get("/", (req, res) => {
