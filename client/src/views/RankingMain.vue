@@ -1,6 +1,6 @@
 <template>
 	<div class="flex w-full flex-col overflow-x-auto flex-wrap  p-5">
-		<h1 class="text-center font-baby text-[5rem]">Ranking</h1>
+		<h1 class="text-center font-dot text-[5rem]">Ranking</h1>
     <div v-if="rankInfo" class="flex flex-col justify-center items-center">
       <h2> Based on points calcuation = # of wins * (wins/total) </h2>
       <br/>

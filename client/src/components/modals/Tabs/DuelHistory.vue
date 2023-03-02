@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="relative p-6 flex-auto overflow-y-auto bg-yellow-200">
+    <div class="relative p-6 flex-auto overflow-y-auto bg-yellow-200  h-[10rem]">
       <template v-for="(duel,index) in posts"
       :key="index">
       <div class="flex justify-between">
@@ -21,7 +21,7 @@
 		</BaseFooter>
     <div v-if="isModalShown" >
       <Suspense>
-        <DuelReplay :duelId="duelId" @closeModal="closeModal"/>
+        <DuelReplay :report="report" @closeModal="isModalShown=false"/>
       </Suspense>
     </div>    
   </div>
@@ -38,15 +38,19 @@ const {gladId} = defineProps({
   }
 })
 
-function showCombat(evt){
-  
-}
 
 const isModalShown = ref(false)
-const duelId = ref(null)
+const report = ref(null)
 const combatReports = ref(null)
 const count = ref(0)
 const posts = ref([])
+
+
+function showCombat(evt){
+  console.log(posts.value[evt.target.getAttribute("data-index")])
+  report.value = posts.value[evt.target.getAttribute("data-index")];
+  isModalShown.value = true;
+}
 
 onMounted(()=>{
   let observer = new IntersectionObserver(()=>{

@@ -1,10 +1,11 @@
 <template>
 	<div>
-		<div id="memoryTut" class="relative p-6 flex-auto  overflow-y-auto bg-yellow-200">
+		<div id="memoryTut" class="relative p-6 flex-auto  overflow-y-auto bg-yellow-200 h-[10rem]">
         <template v-for="(memory,index) in memories"
         :key="index">
         <div class="flex justify-between">
-            <div class="flex justify-between"> Age:{{memory.age}}  Lvl:{{memory.level}} Record:{{memory.winRecord}}/{{memory.lossRecord}} Tournament:{{ memory.weekWin }}/{{ memory.monthWin }}/{{ memory.quarterWin }}/{{ memory.yearWin }} </div> <button class="bg-blue-300 text-black" :data-index="index" @click="showMemory($event)"> See Memory </button>
+            <div class="flex justify-between text-black"> Age:{{memory.age}}  Lvl:{{memory.level}} Record:{{memory.winRecord}}/{{memory.lossRecord}} Tournament:{{ memory.weekWin }}/{{ memory.monthWin }}/{{ memory.quarterWin }}/{{ memory.yearWin }} </div> 
+						<button class="bg-blue-300 text-black px-1 border border-black" :data-index="index" @click="showMemory($event)"> Memory </button>
         </div>
         </template>
         <div id="intersection"> </div>
@@ -20,15 +21,16 @@
 				Close
 			</button>
 		</BaseFooter>
-
-    <GladiatorStats @closeModal="closeModal" :gladMemory="Memory"  v-if="isModalShown" />
+		<div v-if="isModalShown">
+    	<GladiatorDetails @closeModal="isModalShown=false" :gladMemory="Memory" :memoryId="MemId" />
+		</div>
 
 	</div>
 </template>
 
 <script setup>
 import BaseFooter from "../BaseFooter.vue";
-import GladiatorStats from "./../GladiatorStats.vue";
+import GladiatorDetails from "./../GladiatorDetails.vue";
 import { onMounted, defineProps, inject, ref, defineEmits } from "vue";
 const { gladId } = defineProps({
 	gladId: {
@@ -43,7 +45,7 @@ const isModalShown = ref(false);
 const count = ref(0);
 const memories = ref([]);
 const Memory = ref(null);
-
+const MemId = ref();
 onMounted(() => {
 	let observer = new IntersectionObserver(() => {
 		loadMorePosts();
@@ -57,7 +59,13 @@ onMounted(() => {
 
 });
 async function showMemory(event) {
-	Memory.value = memories[event.target.getAttribute("data-index")];
+	// let Memory2 = memories.value.find(ele=>ele._id == );
+	const Memory2 = memories.value[event.target.getAttribute("data-index") ]
+	if(Memory2){
+		Memory.value = Memory2;
+	}
+	MemId.value = event.target.getAttribute("data-index");
+	console.log("SHOW:",event.target.getAttribute("data-index"),Memory.value,MemId.value)
 	isModalShown.value = true;
 }
 async function loadMorePosts() {

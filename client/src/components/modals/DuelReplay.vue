@@ -82,11 +82,14 @@ import BaseModal from "./BaseModal.vue"
 import DuelSide from "./DuelReplay/DuelSide.vue"
 
 import { useIntervalFn } from '@vueuse/core'
-import { defineProps,reactive,inject,ref } from "vue";
+import { defineProps,reactive,inject,ref,unref } from "vue";
 
 const props = defineProps({
   report: Object,
-  duelId: String
+  duelId: {
+    type:String,
+    default: ""
+  }
 })
 const btnDecor = "text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
 
@@ -95,8 +98,9 @@ const cIndex = ref(0);
 
 async function blah(duelId){
   const apiCall = inject("apiCall");
+  console.log(duelId,"buggy?")
 	const rpnse = await fetch(
-		apiCall.value + `/gladiator/getDuel/${duelId}`,
+		apiCall.value + `/gladiator/getDuel/${unref(duelId)}`,
 		{ headers: { "Content-Type": "application/json" } }
 	);
   let rpns = await rpnse.json();
@@ -104,7 +108,18 @@ async function blah(duelId){
 
 }
 
+console.log("DUEL REPLAY getting,",props)
+if(props&& props.report && props.report.duel){
+  // This means it's an duel report that needs to json it's duel.
+  console.log(props.report.duel)
+  report =   JSON.parse(props.report.duel)
+
+  console.log(report)
+  //return;
+}
+
 if (props.duelId) {
+  console.log("Before b lah",props.duelId)
   report = await blah(props.duelId)
   console.log(report);
 }

@@ -1,5 +1,5 @@
 <template>
-	<div class="flex flex-col h-screen w-screen overflow-hidden z-0">
+	<div class="flex flex-col h-screen w-screen overflow-hidden z-0 font-dot">
 		<HeaderVue @logged="update" :tickTimer="toNextTick" />
 		<div class="flex h-[calc(100vh-120px)] w-full">
 			<SideNav @logged="update" @changeMain="changeStage" />

@@ -11,6 +11,11 @@ const auth = require('../middleware/auth');
 const router = express.Router();
 
 router.get('/owner/:ownerId', async(req, res) => {
+    if(!req.params.ownerId){
+        res.status(400)
+        return;
+    }
+
     try{
         const owner = await Owner.findById( req.params.ownerId ).populate('gladiators',['name','age','winRecord','lossRecord','memoryWinRecord','memoryLossRecord','weekWin','monthWin','quarterWin','yearWin','memoryWeekWin','memoryMonthWin','memoryQuarterWin','memoryYearWin','level','lastGain','hairStyleChar','hairChar','skinChar','sexChar']);
         const gameDate = await GameDate.find();
@@ -24,11 +29,21 @@ router.get('/owner/:ownerId', async(req, res) => {
 
 
 router.get('/owner/structures/:ownerId', async(req, res) => {
+    if(!req.params.ownerId){
+        res.status(400)
+        return;
+    }
+
     const owner2 = await Owner.findById(req.params.ownerId);
     res.send(owner2.structures)
 })
 
 router.get('/owner/structuresData/:ownerId', async(req, res) => {
+    if(!req.params.ownerId){
+        res.status(400)
+        return;
+    }
+
     const owner2 = await Owner.findById(req.params.ownerId);
     const rtnData = owner2.structures.map( struct =>{
         let rtn = getStructureEffect(struct);
@@ -43,6 +58,11 @@ router.get('/owner/structuresData/:ownerId', async(req, res) => {
 
 router.post('/owner/removeItems', async(req, res) => {
     // So how we want to do this: is return an object that is organized by slot.
+    if(!req.body.id){
+        res.status(400)
+        return;
+    }
+
     let owner = await Owner.findOne({ userAcct: req.body.id });
     req.body.remove.forEach(item =>{
         let found = owner.inventory.find( ele => ele.type == item.newEquip );
@@ -65,6 +85,10 @@ router.post('/owner/removeItems', async(req, res) => {
 })
 router.get('/owner/itemsSort/:ownerId', async(req, res) => {
     // So how we want to do this: is return an object that is organized by slot.
+    if(!req.params.ownerId){
+        res.status(400)
+        return;
+    }
     const owner = await Owner.findById(req.params.ownerId);
     const rtn = {};
     owner.inventory.forEach( item =>{
@@ -79,6 +103,10 @@ router.get('/owner/itemsSort/:ownerId', async(req, res) => {
 })
 
 router.get('/owner/inventoryData/:ownerId', async(req, res) => {
+    if(!req.params.ownerId){
+        res.status(400)
+        return;
+    }
     const owner = await Owner.findById(req.params.ownerId);
     await owner.getTraining();
 
@@ -93,6 +121,10 @@ router.get('/owner/inventoryData/:ownerId', async(req, res) => {
 
 router.get( '/owner/someTournament/:ownerId/:offset/:limit',async(req, res) => {
     // console.log("Some Tourna");
+    if(!req.params.ownerId || !req.params.offset || !req.params.limit){
+        res.status(400)
+        return;
+    }
     let mongoose = require('mongoose');
     let id =  mongoose.Types.ObjectId(req.params.ownerId);
     let tournaments = await saveTournament.find({ 'owners': { $elemMatch: {$eq:id} } })
@@ -121,6 +153,11 @@ router.post('/owner/tournamentRound', async(req, res) => {
 //     res.send(rtn);
 // })
 router.get('/owner/training/:ownerId', async(req, res) => {
+    if(!req.params.ownerId){
+        res.status(400)
+        return;
+    }
+
     //    let owner = await Owner.findOne({ userAcct: req.body.id });
         const owner = await Owner.findById(req.params.ownerId);
         let rtn = await owner.getTraining();
@@ -128,6 +165,10 @@ router.get('/owner/training/:ownerId', async(req, res) => {
 })
 
 router.get('/owner/learning/:ownerId', async(req, res) => {
+    if(!req.params.ownerId){
+        res.status(400)
+        return;
+    }
 //    let owner = await Owner.findOne({ userAcct: req.body.id });
     const owner = await Owner.findById(req.params.ownerId);
     let rtn = await owner.getLearning();
@@ -135,12 +176,22 @@ router.get('/owner/learning/:ownerId', async(req, res) => {
 })
 
 router.post('/owner/learning', async(req, res) => {
+    if(!req.body.id){
+        res.status(400)
+        return;
+    }
+
     let owner = await Owner.findOne({ userAcct: req.body.id });
     let rtn = await owner.getLearning();
     res.send(rtn);
 })
 
 router.get('/owner/trainingData/:ownerId', async(req, res) => {
+    if(!req.params.ownerId){
+        res.status(400)
+        return;
+    }
+
     const owner = await Owner.findById(req.params.ownerId);
     await owner.getTraining();
 
@@ -157,6 +208,11 @@ router.get('/owner/trainingData/:ownerId', async(req, res) => {
 })
 
 router.get('/owner/learningData/:ownerId', async(req, res) => {
+    if(!req.params.ownerId){
+        res.status(400)
+        return;
+    }
+
     const owner = await Owner.findById(req.params.ownerId);
     await owner.getLearning();
     const rtnData = owner.learning.map( skill =>{
@@ -174,6 +230,11 @@ router.get('/owner/learningData/:ownerId', async(req, res) => {
 
 let potentialStudents= {};
 router.get('/owner/getStudent/:ownerId', async(req, res) => {
+    if(!req.params.ownerId){
+        res.status(400)
+        return;
+    }
+
     // So get Student will 
     // So how this will work is that server will get an request to get a student
     // it will create an random student, and save it's data in potentialStudents and send the data 
@@ -189,6 +250,11 @@ router.get('/owner/getStudent/:ownerId', async(req, res) => {
 
 
 router.post('/owner/buyStudent/', async(req, res) => {
+    if( !req.body.ownerId|| !req.body.index){
+        res.status(400)
+        return;
+    }
+
     // In this post it will confirm buying th student, so it will 
     const {gladName,ownerId,index} = req.body;
     //console.log(gladName,ownerId);
@@ -211,6 +277,11 @@ router.post('/owner/buyStudent/', async(req, res) => {
 })
 
 router.get('/owner/store/:ownerId', async(req, res) => {
+    if(!req.params.ownerId){
+        res.status(400)
+        return;
+    }
+
     const owner2 = await Owner.findById(req.params.ownerId);
     const storeItems = getStoreItems();
 
@@ -244,6 +315,11 @@ router.get('/owner/store/:ownerId', async(req, res) => {
 })
 
 router.post('/owner/buyItem', async(req, res) => {
+    if(!req.body.id || !req.body.buyThisThing){
+        res.status(400)
+        return;
+    }
+
     let owner = await Owner.findOne({ userAcct: req.body.id });
         console.log(req.body.buyThisThing )
     if(owner.gold < req.body.buyThisThing.cost){
