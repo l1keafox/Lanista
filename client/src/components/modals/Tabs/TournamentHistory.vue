@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div
-			class="relative p-6 flex-auto overflow-y-auto bg-yellow-200 flex flex-col">
+			class="relative p-6 flex-auto overflow-y-auto bg-yellow-200 flex flex-col h-[10rem]">
 			<div
 				v-for="(tournament, index) in tournamentArray"
 				:key="index"
@@ -101,7 +101,11 @@ async function loadMorePosts() {
 	rn.forEach((tourn) => {
 		tourn.tournament = JSON.parse(tourn.tournament);
 	});
-	tournamentArray.value = rn;
+  if(!tournamentArray.value){
+    tournamentArray.value = rn;
+  } else {
+    tournamentArray.value.push(...rn);
+  }
 }
 </script>
 
