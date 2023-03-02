@@ -52,6 +52,9 @@ const gladiatorSchema = new Schema(
 
 
         // Physical 
+        hairStyleChar:{
+            type:String
+        },
         hairChar:{
             type:String
         },

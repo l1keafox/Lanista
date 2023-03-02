@@ -11,7 +11,7 @@
       <div>
       </div>
       <template v-if="gladiatorData">
-        <Character  :clothes="makeClothes(gladiatorData)" :gladName="props.glad.idKey" animation="stand" :direction="dir" class="h-[16rem] w-[16rem] bottom-16"/>
+        <Character  :clothes="makeClothes(gladiatorData)" :gladName="props.glad.idKey" animation="idle" :direction="dir" class="h-[16rem] w-[16rem] bottom-16"/>
       </template>
       <ClashDetail :roundInfo="roundInfo" class=" bg-yellow-100 " />
       <template v-if="thisGuy.dmg" >
@@ -41,7 +41,7 @@
   const gladiatorData = ref(null)
   function makeClothes(glad){
     if(glad){
-      return { hair:glad.hairChar, skin:glad.skinChar, sex:glad.sexChar, body:1 }
+      return { hair:glad.hairChar, style:glad.hairStyleChar, skin:glad.skinChar, sex:glad.sexChar, body:1 }
     }
   }
 

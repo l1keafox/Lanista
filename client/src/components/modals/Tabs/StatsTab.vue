@@ -53,23 +53,27 @@
 
 <script setup>
 import BaseFooter from "./../BaseFooter.vue";
-import { onMounted,defineProps,inject,ref,defineEmits } from "vue";
+import { onMounted,defineProps,inject,ref,defineEmits , toRefs} from "vue";
 
 const showTutorial = inject('showTutorial')
-const { gladId }  = defineProps({
+const props  = defineProps({
   gladId:{
     type:String,
     default:""
   },
-	gladMemory:{
-	}
-});
+	memoryId:{
+	},
+  memoryData:{
 
+  }
+});
+const { gladId , memoryId, memoryData}  = toRefs(props)
 const emit = defineEmits(["closeModal"])
 const apiCall = inject('apiCall');
 const gladiatorData= ref(null);
 
 onMounted(async ()=>{
+
       showTutorial({
 				elementId: "statsTut",
 				message: "Here are your stats, broken into 5 groups ",
@@ -100,28 +104,30 @@ onMounted(async ()=>{
 				message: "These stats will be used in your taunting abilities. Luck is used in almost every stat.",
 				orientation: "bottom",
 			});
-
-    if(gladId){
+      setTimeout(async ()=>{
+        if(gladId.value){
           const rpnse = await fetch(
-          apiCall.value+ `/gladiator/${gladId}`,
+          apiCall.value+ `/gladiator/${gladId.value}`,
           {
             headers: { "Content-Type": "application/json" },
           }
         );
         gladiatorData.value = await rpnse.json();
-                    console.log("THIS",);
 
-      } else if(gladMemory){
-        gladiatorData.value = JSON.parse(gladMemory.memory);
-            console.log("THIS",gladMemory);
-            // console.log("PARSED",this.gladiatorData);
-            gladiatorData.value.name = gladMemory.name;
-            gladiatorData.value.age = gladMemory.age;
-            gladiatorData.value.level = gladMemory.level;
-            gladiatorData.value.winRecord = gladMemory.winRecord;
-            gladiatorData.value.lossRecord = gladMemory.lossRecord;
-
+      } else if(memoryData.value){
+        gladiatorData.value = memoryData.value;
       }
+      },150 )
+      // else if(gladMemory){
+        // gladiatorData.value = JSON.parse(gladMemory.memory);
+        //     console.log("PARSED",this.gladiatorData);
+        //     gladiatorData.value.name = gladMemory.name;
+        //     gladiatorData.value.age = gladMemory.age;
+        //     gladiatorData.value.level = gladMemory.level;
+        //     gladiatorData.value.winRecord = gladMemory.winRecord;
+        //     gladiatorData.value.lossRecord = gladMemory.lossRecord;
+
+      //}
 })
 
 </script>

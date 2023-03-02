@@ -93,6 +93,7 @@ async function SeedAccount(){
 
     console.log("  -SEED> Creating seed OWNER.")
 	await newOwner.save();
+    console.log("  -SEED> Creating seed USER.")
 	await newUser.save();
 
     // then we create the owner account

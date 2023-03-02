@@ -1,11 +1,7 @@
 <template>
-  <div class="flex flex-col w-full overflow-x-hidden  bg-slate-600">
-    <h1 class="text-center font-baby text-[3rem] text-black">How to play Lanista</h1>
-    <nav class="flex overflow-auto">
-      <template v-for="(help,index) in helpObj">
-        <button @click="switchHelp(index)" class ="mr-10 bg-slate-800 hover:bg-slate-900 p-4"> {{ help }}</button>
-      </template>
-    </nav>
+  <div class="flex flex-col w-full overflow-x-hidden  ">
+    <h1 class="text-center font-dot text-[3rem] text-white">How to play Lanista</h1>
+    <BaseTabs :tabs="helpObj" v-model="showTo"/>
     <div class = "p-4 w-full bg-slate-300 overflow-auto ">
       <component :is="showTo" class="prose"/>
     </div>
@@ -23,11 +19,12 @@ import Equipment from  './../content/Equipment.md'
 import Building from  './../content/Building.md'
 import Training from  './../content/Training.md'
 import Balance from  './../content/Balance.md'
-
+import BaseTabs from '../components/modals/BaseTabs.vue'
 
   export default {
       name:"HowToPlayMain",
       components:{
+        BaseTabs,
         Stats,
         Training,
         Building,

@@ -3,23 +3,30 @@
 		<div
 			id="eqTut"
 			class="relative p-6 flex-auto"
-			v-if="gladiatorData && inventoryData">
-      <div class="flex justify-between">
-        <div class="flex w-1/2 justify-between">
-          <h2> SLOT </h2>
-          <h2> ITEM NAME </h2>
-        </div>
-      </div>
-      <hr/>
-      
-    <template v-for="(slot, index) in slots" :key="slot">
+			v-if="gladiatorData">
+			<div class="flex justify-between">
+				<div class="flex w-1/2 justify-between">
+					<h2>SLOT</h2>
+					<h2>ITEM NAME</h2>
+				</div>
+			</div>
+			<hr />
+
+			<template v-for="(slot, index) in slots" :key="slot">
 				<div class="flex justify-between">
 					<div class="flex w-1/2 justify-between">
 						<h2>{{ slot }}</h2>
-						<h2>{{ gladiatorData[slot] }}</h2>
+						<template v-if=" gladiatorData.value">
+							<h2 v-if=" gladiatorData.value[slot]">{{ gladiatorData.value[slot] }}</h2>
+						</template>
+						<template v-else>
+							<h2 >{{ gladiatorData[slot] }}</h2>
+						</template>
+						
 					</div>
+					<template v-if="inventoryData">
 					<select :name="slot" class="bg-cyan-100 w-28" :id="slot">
-						<template v-if="inventoryData[slot]">
+						<template v-if=" inventoryData[slot]">
 							<option value="empty">Select</option>
 						</template>
 						<template v-else>
@@ -27,15 +34,15 @@
 						</template>
 
 						<template
-							v-if="inventoryData[slot]"
+							v-if=" inventoryData && inventoryData[slot]"
 							v-for="(item, index) in inventoryData[slot]"
 							:key="index">
 							<option :value="item.type">{{ item.type }}</option>
 						</template>
 					</select>
+				</template>
 				</div>
 			</template>
-
 		</div>
 		<p>Equipped items are lost and cannot be unequipped</p>
 
@@ -59,18 +66,20 @@
 <script setup>
 import BaseFooter from "../BaseFooter.vue";
 import auth from "../../../mixins/auth";
-import { inject, defineProps, onMounted, ref } from "vue";
+import { inject, defineProps, onMounted, ref, toRefs } from "vue";
 
 const apiCall = inject("apiCall");
 const showTutorial = inject("showTutorial");
 
 const emit = defineEmits(["closeModal"]);
 
-const { gladId } = defineProps({
+const props = defineProps({
 	gladId: {
 		type: String,
 	},
+	memoryData: {},
 });
+const { gladId,memoryData }  = toRefs(props)
 const userData = auth.getUser();
 const slots = ["head", "mainHand", "offHand", "body", "boots"];
 
@@ -84,19 +93,25 @@ onMounted(async () => {
 			"This is where you can equip other items. They will appear once you have purchased them.",
 		orientation: "bottom",
 	});
-
-	const rpnse = await fetch(apiCall.value + `/gladiator/${gladId}`, {
-		headers: { "Content-Type": "application/json" },
-	});
-	gladiatorData.value = await rpnse.json();
-
-	const inventory = await fetch(
-		apiCall.value + `/owner/itemsSort/${userData.ownerId}`,
-		{
+	console.log('Equip tab doing:',gladId,"opr",memoryData)
+	if (!memoryData.value) {
+		const rpnse = await fetch(apiCall.value + `/gladiator/${gladId.value}`, {
 			headers: { "Content-Type": "application/json" },
-		}
-	);
-	inventoryData.value = await inventory.json();
+		});
+		gladiatorData.value = await rpnse.json();
+
+		const inventory = await fetch(
+			apiCall.value + `/owner/itemsSort/${userData.ownerId}`,
+			{
+				headers: { "Content-Type": "application/json" },
+			}
+		);
+		inventoryData.value = await inventory.json();
+	} else if(memoryData) {
+		gladiatorData.value = memoryData;
+		console.log("Memory equip tab",gladiatorData.value);
+	}
+
 });
 async function doEquip() {
 	const equipObj = slots
