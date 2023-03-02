@@ -3,10 +3,10 @@
 		<div class="flex justify-between text-center">
 			<h1
 				@click="$emit('changeMain', 'WelcomeMain')"
-				class="cursor-pointer text-6xl text-center font-bold font-baby p-2 pl-4">
+				class="cursor-pointer text-6xl text-center font-bold font-dot p-2 pl-4 flex justify-center items-center">
 				Lanista
 			</h1>
-        <div class ="flex w-1/2 justify-between items-center font-lux cursor-default">
+        <div class ="flex w-1/2 justify-between items-center font-dot cursor-default">
 					<div id="goldFame" class="flex w-1/3 p-4 justify-between">
 						<h2 :class ="cardTitle" v-if="ownerData" >G: {{ ownerData.gold }} </h2>
 						<h2 :class ="cardTitle" v-if="ownerData" >F: {{ ownerData.fame }} </h2>
@@ -35,7 +35,7 @@
 					Login
 				</button>
 			</div>
-      <div v-else class="font-lux text-base flex justify-center items-center mr-5">
+      <div v-else class="font-dot text-base flex justify-center items-center mr-5">
 				<h2 class ="mr-3 text-2xl text-slate-300 cursor-default"><template v-if="userData">{{ userData.username }}</template></h2>
 				<!-- <img @click="showModal('SettingModal')" :src="gearIcon" class="hover:cursor-pointer"/> -->
         <button :class="btnClass" @click="doLogOut">Logout</button>
@@ -73,7 +73,7 @@ export default {
 		}
 		// this.gearIcon = gearIcon
 		return {
-			btnClass:"m-2 px-3 py-2 cursor-pointer font-lux text-xl hover:underline sideOptions",
+			btnClass:"m-2 px-3 py-2 cursor-pointer font-dot text-xl hover:underline sideOptions",
 			cardTitle:"text-2xl text-slate-300 ",
 			modalShown: null,
 			isModalShown: null,

@@ -6,7 +6,7 @@
     </template>
 
     <template v-slot:content>
-      <div id="weekDiv" class="flex overflow-x-auto z-20">
+      <div id="weekDiv" class="flex overflow-x-auto z-20 justify-center items-center bg-slate-400 ">
         <template v-if="gladiatorData && currentTab=='Week'">
         <div v-for="(day, key2) in gladiatorData.schedule[0]" :key="key2">
           <h1>Day {{ key2 }}</h1>
@@ -33,7 +33,7 @@
         </div>
         </template>
         <template v-else-if="gladiatorData  && currentTab=='Day'">
-          <div class="relative flex-auto bg-slate-200">
+          <div class="relative flex flex-col  bg-slate-200 ">
             <div
               v-for="(event, key) in gladiatorData.schedule[0][1]"
               :key="key"

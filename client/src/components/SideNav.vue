@@ -30,7 +30,7 @@
 
 		<hr/>
 
-		<div v-if="isLoggedIn" class="font-lux text-base">
+		<div v-if="isLoggedIn" class="font-dot text-base">
 			<div
 				:class="butnLayout"
 				id ="gladSideNav"
@@ -86,7 +86,7 @@ export default {
 	name: "SideNav",
 	inject: ["getLogged","getOwner","getUser",'showTutorial'],
 	data() {
-		this.butnLayout = "font-lux text-base text-center w-fill cursor-pointer sideOptions hover:bg-blue-200 hover:text-black py-4 select-none"
+		this.butnLayout = "font-dot text-base text-center w-fill cursor-pointer sideOptions hover:bg-blue-200 hover:text-black py-4 select-none"
 		return {
 			showLoginModal: false,
 			showCreateModal: false,

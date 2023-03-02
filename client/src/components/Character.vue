@@ -7,13 +7,14 @@ import p1JsonMap from "../assets/animationData/p1.json";
 import p2JsonMap from "../assets/animationData/p2.json";
 import p4JsonMap from "../assets/animationData/p4.json";
 
+import keyFrames from "./../assets/animationData/AnimeKeyframes.json";
+
 import pONE2JsonMap from "../assets/animationData/pONE2.json";
 import pONE1JsonMap from "../assets/animationData/pONE1.json";
 import pONE3JsonMap from "../assets/animationData/pONE3.json";
 
 import { onMounted, defineProps, onUnmounted } from "vue";
 import { inject, toRefs } from "vue";
-import keyFrames from "./../assets/animationData/AnimeKeyframes.json";
 import createImg from "../composables/cacheSpriteSheet";
 const apiCall = inject("apiCall");
 /* Interface 

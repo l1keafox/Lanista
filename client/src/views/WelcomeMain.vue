@@ -1,13 +1,13 @@
 <template>
 	<div class="flex flex-col w-full overflow-x-hidden relative ">
 		<!-- <Character animation="walk" direction="Down" /> -->
-		<h1 id="header" class="text-center font-8bit text-[7rem] z-5">Lanista</h1>
-		<h2 class="text-center font-neo text-[2rem]">
+		<h1 id="header" class="text-center font-dot text-[7rem] z-5">Lanista</h1>
+		<h2 class="text-center font-dot text-[2rem]">
 			- a trainer of gladiators -
 		</h2>
 		<hr />
 		<br />
-		<div class="font-neo text-2xl flex flex-col text-center">
+		<div class="font-dot text-2xl flex flex-col text-center">
 			Welcome to Lanista
 			<p class="m-10">
 				A pvp dueling game, you will set your gladiator's schedule to train that
