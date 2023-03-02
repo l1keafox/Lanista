@@ -7,8 +7,8 @@ import p1JsonMap from "../assets/animation-data/p1.json";
 import p2JsonMap from "../assets/animation-data/p2.json";
 import p4JsonMap from "../assets/animation-data/p4.json";
 
-import pONE1JsonMap from "../assets/animation-data/pONE1.json";
 import pONE2JsonMap from "../assets/animation-data/pONE2.json";
+import pONE1JsonMap from "../assets/animation-data/pONE1.json";
 import pONE3JsonMap from "../assets/animation-data/pONE3.json";
 
 import { onMounted, defineProps, onUnmounted } from "vue";
