@@ -3,17 +3,17 @@
 </template>
 
 <script setup>
-import p1JsonMap from "../assets/animation-data/p1.json";
-import p2JsonMap from "../assets/animation-data/p2.json";
-import p4JsonMap from "../assets/animation-data/p4.json";
+import p1JsonMap from "../assets/animationData/p1.json";
+import p2JsonMap from "../assets/animationData/p2.json";
+import p4JsonMap from "../assets/animationData/p4.json";
 
-import pONE2JsonMap from "../assets/animation-data/pONE2.json";
-import pONE1JsonMap from "../assets/animation-data/pONE1.json";
-import pONE3JsonMap from "../assets/animation-data/pONE3.json";
+import pONE2JsonMap from "../assets/animationData/pONE2.json";
+import pONE1JsonMap from "../assets/animationData/pONE1.json";
+import pONE3JsonMap from "../assets/animationData/pONE3.json";
 
 import { onMounted, defineProps, onUnmounted } from "vue";
 import { inject, toRefs } from "vue";
-import keyFrames from "./../assets/animation-data/AnimeKeyframes.json";
+import keyFrames from "./../assets/animationData/AnimeKeyframes.json";
 import createImg from "../composables/cacheSpriteSheet";
 const apiCall = inject("apiCall");
 /* Interface 

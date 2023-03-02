@@ -3,12 +3,12 @@
 </template>
 
 <script setup>
-import keyMapJson from "../assets/animation-data/p1.json";
+import keyMapJson from "../assets/animationData/p1.json";
 import { onMounted, defineProps } from "vue";
 
 import { useIntervalFn } from "@vueuse/core";
 import { inject } from "vue";
-import keyFrames from "./../assets/animation-data/AnimeKeyframes.json";
+import keyFrames from "./../assets/animationData/AnimeKeyframes.json";
 import createImg2 from "../composables/cacheSpriteSheet";
 const apiCall = inject("apiCall");
 /* Interface 
