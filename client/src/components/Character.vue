@@ -3,7 +3,14 @@
 </template>
 
 <script setup>
-import keyMapJson from "../assets/animation-data/p1.json";
+import p1JsonMap from "../assets/animation-data/p1.json";
+import p2JsonMap from "../assets/animation-data/p2.json";
+import p4JsonMap from "../assets/animation-data/p4.json";
+
+import pONE1JsonMap from "../assets/animation-data/pONE1.json";
+import pONE2JsonMap from "../assets/animation-data/pONE2.json";
+import pONE3JsonMap from "../assets/animation-data/pONE3.json";
+
 import { onMounted, defineProps, onUnmounted } from "vue";
 import { inject, toRefs } from "vue";
 import keyFrames from "./../assets/animation-data/AnimeKeyframes.json";
@@ -84,6 +91,21 @@ onMounted(async () => {
 		strDirection =
 			strDirection.toLowerCase().charAt(0).toUpperCase() +
 			strDirection.slice(1);
+			if(!keyFrames[animation.value]){
+				console.log(animation.value, strDirection,"ERRTS")
+			}
+		
+			// // here are the ones that only ave left/right or 1 type.
+			// if(animation.value == 'smith'){
+			// 	if(strDirection == 'Up'){
+			// 		strDirection = "Right"
+			// 	}
+			// 	if(strDirection == 'Down'){
+			// 		strDirection = "Left"
+			// 	}
+			// }
+
+
 		return Array.from(keyFrames[animation.value][strDirection]);
 	}
 
@@ -92,7 +114,7 @@ onMounted(async () => {
 		//			Here we create newKeyFrames to add on to keyFrameArray
 		//
 		//const research = nextInFrame[0];
-		// console.log(nextInFrame);
+//		console.log(nextInFrame[0].animation, nextInFrame[0].direction);
 		nextInFrame.forEach(inFrame=>{
 			let newKeyFrames = goGetFrameInfo(inFrame, nextInFrame);
 		// Taking the request, it should now ask for frame information
@@ -111,13 +133,30 @@ onMounted(async () => {
 		// decodeJson, you will grab x/y/width/height
 		newKeyFrames = newKeyFrames.map((keyFrame) => {
 			// here we now look for frame Data from JSON
-			// Here we need to look at the key to determine what keyMapJson it should be using.
+			// Here we need to look at the key to determine what p1JsonMap it should be using.
 			switch (keyFrame.key) {
-				case "p1":
-					keyFrame.frameData = keyMapJson[keyFrame.fNm];
+				case "pONE1":
+					keyFrame.frameData = pONE1JsonMap[keyFrame.fNm];
+					return keyFrame;
+					case "pONE2":
+						
+					keyFrame.frameData = pONE2JsonMap[keyFrame.fNm];
+					return keyFrame;
+					case "pONE3":
+					keyFrame.frameData = pONE3JsonMap[keyFrame.fNm];
+					return keyFrame;
+
+					case "p1":
+					keyFrame.frameData = p1JsonMap[keyFrame.fNm];
+					return keyFrame;
+					case "p2":
+					keyFrame.frameData = p2JsonMap[keyFrame.fNm];
+					return keyFrame;
+					case "p4":
+					keyFrame.frameData = p4JsonMap[keyFrame.fNm];
 					return keyFrame;
 				default:
-					keyFrame.frameData = keyMapJson[keyFrame.fNm];
+					keyFrame.frameData = p1JsonMap[keyFrame.fNm];
 					return keyFrame;
 			}
 		});
@@ -125,7 +164,6 @@ onMounted(async () => {
 		// next taking that decodeJson above and finding the frameData
 
 		//newKeyFrames =[{frameName:null, frameTime: 100, frameData:{"anime": "jumpUp2",json:"jsonKey", png:"pngKey", "x": 448, "y": 64, "width": 64, "height": 64 }}]
-		// console.log(' AFter ',newKeyFrames);
 
 			keyFrameArray = keyFrameArray.concat(newKeyFrames);
 
@@ -154,6 +192,8 @@ onMounted(async () => {
 		addNextFrame();
 	}
 
+	
+
 	function getOutfitURL(clothes, key) {
 
 		if (clothes && clothes.sex == "m") {
@@ -181,40 +221,107 @@ onMounted(async () => {
 			`/assets/char_a_${key}/char_a_${key}_0bas_${clothes.skin}`,
 			apiCall.value
 		);
+		
 	}
 	function getHairURL(clothes, key) {
-		if (!clothes || !clothes.skin)
+		if (!clothes || !clothes.hair)
 			return createImg(
 				`/assets/char_a_p1/4har/char_a_p1_4har_dap1_v02.png`,
 				apiCall.value
 			);
-		//return `${type}_v${version}.png`;
-		return createImg(
-			`/assets/char_a_${key}/4har/char_a_${key}_4har_${clothes.hair}`,
-			apiCall.value
-		);
+		// pONE1 is an special battle it wil
+		if(key === 'pONE1' || key === 'pONE2' || key == 'pONE3'){
+			// return createImg(
+			// 	`/assets/char_a_${key}/4har/char_a_${key}_4har_dap1_v01.png`,
+			// 	apiCall.value
+			// );
+
+		} else {
+			return createImg(
+				`/assets/char_a_${key}/4har/char_a_${key}_4har_${clothes.hair}`,
+				apiCall.value
+			);
+		}
+	}
+	function getHelmURL(clothes, key) {
+		if (!clothes || !clothes.hair)
+			return createImg(
+				`/assets/char_a_p1/4har/char_a_p1_4har_dap1_v02.png`,
+				apiCall.value
+			);
+		// pONE1 is an special battle it wil
+		if(key === 'pONE1' || key === 'pONE2' || key == 'pONE3'){
+			return createImg(
+				`/assets/char_a_${key}/5hat/char_a_${key}_5hat_pfht_v03.png`,
+				apiCall.value
+			);
+
+		} else {
+
+		}
+	}
+	
+	function getMainhand(clothes, key){
+		if(key === 'pONE1' || key === 'pONE2' || key == 'pONE3'){
+			return createImg(
+				`/assets/char_a_${key}/6tla/char_a_${key}_6tla_sw01_v01.png`,
+				apiCall.value
+			);
+		}
+	}
+	// This is the array of which the canvas will be painted via image.
+	function getOffhand(clothes, key){
+		if(key === 'pONE1' || key === 'pONE2' || key == 'pONE3'){
+			// return createImg(
+			// 	`/assets/char_a_${key}/7tlb/char_a_${key}_7tlb_sh01_v01.png`,
+			// 	apiCall.value
+			// );
+		}
 	}
 
-	// This is the array of which the canvas will be painted via image.
-	const imageArray = [
+	// console.log(keyFrameArray[0].fTm, "Doing first animate");
+	animate(keyFrameArray[0].frameData);
+
+	function animate(frameInfo) {
+		
+		const imageArray = [
 		getSkinURL(clothes, keyFrameArray[0].key), //		skinLayer, 0bot (sub-layer, fully behind the character sprite)
 		getOutfitURL(clothes, keyFrameArray[0].key), //   createImg(`/assets/${clothes.skin}`); // 1out (outfit, lowest layer)
 		null, //   createImg(`/assets/${clothes.skin}`); // 2clo (cloaks, capes, and mantles)
 		null, //   createImg(`/assets/${clothes.skin}`); // 3fac (face items, like glasses and masks)
 		getHairURL(clothes, keyFrameArray[0].key), //4har (hair)
+		getHelmURL(clothes, keyFrameArray[0].key), //4.5 har (hair)
 		null, //   createImg(`/assets/${clothes.skin}`); //5hat (hats and hoods)
-		null, //   createImg(`/assets/${clothes.skin}`); //6tla (primary tool layer, weapons and such)
-		null, //   createImg(`/assets/${clothes.skin}`); //7tlb (secondary tool layer, shields and off-hand weapons, highest layer)
+		getMainhand(clothes,  keyFrameArray[0].key), //   createImg(`/assets/${clothes.skin}`); //6tla (primary tool layer, weapons and such)
+		getOffhand(clothes,  keyFrameArray[0].key), //   createImg(`/assets/${clothes.skin}`); //7tlb (secondary tool layer, shields and off-hand weapons, highest layer)
 	];
 
-	// console.log(keyFrameArray[0].fTm, "Doing first animate");
 
-	animate(keyFrameArray[0].frameData);
+		if (!frameInfo) {
+			console.log("  -Char> ERROR ", frameIndex,keyFrameArray[0]);
+		} else {
+			imageArray.forEach((Image) => {
+				if (Image) {
+					context.drawImage(
+						Image,
+						frameInfo.x, // Source X
+						frameInfo.y, // Source Y
+						frameInfo.width, // Source Wdith
+						frameInfo.height, // Source height
+						0, // Placement X
+						0, // PlaceMent Y
+						frameInfo.height, // placement height
+						frameInfo.height // placement width
+					);
+				}
+			});
+		}
+	}
 
 	timeOut =	setTimeout(doNextFrame, keyFrameArray[0].fTm);
 
 	function doNextFrame() {
-		// if (gladName == "Heidi Isa")
+		//  if (gladName == "Minor Belia")
 		// 	console.log(
 		// 		gladName,
 		// 		"Doing imag eneed key?",
@@ -226,7 +333,7 @@ onMounted(async () => {
 
 		// we will need an objectMap, to point which frameName matches with png/json and return acutal path.
 		// const keyMap = {
-		// 	"p1":{ json:keyMapJson, png: }
+		// 	"p1":{ json:p1JsonMap, png: }
 		// }
 		// I think the key should be enough later on to grab ... just the png
 
@@ -254,27 +361,6 @@ onMounted(async () => {
 		// Once animation array is cleared it will go back to standing or it can loop?
 	}
 
-	function animate(frameInfo) {
-		if (!frameInfo) {
-			console.log("  -Char> ERROR ", frameIndex);
-		} else {
-			imageArray.forEach((Image) => {
-				if (Image) {
-					context.drawImage(
-						Image,
-						frameInfo.x, // Source X
-						frameInfo.y, // Source Y
-						frameInfo.width, // Source Wdith
-						frameInfo.height, // Source height
-						0, // Placement X
-						0, // PlaceMent Y
-						frameInfo.height, // placement height
-						frameInfo.height // placement width
-					);
-				}
-			});
-		}
-	}
 });
 </script>
 

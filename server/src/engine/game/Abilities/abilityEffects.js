@@ -11,7 +11,10 @@ function compareEffects(caster,target){
                     if(caster.effectToDo.reducer[i] != "taunting"){
                         tgtReduce = "hit"+caster.effectToDo.reducer[i]
                     } else {
+                        // This is taunting - which it reduces taunt
                         tgtReduce = caster.effectToDo.reducer[i]
+                        target.effectToDo.staminaDamage = caster.effectToDo.reducer[i]
+                        // but here we want morale damage 
                     }
                     if(caster.effectToDo[tgtReduce] ){
                         caster.effectToDo[tgtReduce]  -= caster.effectToDo.reduce;

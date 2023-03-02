@@ -61,7 +61,29 @@ export default {
     getAnimate(job){
       switch(job){
         default:
-          let rando = ["walk","stand","jump","run","push","pull"]; //
+          let rando = [ "stand","push","pull","jump","stand","run","walk",
+                        "chop","throw","water","lift",
+                        "smith","climbing","surprise","look",,"hip","toe","chair","chairHead","sit0","sit1","lay",
+                        "draw","parry","dodge","hurt","dead",
+                        "idle","move","crouch","retreat","lunge",
+                        "slash1","slash2","thrust","bash"
+
+        ]; // 
+          /*
+
+          confirme bookred - ""drink""
+
+          p1 - "stand","push","pull","jump","stand","run","walk"
+          p2 - "chop","throw","water","lift"
+          p4 - "smith","climbing","surprise","look","drink","hip","toe","chair","chairHead","sit0","sit1","lay"
+
+          pONE1 - "draw","parry","dodge","hurt","dead"
+          pONE2 - "idle","move","idle","crouch","retreat","lunge"
+          pONE3 - "slash1","slash2","thrust","bash"
+          */
+          
+          //"chop","throw"
+          //"slash1","slash2","bash","thrust","draw","idle",'move','crouch','retreat','lunge','parry','dodge','hurt','dead'
           let random = Math.floor(Math.random()*rando.length)
           return rando[random]
         }
