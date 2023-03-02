@@ -4,7 +4,7 @@ const {calcEffect,calcWin} = require("../AbilityParts");
 
 const Dodge = ()=>{
   const state = {
-     abilityName : "Dodge",
+     abilityName : "dodge",
      type : "clash",
      effect : {
         reduce:{

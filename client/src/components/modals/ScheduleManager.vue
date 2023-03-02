@@ -166,7 +166,7 @@ export default {
     BaseModal,
     BaseTabs
   },
-	inject:['apiCall','showTutorial',"showToolTip","hideToolTip"],
+	inject:['apiCall','showTutorial'],
 	methods: {
     createTool(event){
       let rtnStrng = ""

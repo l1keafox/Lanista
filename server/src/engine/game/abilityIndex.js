@@ -41,7 +41,6 @@ function getAbilityEffect(skillName) {
   skillName = skillName.toLowerCase();
   
   // console.log(abilityObj[skillName]().doAbility());
-  //  console.log(skillName);
   return abilityObj[skillName]();
 }
 async function doLearn(gladiator,skillName){

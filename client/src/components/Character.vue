@@ -14,9 +14,10 @@ import pONE1JsonMap from "../assets/animationData/pONE1.json";
 import pONE3JsonMap from "../assets/animationData/pONE3.json";
 
 import { onMounted, defineProps, onUnmounted } from "vue";
-import { inject, toRefs } from "vue";
+import { inject, toRefs , ref} from "vue";
 import createImg from "../composables/cacheSpriteSheet";
 const apiCall = inject("apiCall");
+const emit = defineEmits(['update:model_value'])
 /* Interface 
 
 gladName : required due to 
@@ -47,9 +48,14 @@ const props = defineProps({
 		// this needs to be na v-modal.
 		type: String,
 	},
+	model_value:{
+		type:Array,
+		default:[]
+	}
+	
 });
 
-const { direction, animation } = toRefs(props);
+const { direction, animation,model_value } = toRefs(props);
 const gladName = props.gladName;
 const clothes = props.clothes;
 let timeOut;
@@ -312,6 +318,14 @@ onMounted(async () => {
 	timeOut =	setTimeout(doNextFrame, keyFrameArray[0].fTm);
 
 	function doNextFrame() {
+		// if(model_value){
+		// 	console.log(model_value)
+		// 	if(model_value.value.length > 0){
+		// 		console.log(model_value.value[0],"MODVAL")
+		// 	}
+		// 	// const emit = defineEmits(['update:model_value'])		
+		// }
+
 		//  if (gladName == "Minor Belia")
 		// 	console.log(
 		// 		gladName,

@@ -233,6 +233,7 @@ export default {
 				}
 			},
 			showToolTip: (message)=>{
+				// console.log("mess?",message);
 				this.showToolTipModal = true;
 				this.toolTipMessage = message;
 			},
