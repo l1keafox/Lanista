@@ -93,7 +93,7 @@ onMounted(async () => {
 			strDirection.toLowerCase().charAt(0).toUpperCase() +
 			strDirection.slice(1);
 			if(!keyFrames[animation.value]){
-				console.log(animation.value, strDirection,"ERRTS",keyFrames.stand.Down)
+				//console.log(animation.value, strDirection,"ERRTS",keyFrames.stand.Down)
 				return keyFrames.stand.Down
 			}
 

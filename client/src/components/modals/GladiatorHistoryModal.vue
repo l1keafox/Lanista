@@ -48,7 +48,7 @@ export default {
     methods:{
     },
     async mounted() {
-      console.log(this.currentTab);
+      console.log(this.currentTab,this.gladId);
       if(this.gladId){
           const rpnse = await fetch(
           this.apiCall.value+ `/gladiator/${this.gladId}`,
@@ -57,14 +57,15 @@ export default {
           }
         );
         this.gladiatorData = await rpnse.json();
-      } else if(this.gladMemory){
-        this.gladiatorData = JSON.parse(this.gladMemory.memory);
-        this.gladiatorData.name = this.gladMemory.name;
-        this.gladiatorData.age = this.gladMemory.age;
-        this.gladiatorData.level = this.gladMemory.level;
-        this.gladiatorData.winRecord = this.gladMemory.winRecord;
-        this.gladiatorData.lossRecord = this.gladMemory.lossRecord;
-      }      
+      } 
+      //else if(this.gladMemory){
+      //   this.gladiatorData = JSON.parse(this.gladMemory.memory);
+      //   this.gladiatorData.name = this.gladMemory.name;
+      //   this.gladiatorData.age = this.gladMemory.age;
+      //   this.gladiatorData.level = this.gladMemory.level;
+      //   this.gladiatorData.winRecord = this.gladMemory.winRecord;
+      //   this.gladiatorData.lossRecord = this.gladMemory.lossRecord;
+      // }      
       console.log( this.gladiatorData );
     }
   }

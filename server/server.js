@@ -4,7 +4,6 @@ require('dotenv').config({});
 const userRouter = require('./src/routers/users');
 const gladiatorRouter = require('./src/routers/gladiators');
 const ownerRouter = require('./src/routers/owner');
-// const assetsRouter = require('./src/routers/assets');
 
 const db = require("./src/config/connection");
 const cors = require('cors');
@@ -13,16 +12,10 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 // Socket.io Stuff
 
+
 const { initIo } = require("./src/socket/index"); // initIo to initalize the server, io later on just to grab the object.
 const ioServer = initIo(app); // initalizing io into serverIo
-// app.use(function(request, response, next) {
-//   console.log(process.env.NODE_ENV  )
-//   if (process.env.NODE_ENV != 'development' && !request.secure) {
-//      return response.redirect("https://" + request.headers.host + request.url);
-//   }
 
-//   next();
-// })
 
 app.use(cors())
 app.use(express.urlencoded({ extended: false }));

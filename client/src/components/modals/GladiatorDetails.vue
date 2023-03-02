@@ -4,13 +4,16 @@
       <h1 v-if="gladiatorData" class="text-3xl font-semibold">
         {{ gladiatorData.name }}
       </h1>
+      <h1 v-if="memData" class="text-3xl font-semibold">
+        {{ memData.name }}
+      </h1>
       <!-- <h2 v-if="gladiatorData" class="text-lg font-semibold">
         Id: {{ gladiatorData._id }}
       </h2> -->
       <BaseTabs :tabs="tabs" v-model="currentTab"/>
     </template>
     <template  v-slot:content>
-    <component :is="currentTab" @closeModal="$emit('closeModal')" :gladId="gladId" />
+    <component :is="currentTab" @closeModal="$emit('closeModal')" :gladId="gladId" :memoryData="memData"  />
     </template>
     <template v-slot:footer ></template>
   </BaseModal>
@@ -39,12 +42,14 @@ import Stats from "./Tabs/StatsTab.vue"
       this.tabs = ["Stats","Equipment","Clash"]
       return {
         gladiatorData: null,
+        memData:null,
         currentTab: this.tabs[0],
       };
     },
     methods:{
     },
     async mounted() {
+      console.log(this.gladId, this.gladMemory);
       if(this.gladId){
           const rpnse = await fetch(
           this.apiCall.value+ `/gladiator/${this.gladId}`,
@@ -54,14 +59,13 @@ import Stats from "./Tabs/StatsTab.vue"
         );
         this.gladiatorData = await rpnse.json();
       } else if(this.gladMemory){
-        this.gladiatorData = JSON.parse(this.gladMemory.memory);
-            // console.log("THIS",this.gladMemory);
-            // console.log("PARSED",this.gladiatorData);
-            this.gladiatorData.name = this.gladMemory.name;
-            this.gladiatorData.age = this.gladMemory.age;
-            this.gladiatorData.level = this.gladMemory.level;
-            this.gladiatorData.winRecord = this.gladMemory.winRecord;
-            this.gladiatorData.lossRecord = this.gladMemory.lossRecord;
+          this.memData = JSON.parse(this.gladMemory.memory);
+          this.memData.name = this.gladMemory.name;
+          this.memData.age = this.gladMemory.age;
+          this.memData.level = this.gladMemory.level;
+          this.memData.winRecord = this.gladMemory.winRecord;
+          this.memData.lossRecord = this.gladMemory.lossRecord;
+          console.log("HEREWS?",this.memData);
 
       }
     },

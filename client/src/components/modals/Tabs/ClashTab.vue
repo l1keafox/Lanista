@@ -1,6 +1,26 @@
 <template>
   <div>
-			<div id="clashTut" v-if="skills" class="relative p-6 flex-auto flex text-black ">
+		<div v-if="memoryData" class = "flex text-black">
+			<div class="bg-yellow-100 w-[15rem] h-[10rem] p-2">
+				PREPARE
+				<div v-for="prep in prepare" class = "flex flex-col">
+					{{ prep }}
+				</div>
+			</div>
+			<div class="bg-pink-300 w-[15rem] h-[10rem] p-2 ">
+				CLASH
+				<div v-for="prep in clash" class = "flex flex-col">
+					{{ prep }}
+				</div>
+			</div>
+			<div class="bg-yellow-100 w-[15rem] h-[10rem] p-2">
+				REACT
+				<div v-for="prep in react" class = "flex flex-col">
+					{{ prep }}
+				</div>
+			</div>
+		</div>
+			<div id="clashTut" v-else-if="skills" class="relative p-6 flex-auto flex text-black ">
 				<div >
 					<h1>Prepare</h1>
 					<draggable
@@ -26,7 +46,7 @@
 				</div>
 
 				<div>
-					<h1>Prepare</h1>
+					<h1>React</h1>
 
 					<draggable
 						class="list-group w-64 bg-yellow-100 h-48 m-2"
@@ -92,13 +112,17 @@
 <script setup>
 import draggable from "vuedraggable";
 import BaseFooter from "../BaseFooter.vue";
-import { onMounted,defineProps,inject,ref,defineEmits } from "vue";
-const { gladId }  = defineProps({
+import { onMounted,defineProps,inject,ref,defineEmits,toRefs } from "vue";
+const props  = defineProps({
   gladId:{
     type:String,
     default:""
-  }
+  },
+	memoryData:{
+
+	}
 });
+const { gladId , memoryData } = toRefs(props)
 const emit = defineEmits(["closeModal"])
 const apiCall = inject('apiCall');
 const showTutorial = inject('showTutorial');
@@ -113,8 +137,16 @@ const react = ref(null);
 
 
 onMounted(async ()=>{
+	console.log('Clash getting memory data',gladId,memoryData);
+	if(memoryData.value){
+		clash.value = memoryData.value.clash;
+		prepare.value = memoryData.value.prepare;
+		react.value = memoryData.value.react;
+		console.log(clash.value,memoryData);
+	} else 
+	if(gladId.value){
   	const rpnse = await fetch(
-			apiCall.value + `/gladiator/clashInfo/${gladId}`,
+			apiCall.value + `/gladiator/clashInfo/${gladId.value}`,
 			{
 				headers: { "Content-Type": "application/json" },
 			}
@@ -126,6 +158,7 @@ onMounted(async ()=>{
 		clash.value = gladData.clash;
 		prepare.value = gladData.prepare;
 		react.value = gladData.react;
+	} 
 		showTutorial({
 				elementId: "clashTut",
 				message: "These are your clash abilities, ",

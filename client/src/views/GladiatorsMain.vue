@@ -17,7 +17,7 @@
 
 <script>
 import ScheduleManager from "./../components/modals/ScheduleManager.vue";
-import HistoryModal from "./../components/modals/HistoryModal.vue";
+import HistoryModal from "../components/modals/GladiatorHistoryModal.vue";
 import GladiatorDetails from "./../components/modals/GladiatorDetails.vue";
 
 import GladiatorCard from "../components/GladiatorCard.vue";
