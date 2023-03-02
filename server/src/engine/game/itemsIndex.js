@@ -21,7 +21,7 @@ So right now, I don't think I'll do tiers on weapons, but items cannot be unequi
 
 */
 
-const itemObj = require("./items.json");
+const itemObj = require("../../../assets/json/items.json");
 
 function getItemEffect(itemName) {
   return itemObj[itemName];
