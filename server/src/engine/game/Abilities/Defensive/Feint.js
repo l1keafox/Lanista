@@ -8,7 +8,7 @@ const Feint= ()=>{
      type : "clash",
      effect : {
         reduce:{
-         target:"target",
+         target:"caster",
          reducer:['taunting'],
          dexterity:40,
          reputation:40,
