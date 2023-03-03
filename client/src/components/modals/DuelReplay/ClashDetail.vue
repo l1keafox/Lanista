@@ -7,12 +7,12 @@
     <h1 >
       {{ 
         roundInfo.c.a
-     }}
+     }}:
+     <span v-for="(info,key) in roundInfo.c.e" :key="info">
+      {{key}}:{{info}}/
+      </span>
     </h1>
-     {{ 
-      roundInfo.c.e
-     }}
-    </template>
+  </template>
     <hr/>
   </div>
 </template>

@@ -14,10 +14,10 @@
         <Character  :clothes="makeClothes(gladiatorData)" v-model="animate" :gladName="props.glad.idKey+''" :animation="anime" :direction="dir" class="h-[16rem] w-[16rem] bottom-16"/>
       </template>
       <ClashDetail :roundInfo="roundInfo" class=" bg-yellow-100 " />
-      <template v-if="thisGuy.dmg" >
+      <div v-if="thisGuy.dmg" class=" bg-red-800 " >
         {{ thisGuy.dmg }}
         <!-- <Popup :dmg="thisGuy.dmg" class="pup "/> -->
-      </template>
+      </div>
   </template>
 </div>
 </template>

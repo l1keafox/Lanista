@@ -61,10 +61,24 @@
 		<h3 class="text-red-700"> NOT WORKING </h3>
 		<div>
 			Id:
-			<InputField/>
+			<InputField v-model="opponId"/>
+			vs
+			<template v-if="ownerData">
+			<select
+			name="gladiator2"
+			class="bg-cyan-100 w-28 text-purple-800 p-2 m-2"
+			id="myPickFightOther">
+			<option value="empty">Select</option>
+			<template
+				v-for="(gladiator, index) in ownerData.gladiators"
+				:key="index">
+				<option :value="gladiator._id">{{ gladiator.name }}</option>
+			</template>
+		</select>
+	</template>
 			<button
 			class="bg-yellow-200 text-emerald-800 w-48 p-2 m-2"
-			@click="doMemory">
+			@click="fightTarget">
 				Fight Gladiator
 			</button>
 		</div>
@@ -97,6 +111,7 @@ export default {
 	data() {
 		return {
 			ownerData: null,
+			opponId:null,
 			isModalShown: false,
 			duelReport:null,
 			userData: auth.getUser(),
@@ -105,7 +120,23 @@ export default {
 	computed: {},
 	inject: ["card", "cardTitle",'getOwner','apiCall','showTutorial'],
 	methods: {
+		async fightTarget(){
+			let ele = document.getElementById("myPickFightOther");
+			console.log(this.opponId,ele.value)
+			const rpnse = await fetch(
+					this.apiCall.value + `/gladiator/fightTarget`,
+					{
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							"gladatorId": ele.value,
+							"targetId": this.opponId,
+						}),
+					}
+				);
 
+		},
+		
 		async doMemory(){
 			let sch = document.getElementById("memoryGlad");
 			let gladData = this.ownerData.gladiators.find(

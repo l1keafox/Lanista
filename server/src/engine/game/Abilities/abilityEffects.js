@@ -35,10 +35,18 @@ function compareEffects(caster,target){
     
                     } else {
                         if(caster.effectToDo.reducer[i] != "taunting"){
-                        
+                            
                             tgtReduce = "hit"+caster.effectToDo.reducer[i]
-                                // caster.effectToDo[tgtReduce]  -= caster.effectToDo.reduce;
-                            addEffect(caster,tgtReduce, target.effectToDo.reduce,true)
+                            console.log(tgtReduce,caster.effectToDo.reduce, caster.effectToDo[tgtReduce])
+                            if(caster.effectToDo[tgtReduce]){
+                                caster.effectToDo[tgtReduce]-=caster.effectToDo.reduce
+                                // target.effectToDo.staminaDamage +=
+                                if(caster.effectToDo.reducer[i] == "Chance"){
+                                    addEffect(target,"staminaDamage", caster.effectToDo.reduce)
+                                }
+                            }
+
+                            console.log(tgtReduce,caster.effectToDo.reduce,caster.effectToDo, caster.effectToDo[tgtReduce])
         
                         }                         
                     }                    
@@ -64,11 +72,16 @@ function compareEffects(caster,target){
 
 
                 // Reducer for taunting is something that reduces the taunting level. If it's damage or hit chance.
-                for(let reduce in caster.effectToDo.reducer){
-                    
-                     if( caster.effectToDo[caster.effectToDo.reducer[reduce]] && caster.effectToDo.taunting ){
-                         caster.effectToDo.taunting -= caster.effectToDo[caster.effectToDo.reducer[reduce]];
+                for(let index in caster.effectToDo.reducer){
+                        if(caster.effectToDo.reducer[index] == "reverse"){
+                        target.effectToDo.moraleDamage = caster.effectToDo.taunting + caster.effectToDo.hitDamage ?? 0;
+                        caster.effectToDo.taunting = 0;
+                     } else 
+                     if( caster.effectToDo[caster.effectToDo.reducer[index]] && caster.effectToDo.taunting ){
+                         caster.effectToDo.taunting -= caster.effectToDo[caster.effectToDo.reducer[index]];
                      }
+                     // Provoke needs a morale win based on
+                     // 
                  } 
 
                  // If playing against an reduce, 
@@ -104,7 +117,7 @@ function compareEffects(caster,target){
             if(num){
                 switch (effect) {
                     case "hitDamage":
-                        if(caster.effectToDo.hitChance && num){
+                        if(caster.effectToDo.hitChance > 0 && num){
                             caster.hits -= num;
                             if(!effectReport.dmg) effectReport.dmg = {};
                             effectReport.dmg.h = num;
