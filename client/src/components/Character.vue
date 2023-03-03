@@ -192,7 +192,11 @@ onMounted(async () => {
 	
 
 	function getOutfitURL(clothes, key) {
-
+		if (!clothes || !clothes.skin)
+			return createImg(
+				`/assets/char_a_p1/1out/char_a_p1_1out_bksm_v02.png`,
+				apiCall.value
+			);
 		if (clothes && clothes.sex == "m") {
 			return createImg(
 				`/assets/char_a_${key}/1out/char_a_${key}_1out_boxr_v01.png`,
@@ -210,7 +214,7 @@ onMounted(async () => {
 	function getSkinURL(clothes, key) {
 		if (!clothes || !clothes.skin)
 			return createImg(
-				`/assets/char_a_p1/char_a_p1_0bas_demn_v02.png`,
+				`/assets/char_a_p1/char_a_p1_0bas_humn_v00.png`,
 				apiCall.value
 			);
 		//  return `char_a_p1/char_a_p1_0bas_humn_v${rando}.png`;
@@ -223,7 +227,7 @@ onMounted(async () => {
 	function getHairURL(clothes, key) {
 		if (!clothes || !clothes.hair)
 			return createImg(
-				`/assets/char_a_p1/4har/char_a_p1_4har_dap1_v02.png`,
+				`/assets/char_a_p1/4har/char_a_p1_4har_dap1_v12.png`,
 				apiCall.value
 			);
 		// pONE1 is an special battle it wil
@@ -259,6 +263,7 @@ onMounted(async () => {
 	}
 	
 	function getMainhand(clothes, key){
+		
 		if(key === 'pONE1' || key === 'pONE2' || key == 'pONE3'){
 			return createImg(
 				`/assets/char_a_${key}/6tla/char_a_${key}_6tla_sw01_v01.png`,
@@ -287,7 +292,7 @@ onMounted(async () => {
 		null, //   createImg(`/assets/${clothes.skin}`); // 2clo (cloaks, capes, and mantles)
 		null, //   createImg(`/assets/${clothes.skin}`); // 3fac (face items, like glasses and masks)
 		getHairURL(clothes, keyFrameArray[0].key), //4har (hair)
-		getHelmURL(clothes, keyFrameArray[0].key), //4.5 har (hair)
+		getHelmURL(clothes, keyFrameArray[0].key), //4.5har (helmet)
 		null, //   createImg(`/assets/${clothes.skin}`); //5hat (hats and hoods)
 		getMainhand(clothes,  keyFrameArray[0].key), //   createImg(`/assets/${clothes.skin}`); //6tla (primary tool layer, weapons and such)
 		getOffhand(clothes,  keyFrameArray[0].key), //   createImg(`/assets/${clothes.skin}`); //7tlb (secondary tool layer, shields and off-hand weapons, highest layer)

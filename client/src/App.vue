@@ -213,13 +213,13 @@ export default {
 	},
 	provide() {
 		return {
-			card: "h-80 w-56 p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
+			card: "h-80 w-56 p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 ",
 			smallCard:
-				"h-64 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
+				"h-64 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 ",
 			largeCard:
-				"h-96 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
+				"h-96 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 ",
 			gladiatorCard:
-				"h-[27rem] aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 rounded-lg",
+				"h-[27rem] aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 ",
 			cardTitle: "text-xl text-sky-400",
 			getOwner: computed(() => this.ownerData),
 			getTime: computed(() => this.timeData),

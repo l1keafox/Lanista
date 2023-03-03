@@ -1,9 +1,6 @@
 <template>
   <div  class="flex flex-wrap ">
       <div v-if="glad" :class="gladiatorCard" class="relative">         
-        <Character class="absolute -right-[2px] top-[20px] h-[7rem] w-[7rem]" :clothes="makeClothes(glad)" :animation="jobToAnimate" :direction="jobDirection" :gladName="glad.name"/>
-        <span class="absolute right-10 top-4" v-if="training"> {{ training[0] }} </span>
-        <span class="absolute right-10 top-24"  v-if="training" id="growth" > {{ training[growthIndex] }} </span>
         <h1 :class="cardTitle">{{glad.name}} </h1>
 
         <h2> Level:{{glad.level}} /  Age:{{glad.age}}</h2>
@@ -11,9 +8,14 @@
         <h2> Local: {{glad.weekWin }} / Regional : {{glad.monthWin }}</h2>
         <h2> Quarter : {{glad.quarterWin }} / National: {{glad.yearWin }}</h2>
         <hr/>
-        <button :id="'detailsBtn'+index"  class="bg-blue-200 m-2 text-purple-700 rounded"   @click="openModal($event,'GladiatorDetails')"  :data-id="glad._id">Details  </button>
-        <button :id="'scheduleBtn'+index" class="bg-yellow-200 m-2 text-purple-900 rounded" @click="openModal($event,'ScheduleManager')" :data-id="glad._id">Schedule  </button>
-        <button :id="'historyBtn'+index"  class="bg-purple-200 m-2 text-purple-700 rounded" @click="openModal($event,'HistoryModal')"   :data-id="glad._id">History  </button>
+        <button :id="'detailsBtn'+index"  class="bg-blue-200 m-2 text-purple-700 "   @click="openModal($event,'GladiatorDetails')"  :data-id="glad._id">Details  </button>
+        <button :id="'scheduleBtn'+index" class="bg-yellow-200 m-2 text-purple-900 " @click="openModal($event,'ScheduleManager')" :data-id="glad._id">Schedule  </button>
+        <button :id="'historyBtn'+index"  class="bg-purple-200 m-2 text-purple-700 " @click="openModal($event,'HistoryModal')"   :data-id="glad._id">History  </button>
+        <div class="items-center flex justify-center">
+          <Character class=" bottom-0 h-[10rem] w-[10rem]" :clothes="makeClothes(glad)" :animation="jobToAnimate" :direction="jobDirection" :gladName="glad.name"/>
+        </div>
+        <span class="absolute right-36 bottom-4" v-if="training"> {{ training[0] }} </span>
+        <span class="absolute right-10 bottom-24"  v-if="training" id="growth" > {{ training[growthIndex] }} </span>
         
       </div>
   </div>
