@@ -13,7 +13,6 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 // Socket.io Stuff
 
-
 const { initIo } = require("./src/socket/index"); // initIo to initalize the server, io later on just to grab the object.
 const ioServer = initIo(app); // initalizing io into serverIo
 

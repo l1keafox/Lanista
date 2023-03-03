@@ -1,6 +1,7 @@
 <template>
     <div id="toolTip" class="cursor-disabled fixed text-black bg-white z-50">
-      <h1 v-if="message" class="m-2"> {{message}} </h1>
+      <h1 v-if="message" class="p-2 border border-blue-50"> {{message}} </h1>
+      
     </div>
 </template>
 

@@ -6,6 +6,7 @@ const Dodge = ()=>{
   const state = {
      abilityName : "dodge",
      type : "clash",
+     category: "defensive",
      effect : {
         reduce:{
          target:"caster",

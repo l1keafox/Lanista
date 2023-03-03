@@ -6,6 +6,7 @@ const Feint= ()=>{
   const state = {
      abilityName : "Feint",
      type : "clash",
+     category: "defensive",
      effect : {
         reduce:{
          target:"caster",

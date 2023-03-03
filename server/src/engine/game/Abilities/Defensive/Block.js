@@ -6,6 +6,7 @@ const Block = ()=>{
   const state = {
      abilityName : "block",
      type : "clash",
+     category: "defensive",
      effect : {
         reduce:{
           target:"caster",

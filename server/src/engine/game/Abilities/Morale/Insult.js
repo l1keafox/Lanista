@@ -5,6 +5,7 @@ const Insult = ()=>{
   const ability = {
      abilityName : "Insult",
      type : "clash",
+     category: "morale",
      effect : {
       taunting:{
         target:"caster",

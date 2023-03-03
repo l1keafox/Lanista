@@ -33,6 +33,7 @@ const BackStab= ()=>{
      maxCooldown:7,
      resultWanted:'win',
      abilityWanted:'dodge',
+    //  categoryWanted:'defensive',
      effect : {
       dodgeChance:{
          target:"caster",

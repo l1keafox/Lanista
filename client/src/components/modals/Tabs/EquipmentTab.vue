@@ -16,16 +16,18 @@
 				<div class="flex justify-between">
 					<div class="flex w-1/2 justify-between">
 						<h2>{{ slot }}</h2>
-						<template v-if=" gladiatorData.value">
-							<h2 v-if=" gladiatorData.value[slot]">{{ gladiatorData.value[slot] }}</h2>
-						</template>
-						<template v-else>
-							<h2 >{{ gladiatorData[slot] }}</h2>
-						</template>
+
+						<ItemMouseOver  > 
+							<template v-if=" gladiatorData.value">
+								<h2 v-if=" gladiatorData.value[slot]">{{ gladiatorData.value[slot] }}</h2>
+							</template>
+							<template v-else>
+								<h2 >{{ gladiatorData[slot] }}</h2>
+							</template>
+						</ItemMouseOver>
 						
 					</div>
-					<button v-if=" gladiatorData[slot]" class="bg-red-200" @click="tiggerInfo( slot )"> item info </button>
-
+					<!-- <button v-if=" gladiatorData[slot]" class="bg-red-200" @click="tiggerInfo( slot )"> item info </button> -->
 					<template v-if="inventoryData">
 					<select :name="slot" class="bg-cyan-100 w-28" :id="slot">
 						<template v-if=" inventoryData[slot]">
@@ -34,7 +36,6 @@
 						<template v-else>
 							<option value="empty">No Items</option>
 						</template>
-
 						<template
 							v-if=" inventoryData && inventoryData[slot]"
 							v-for="(item, index) in inventoryData[slot]"
@@ -70,6 +71,7 @@
 </template>
 
 <script setup>
+import ItemMouseOver from "../ItemMouseOver.vue";
 import BaseFooter from "../BaseFooter.vue";
 import auth from "../../../mixins/auth";
 import { inject, defineProps, onMounted, ref, toRefs , unref } from "vue";
@@ -102,6 +104,7 @@ async function tiggerInfo(item){
 	itemJson[gladData[item]].type = gladData[item];
 	data.value = itemJson[gladData[item]];
 }
+
 
 onMounted(async () => {
 	showTutorial({

@@ -4,6 +4,7 @@ const Stab = ()=>{
   const state = {
      abilityName : "stab",
      type : "clash",
+     category: "offensive",
      effect : {
       hitDamage:{
         target:"target",

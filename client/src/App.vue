@@ -11,10 +11,11 @@
 		v-model="showTutorialModal"
 		:tutorialArray="tutorialArray"
 	/>	
-	<BaseToolTipModal
+	<component
 		v-if="showToolTipModal"
 		:message="toolTipMessage"
-	/>	
+		:is="toolTipType"
+	/>
  
 		 
 </template>
@@ -79,6 +80,7 @@ export default {
 		this.mountedDone = false;
 		return {
 			isLoggedIn: auth.loggedIn(),
+			toolTipType:null,
 			showTutorialModal: false,
 			showToolTipModal: false,
 			toolTipMessage:null,
@@ -234,10 +236,15 @@ export default {
 					}, 750);
 				}
 			},
-			showToolTip: (message)=>{
-				// console.log("mess?",message);
+			showToolTip: (message,obj)=>{
+				console.log("mess?",message);
+				this.toolTipType = "BaseToolTipModal"
 				this.showToolTipModal = true;
-				this.toolTipMessage = message;
+				if(obj){
+
+				} else {
+					this.toolTipMessage = message;
+				}
 			},
 			hideToolTip: ()=>{
 				this.showToolTipModal = false;

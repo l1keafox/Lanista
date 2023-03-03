@@ -40,7 +40,9 @@
 					<h1>Clash</h1>
 					<div class="w-64 bg-yellow-100 h-48 m-2 cursor-auto">
 						<template v-for="skill in clash" :key="skill">
-							<h1 class="m-1 bg-pink-300 text-center" @mouseover="getInfo(skill)" @mouseleave="hideToolTip()" >{{ skill }}</h1>
+							<Mouseover :mouse="getInfo(skill)"> 
+								<h1 class="m-1 bg-pink-300 text-center" >{{ skill }}</h1>
+							</Mouseover>
 						</template>
 					</div>
 				</div>
@@ -112,6 +114,7 @@
 <script setup>
 import draggable from "vuedraggable";
 import BaseFooter from "../BaseFooter.vue";
+import Mouseover from "../../MouseOver.vue";
 import { onMounted,defineProps,inject,ref,defineEmits,toRefs } from "vue";
 
 const props  = defineProps({
@@ -148,7 +151,7 @@ async function getInfo(skill){
 		);
 	let rpns = await rpnse.json();
 	toolTipMsg.value = `
-	${rpns.type}:
+	<p>${rpns.type}:</p>
 	`
 	for(let effName in rpns.effect){
 		toolTipMsg.value+= effName+":{"

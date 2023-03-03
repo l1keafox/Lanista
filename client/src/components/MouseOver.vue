@@ -1,5 +1,5 @@
 <template>
-  <div @mouseover="showToolTip(toolTip)" @mouseleave="hideToolTip()">
+  <div class="bg-cyan-200" @mouseover="showToolTip(mouse)" @mouseleave="hideToolTip()">
     <slot/>
   </div>
 </template>
@@ -11,9 +11,11 @@ const hideToolTip = inject('hideToolTip')
 const showToolTip = inject('showToolTip')
 
 const props = defineProps({
-  toolTip:{} // this should be an function given.
+  mouse:{
+    default:"yo"
+  } // this should be an function given. but just an msg
 })
-const{toolTip} = toRefs(props)
+const{mouse} = toRefs(props)
 
 
 </script>
