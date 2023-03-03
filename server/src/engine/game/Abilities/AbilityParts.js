@@ -33,8 +33,9 @@ const calcEffect = (ability) =>({
   doAbility: (caster, target) =>{
     let reportObj = {};
     for(abilityName in ability.effect){
-      thisAbility = ability.effect[abilityName];
+      const thisAbility = ability.effect[abilityName];
       const chanceEffect = modStat4Effect(abilityMix(caster,thisAbility),10);
+
       if(thisAbility.target == "caster"){
         if(ability.effect[abilityName].reducer){
           caster.addEffect( 'reducer' ,ability.effect[abilityName].reducer)

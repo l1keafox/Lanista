@@ -4,8 +4,8 @@ Structures will provide upgrades, starting with the basic school that will provi
 
 */
 
-const structureObj = require("./structure.json");
-
+// const structureObj = require("./structure.json");
+const structureObj = require("./../../../assets/json/structure.json");
 function getStructureEffect(itemName) {
   return structureObj[itemName];
 }

@@ -4,6 +4,7 @@
     const ability = {
        abilityName : "taunt",
        type : "clash",
+       category: "morale",
        effect : {
         taunting:{
           target:"caster",

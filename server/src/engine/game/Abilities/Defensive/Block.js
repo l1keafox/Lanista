@@ -4,8 +4,9 @@ const {calcEffect,calcWin} = require("../AbilityParts");
 // redude damage instead of hits.
 const Block = ()=>{
   const state = {
-     abilityName : "Block",
+     abilityName : "block",
      type : "clash",
+     category: "defensive",
      effect : {
         reduce:{
           target:"caster",

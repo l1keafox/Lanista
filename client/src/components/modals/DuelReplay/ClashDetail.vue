@@ -1,16 +1,16 @@
 <template>
   <div>
-    <template v-if="thisDetails,thisDetails.c">
+    <template v-if="roundInfo,roundInfo.c">
       
         
       
     <h1 >
       {{ 
-      thisDetails.c.a
+        roundInfo.c.a
      }}
     </h1>
      {{ 
-      thisDetails.c.e
+      roundInfo.c.e
      }}
     </template>
     <hr/>
@@ -20,7 +20,7 @@
 <script setup>
   import { defineProps,toRef } from "vue";
   const props = defineProps(['roundInfo'])
-  const thisDetails = toRef(props, 'roundInfo')
+  const roundInfo = toRef(props, 'roundInfo')
 </script>
 
 <style scoped>

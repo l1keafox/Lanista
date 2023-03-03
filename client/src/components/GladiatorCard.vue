@@ -64,6 +64,7 @@ export default {
           let rando = [ "stand","push","pull","jump","stand","run","walk",
                         "chop","throw","water","lift",
                         "smith","climbing","surprise","look",,"hip","toe","chair","chairHead","sit0","sit1","lay",
+                        
                         "draw","parry","dodge","hurt","dead",
                         "idle","move","crouch","retreat","lunge",
                         "slash1","slash2","thrust","bash"

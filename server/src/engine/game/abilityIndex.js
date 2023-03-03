@@ -35,13 +35,16 @@ const abilityObj = {
 function getAbilityEffect(skillName) {
   // Create an new object this might be memory intensive?
   if(!skillName){
-//    console.log(" ERR OR undefined skillname:",skillName);
+  //  console.log(" ERR OR undefined skillname:",skillName);
     return;
   }
   skillName = skillName.toLowerCase();
   
+  if(!abilityObj[skillName]){
+    console.log(" BADABADSD",skillName);
+    return;
+  }
   // console.log(abilityObj[skillName]().doAbility());
-  //  console.log(skillName);
   return abilityObj[skillName]();
 }
 async function doLearn(gladiator,skillName){

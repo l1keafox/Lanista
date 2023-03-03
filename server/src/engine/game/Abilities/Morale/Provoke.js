@@ -6,6 +6,7 @@ const Provoke = ()=>{
   const ability = {
      abilityName : "Provoke",
      type : "clash",
+     category: "morale",
      effect : {
       taunting:{
         target:"caster",

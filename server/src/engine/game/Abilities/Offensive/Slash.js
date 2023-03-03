@@ -7,6 +7,7 @@ const Slash = ()=>{
   const state = {
      abilityName : "slash",
      type : "clash",
+     category: "offensive",
      effect : {
       hitDamage:{
         target:"target",
