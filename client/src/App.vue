@@ -11,10 +11,11 @@
 		v-model="showTutorialModal"
 		:tutorialArray="tutorialArray"
 	/>	
-	<BaseToolTipModal
+	<component
 		v-if="showToolTipModal"
 		:message="toolTipMessage"
-	/>	
+		:is="toolTipType"
+	/>
  
 		 
 </template>
@@ -32,6 +33,7 @@ import FeedbackMain from "./views/FeedbackMain.vue";
 import RankingMain from "./views/RankingMain.vue";
 import GamblingMain from "./views/GamblingMain.vue";
 import CreditMain from "./views/CreditMain.vue";
+import PvpMain from "./views/PvpMain.vue"
 
 import SideNav from "./components/SideNav.vue";
 import HeaderVue from "./components/Header.vue";
@@ -45,6 +47,7 @@ import { computed } from "vue";
 export default {
 	name: "App",
 	components: {
+		PvpMain,
 		BaseTutoralModal,
 		BaseToolTipModal,
 		RankingMain,
@@ -77,6 +80,7 @@ export default {
 		this.mountedDone = false;
 		return {
 			isLoggedIn: auth.loggedIn(),
+			toolTipType:null,
 			showTutorialModal: false,
 			showToolTipModal: false,
 			toolTipMessage:null,
@@ -232,9 +236,15 @@ export default {
 					}, 750);
 				}
 			},
-			showToolTip: (message)=>{
+			showToolTip: (message,obj)=>{
+				console.log("mess?",message);
+				this.toolTipType = "BaseToolTipModal"
 				this.showToolTipModal = true;
-				this.toolTipMessage = message;
+				if(obj){
+
+				} else {
+					this.toolTipMessage = message;
+				}
 			},
 			hideToolTip: ()=>{
 				this.showToolTipModal = false;

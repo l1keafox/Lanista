@@ -11,7 +11,7 @@
       <div>
       </div>
       <template v-if="gladiatorData">
-        <Character  :clothes="makeClothes(gladiatorData)" :gladName="props.glad.idKey" animation="idle" :direction="dir" class="h-[16rem] w-[16rem] bottom-16"/>
+        <Character  :clothes="makeClothes(gladiatorData)" v-model="animate" :gladName="props.glad.idKey+''" :animation="anime" :direction="dir" class="h-[16rem] w-[16rem] bottom-16"/>
       </template>
       <ClashDetail :roundInfo="roundInfo" class=" bg-yellow-100 " />
       <template v-if="thisGuy.dmg" >
@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-  import { defineProps,toRef,inject,onMounted,ref } from "vue";
+  import { defineProps,toRef,inject,onMounted,ref,onUpdated } from "vue";
   import Character from "./../../Character.vue"
   import ClashDetail from "./ClashDetail.vue"
   import pointsBar from "./pointsBar.vue";
@@ -38,6 +38,30 @@
   const gladId = thisGuy.id + thisGuy.value.idKey == 1 ? "right" :  "left" ;
   const bot = "10rem";
   const left = "8rem"
+  const animate = ref([]);
+  const anime = ref('idle')
+
+  onUpdated(()=>{
+    if(roundInfo && roundInfo.value && roundInfo.value.c){
+      // animate.value.push(roundInfo.value.c.a)
+      console.log("NEW ROUND?",roundInfo.value.c.a);
+      const animeMap ={
+        "stab":"thrust",
+        "slash":"slash1",
+        "smash":"slash2",
+
+        "block":"bash",
+        "dodge":"dodge",
+        "feint":"lunge",
+        "taunt":"crouch",
+        "provoke":"move",
+        "insult":"draw"
+      }
+
+      anime.value = animeMap[roundInfo.value.c.a.toLowerCase()]
+    }
+  })
+
   const gladiatorData = ref(null)
   function makeClothes(glad){
     if(glad){

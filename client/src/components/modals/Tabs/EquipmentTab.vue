@@ -16,14 +16,18 @@
 				<div class="flex justify-between">
 					<div class="flex w-1/2 justify-between">
 						<h2>{{ slot }}</h2>
-						<template v-if=" gladiatorData.value">
-							<h2 v-if=" gladiatorData.value[slot]">{{ gladiatorData.value[slot] }}</h2>
-						</template>
-						<template v-else>
-							<h2 >{{ gladiatorData[slot] }}</h2>
-						</template>
+
+						<ItemMouseOver  > 
+							<template v-if=" gladiatorData.value">
+								<h2 v-if=" gladiatorData.value[slot]">{{ gladiatorData.value[slot] }}</h2>
+							</template>
+							<template v-else>
+								<h2 >{{ gladiatorData[slot] }}</h2>
+							</template>
+						</ItemMouseOver>
 						
 					</div>
+					<!-- <button v-if=" gladiatorData[slot]" class="bg-red-200" @click="tiggerInfo( slot )"> item info </button> -->
 					<template v-if="inventoryData">
 					<select :name="slot" class="bg-cyan-100 w-28" :id="slot">
 						<template v-if=" inventoryData[slot]">
@@ -32,7 +36,6 @@
 						<template v-else>
 							<option value="empty">No Items</option>
 						</template>
-
 						<template
 							v-if=" inventoryData && inventoryData[slot]"
 							v-for="(item, index) in inventoryData[slot]"
@@ -61,12 +64,19 @@
 			</button>
 		</BaseFooter>
 	</div>
+	
+	<div v-if="showItemModal">
+		<ItemCardDetail :item="data" @closeModal="showItemModal = false"/>
+	</div>
 </template>
 
 <script setup>
+import ItemMouseOver from "../ItemMouseOver.vue";
 import BaseFooter from "../BaseFooter.vue";
 import auth from "../../../mixins/auth";
-import { inject, defineProps, onMounted, ref, toRefs } from "vue";
+import { inject, defineProps, onMounted, ref, toRefs , unref } from "vue";
+import ItemCardDetail from './../ItemCardDetail.vue';
+import cacheJson from "./../../../composables/cacheJson.js"
 
 const apiCall = inject("apiCall");
 const showTutorial = inject("showTutorial");
@@ -85,6 +95,16 @@ const slots = ["head", "mainHand", "offHand", "body", "boots"];
 
 const gladiatorData = ref(null);
 const inventoryData = ref(null);
+const showItemModal = ref(false);
+const data = ref();
+async function tiggerInfo(item){
+	let gladData = unref(gladiatorData);
+	showItemModal.value = true;
+	const itemJson = await cacheJson(`/assets/json/items`, apiCall.value )
+	itemJson[gladData[item]].type = gladData[item];
+	data.value = itemJson[gladData[item]];
+}
+
 
 onMounted(async () => {
 	showTutorial({

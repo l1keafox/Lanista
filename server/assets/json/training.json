@@ -6,8 +6,8 @@
       "growth": true
     },
     "sensitivity": {
-      "diceSide": 2,
-      "diceNumber": 12,
+      "min": 2,
+      "max": 12,
       "growth": true
     },
     "gold": {

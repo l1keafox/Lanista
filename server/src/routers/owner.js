@@ -226,6 +226,19 @@ router.get('/owner/learningData/:ownerId', async(req, res) => {
     });
     res.send(rtnData);
 })
+router.get('/owner/ability/:abilityName', async(req, res) => {
+    if(!req.params.abilityName){
+        res.status(400)
+        return;
+    }
+
+        let rtn = getAbilityEffect(req.params.abilityName);
+        if(rtn){
+            res.send(rtn);
+        } else {
+            console.log('  -EN/Router/Owner>leanring data skill missing?',skill);
+        }
+})
 
 
 let potentialStudents= {};
