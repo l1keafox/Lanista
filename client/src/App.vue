@@ -6,7 +6,7 @@
 			<component :is="mainStage" />
 		</div>
 	</div>
-	<BaseTutoralModal
+	<BaseTutorialModal
 		v-if="showTutorialModal && isLoggedIn"
 		v-model="showTutorialModal"
 		:tutorialArray="tutorialArray"

@@ -63,26 +63,18 @@
 	</div>
 </template>
 
-<script>
-export default {
-	name: "WelcomeMain",
-	inject: ["apiCall"],
-	
-	async mounted() {
-		if (this.apiCall) {
-			const rpnse = await fetch(this.apiCall.value + `/users/gameData`, {
+<script setup>
+const apiCall = inject('apiCall');
+const maxTick = ref(0);
+onMounted(async ()=>{
+		if (apiCall) {
+			const rpnse = await fetch(apiCall.value + `/users/gameData`, {
 				headers: { "Content-Type": "application/json" },
 			});
 			const gameData = await rpnse.json();
-			this.maxTick = gameData.tick;
+			maxTick.value = gameData.tick;
 		}
-	},
-	data() {
-		return {
-			maxTick: 0,
-		};
-	},
-};
+})
 </script>
 
 <style scoped></style>
