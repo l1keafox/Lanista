@@ -13,13 +13,11 @@
 </template>
 
 <script setup>
-import {ref} from 'vue';
+
 const showModal = ref(false);
+
 function showEnterModal(){
   showModal.value = !showModal.value;
-}
-function closeModal2(){
-  showModal.value = false;
 }
 
 </script>
