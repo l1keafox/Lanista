@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="flex flex-col w-full overflow-x-hidden justify-center items-center">
+		class="flex flex-col w-full overflow-x-hidden items-center">
 		<h1 class="text-center font-dot text-[5rem]">Feedback</h1>
 		<h2>
 			Thank you for any feedback on bugs, this will be reported directly to my

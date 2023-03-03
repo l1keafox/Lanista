@@ -110,8 +110,8 @@ onMounted(async () => {
 		elementId: "combatSideNav",
 		message: "Combat is where you can spar, these will not effect your record.",
 		orientation: "bottom",
-	});
-});
+	})
+})
 </script>
 
 <style scoped></style>

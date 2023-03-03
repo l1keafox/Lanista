@@ -1,10 +1,12 @@
 <template>
-	<div class="flex flex-col w-full overflow-x-hidden relative ">
-		<div class=" flex items-center justify-around">
-			<Character animation="walk" direction="Down" class="h-[15rem] w-[15rem] " gladName="1"/>
-			<h1 id="header" class="text-center font-dot text-[7rem] z-5">Lanista</h1>
-			<Character animation="walk" direction="Down" class="h-[15rem] w-[15rem] " gladName="2"/>
-		</div>
+	<div class="flex flex-col w-full overflow-x-hidden relative">
+
+
+			<div class="flex items-center justify-around">
+				<Character animation="walk" direction="Down" class="h-[15rem] w-[15rem] " gladName="1"/>
+				<h1 id="header" class="text-center font-dot text-[7rem] z-5">Lanista</h1>
+				<Character animation="walk" direction="Down" class="h-[15rem] w-[15rem] " gladName="2"/>
+			</div>
 		<h2 class="text-center font-dot text-[2rem]">
 			- a trainer of gladiators -
 		</h2>
@@ -66,6 +68,7 @@
 
 <script setup>
 const apiCall = inject('apiCall');
+
 const maxTick = ref(0);
 onMounted(async ()=>{
 		if (apiCall) {
@@ -75,7 +78,11 @@ onMounted(async ()=>{
 			const gameData = await rpnse.json();
 			maxTick.value = gameData.tick;
 		}
+
+		let bg = document.getElementById('backGround');
+		console.log()
+		
+		console.log();
+		
 })
 </script>
-
-<style scoped></style>

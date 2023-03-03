@@ -93,8 +93,6 @@ onMounted(() => {
 	}
 }),
 	onUpdated(() => {
-		// isLoggedIn.value = getLogged.value;
-		// console.log('side nav update?',isLoggedIn.value);
 		if (getLogged) {
 			showTutorial({
 				elementId: "gladSideNav",

@@ -37,7 +37,7 @@ function compareEffects(caster,target){
                         if(caster.effectToDo.reducer[i] != "taunting"){
                             
                             tgtReduce = "hit"+caster.effectToDo.reducer[i]
-                            console.log(tgtReduce,caster.effectToDo.reduce, caster.effectToDo[tgtReduce])
+                            // console.log(tgtReduce,caster.effectToDo.reduce, caster.effectToDo[tgtReduce])
                             if(caster.effectToDo[tgtReduce]){
                                 caster.effectToDo[tgtReduce]-=caster.effectToDo.reduce
                                 // target.effectToDo.staminaDamage +=
@@ -46,7 +46,7 @@ function compareEffects(caster,target){
                                 }
                             }
 
-                            console.log(tgtReduce,caster.effectToDo.reduce,caster.effectToDo, caster.effectToDo[tgtReduce])
+                            // console.log(tgtReduce,caster.effectToDo.reduce,caster.effectToDo, caster.effectToDo[tgtReduce])
         
                         }                         
                     }                    

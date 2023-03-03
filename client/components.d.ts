@@ -15,6 +15,7 @@ declare module '@vue/runtime-core' {
     BaseToolTipModal: typeof import('./src/components/modals/BaseToolTipModal.vue')['default']
     BaseTutorialModal: typeof import('./src/components/modals/BaseTutorialModal.vue')['default']
     BestOfThreeModal: typeof import('./src/components/modals/BestOfThreeModal.vue')['default']
+    CardToolTipModal: typeof import('./src/components/modals/CardToolTipModal.vue')['default']
     Char2: typeof import('./src/components/Char2.vue')['default']
     Character: typeof import('./src/components/Character.vue')['default']
     ClashDetail: typeof import('./src/components/modals/DuelReplay/ClashDetail.vue')['default']

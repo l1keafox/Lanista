@@ -31,7 +31,7 @@ const fillerStyles = computed(() => {
 .container {
 	height: 20px;
 	width: 100px;
-	background-color: #e0e0de;
+	background-color: rgb(30 58 138);
 	margin: 50px;
 }
 

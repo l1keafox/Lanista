@@ -6,14 +6,17 @@
 			<component :is="mainStage" />
 		</div>
 	</div>
+
 	<BaseTutorialModal
 		v-if="showTutorialModal && isLoggedIn"
 		v-model="showTutorialModal"
 		:tutorialArray="tutorialArray"
 	/>	
+	
 	<component
 		v-if="showToolTipModal"
-		:message="toolTipMessage"
+		:context="toolTipContext"
+		:type="contextType"
 		:is="toolTipType"
 	/>
  
@@ -34,11 +37,8 @@ import RankingMain from "./views/RankingMain.vue";
 import GamblingMain from "./views/GamblingMain.vue";
 import CreditMain from "./views/CreditMain.vue";
 import PvpMain from "./views/PvpMain.vue"
-// import SideNav from "./components/SideNav.vue";
-// import HeaderVue from "./components/Header.vue";
-// import BaseTutoralModal from "./components/modals/BaseTutorialModal.vue";
-// import BaseToolTipModal from "./components/modals/BaseToolTipModal.vue";
 
+import CardToolTipModal from "./components/modals/CardToolTipModal.vue";
 
 import auth from "./composables/auth";
 import { useTitle } from "@vueuse/core";
@@ -48,10 +48,9 @@ import { computed } from "vue";
 export default {
 	name: "App",
 	components: {
+		CardToolTipModal,
 		PvpMain,
 		WelcomeMain,
-// 		BaseTutoralModal,
-// 		BaseToolTipModal,
 		RankingMain,
 		CreditMain,
 		GamblingMain,
@@ -82,7 +81,8 @@ export default {
 			toolTipType:null,
 			showTutorialModal: false,
 			showToolTipModal: false,
-			toolTipMessage:null,
+			toolTipContext:null,
+			contextType:null,
 			mainStage: "WelcomeMain",
 			timeData: null,
 			toNextTick: 0,
@@ -235,15 +235,12 @@ export default {
 					}, 750);
 				}
 			},
-			showToolTip: (message,obj)=>{
-				console.log("mess?",message);
-				this.toolTipType = "BaseToolTipModal"
-				this.showToolTipModal = true;
-				if(obj){
 
-				} else {
-					this.toolTipMessage = message;
-				}
+			showCardTip:(message,type)=>{
+				this.toolTipType = "CardToolTipModal"
+				this.toolTipContext = unref(message);
+				this.contextType = unref(type);
+				this.showToolTipModal = true;
 			},
 			hideToolTip: ()=>{
 				this.showToolTipModal = false;
@@ -253,7 +250,7 @@ export default {
 	},
 };
 </script>
-
+background-color: rgb(30 58 138);
 <style>
 body {
 	background-color: rgb(30, 30, 30);
