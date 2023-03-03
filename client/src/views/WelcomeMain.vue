@@ -64,7 +64,6 @@
 </template>
 
 <script>
-import Character from "../components/Character.vue";
 export default {
 	name: "WelcomeMain",
 	inject: ["apiCall"],
@@ -77,9 +76,6 @@ export default {
 			const gameData = await rpnse.json();
 			this.maxTick = gameData.tick;
 		}
-	},
-	components: {
-		Character,
 	},
 	data() {
 		return {

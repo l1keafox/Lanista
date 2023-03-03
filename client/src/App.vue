@@ -1,6 +1,6 @@
 <template>
 	<div class="flex flex-col h-screen w-screen overflow-hidden z-0 font-dot">
-		<HeaderVue @logged="update" :tickTimer="toNextTick" />
+		<Header @logged="update" :tickTimer="toNextTick" />
 		<div class="flex h-[calc(100vh-120px)] w-full">
 			<SideNav @logged="update" @changeMain="changeStage" />
 			<component :is="mainStage" />
@@ -21,10 +21,10 @@
 </template>
 
 <script>
-import WelcomeMain from "./views/WelcomeMain.vue";
 import HowToPlayMain from "./views/HowToPlayMain.vue";
 import GladiatorsMain from "./views/GladiatorsMain.vue";
 import SchoolMain from "./views/SchoolMain.vue";
+import WelcomeMain from "./views/WelcomeMain.vue";
 import CombatMain from "./views/CombatMain.vue";
 import StoreMain from "./views/StoreMain.vue";
 import TournamentMain from "./views/TournamentMain.vue";
@@ -34,11 +34,12 @@ import RankingMain from "./views/RankingMain.vue";
 import GamblingMain from "./views/GamblingMain.vue";
 import CreditMain from "./views/CreditMain.vue";
 import PvpMain from "./views/PvpMain.vue"
+// import SideNav from "./components/SideNav.vue";
+// import HeaderVue from "./components/Header.vue";
+// import BaseTutoralModal from "./components/modals/BaseTutorialModal.vue";
+// import BaseToolTipModal from "./components/modals/BaseToolTipModal.vue";
 
-import SideNav from "./components/SideNav.vue";
-import HeaderVue from "./components/Header.vue";
-import BaseTutoralModal from "./components/modals/BaseTutorialModal.vue";
-import BaseToolTipModal from "./components/modals/BaseToolTipModal.vue";
+
 import auth from "./mixins/auth";
 import { useTitle } from "@vueuse/core";
 
@@ -48,17 +49,15 @@ export default {
 	name: "App",
 	components: {
 		PvpMain,
-		BaseTutoralModal,
-		BaseToolTipModal,
+		WelcomeMain,
+// 		BaseTutoralModal,
+// 		BaseToolTipModal,
 		RankingMain,
 		CreditMain,
 		GamblingMain,
 		FeedbackMain,
-		SideNav,
 		HowToPlayMain,
 		StudentMain,
-		HeaderVue,
-		WelcomeMain,
 		GladiatorsMain,
 		CombatMain,
 		TournamentMain,
