@@ -19,12 +19,10 @@ import Equipment from  './../content/Equipment.md'
 import Building from  './../content/Building.md'
 import Training from  './../content/Training.md'
 import Balance from  './../content/Balance.md'
-import BaseTabs from '../components/modals/BaseTabs.vue'
 
   export default {
       name:"HowToPlayMain",
       components:{
-        BaseTabs,
         Stats,
         Training,
         Building,

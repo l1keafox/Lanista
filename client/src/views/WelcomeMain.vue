@@ -82,8 +82,6 @@ export default {
 			maxTick: 0,
 		};
 	},
-
-	methods: {},
 };
 </script>
 
