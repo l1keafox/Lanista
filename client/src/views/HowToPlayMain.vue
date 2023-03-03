@@ -3,12 +3,12 @@
     <h1 class="text-center font-dot text-[3rem] text-white">How to play Lanista</h1>
     <BaseTabs :tabs="helpObj" v-model="showTo"/>
     <div class = "p-4 w-full bg-slate-300 overflow-auto ">
-      <component :is="showTo" class="prose"/>
+      <component :is="components[showTo]" class="prose"/>
     </div>
    </div>
 </template>
 
-<script>
+<script setup>
 import Intro from './../content/Intro.md'
 import Clash from './../content/Clash.md'
 import Memory from './../content/Memory.md'
@@ -20,9 +20,7 @@ import Building from  './../content/Building.md'
 import Training from  './../content/Training.md'
 import Balance from  './../content/Balance.md'
 
-  export default {
-      name:"HowToPlayMain",
-      components:{
+const components = {
         Stats,
         Training,
         Building,
@@ -33,21 +31,10 @@ import Balance from  './../content/Balance.md'
         Intro,
         Balance,
         Clash
-      },
-      data(){
-        this.helpObj = ["Intro","Clash","Training","Memory","Stats","Tournament","Ranking","Equipment","Building","Balance"]
-          return {
-              showTo:"Intro"
-          }
-      },
-      
-      methods:{
-        switchHelp(evt){
-          this.showTo = this.helpObj[evt];
-        }
-      },  
+      }
 
-  }
+const helpObj = ["Intro","Clash","Training","Memory","Stats","Tournament","Ranking","Equipment","Building","Balance"]
+const showTo = ref('Intro')
 </script>
 
 <style scoped>

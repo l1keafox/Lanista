@@ -8,6 +8,7 @@
 		<h2 class="text-center font-dot text-[2rem]">
 			- a trainer of gladiators -
 		</h2>
+		<br />
 		<hr />
 		<br />
 		<div class="font-dot text-2xl flex flex-col text-center">
@@ -39,7 +40,7 @@
 				to be refined and UI/UX needs to be improved. Items, training, buildings
 				and balancing still needs to be done.
 			</h1>
-			<!-- <h1 class="text-red-500 text-xl"> Feedback/Bugs page is the best to send a message to me. </h1> -->
+
 			<h1 class="text-green-500 text-2xl">Special accounts to look around:</h1>
 			<h2 class="text-yellow-500 text-xl">
 				username / <span class="text-blue-500">password</span>

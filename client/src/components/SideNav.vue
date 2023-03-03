@@ -77,21 +77,13 @@
 </template>
 
 <script setup>
-import auth from "../composables/auth";
+const emit = defineEmits(["changeMain"]);
 const getLogged = inject("getLogged");
-const getOwner = inject("getOwner");
-const getUser = inject("getUser");
 const showTutorial = inject("showTutorial");
 
-const butnLayout =
-	"font-dot text-base text-center w-fill cursor-pointer sideOptions hover:bg-blue-200 hover:text-black py-4 select-none";
-
-const ownerData = ref(null);
-const userData = ref(null);
+const butnLayout = "font-dot text-base text-center w-fill cursor-pointer sideOptions hover:bg-blue-200 hover:text-black py-4 select-none";
 
 onMounted(() => {
-	ownerData.value = getOwner;
-	userData.value = getUser;
 	if (getLogged) {
 		showTutorial({
 			elementId: "gladSideNav",
@@ -112,12 +104,7 @@ onMounted(() => {
 		}
 	});
 
-const emit = defineEmits(["logged", "changeMain", "getUser"]);
 
-// export default {
-
-// 	emits: ["logged", "changeMain","getUser"],
-// };
 </script>
 
 <style scoped>

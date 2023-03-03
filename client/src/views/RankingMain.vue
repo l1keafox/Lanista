@@ -18,11 +18,10 @@
 const apiCall = inject("apiCall");
 const rankInfo = ref();
 onMounted(async () => {
-	const rpnse = await fetch(apiCall.value + `/users/getRankings`, {
+	const rpnse = await fetch( unref(apiCall) + `/users/getRankings`, {
 		headers: { "Content-Type": "application/json" },
 	});
 	let rpn = await rpnse.json();
-  console.log(rpn[0]);
   rankInfo.value = rpn[0];
 });
 </script>

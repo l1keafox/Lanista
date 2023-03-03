@@ -86,10 +86,6 @@ export default {
 		SettingModal,
 		CreateAccountModal
 	},
-	updated(){
-		// console.log("header update",this.isLoggedIn)
-
-	},
 
 	async mounted() {
 		this.userData = this.getUser;
