@@ -20,7 +20,7 @@
     orientation
 
 */
-import {defineEmits, onMounted ,ref,inject } from 'vue'
+
 
 const tutMessage= ref();
 const getLogged = inject('getLogged');

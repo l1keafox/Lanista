@@ -144,7 +144,7 @@ import BaseModal from "./BaseModal.vue"
 import BaseTabs from "./BaseTabs.vue"
 import cacheJson from "./../../composables/cacheJson"
 
-import auth from "./../../mixins/auth";
+import auth from "../../composables/auth";
 export default {
 	name: "ScheduleManager",
 	props: ["gladId"],

@@ -73,7 +73,7 @@
 <script setup>
 import ItemMouseOver from "../ItemMouseOver.vue";
 import BaseFooter from "../BaseFooter.vue";
-import auth from "../../../mixins/auth";
+import auth from "../../../composables/auth";
 import { inject, defineProps, onMounted, ref, toRefs , unref } from "vue";
 import ItemCardDetail from './../ItemCardDetail.vue';
 import cacheJson from "./../../../composables/cacheJson.js"

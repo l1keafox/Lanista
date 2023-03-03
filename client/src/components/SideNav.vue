@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import auth from "./../mixins/auth";
+import auth from "../composables/auth";
 
 export default {
 	name: "SideNav",

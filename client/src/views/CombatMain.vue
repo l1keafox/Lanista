@@ -96,16 +96,12 @@
 </template>
 
 <script>
-import DuelReplay from "../components/modals/DuelReplay.vue";
-import InputField from "../components/InputField.vue";
 import Clash from './../content/Clash.md'
-import auth from "./../mixins/auth";
+import auth from "../composables/auth";
 export default {
 	name: "CombatMain",
 	components: {
-		DuelReplay,
 		Clash,
-		InputField,
 	},
 	data() {
 		return {

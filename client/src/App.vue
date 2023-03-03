@@ -40,7 +40,7 @@ import PvpMain from "./views/PvpMain.vue"
 // import BaseToolTipModal from "./components/modals/BaseToolTipModal.vue";
 
 
-import auth from "./mixins/auth";
+import auth from "./composables/auth";
 import { useTitle } from "@vueuse/core";
 
 import { computed } from "vue";

@@ -15,7 +15,6 @@
 </template>
 
 <script setup>
-import { inject, onMounted ,ref } from "vue";
 const apiCall = inject("apiCall");
 const rankInfo = ref();
 onMounted(async () => {

@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import auth from "./../mixins/auth";
-import itemCard from "./../components/ItemCard.vue"
+import auth from "../composables/auth";
+
 export default {
   inject: ["card", "cardTitle","smallCard",'apiCall','showTutorial'],
   name: "StoreMain",
@@ -108,7 +108,7 @@ export default {
     }
   },
   components: {
-    itemCard
+    
   },
   data() {
     return {

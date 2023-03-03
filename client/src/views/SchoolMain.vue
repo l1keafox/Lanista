@@ -56,7 +56,7 @@
   </template>
   
   <script>
-  import auth from "../mixins/auth";
+  import auth from "../composables/auth";
   import cacheJson from "../composables/cacheJson"
   
   export default {

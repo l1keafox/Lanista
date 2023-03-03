@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import auth from "./../mixins/auth";
+import auth from "../composables/auth";
 // import gearIcon from "./../assets/gear_icon.png";
 import {unref} from 'vue'
 
