@@ -23,11 +23,6 @@
 </template>
 
 <script setup>
-  import { defineProps,toRef,inject,onMounted,ref,onUpdated } from "vue";
-  import Character from "./../../Character.vue"
-  import ClashDetail from "./ClashDetail.vue"
-  import pointsBar from "./pointsBar.vue";
-  import Popup from "./PopupBase.vue"
 
   const props = defineProps(['glad','roundInfo'])
   console.log(props.glad.idKey);

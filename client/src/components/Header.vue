@@ -50,13 +50,11 @@
 
 <script>
 import auth from "../composables/auth";
-// import gearIcon from "./../assets/gear_icon.png";
-import {unref} from 'vue'
 
 import CreateAccountModal from "./modals/CreateAccountModal.vue";
 import LoginModal from "./modals/LoginModal.vue";
 import SettingModal from "./modals/SettingsModal.vue"
-import ProgressBar from "./ProgressBar.vue"
+
 export default {
 	name: "HeaderVue",
 	inject: ["getUser","getOwner","getTime","apiCall","showTutorial"],
@@ -86,7 +84,6 @@ export default {
 	components: {
 		LoginModal,
 		SettingModal,
-		ProgressBar,
 		CreateAccountModal
 	},
 	updated(){

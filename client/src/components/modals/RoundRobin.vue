@@ -36,15 +36,9 @@
 </template>
 
 <script>
-import BaseModal from "./BaseModal.vue"
-import DuelReplay from "./DuelReplay.vue";
     export default {
         name:"roundRobinReview",
         props:['tournamentData'],
-        components:{
-          BaseModal,
-          DuelReplay
-        },
         data(){
           return {
             isModalShown : false,

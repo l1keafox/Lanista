@@ -8,7 +8,6 @@
 </template>
 
 <script setup>
-import {defineProps,inject,toRefs} from "vue"
 
 const hideToolTip = inject('hideToolTip')
 const showToolTip = inject('showToolTip')

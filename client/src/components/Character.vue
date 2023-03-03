@@ -15,9 +15,6 @@ import pONE3JsonMap from "../assets/animationData/pONE3.json";
 
 import doSpriteLayer from "./../composables/doSpriteLayer"
 
-import { onMounted, defineProps, onUnmounted } from "vue";
-import { inject, toRefs , ref} from "vue";
-import createImg from "../composables/cacheSpriteSheet";
 const apiCall = inject("apiCall");
 const emit = defineEmits(['update:model_value'])
 /* Interface 

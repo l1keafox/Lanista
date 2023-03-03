@@ -20,8 +20,6 @@
 </template>
 
 <script>
-import BaseModal from "./BaseModal.vue"
-import BaseTabs from "./BaseTabs.vue"
 
 
 import Equipment from "./Tabs/EquipmentTab.vue"
@@ -34,8 +32,6 @@ import Stats from "./Tabs/StatsTab.vue"
       Equipment,
       Stats,
       Clash,
-      BaseModal,
-      BaseTabs
     },
     inject:['apiCall'],
     data() {

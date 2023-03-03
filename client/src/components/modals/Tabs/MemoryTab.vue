@@ -29,9 +29,7 @@
 </template>
 
 <script setup>
-import BaseFooter from "../BaseFooter.vue";
-import GladiatorDetails from "./../GladiatorDetails.vue";
-import { onMounted, defineProps, inject, ref, defineEmits } from "vue";
+
 const { gladId } = defineProps({
 	gladId: {
 	},

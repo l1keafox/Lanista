@@ -22,9 +22,6 @@
 </template>
 
 <script setup>
-import BaseModal from "./BaseModal.vue"
-
-import { defineProps,reactive,inject,ref } from "vue";
 
 const apiCall = inject('apiCall')
 const {item} = defineProps({

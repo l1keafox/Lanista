@@ -10,7 +10,6 @@
 </template>
 
 <script setup>
-import { computed,ref, toRefs ,onUpdated } from "vue";
 const showSelf = ref(true);
 
 const props  = defineProps({

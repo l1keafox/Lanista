@@ -140,8 +140,6 @@
 </template>
 
 <script>
-import BaseModal from "./BaseModal.vue"
-import BaseTabs from "./BaseTabs.vue"
 import cacheJson from "./../../composables/cacheJson"
 
 import auth from "../../composables/auth";
@@ -162,10 +160,6 @@ export default {
 			
 		};
 	},
-	components: {
-    BaseModal,
-    BaseTabs
-  },
 	inject:['apiCall','showTutorial'],
 	methods: {
     createTool(event){

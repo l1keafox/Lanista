@@ -113,9 +113,6 @@
 
 <script setup>
 import draggable from "vuedraggable";
-import BaseFooter from "../BaseFooter.vue";
-import Mouseover from "../../MouseOver.vue";
-import { onMounted,defineProps,inject,ref,defineEmits,toRefs } from "vue";
 
 const props  = defineProps({
   gladId:{

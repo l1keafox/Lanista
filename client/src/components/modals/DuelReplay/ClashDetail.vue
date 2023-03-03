@@ -18,7 +18,6 @@
 </template>
 
 <script setup>
-  import { defineProps,toRef } from "vue";
   const props = defineProps(['roundInfo'])
   const roundInfo = toRef(props, 'roundInfo')
 </script>

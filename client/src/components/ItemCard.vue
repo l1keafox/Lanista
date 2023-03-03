@@ -26,11 +26,10 @@
 </template>
 
 <script>
-import ItemCardDetail from './modals/ItemCardDetail.vue';
+
     export default {
         name:"itemCard",
         components:{
-            ItemCardDetail
         },
         methods:{
             closeModal(){
