@@ -32,6 +32,7 @@ import FeedbackMain from "./views/FeedbackMain.vue";
 import RankingMain from "./views/RankingMain.vue";
 import GamblingMain from "./views/GamblingMain.vue";
 import CreditMain from "./views/CreditMain.vue";
+import PvpMain from "./views/PvpMain.vue"
 
 import SideNav from "./components/SideNav.vue";
 import HeaderVue from "./components/Header.vue";
@@ -45,6 +46,7 @@ import { computed } from "vue";
 export default {
 	name: "App",
 	components: {
+		PvpMain,
 		BaseTutoralModal,
 		BaseToolTipModal,
 		RankingMain,

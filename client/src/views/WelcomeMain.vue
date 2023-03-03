@@ -1,7 +1,10 @@
 <template>
 	<div class="flex flex-col w-full overflow-x-hidden relative ">
-		<!-- <Character animation="walk" direction="Down" /> -->
-		<h1 id="header" class="text-center font-dot text-[7rem] z-5">Lanista</h1>
+		<div class=" flex items-center justify-around">
+			<Character animation="walk" direction="Down" class="h-[15rem] w-[15rem] " gladName="1"/>
+			<h1 id="header" class="text-center font-dot text-[7rem] z-5">Lanista</h1>
+			<Character animation="walk" direction="Down" class="h-[15rem] w-[15rem] " gladName="2"/>
+		</div>
 		<h2 class="text-center font-dot text-[2rem]">
 			- a trainer of gladiators -
 		</h2>
@@ -61,7 +64,7 @@
 </template>
 
 <script>
-import Character from "../components/Char2.vue";
+import Character from "../components/Character.vue";
 export default {
 	name: "WelcomeMain",
 	inject: ["apiCall"],

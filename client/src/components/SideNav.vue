@@ -73,6 +73,12 @@
 				@click="$emit('changeMain', 'TournamentMain')">
 				Tournament
 			</div>
+			<div
+			:class="butnLayout"
+			id ="tournamentSideNav"
+				@click="$emit('changeMain', 'PvpMain')">
+				PvP
+			</div>
 			
 		</div>
 		<hr/>

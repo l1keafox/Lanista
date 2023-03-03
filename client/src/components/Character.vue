@@ -20,7 +20,7 @@ const apiCall = inject("apiCall");
 const emit = defineEmits(['update:model_value'])
 /* Interface 
 
-gladName : required due to 
+gladName : required due to element id
 size : number or pixel size?
 direction : String / "Up"/"Down"/"Left"/"Right"
 animation : String / "run"/ "walk"
@@ -374,7 +374,7 @@ top:-32px; left:-32px;
 <style scoped>
 canvas {
 	display: block;
-	position: absolute;
+
 }
 
 #characterWrap {

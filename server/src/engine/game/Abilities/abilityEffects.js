@@ -24,14 +24,12 @@ function compareEffects(caster,target){
 
                                 if(target.effectToDo.taunting){
                                     target.effectToDo.taunting -= caster.effectToDo.reduce
-                                    if(target.effectToDo.taunting<0 ) target.effectToDo.taunting = 0;
+                                    if(target.effectToDo.taunting < 0  ) target.effectToDo.taunting = 0;
                                 } 
                                 if(caster.effectToDo.moraleDamage){
                                     caster.effectToDo.moraleDamage -= caster.effectToDo.reduce;
                                     if (!caster.effectToDo.moraleDamage) caster.effectToDo.moraleDamage = 0;
                                 }
-                                console.log("MOR",caster.effectToDo.moraleDamage,target.effectToDo.moraleDamage)
-                                console.log("MOR",caster.effectToDo.taunting,target.effectToDo.taunting)
 
                         }
     
@@ -76,7 +74,6 @@ function compareEffects(caster,target){
                  // If playing against an reduce, 
                  // This is where morale damage is triggered.
                 if(target.effectToDo.reduce) {
-                    // target.effectToDo.reduce = 0; 
                     target.effectToDo.moraleDamage = caster.effectToDo.taunting;
                 }
     
@@ -114,13 +111,13 @@ function compareEffects(caster,target){
                         }
                         break;
                     case "moraleDamage":
-                        console.log(caster.morale)
+                        
                         if(num){
                             caster.morale -= num;
                             if(!effectReport.dmg) effectReport.dmg = {};
                             effectReport.dmg.m = num
                         }
-                        console.log(num,caster.morale);
+                        
                         break;
                     case "staminaDamage":
                         if(num){
