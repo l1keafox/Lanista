@@ -20,7 +20,6 @@ const Slash = ()=>{
         target:"target",
         dexterity:25,
         sensitivity:20,
-        piety:20,
         luck:10
       }
     },

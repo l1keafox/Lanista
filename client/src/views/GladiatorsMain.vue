@@ -1,5 +1,5 @@
 <template>
-	<div class="flex flex-wrap w-full overflow-y-scroll">
+	<div class="flex flex-wrap justify-start content-start overflow-y-auto">
 		<template
 			v-if="getOwner"
 			v-for="(glad, index) in getOwner.gladiators"

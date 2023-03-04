@@ -1,13 +1,18 @@
 {
   "liftRocks": {
     "strength": {
-      "min": 2,
-      "max": 12,
+      "min": 1,
+      "max": 6,
       "growth": true
     },
-    "sensitivity": {
-      "min": 2,
-      "max": 12,
+    "bravery": {
+      "min": 1,
+      "max": 4,
+      "growth": true
+    },
+    "reputation": {
+      "min": 1,
+      "max": 2,
       "growth": true
     },
     "gold": {
@@ -16,15 +21,20 @@
       "growth": true
     }
   },
-  "pray": {
+  "swim": {
     "dexterity": {
-      "min": 2,
-      "max": 12,
+      "min": 1,
+      "max": 6,
       "growth": true
     },
-    "piety": {
-      "min": 2,
-      "max": 12,
+    "intelligence": {
+      "min": 1,
+      "max": 4,
+      "growth": true
+    },
+    "luck": {
+      "min": 1,
+      "max": 2,
       "growth": true
     },
     "fame": {
@@ -36,13 +46,18 @@
 
   "yoga": {
     "agility": {
-      "min": 2,
-      "max": 12,
+      "min": 1,
+      "max": 6,
       "growth": true
     },
-    "bravery": {
-      "min": 2,
-      "max": 12,
+    "sensitivity": {
+      "min": 1,
+      "max": 4,
+      "growth": true
+    },
+    "charisma": {
+      "min": 1,
+      "max": 2,
       "growth": true
     },
     "gold": {
@@ -53,13 +68,18 @@
   },
   "running": {
     "constitution": {
-      "min": 2,
-      "max": 12,
+      "min": 1,
+      "max": 6,
+      "growth": true
+    },
+    "intelligence": {
+      "min": 1,
+      "max": 4,
       "growth": true
     },
     "reputation": {
-      "min": 2,
-      "max": 12,
+      "min": 1,
+      "max": 2,
       "growth": true
     },
     "fame": {
@@ -71,52 +91,23 @@
   },
   "hiking": {
     "vitality": {
-      "min": 2,
-      "max": 12,
+      "min": 1,
+      "max": 6,
       "growth": true
     },
     "wisdom": {
-      "min": 2,
-      "max": 12,
-      "growth": true
-    },
-    "gold": {
       "min": 1,
-      "max": 2,
-      "growth": true
-    }
-  },
-  "reading": {
-    "intelligence": {
-      "min": 2,
-      "max": 12,
+      "max": 4,
       "growth": true
     },
     "charisma": {
-      "min": 2,
-      "max": 12,
-      "growth": true
-    },
-    "fame": {
       "min": 1,
       "max": 2,
-      "growth": true
-    }
-  },
-  "fishing": {
-    "luck": {
-      "min": 4,
-      "max": 24,
       "growth": true
     },
     "gold": {
       "min": 1,
-      "max": 1,
-      "growth": true
-    },
-    "fame": {
-      "min": 1,
-      "max": 1,
+      "max": 2,
       "growth": true
     }
   },

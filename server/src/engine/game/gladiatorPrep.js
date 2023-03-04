@@ -58,7 +58,7 @@ function setupStats(glad) {
 	rtnObj.intelligence = glad.intelligence;
 	rtnObj.wisdom = glad.wisdom;
 	rtnObj.bravery = glad.bravery;
-	rtnObj.piety = glad.piety;
+	// rtnObj.piety = glad.piety;
 	rtnObj.sensitivity = glad.sensitivity;
 	rtnObj.charisma = glad.charisma;
 	rtnObj.luck = glad.luck;

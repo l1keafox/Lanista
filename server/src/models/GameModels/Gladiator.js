@@ -192,11 +192,11 @@ function calcauateBase(glad){
     glad.hits = abilityMix(glad,{"constitution":70,"wisdom":30});
     glad.morale =  abilityMix(glad,{"reputation":50,"bravery":50});
     glad.stamina = abilityMix(glad,{"vitality":80,"sensitivity":20});
-    if(glad.intelligence < glad.piety){
-        glad.mana = abilityMix(glad,{"intelligence":20, "piety":80});
-    } else {
-        glad.mana = abilityMix(glad,{"intelligence":80, "piety":20});
-    }
+    // if(glad.intelligence < glad.piety){
+    //     glad.mana = abilityMix(glad,{"intelligence":20, "piety":80});
+    // } else {
+    // }
+    glad.mana = abilityMix(glad,{"intelligence":80});
 }
 
 gladiatorSchema.methods.calcuateGladiator = async function() {

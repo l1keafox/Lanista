@@ -36,7 +36,7 @@ function growthPenality(gladiator, amnt, stat) {
 		"intelligence",
 		"wisdom",
 		"bravery",
-		"piety",
+		// "piety",
 		"sensitivity",
 		"charisma",
 		"luck",
