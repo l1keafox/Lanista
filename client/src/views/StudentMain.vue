@@ -1,6 +1,6 @@
 <template>
-	<div class="flex flex-col w-full overflow-x-hidden">
-		<div v-if="showStudent" class="flex overflow-y-hidden ">
+	<div class="flex flex-col w-full">
+		<div v-if="showStudent" class="flex overflow-y-hidden">
 			<template v-for="(student, index) in showStudent" :key="index">
 				<div :class="gladiatorCard">
 					<h1 :class="cardTitle">{{ student.name }}</h1>
@@ -37,7 +37,6 @@
 				Find New Gladiator
 			</button>
 		</div>
-
 		<div>
 			<hr />
 			<h1>Physical Stats</h1>
@@ -100,7 +99,10 @@ async function buyNewGlad(event) {
 			index,
 		}),
 	});
+
+	alert('Student purchased,');
 	showStudent.value.splice(index, 1);
+
 	await rpnse.json();
 }
 async function getNewGladiator() {

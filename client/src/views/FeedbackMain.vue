@@ -43,7 +43,7 @@
 import { useField, useForm } from "vee-validate";
 import { object, string } from "yup";
 
-const api = inject("apiCall");
+const apiCall = inject("apiCall");
 
 const validationSchema = object({
 	email: string()
@@ -68,7 +68,7 @@ const handleChange = (event) => {
 	setFieldValue("email", event.target.value);
 };
 const submit = handleSubmit(() => {
-	const rpnse = fetch(api.value + `/users/sendFeedback`, {
+	const rpnse = fetch(apiCall.value + `/users/sendFeedback`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({

@@ -45,7 +45,10 @@ router.get('/owner/structuresData/:ownerId', async(req, res) => {
     }
 
     const owner2 = await Owner.findById(req.params.ownerId);
-    
+    if(!owner2){
+        res.status(400)
+        return;
+    }
     const rtnData = owner2.structures.map( struct =>{
         let rtn = getStructureEffect(struct);
         if(rtn){

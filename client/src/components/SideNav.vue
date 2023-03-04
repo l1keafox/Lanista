@@ -13,7 +13,7 @@
 		<div :class="butnLayout" @click="emit('changeMain', 'RankingMain')">
 			Ranking
 		</div>
-		<div :class="butnLayout" @click="emit('changeMain', 'feedbackMain')">
+		<div :class="butnLayout" @click="emit('changeMain', 'FeedbackMain')">
 			Feedback/Bugs
 		</div>
 		<div :class="butnLayout" @click="emit('changeMain', 'CreditMain')">

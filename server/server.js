@@ -22,8 +22,6 @@ app.use(express.json());
 app.use(userRouter);
 app.use(gladiatorRouter);
 app.use(ownerRouter);
-
-
 app.use(express.static('public')); 
 app.use('/assets', express.static('assets'));
 // app.use(assetsRouter);
@@ -38,7 +36,6 @@ app.get("/", (req, res) => {
 db.once("open", () => {
   ioServer.listen(PORT, () => {
     // IO port being opened.
-
     console.log(`  -API> API server running on port ${PORT}!`);
     console.log(`  -IO> Socket.io listening on http://localHost:${PORT}?`);
     Engine.init();

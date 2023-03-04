@@ -18,6 +18,7 @@
 const apiCall = inject("apiCall");
 const rankInfo = ref();
 onMounted(async () => {
+
 	const rpnse = await fetch( unref(apiCall) + `/users/getRankings`, {
 		headers: { "Content-Type": "application/json" },
 	});
