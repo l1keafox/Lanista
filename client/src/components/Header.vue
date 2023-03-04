@@ -25,7 +25,7 @@
 				</div>
 				
 				 <div id="tickTutorial" v-if="getTime" class="flex items-center">
-					<ProgressBar :bgcolor="'#ccc'" :completed="tickTimer" />
+					<ProgressBar :bgcolor="'#ccc'" :completed="parseInt(tickTimer)" />
 					</div>
 					
 				</div>

@@ -2,8 +2,8 @@
 	<div class="flex flex-col h-screen w-screen overflow-hidden z-0 font-dot">
 		<Header @logged="update" :tickTimer="toNextTick" />
 		<div class="flex h-[calc(100vh-120px)] w-full">
-			<SideNav @logged="update" @changeMain="changeStage" />
-			<component :is="components[mainStage]" />
+			<SideNav @logged="update" v-model="stageMain" />
+			<component :is="components[stageMain]" />
 		</div>
 	</div>
 
@@ -60,16 +60,12 @@ const modals = {
 
 let timeTimer;
 let countDown;
-let contentArray;
-let textWindow;
 let interval;
 let timerInterval;
-let tutorialName;
 const apiData =
 	location.protocol === "https:"
 		? `https://${window.location.hostname}`
 		: `http://${window.location.hostname}:3001`;
-const mountedDone = false;
 
 const isLoggedIn = ref(auth.loggedIn());
 const toolTipType = ref(null);
@@ -77,12 +73,48 @@ const showTutorialModal = ref(false);
 const showToolTipModal = ref(false);
 const toolTipContext = ref(null);
 const contextType = ref(null);
-const mainStage = ref("WelcomeMain");
+const stageMain = ref("WelcomeMain");
+
 const timeData = ref(null);
 const toNextTick = ref(0);
 const userData = ref(null);
 const ownerData = ref(null);
 const tutorialArray = ref([]);
+
+provide(
+	"card",
+	"h-80 w-56 p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 "
+);
+provide(
+	"smallCard",
+	"h-64 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 "
+);
+provide(
+	"largeCard",
+	"h-96 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 "
+);
+provide(
+	"gladiatorCard",
+	"h-[27rem] aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 "
+);
+provide("cardTitle", "text-xl text-sky-400");
+provide(
+	"getOwner",
+	computed(() => ownerData.value)
+);
+provide(
+	"getTime",
+	computed(() => timeData.value)
+);
+provide(
+	"getUser",
+	computed(() => userData.value)
+);
+provide(
+	"getLogged",
+	computed(() => isLoggedIn.value)
+);
+
 function doTick() {
 		if (timeData.value && countDown <= 0) {
 			countDown = timeTimer;
@@ -98,10 +130,9 @@ onMounted(async () => {
 	title.value = "Lanista";
 
 	if (!isLoggedIn.value) {
-		mainStage.value = "WelcomeMain";
+		stageMain.value = "WelcomeMain";
 	}
 	updateOwner();
-	console.log("4124")
 	const rpnse = await fetch(apiData + `/users/gameData`, {
 		headers: { "Content-Type": "application/json" },
 	});
@@ -134,15 +165,10 @@ onUnmounted(() => {
 	clearInterval(timerInterval);
 })
 
-	function changeStage(newStage) {
-		mainStage.value = newStage;
-	};
-	
 function update() {
 	isLoggedIn.value = auth.loggedIn();
 	userData.value = auth.getUser();
 	updateOwner();
-	console.log("App Update", tutorialArray.value.length);
 	if (tutorialArray.value.length) {
 		showTutorialModal.value = true;
 	}
@@ -206,44 +232,9 @@ async function updateOwner() {
 	}
 }
 
-
-provide(
-	"card",
-	"h-80 w-56 p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 "
-);
-provide(
-	"smallCard",
-	"h-64 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 "
-);
-provide(
-	"largeCard",
-	"h-96 aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 "
-);
-provide(
-	"gladiatorCard",
-	"h-[27rem] aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 "
-);
-provide("cardTitle", "text-xl text-sky-400");
-provide(
-	"getOwner",
-	computed(() => ownerData.value)
-);
-provide(
-	"getTime",
-	computed(() => timeData.value)
-);
-provide(
-	"getUser",
-	computed(() => userData.value)
-);
-provide(
-	"getLogged",
-	computed(() => isLoggedIn.value)
-);
 provide(
 	"apiCall",
 	computed(() =>{
-		console.log(apiData);
 		return apiData
 	}
 	)

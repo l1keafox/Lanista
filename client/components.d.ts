@@ -30,6 +30,7 @@ declare module '@vue/runtime-core' {
     GladiatorCard: typeof import('./src/components/GladiatorCard.vue')['default']
     GladiatorDetails: typeof import('./src/components/modals/GladiatorDetails.vue')['default']
     GladiatorHistoryModal: typeof import('./src/components/modals/GladiatorHistoryModal.vue')['default']
+    GladiatorOptions: typeof import('./src/components/modals/GladiatorOptions.vue')['default']
     GladiatorStats: typeof import('./src/components/modals/GladiatorStats.vue')['default']
     GladiatorTournamentHistory: typeof import('./src/components/modals/GladiatorTournamentHistory.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']

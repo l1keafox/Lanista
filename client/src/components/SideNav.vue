@@ -1,22 +1,22 @@
 <template>
 	<div class="overflow-y-auto max-h-screen bg-blue-900 w-48">
 		<hr />
-		<div :class="butnLayout" @click="emit('changeMain', 'WelcomeMain')">
+		<div :class="butnLayout" @click="emit('update:modelValue', 'WelcomeMain')">
 			Home
 		</div>
 		<div
 			:class="butnLayout"
 			id="howToPlayNav"
-			@click="emit('changeMain', 'HowToPlayMain')">
+			@click="emit('update:modelValue', 'HowToPlayMain')">
 			How To Play
 		</div>
-		<div :class="butnLayout" @click="emit('changeMain', 'RankingMain')">
+		<div :class="butnLayout" @click="emit('update:modelValue', 'RankingMain')">
 			Ranking
 		</div>
-		<div :class="butnLayout" @click="emit('changeMain', 'FeedbackMain')">
+		<div :class="butnLayout" @click="emit('update:modelValue', 'FeedbackMain')">
 			Feedback/Bugs
 		</div>
-		<div :class="butnLayout" @click="emit('changeMain', 'CreditMain')">
+		<div :class="butnLayout" @click="emit('update:modelValue', 'CreditMain')">
 			Credit
 		</div>
 
@@ -26,49 +26,49 @@
 			<div
 				:class="butnLayout"
 				id="gladSideNav"
-				@click="emit('changeMain', 'GladiatorsMain')">
+				@click="emit('update:modelValue', 'GladiatorsMain')">
 				Gladiators
 			</div>
 			<div
 				:class="butnLayout"
 				id="schoolSideNav"
-				@click="emit('changeMain', 'SchoolMain')">
+				@click="emit('update:modelValue', 'SchoolMain')">
 				School
 			</div>
 			<div
 				:class="butnLayout"
 				id="combatSideNav"
-				@click="emit('changeMain', 'CombatMain')">
+				@click="emit('update:modelValue', 'CombatMain')">
 				Combat
 			</div>
 			<div
 				:class="butnLayout"
 				id="storeSideNav"
-				@click="emit('changeMain', 'StoreMain')">
+				@click="emit('update:modelValue', 'StoreMain')">
 				Store
 			</div>
 			<div
 				:class="butnLayout"
 				id="studentsSideNav"
-				@click="emit('changeMain', 'StudentMain')">
+				@click="emit('update:modelValue', 'StudentMain')">
 				Students
 			</div>
 			<div
 				:class="butnLayout"
 				id="gamblingSideNav"
-				@click="emit('changeMain', 'GamblingMain')">
+				@click="emit('update:modelValue', 'GamblingMain')">
 				Gambling
 			</div>
 			<div
 				:class="butnLayout"
 				id="tournamentSideNav"
-				@click="emit('changeMain', 'TournamentMain')">
+				@click="emit('update:modelValue', 'TournamentMain')">
 				Tournament
 			</div>
 			<div
 				:class="butnLayout"
-				id="tournamentSideNav"
-				@click="emit('changeMain', 'PvpMain')">
+				id="PvpMainNav"
+				@click="emit('update:modelValue', 'PvpMain')">
 				PvP
 			</div>
 		</div>
@@ -77,9 +77,14 @@
 </template>
 
 <script setup>
-const emit = defineEmits(["changeMain"]);
 const getLogged = inject("getLogged");
 const showTutorial = inject("showTutorial");
+const emit = defineEmits(['update:modelValue'])
+const {modelValue} = defineProps({
+	modelValue:{
+		default:"WelcomeMain"
+	}
+})
 
 const butnLayout = "font-dot text-base text-center w-fill cursor-pointer sideOptions hover:bg-blue-200 hover:text-black py-4 select-none";
 
@@ -92,6 +97,8 @@ onMounted(() => {
 		});
 	}
 }),
+
+
 	onUpdated(() => {
 		if (getLogged) {
 			showTutorial({

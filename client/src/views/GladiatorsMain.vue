@@ -19,11 +19,13 @@
 import ScheduleManager from "./../components/modals/ScheduleManager.vue";
 import HistoryModal from "../components/modals/GladiatorHistoryModal.vue";
 import GladiatorDetails from "./../components/modals/GladiatorDetails.vue";
+import GladiatorOptions from "./../components/modals/GladiatorOptions.vue";
 
 const components = {
 	ScheduleManager,
 	HistoryModal,
 	GladiatorDetails,
+	GladiatorOptions
 };
 
 const getOwner = inject("getOwner");
