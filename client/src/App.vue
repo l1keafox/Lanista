@@ -206,6 +206,7 @@ async function updateOwner() {
 	}
 }
 
+
 provide(
 	"card",
 	"h-80 w-56 p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 "
