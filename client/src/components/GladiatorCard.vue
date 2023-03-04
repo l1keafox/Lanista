@@ -39,7 +39,7 @@
 				Options
 			</button>
     </div>
-			<div class="items-center flex justify-center">
+			<div class=" absolute bottom-10 items-center flex justify-center">
 				<Character
 					class="h-[10rem] w-[10rem]"
 					:clothes="makeClothes(glad)"
