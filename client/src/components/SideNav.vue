@@ -1,126 +1,108 @@
 <template>
 	<div class="overflow-y-auto max-h-screen bg-blue-900 w-48">
-		<hr/>
-		<div
-		:class="butnLayout"
-			@click="$emit('changeMain', 'WelcomeMain')">
+		<hr />
+		<div :class="butnLayout" @click="emit('changeMain', 'WelcomeMain')">
 			Home
 		</div>
 		<div
-		:class="butnLayout"
-		id ="howToPlayNav"
-			@click="$emit('changeMain', 'HowToPlayMain')">
+			:class="butnLayout"
+			id="howToPlayNav"
+			@click="emit('changeMain', 'HowToPlayMain')">
 			How To Play
 		</div>
-		<div
-		:class="butnLayout"
-			@click="$emit('changeMain', 'RankingMain')">
+		<div :class="butnLayout" @click="emit('changeMain', 'RankingMain')">
 			Ranking
 		</div>
-		<div
-			:class="butnLayout"
-			@click="$emit('changeMain', 'feedbackMain')">
+		<div :class="butnLayout" @click="emit('changeMain', 'FeedbackMain')">
 			Feedback/Bugs
 		</div>
-		<div
-			:class="butnLayout"
-			@click="$emit('changeMain', 'CreditMain')">
+		<div :class="butnLayout" @click="emit('changeMain', 'CreditMain')">
 			Credit
 		</div>
 
-		<hr/>
+		<hr />
 
-		<div v-if="isLoggedIn" class="font-dot text-base">
+		<div v-if="getLogged" class="font-dot text-base">
 			<div
 				:class="butnLayout"
-				id ="gladSideNav"
-				@click="$emit('changeMain', 'GladiatorsMain')">
+				id="gladSideNav"
+				@click="emit('changeMain', 'GladiatorsMain')">
 				Gladiators
 			</div>
 			<div
 				:class="butnLayout"
-				id ="schoolSideNav"
-				@click="$emit('changeMain', 'SchoolMain')">
+				id="schoolSideNav"
+				@click="emit('changeMain', 'SchoolMain')">
 				School
 			</div>
 			<div
-			:class="butnLayout"
-			id ="combatSideNav"
-				@click="$emit('changeMain', 'CombatMain')">
+				:class="butnLayout"
+				id="combatSideNav"
+				@click="emit('changeMain', 'CombatMain')">
 				Combat
 			</div>
 			<div
-			:class="butnLayout"
-			id ="storeSideNav"
-				@click="$emit('changeMain', 'StoreMain')">
+				:class="butnLayout"
+				id="storeSideNav"
+				@click="emit('changeMain', 'StoreMain')">
 				Store
 			</div>
 			<div
-			:class="butnLayout"
-			id ="studentsSideNav"
-				@click="$emit('changeMain', 'StudentMain')">
+				:class="butnLayout"
+				id="studentsSideNav"
+				@click="emit('changeMain', 'StudentMain')">
 				Students
 			</div>
 			<div
-			:class="butnLayout"
-			id ="gamblingSideNav"
-				@click="$emit('changeMain', 'GamblingMain')">
+				:class="butnLayout"
+				id="gamblingSideNav"
+				@click="emit('changeMain', 'GamblingMain')">
 				Gambling
 			</div>
 			<div
-			:class="butnLayout"
-			id ="tournamentSideNav"
-				@click="$emit('changeMain', 'TournamentMain')">
+				:class="butnLayout"
+				id="tournamentSideNav"
+				@click="emit('changeMain', 'TournamentMain')">
 				Tournament
 			</div>
 			<div
-			:class="butnLayout"
-			id ="tournamentSideNav"
-				@click="$emit('changeMain', 'PvpMain')">
+				:class="butnLayout"
+				id="tournamentSideNav"
+				@click="emit('changeMain', 'PvpMain')">
 				PvP
 			</div>
-			
 		</div>
-		<hr/>
+		<hr />
 	</div>
 </template>
 
-<script>
-import auth from "./../mixins/auth";
+<script setup>
+const emit = defineEmits(["changeMain"]);
+const getLogged = inject("getLogged");
+const showTutorial = inject("showTutorial");
 
-export default {
-	name: "SideNav",
-	inject: ["getLogged","getOwner","getUser",'showTutorial'],
-	data() {
-		this.butnLayout = "font-dot text-base text-center w-fill cursor-pointer sideOptions hover:bg-blue-200 hover:text-black py-4 select-none"
-		return {
-			showLoginModal: false,
-			showCreateModal: false,
-			ownerData: null,
-			userData: null,
-			isLoggedIn:  auth.loggedIn(),
-		};
-	},
-	components: {
-	},
-	async mounted() {
-		this.ownerData = this.getOwner;
-		this.userData = this.getUser;
-		this.isLoggedIn = this.getLogged;
-		if(this.isLoggedIn){
-			this.showTutorial({elementId:"gladSideNav",message:"Start here to see what gladiators you  have", orientation:"bottom"});
-		}		
-	},
-	updated(){
-		if(this.isLoggedIn){
-			this.showTutorial({elementId:"gladSideNav",message:"Start here to see what gladiators you  have", orientation:"bottom"});
-		}		
-},
-	
-	emits: ["logged", "changeMain","getUser"],
-	methods: {
-	},
-};
+const butnLayout = "font-dot text-base text-center w-fill cursor-pointer sideOptions hover:bg-blue-200 hover:text-black py-4 select-none";
+
+onMounted(() => {
+	if (getLogged) {
+		showTutorial({
+			elementId: "gladSideNav",
+			message: "Start here to see what gladiators you  have",
+			orientation: "bottom",
+		});
+	}
+}),
+	onUpdated(() => {
+		if (getLogged) {
+			showTutorial({
+				elementId: "gladSideNav",
+				message: "Start here to see what gladiators you  have",
+				orientation: "bottom",
+			});
+		}
+	});
+
+
 </script>
 
 <style scoped>
@@ -128,9 +110,8 @@ export default {
 	opacity: 1;
 }
 .sideOptions {
-	
 	color: rgb(200, 200, 200);
 
-	transition: all .5s linear;
+	transition: all 0.5s linear;
 }
 </style>

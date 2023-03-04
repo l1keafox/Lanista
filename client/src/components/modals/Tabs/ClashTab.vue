@@ -40,9 +40,9 @@
 					<h1>Clash</h1>
 					<div class="w-64 bg-yellow-100 h-48 m-2 cursor-auto">
 						<template v-for="skill in clash" :key="skill">
-							<Mouseover :mouse="getInfo(skill)"> 
+							<ItemMouseOver :itemId="skill" type="skill"> 
 								<h1 class="m-1 bg-pink-300 text-center" >{{ skill }}</h1>
-							</Mouseover>
+							</ItemMouseOver>
 						</template>
 					</div>
 				</div>
@@ -113,9 +113,6 @@
 
 <script setup>
 import draggable from "vuedraggable";
-import BaseFooter from "../BaseFooter.vue";
-import Mouseover from "../../MouseOver.vue";
-import { onMounted,defineProps,inject,ref,defineEmits,toRefs } from "vue";
 
 const props  = defineProps({
   gladId:{
@@ -129,8 +126,6 @@ const props  = defineProps({
 const { gladId , memoryData } = toRefs(props)
 const emit = defineEmits(["closeModal"])
 const apiCall = inject('apiCall');
-const showToolTip = inject('showToolTip');
-const hideToolTip = inject('hideToolTip');
 
 const showTutorial = inject('showTutorial');
 const skills = ref(null);
@@ -141,29 +136,6 @@ const prepare = ref(null);
 const react = ref(null);
 const toolTipMsg = ref("hi")
 
-async function getInfo(skill){
-	toolTipMsg.value = skill;
-	const rpnse = await fetch(
-			apiCall.value + `/owner/ability/${skill}`,
-			{
-				headers: { "Content-Type": "application/json" },
-			}
-		);
-	let rpns = await rpnse.json();
-	toolTipMsg.value = `
-	<p>${rpns.type}:</p>
-	`
-	for(let effName in rpns.effect){
-		toolTipMsg.value+= effName+":{"
-		for(let stat in rpns.effect[effName]){
-			toolTipMsg.value+=stat+":"+rpns.effect[effName][stat]+"/"
-		}
-		
-		toolTipMsg.value += "}    "
-
-	}
-	showToolTip( toolTipMsg )
-}
 
 onMounted(async ()=>{
 	// console.log('Clash getting memory data',gladId,memoryData);

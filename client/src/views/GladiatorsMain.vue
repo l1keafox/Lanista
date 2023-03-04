@@ -1,80 +1,71 @@
 <template>
 	<div class="flex flex-wrap w-full overflow-y-scroll">
 		<template
-			v-if="ownerData"
-			v-for="(glad, index) in ownerData.gladiators"
+			v-if="getOwner"
+			v-for="(glad, index) in getOwner.gladiators"
 			:key="index">
-			<GladiatorCard :glad="glad" :index="index" @openBigModal="gladModal" />
+			<GladiatorCard :glad="glad" :index="index" @openBigModal="openModal" />
 		</template>
 	</div>
 	<div v-if="isModalShown" class="">
 		<component
-			:is="mShown"
+			:is="components[mShown]"
 			:gladId="gladId"
 			@closeModal="isModalShown = false" />
 	</div>
 </template>
 
-<script>
+<script setup>
 import ScheduleManager from "./../components/modals/ScheduleManager.vue";
 import HistoryModal from "../components/modals/GladiatorHistoryModal.vue";
 import GladiatorDetails from "./../components/modals/GladiatorDetails.vue";
 
-import GladiatorCard from "../components/GladiatorCard.vue";
-
-export default {
-	name: "GladiatorMain",
-  data(){
-    return {
-      isModalShown :false,
-      mShown : false,
-      gladId : false,
-      ownerData: false,
-
-    }
-
-  },
-  methods:{
-    gladModal({ gladiatorId, modalShown }) {
-			this.mShown = modalShown;
-			this.gladId = gladiatorId;
-			// console.log(mShown, gladId, isModalShown);
-			this.isModalShown = true;
-		}
-  },
-  inject:["getOwner","showTutorial"],
-  mounted(){
-    this.ownerData = this.getOwner;
-    this.showTutorial({
-				elementId: "detailsBtn0",
-				message:
-					"Click here to see your gladiator stats,equip equipment,and set your clash abilities",
-				orientation: "bottom",
-			});
-			this.showTutorial({
-				elementId: "scheduleBtn0",
-				message: "Schedule, determine what stats to grow by selecting per tick training",
-				orientation: "bottom",
-			});
-			this.showTutorial({
-				elementId: "historyBtn0",
-				message: "This is where you can see past duels and tournaments",
-				orientation: "bottom",
-			});
-
-			this.showTutorial({
-				elementId: "schoolSideNav",
-				message: "School is where you can see what buildings, training, skills and items",
-				orientation: "bottom",
-			});
-  },
-	components: {
-		GladiatorCard,
-		ScheduleManager,
-		HistoryModal,
-		GladiatorDetails,
-	},
+const components = {
+	ScheduleManager,
+	HistoryModal,
+	GladiatorDetails,
 };
+
+const getOwner = inject("getOwner");
+const showTutorial = inject("showTutorial");
+
+const isModalShown = ref(false);
+const mShown = ref(false);
+const gladId = ref(false);
+
+function openModal({ gladiatorId, modalShown }) {
+	mShown.value = modalShown;
+	gladId.value = gladiatorId;
+	isModalShown.value = true;
+}
+
+onMounted(() => {
+	showTutorial({
+		elementId: "detailsBtn0",
+		message:
+			"Click here to see your gladiator stats,equip equipment,and set your clash abilities",
+		orientation: "bottom",
+	});
+	showTutorial({
+		elementId: "scheduleBtn0",
+		message:
+			"Schedule, determine what stats to grow by selecting per tick training",
+		orientation: "bottom",
+	});
+	showTutorial({
+		elementId: "historyBtn0",
+		message: "This is where you can see past duels and tournaments",
+		orientation: "bottom",
+	});
+
+	showTutorial({
+		elementId: "schoolSideNav",
+		message:
+			"School is where you can see what buildings, training, skills and items",
+		orientation: "bottom",
+	});
+});
+
 </script>
 
 <style scoped></style>

@@ -1,13 +1,16 @@
 <template>
-	<div class="flex flex-col w-full overflow-x-hidden relative ">
-		<div class=" flex items-center justify-around">
-			<Character animation="walk" direction="Down" class="h-[15rem] w-[15rem] " gladName="1"/>
-			<h1 id="header" class="text-center font-dot text-[7rem] z-5">Lanista</h1>
-			<Character animation="walk" direction="Down" class="h-[15rem] w-[15rem] " gladName="2"/>
-		</div>
+	<div class="flex flex-col w-full overflow-x-hidden relative">
+
+
+			<div class="flex items-center justify-around">
+				<Character animation="walk" direction="Down" class="h-[15rem] w-[15rem] " gladName="1"/>
+				<h1 id="header" class="text-center font-dot text-[7rem] z-5">Lanista</h1>
+				<Character animation="walk" direction="Down" class="h-[15rem] w-[15rem] " gladName="2"/>
+			</div>
 		<h2 class="text-center font-dot text-[2rem]">
 			- a trainer of gladiators -
 		</h2>
+		<br />
 		<hr />
 		<br />
 		<div class="font-dot text-2xl flex flex-col text-center">
@@ -39,7 +42,7 @@
 				to be refined and UI/UX needs to be improved. Items, training, buildings
 				and balancing still needs to be done.
 			</h1>
-			<!-- <h1 class="text-red-500 text-xl"> Feedback/Bugs page is the best to send a message to me. </h1> -->
+
 			<h1 class="text-green-500 text-2xl">Special accounts to look around:</h1>
 			<h2 class="text-yellow-500 text-xl">
 				username / <span class="text-blue-500">password</span>
@@ -63,32 +66,23 @@
 	</div>
 </template>
 
-<script>
-import Character from "../components/Character.vue";
-export default {
-	name: "WelcomeMain",
-	inject: ["apiCall"],
-	
-	async mounted() {
-		if (this.apiCall) {
-			const rpnse = await fetch(this.apiCall.value + `/users/gameData`, {
+<script setup>
+const apiCall = inject('apiCall');
+
+const maxTick = ref(0);
+onMounted(async ()=>{
+		if (apiCall) {
+			const rpnse = await fetch(apiCall.value + `/users/gameData`, {
 				headers: { "Content-Type": "application/json" },
 			});
 			const gameData = await rpnse.json();
-			this.maxTick = gameData.tick;
+			maxTick.value = gameData.tick;
 		}
-	},
-	components: {
-		Character,
-	},
-	data() {
-		return {
-			maxTick: 0,
-		};
-	},
 
-	methods: {},
-};
+		let bg = document.getElementById('backGround');
+		console.log()
+		
+		console.log();
+		
+})
 </script>
-
-<style scoped></style>

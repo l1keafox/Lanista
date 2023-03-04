@@ -60,14 +60,8 @@
 </template>
 
 <script >
-import BaseModal from "./BaseModal.vue"
-import DuelReplay from "./DuelReplay.vue"
     export default {
         name:"singleElimination",
-        components:{
-          BaseModal,
-          DuelReplay
-        },
         props:['tournamentData'],
         inject:['apiCall'],
         async mounted(){

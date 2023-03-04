@@ -9,10 +9,10 @@ const Provoke = ()=>{
      category: "morale",
      effect : {
       taunting:{
-        target:"caster",
-        reducer:['hitChance'],
+        reducer:['reverse'], // removes from morale damage this amount. 
+        // If one of with reverse, became still wins against defensive.
         charisma: 40,
-        reputation:40
+        reputation:40        
       },
    },
      winStats:{

@@ -17,7 +17,7 @@
 					<div class="flex w-1/2 justify-between">
 						<h2>{{ slot }}</h2>
 
-						<ItemMouseOver  > 
+						<ItemMouseOver :itemId="gladiatorData[slot]"> 
 							<template v-if=" gladiatorData.value">
 								<h2 v-if=" gladiatorData.value[slot]">{{ gladiatorData.value[slot] }}</h2>
 							</template>
@@ -71,11 +71,7 @@
 </template>
 
 <script setup>
-import ItemMouseOver from "../ItemMouseOver.vue";
-import BaseFooter from "../BaseFooter.vue";
-import auth from "../../../mixins/auth";
-import { inject, defineProps, onMounted, ref, toRefs , unref } from "vue";
-import ItemCardDetail from './../ItemCardDetail.vue';
+import auth from "../../../composables/auth";
 import cacheJson from "./../../../composables/cacheJson.js"
 
 const apiCall = inject("apiCall");

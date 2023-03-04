@@ -28,9 +28,7 @@
 </template>
 
 <script setup>
-import BaseFooter from "../BaseFooter.vue";
-import DuelReplay from "../DuelReplay.vue"
-import { defineProps,inject, onMounted,ref} from "vue"
+
 const apiCall = inject('apiCall');
 const {gladId} = defineProps({
   gladId:{

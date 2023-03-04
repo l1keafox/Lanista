@@ -22,8 +22,6 @@
 </template>
 
 <script>
-import BaseModal from "./BaseModal.vue"
-import BaseTabs from "./BaseTabs.vue"
 import Memories from "./Tabs/MemoryTab.vue"
 import Duels from "./Tabs/DuelHistory.vue"
 import Tournaments from "./Tabs/TournamentHistory.vue"
@@ -34,8 +32,6 @@ export default {
       Memories,
       Duels,
       Tournaments,
-      BaseModal,
-      BaseTabs
     },
     inject:['apiCall'],
     data() {

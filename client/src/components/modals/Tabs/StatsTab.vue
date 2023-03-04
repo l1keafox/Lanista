@@ -52,8 +52,6 @@
 </template>
 
 <script setup>
-import BaseFooter from "./../BaseFooter.vue";
-import { onMounted,defineProps,inject,ref,defineEmits , toRefs} from "vue";
 
 const showTutorial = inject('showTutorial')
 const props  = defineProps({

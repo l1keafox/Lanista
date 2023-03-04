@@ -8,7 +8,7 @@ const {saveModelMemory, prepMemoryForFight,prepModelForFight,getMemoryGroup} = r
 const router = express.Router();
 
 router.get('/gladiator/:gladiatorId', async(req, res) => {
-    if(!req.params.gladiatorId){
+    if(req.params.gladiatorId== "undefined"){
         res.status(400)
         return;
     }
@@ -17,7 +17,7 @@ router.get('/gladiator/:gladiatorId', async(req, res) => {
 })
 
 router.post('/gladiator/updateEquipment', async(req, res) => {
-    if(!req.body.id){
+    if(req.body.id== "undefined"){
         res.status(400)
         return
     }
@@ -31,7 +31,7 @@ router.post('/gladiator/updateEquipment', async(req, res) => {
 })
 
 router.post('/gladiator/updateClash', async(req, res) => {
-    if(!req.body.id){
+    if(req.body.id== "undefined"){
         res.status(400)
         return;
     }
@@ -50,7 +50,7 @@ router.post('/gladiator/updateClash', async(req, res) => {
 })
 
 router.post('/gladiator/doSpar', async(req, res) => {
-    if(!req.body.gladatorId || !req.body.gladatorId2  ){
+    if(req.body.gladatorId == "undefined" || req.body.gladatorId2 == "undefined" ){
         res.status(400)
         return
     }
@@ -73,8 +73,46 @@ router.post('/gladiator/doSpar', async(req, res) => {
     }
 })
 
+router.post('/gladiator/fightTarget', async(req, res) => {
+    if(req.body.gladatorId == "undefined" || req.body.targetId == "undefined"){
+        res.status(400)
+        return;
+    }
+
+    let glad = await Gladiator.findOne({ _id: req.body.gladatorId });
+    let target = await Gladiator.findOne({ _id: req.body.targetId });
+    if(!target){
+        res.status(400).send("bad id sent Data");
+    } else if(!glad){
+        res.status(400).send("bad Glad Data");
+    }
+    if(glad){
+        const nearBy = await getMemoryGroup(  glad, 2 );
+        //  console.log(glad.name);
+        // console.log(nearBy[0].name, nearBy[0].level, nearBy[0].age,nearBy.length);
+        let randoMemory = nearBy[ Math.floor( Math.random() & nearBy.length ) ] ;
+//         console.log(randoMemory.name, randoMemory.memory);
+        let one = await prepModelForFight(glad);
+        let two = await prepModelForFight(target);
+        let report = await doDuel(one,two);
+        res.send(report)
+
+    }
+    // with memory have age and level,
+    // level, 
+    // and later on you will need to get close age to get the right memory.
+    /*let savedDuel = await Memory.find({ 
+        //age : {$gt: , %lt:}
+        level : req.body.level
+     });
+     */
+    // console.log(savedDuel);
+    //return(savedDuel);
+});
+
+
 router.post('/gladiator/fightMemory', async(req, res) => {
-    if(!req.body.gladatorId){
+    if(req.body.gladatorId == "undefined"){
         res.status(400)
         return;
     }
@@ -120,7 +158,7 @@ router.post('/gladiator/fightMemory', async(req, res) => {
 
 router.get('/gladiator/clashInfo/:gladiatorId', async(req, res) => {
 
-if(!req.params.gladiatorId){
+if(req.params.gladiatorId== "undefined"){
     res.status(400)
     return;
 }
@@ -176,7 +214,7 @@ if(!req.params.gladiatorId){
 //     res.send(glad)
 // })
 router.post('/gladiator/saveWeek', async(req, res) => {
-    if(!req.body.id){
+    if(req.body.id== "undefined"){
         res.status(400)
         return;
     }
@@ -197,7 +235,7 @@ router.post('/gladiator/saveWeek', async(req, res) => {
 })
 
  router.get('/gladiator/someTournaments/:gladId/:offset/:limit', async(req, res) => {
-    if(!req.params.gladId || !req.params.offset || !req.params.limit ){
+    if( req.params.gladId == "undefined" || req.params.offset == "undefined" || req.params.limit== "undefined"  ){
         res.status(400)
         return;
     }
@@ -213,7 +251,7 @@ router.post('/gladiator/saveWeek', async(req, res) => {
  })
 
 router.get('/gladiator/someMemories/:gladId/:offset/:limit', async(req, res) => {
-    if(!req.params.gladId || !req.params.offset || !req.params.limit ){
+    if( req.params.gladId == "undefined" || req.params.offset == "undefined" || req.params.limit== "undefined"  ){
         res.status(400)
         return;
     }
@@ -228,7 +266,7 @@ router.get('/gladiator/someMemories/:gladId/:offset/:limit', async(req, res) => 
 //     res.send(duels);
 // })
 router.get('/gladiator/someDuels/:gladId/:offset/:limit', async(req, res) => {
-    if(!req.params.gladId || !req.params.offset || !req.params.limit ){
+    if( req.params.gladId == "undefined" || req.params.offset == "undefined" || req.params.limit== "undefined"  ){
         res.status(400)
         return;
     }    
@@ -238,7 +276,7 @@ router.get('/gladiator/someDuels/:gladId/:offset/:limit', async(req, res) => {
 })
 
 router.get('/gladiator/getDuel/:duelId', async(req, res) => {
-    if(!req.params.duelId){
+    if(req.params.duelId == "undefined"){
         res.status(400)
         return;
     }    
@@ -248,7 +286,7 @@ router.get('/gladiator/getDuel/:duelId', async(req, res) => {
 })
 
 router.post('/gladiator/saveLearning', async(req, res) => {
-    if(!req.body.id){
+    if(req.body.id== "undefined"){
         res.status(400)
         return;
     }    

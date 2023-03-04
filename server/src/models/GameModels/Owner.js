@@ -21,6 +21,7 @@ const ownerSchema = new Schema(
         },
         structures:[],
         training:[],
+        disabled:[], // Not in use yet, but this is the array that will be added/removed to determine which training is disabled.
         learning:[],
 		gladiators:[      {
             type: Schema.Types.ObjectId,
@@ -28,6 +29,7 @@ const ownerSchema = new Schema(
           }],
         inventory:[],
 	},
+    
 	{
 		toJSON: {
 			virtuals: true,

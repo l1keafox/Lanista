@@ -59,14 +59,10 @@
 </template>
 
 <script>
-  import BaseModal from "./BaseModal.vue"
     export default {
         name:"bestOfThreeModal",
         props:['tournamentData'],
         inject:['apiCall'],
-        components:{
-          BaseModal
-        },
         async mounted(){
           console.log(this.tournamentData.type);
           console.log(this.tournamentData.winner);

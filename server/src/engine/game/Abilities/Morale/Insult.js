@@ -9,11 +9,12 @@ const Insult = ()=>{
      effect : {
       taunting:{
         target:"caster",
-        reducer:['hitChance','hitDamage'], // removes from morale damage this amount.
+        reducer:['hitChance'],
         sensitivity: 50,
         reputation: 50,
         bravery: 20,
-        luck: 10,
+        luck: 10,        
+
       },
    },
      winStats:{

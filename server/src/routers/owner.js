@@ -11,7 +11,7 @@ const auth = require('../middleware/auth');
 const router = express.Router();
 
 router.get('/owner/:ownerId', async(req, res) => {
-    if(!req.params.ownerId){
+    if(req.params.ownerId == "undefined"){
         res.status(400)
         return;
     }
@@ -29,7 +29,7 @@ router.get('/owner/:ownerId', async(req, res) => {
 
 
 router.get('/owner/structures/:ownerId', async(req, res) => {
-    if(!req.params.ownerId){
+    if(req.params.ownerId == "undefined"){
         res.status(400)
         return;
     }
@@ -39,18 +39,24 @@ router.get('/owner/structures/:ownerId', async(req, res) => {
 })
 
 router.get('/owner/structuresData/:ownerId', async(req, res) => {
-    if(!req.params.ownerId){
+    if(req.params.ownerId == "undefined"){
         res.status(400)
         return;
     }
 
     const owner2 = await Owner.findById(req.params.ownerId);
+    if(!owner2){
+        res.status(400)
+        return;
+    }
     const rtnData = owner2.structures.map( struct =>{
         let rtn = getStructureEffect(struct);
         if(rtn){
             rtn.structure = struct;
+            rtn.type = struct;
             return rtn;
-
+        } else {
+            console.log('struct error',struct)
         }
     });
     res.send(rtnData);
@@ -58,7 +64,7 @@ router.get('/owner/structuresData/:ownerId', async(req, res) => {
 
 router.post('/owner/removeItems', async(req, res) => {
     // So how we want to do this: is return an object that is organized by slot.
-    if(!req.body.id){
+    if(req.body.id== "undefined"){
         res.status(400)
         return;
     }
@@ -85,7 +91,7 @@ router.post('/owner/removeItems', async(req, res) => {
 })
 router.get('/owner/itemsSort/:ownerId', async(req, res) => {
     // So how we want to do this: is return an object that is organized by slot.
-    if(!req.params.ownerId){
+    if(req.params.ownerId == "undefined"){
         res.status(400)
         return;
     }
@@ -103,7 +109,7 @@ router.get('/owner/itemsSort/:ownerId', async(req, res) => {
 })
 
 router.get('/owner/inventoryData/:ownerId', async(req, res) => {
-    if(!req.params.ownerId){
+    if(req.params.ownerId == "undefined"){
         res.status(400)
         return;
     }
@@ -121,7 +127,7 @@ router.get('/owner/inventoryData/:ownerId', async(req, res) => {
 
 router.get( '/owner/someTournament/:ownerId/:offset/:limit',async(req, res) => {
     // console.log("Some Tourna");
-    if(!req.params.ownerId || !req.params.offset || !req.params.limit){
+    if(req.params.ownerId == "undefined" || req.params.offset == "undefined" || req.params.limit == "undefined"){
         res.status(400)
         return;
     }
@@ -153,7 +159,7 @@ router.post('/owner/tournamentRound', async(req, res) => {
 //     res.send(rtn);
 // })
 router.get('/owner/training/:ownerId', async(req, res) => {
-    if(!req.params.ownerId){
+    if(req.params.ownerId == "undefined"){
         res.status(400)
         return;
     }
@@ -165,7 +171,7 @@ router.get('/owner/training/:ownerId', async(req, res) => {
 })
 
 router.get('/owner/learning/:ownerId', async(req, res) => {
-    if(!req.params.ownerId){
+    if(req.params.ownerId == "undefined"){
         res.status(400)
         return;
     }
@@ -176,7 +182,7 @@ router.get('/owner/learning/:ownerId', async(req, res) => {
 })
 
 router.post('/owner/learning', async(req, res) => {
-    if(!req.body.id){
+    if(req.body.id== "undefined"){
         res.status(400)
         return;
     }
@@ -187,7 +193,7 @@ router.post('/owner/learning', async(req, res) => {
 })
 
 router.get('/owner/trainingData/:ownerId', async(req, res) => {
-    if(!req.params.ownerId){
+    if(req.params.ownerId == "undefined"){
         res.status(400)
         return;
     }
@@ -208,7 +214,7 @@ router.get('/owner/trainingData/:ownerId', async(req, res) => {
 })
 
 router.get('/owner/learningData/:ownerId', async(req, res) => {
-    if(!req.params.ownerId){
+    if(req.params.ownerId == "undefined"){
         res.status(400)
         return;
     }
@@ -227,7 +233,7 @@ router.get('/owner/learningData/:ownerId', async(req, res) => {
     res.send(rtnData);
 })
 router.get('/owner/ability/:abilityName', async(req, res) => {
-    if(!req.params.abilityName){
+    if(req.params.abilityName == 'undefined'){
         res.status(400)
         return;
     }
@@ -243,7 +249,7 @@ router.get('/owner/ability/:abilityName', async(req, res) => {
 
 let potentialStudents= {};
 router.get('/owner/getStudent/:ownerId', async(req, res) => {
-    if(!req.params.ownerId){
+    if(req.params.ownerId == "undefined"){
         res.status(400)
         return;
     }
@@ -263,7 +269,7 @@ router.get('/owner/getStudent/:ownerId', async(req, res) => {
 
 
 router.post('/owner/buyStudent/', async(req, res) => {
-    if( !req.body.ownerId|| !req.body.index){
+    if( req.body.ownerId  == "undefined"|| req.body.index  == "undefined"){
         res.status(400)
         return;
     }
@@ -290,7 +296,7 @@ router.post('/owner/buyStudent/', async(req, res) => {
 })
 
 router.get('/owner/store/:ownerId', async(req, res) => {
-    if(!req.params.ownerId){
+    if(req.params.ownerId == "undefined"){
         res.status(400)
         return;
     }
@@ -328,31 +334,35 @@ router.get('/owner/store/:ownerId', async(req, res) => {
 })
 
 router.post('/owner/buyItem', async(req, res) => {
-    if(!req.body.id || !req.body.buyThisThing){
+    if(req.body.id== "undefined" || req.body.buyThisThing == "undefined"){
         res.status(400)
         return;
     }
 
     let owner = await Owner.findOne({ userAcct: req.body.id });
-        console.log(req.body.buyThisThing )
-    if(owner.gold < req.body.buyThisThing.cost){
-        res.send(false);    
-        return;
-    }
-    owner.gold-=req.body.buyThisThing.cost;
 
-        if(req.body.buyThisThing.item){
-            const exist = owner.inventory.find( ele => ele.type ==req.body.buyThisThing.item);
+        if(owner.gold < req.body.buyThisThing.cost){
+            res.send(false);    
+            return;
+        }
+        owner.gold-=req.body.buyThisThing.cost;
 
+        if(req.body.buyThisThing.slot){
+            console.log("bought item")
+            const exist = owner.inventory.find( ele => ele.type ==req.body.buyThisThing.type);
             if(exist){
                 exist.amount++;
             } else {
-                owner.inventory.push({type:req.body.buyThisThing.item,amount:1});
+                owner.inventory.push({type:req.body.buyThisThing.type,amount:1});
             }
-        } else if(req.body.buyThisThing.structure){
-            owner.structures.push(req.body.buyThisThing.structure);
+            owner.markModified('inventory');
+
+        } else{
+            console.log("bought structure",req.body.buyThisThing.type);
+            owner.structures.push(req.body.buyThisThing.type);
+            owner.markModified('structures');
         }
-    owner.markModified('inventory');
+        
     owner.save();
     res.send(true);
 })

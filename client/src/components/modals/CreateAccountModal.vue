@@ -30,10 +30,10 @@
 </template>
 
 <script setup>
-import BaseModal from "./BaseModal.vue"
+
 import { useField, useForm } from 'vee-validate'
 import { object, string } from 'yup'
-import InputField from "./../InputField.vue"
+
 const validationSchema = object({
     email: string().email("Field should contain a valid e-mail").max(255).required("E-mail is required"),
     username: string(),

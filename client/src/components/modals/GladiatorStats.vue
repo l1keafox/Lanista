@@ -66,12 +66,10 @@
 </template>
 
 <script>
-import BaseModal from "./BaseModal.vue"
   export default {
     name: "GladiatorStats",
     props: ["gladId","gladMemory"],
     components:{
-      BaseModal
     },
     inject:['apiCall'],
     data() {

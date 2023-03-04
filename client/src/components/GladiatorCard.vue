@@ -23,9 +23,6 @@
 </template>
 
 <script>
-import Character from "../components/Character.vue"
-
-import DuelReplay from "../components/modals/DuelReplay.vue";
 import { useIntervalFn } from '@vueuse/core'
 export default {
     
@@ -103,14 +100,6 @@ export default {
     closeModal(){
       this.isModalShown = false;
     },
-  },
-  components:{
-    DuelReplay,
-    Character,
-    
-  },
-  setup(){
-
   },
   async mounted() {
     this.training = this.glad.lastGain

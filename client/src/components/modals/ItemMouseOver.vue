@@ -1,25 +1,39 @@
 <template>
-  <div class="bg-cyan-200" @mouseover="showToolTip(toolTip)" @mouseleave="hideToolTip()">
+  <div class="bg-cyan-200 select-none cursor-help" @mouseover="showCardTip(itemId,type)" @mouseleave="hideToolTip()">
     <slot/>
-  </div>
-  <div v-if="showItemModal">
-    <ItemCardDetail :item="data" @closeModal="showItemModal = false"/>
   </div>
 </template>
 
 <script setup>
-import {defineProps,inject,toRefs} from "vue"
 
 const hideToolTip = inject('hideToolTip')
-const showToolTip = inject('showToolTip')
+const showCardTip = inject('showCardTip')
+const props = defineProps(['itemId','type'])
+const {itemId,type} = toRefs(props)
 
-const props = defineProps({
-  toolTip:{
-    
-  } // this should be an function given. but just an msg for now.
-})
-const{toolTip} = toRefs(props)
+async function getInfo(skill){
+	toolTipMsg.value = skill;
+	const rpnse = await fetch(
+			apiCall.value + `/owner/ability/${skill}`,
+			{
+				headers: { "Content-Type": "application/json" },
+			}
+		);
+	let rpns = await rpnse.json();
+	toolTipMsg.value = `
+	<p>${rpns.type}:</p>
+	`
+	for(let effName in rpns.effect){
+		toolTipMsg.value+= effName+":{"
+		for(let stat in rpns.effect[effName]){
+			toolTipMsg.value+=stat+":"+rpns.effect[effName][stat]+"/"
+		}
+		
+		toolTipMsg.value += "}    "
 
+	}
+	
+}
 
 </script>
 
