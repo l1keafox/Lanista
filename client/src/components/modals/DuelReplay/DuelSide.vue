@@ -14,20 +14,15 @@
         <Character  :clothes="makeClothes(gladiatorData)" v-model="animate" :gladName="props.glad.idKey+''" :animation="anime" :direction="dir" class="h-[16rem] w-[16rem] bottom-16"/>
       </template>
       <ClashDetail :roundInfo="roundInfo" class=" bg-yellow-100 " />
-      <template v-if="thisGuy.dmg" >
+      <div v-if="thisGuy.dmg" class=" bg-red-800 " >
         {{ thisGuy.dmg }}
         <!-- <Popup :dmg="thisGuy.dmg" class="pup "/> -->
-      </template>
+      </div>
   </template>
 </div>
 </template>
 
 <script setup>
-  import { defineProps,toRef,inject,onMounted,ref,onUpdated } from "vue";
-  import Character from "./../../Character.vue"
-  import ClashDetail from "./ClashDetail.vue"
-  import pointsBar from "./pointsBar.vue";
-  import Popup from "./PopupBase.vue"
 
   const props = defineProps(['glad','roundInfo'])
   console.log(props.glad.idKey);

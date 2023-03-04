@@ -24,14 +24,10 @@
 </template>
 
 <script>
-import BaseModal from "./BaseModal.vue"
     export default {
         name:"roundRobinThenBestOfthree",
         props:['tournamentData'],
         inject:['apiCall'],
-        components:{
-          BaseModal
-        },
         async mounted(){
             let grab = this.tournamentData.duelReport[0];
             const rpnse = await fetch(

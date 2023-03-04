@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="flex flex-col w-full overflow-x-hidden justify-center items-center">
+		class="flex flex-col w-full overflow-x-hidden items-center">
 		<h1 class="text-center font-dot text-[5rem]">Feedback</h1>
 		<h2>
 			Thank you for any feedback on bugs, this will be reported directly to my
@@ -42,11 +42,8 @@
 <script setup>
 import { useField, useForm } from "vee-validate";
 import { object, string } from "yup";
-import TextField from "./../components/TextField.vue";
-import InputField from "./../components/InputField.vue";
-import { inject, unref } from "vue";
 
-const api = inject("apiCall");
+const apiCall = inject("apiCall");
 
 const validationSchema = object({
 	email: string()
@@ -71,7 +68,7 @@ const handleChange = (event) => {
 	setFieldValue("email", event.target.value);
 };
 const submit = handleSubmit(() => {
-	const rpnse = fetch(api.value + `/users/sendFeedback`, {
+	const rpnse = fetch(apiCall.value + `/users/sendFeedback`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({

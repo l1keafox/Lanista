@@ -42,7 +42,6 @@ import roundRobin from "../RoundRobin.vue";
 import singleElimination from "../SingleElimination.vue";
 import bestOfThree from "../BestOfThreeModal.vue";
 import roundRobinBestOfThree from "../RoundRobinOfThree.vue";
-import { onMounted, defineProps, inject, ref, defineEmits } from "vue";
 
 const components = {
   roundRobin,

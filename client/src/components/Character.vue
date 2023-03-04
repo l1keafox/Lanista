@@ -13,9 +13,8 @@ import pONE2JsonMap from "../assets/animationData/pONE2.json";
 import pONE1JsonMap from "../assets/animationData/pONE1.json";
 import pONE3JsonMap from "../assets/animationData/pONE3.json";
 
-import { onMounted, defineProps, onUnmounted } from "vue";
-import { inject, toRefs , ref} from "vue";
-import createImg from "../composables/cacheSpriteSheet";
+import doSpriteLayer from "./../composables/doSpriteLayer"
+
 const apiCall = inject("apiCall");
 const emit = defineEmits(['update:model_value'])
 /* Interface 
@@ -189,115 +188,12 @@ onMounted(async () => {
 		addNextFrame();
 	}
 
-	
-
-	function getOutfitURL(clothes, key) {
-		if (!clothes || !clothes.skin)
-			return createImg(
-				`/assets/char_a_p1/1out/char_a_p1_1out_bksm_v02.png`,
-				apiCall.value
-			);
-		if (clothes && clothes.sex == "m") {
-			return createImg(
-				`/assets/char_a_${key}/1out/char_a_${key}_1out_boxr_v01.png`,
-				apiCall.value
-			);
-		} else {
-			return createImg(
-				`/assets/char_a_${key}/1out/char_a_${key}_1out_undi_v01.png`,
-				apiCall.value
-			);
-		}
-		return null;
-	}
-
-	function getSkinURL(clothes, key) {
-		if (!clothes || !clothes.skin)
-			return createImg(
-				`/assets/char_a_p1/char_a_p1_0bas_humn_v00.png`,
-				apiCall.value
-			);
-		//  return `char_a_p1/char_a_p1_0bas_humn_v${rando}.png`;
-		return createImg(
-			`/assets/char_a_${key}/char_a_${key}_0bas_${clothes.skin}.png`,
-			apiCall.value
-		);
-		
-	}
-	function getHairURL(clothes, key) {
-		if (!clothes || !clothes.hair)
-			return createImg(
-				`/assets/char_a_p1/4har/char_a_p1_4har_dap1_v12.png`,
-				apiCall.value
-			);
-		// pONE1 is an special battle it wil
-		if(key === 'pONE1' || key === 'pONE2' || key == 'pONE3'){
-			// return createImg(
-			// 	`/assets/char_a_${key}/4har/char_a_${key}_4har_dap1_v${clothes.hair}.png`,
-			// 	apiCall.value
-			// );
-
-		} else {
-			return createImg(
-				`/assets/char_a_${key}/4har/char_a_${key}_4har_${clothes.style}_v${clothes.hair}.png`,
-				apiCall.value
-			);
-		}
-	}
-	function getHelmURL(clothes, key) {
-		if (!clothes || !clothes.hair)
-			return createImg(
-				`/assets/char_a_p1/4har/char_a_p1_4har_dap1_v02.png`,
-				apiCall.value
-			);
-		// pONE1 is an special battle it wil
-		if(key === 'pONE1' || key === 'pONE2' || key == 'pONE3'){
-			return createImg(
-				`/assets/char_a_${key}/5hat/char_a_${key}_5hat_pfht_v05.png`,
-				apiCall.value
-			);
-
-		} else {
-
-		}
-	}
-	
-	function getMainhand(clothes, key){
-		
-		if(key === 'pONE1' || key === 'pONE2' || key == 'pONE3'){
-			return createImg(
-				`/assets/char_a_${key}/6tla/char_a_${key}_6tla_sw01_v01.png`,
-				apiCall.value
-			);
-		}
-	}
-	// This is the array of which the canvas will be painted via image.
-	function getOffhand(clothes, key){
-		if(key === 'pONE1' || key === 'pONE2' || key == 'pONE3'){
-			// return createImg(
-			// 	`/assets/char_a_${key}/7tlb/char_a_${key}_7tlb_sh01_v01.png`,
-			// 	apiCall.value
-			// );
-		}
-	}
-
 	// console.log(keyFrameArray[0].fTm, "Doing first animate");
 	animate(keyFrameArray[0].frameData);
 
 	function animate(frameInfo) {
 		
-		const imageArray = [
-		getSkinURL(clothes, keyFrameArray[0].key), //		skinLayer, 0bot (sub-layer, fully behind the character sprite)
-		getOutfitURL(clothes, keyFrameArray[0].key), //   createImg(`/assets/${clothes.skin}`); // 1out (outfit, lowest layer)
-		null, //   createImg(`/assets/${clothes.skin}`); // 2clo (cloaks, capes, and mantles)
-		null, //   createImg(`/assets/${clothes.skin}`); // 3fac (face items, like glasses and masks)
-		getHairURL(clothes, keyFrameArray[0].key), //4har (hair)
-		getHelmURL(clothes, keyFrameArray[0].key), //4.5har (helmet)
-		null, //   createImg(`/assets/${clothes.skin}`); //5hat (hats and hoods)
-		getMainhand(clothes,  keyFrameArray[0].key), //   createImg(`/assets/${clothes.skin}`); //6tla (primary tool layer, weapons and such)
-		getOffhand(clothes,  keyFrameArray[0].key), //   createImg(`/assets/${clothes.skin}`); //7tlb (secondary tool layer, shields and off-hand weapons, highest layer)
-	];
-
+		const imageArray = doSpriteLayer(clothes,keyFrameArray[0].key,apiCall.value);
 
 		if (!frameInfo) {
 			console.log("  -Char> ERROR ", frameIndex,keyFrameArray[0]);

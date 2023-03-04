@@ -17,7 +17,7 @@
               class="text-slate-800 w-48 flex justify-around border border-sky-200">
               {{ key }}:00 Event
               <div>
-            <!-- <div  @mouseover="showToolTip( createTool(event) )" @mouseleave="hideToolTip"> -->
+         
               <select :name="key" class="text-slate-800 schedule" >
                 <option value="fir">{{ event }}</option>
                 <template
@@ -39,7 +39,7 @@
               :key="key"
               class="bg-blue-500 w-48 flex justify-around p-1 border border-sky-200">
               <h3>{{ key }}:00 </h3>
-              <!-- <div  @mouseover="showToolTip( createTool(event) )" @mouseleave="hideToolTip"> -->
+              
               <select :name="key" class="bg-green-800 schedule"  >
                 
                 <option value="fir" >{{ event }}</option>
@@ -140,11 +140,9 @@
 </template>
 
 <script>
-import BaseModal from "./BaseModal.vue"
-import BaseTabs from "./BaseTabs.vue"
 import cacheJson from "./../../composables/cacheJson"
 
-import auth from "./../../mixins/auth";
+import auth from "../../composables/auth";
 export default {
 	name: "ScheduleManager",
 	props: ["gladId"],
@@ -162,10 +160,6 @@ export default {
 			
 		};
 	},
-	components: {
-    BaseModal,
-    BaseTabs
-  },
 	inject:['apiCall','showTutorial'],
 	methods: {
     createTool(event){

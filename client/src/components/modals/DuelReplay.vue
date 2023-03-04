@@ -78,11 +78,8 @@
 </template>
 
 <script setup>
-import BaseModal from "./BaseModal.vue"
-import DuelSide from "./DuelReplay/DuelSide.vue"
 
 import { useIntervalFn } from '@vueuse/core'
-import { defineProps,reactive,inject,ref,unref } from "vue";
 
 const props = defineProps({
   report: Object,

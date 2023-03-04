@@ -6,8 +6,8 @@
 </template>
 
 <script setup>
-import {onMounted,reactive,toRefs} from 'vue'
 import { useMouse } from '@vueuse/core'
+
 const props = defineProps({
   message:{
   }

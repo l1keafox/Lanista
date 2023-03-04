@@ -25,12 +25,10 @@ app.use(ownerRouter);
 app.use(express.static('public')); 
 app.use('/assets', express.static('assets'));
 // app.use(assetsRouter);
-
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/dist")));
 
 }
-
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
@@ -38,7 +36,6 @@ app.get("/", (req, res) => {
 db.once("open", () => {
   ioServer.listen(PORT, () => {
     // IO port being opened.
-
     console.log(`  -API> API server running on port ${PORT}!`);
     console.log(`  -IO> Socket.io listening on http://localHost:${PORT}?`);
     Engine.init();
