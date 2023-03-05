@@ -188,6 +188,7 @@ onMounted(async () => {
 		addNextFrame();
 	}
 
+
 	// console.log(keyFrameArray[0].fTm, "Doing first animate");
 	animate(keyFrameArray[0].frameData);
 
