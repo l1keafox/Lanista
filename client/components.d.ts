@@ -35,6 +35,7 @@ declare module '@vue/runtime-core' {
     GladiatorTournamentHistory: typeof import('./src/components/modals/GladiatorTournamentHistory.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
     InputField: typeof import('./src/components/InputField.vue')['default']
+    Item: typeof import('./src/components/modals/Tooltips/item.vue')['default']
     ItemCard: typeof import('./src/components/ItemCard.vue')['default']
     ItemCardDetail: typeof import('./src/components/modals/ItemCardDetail.vue')['default']
     ItemMouseOver: typeof import('./src/components/modals/ItemMouseOver.vue')['default']
@@ -52,6 +53,7 @@ declare module '@vue/runtime-core' {
     SingleElimination: typeof import('./src/components/modals/SingleElimination.vue')['default']
     StatsTab: typeof import('./src/components/modals/Tabs/StatsTab.vue')['default']
     TextField: typeof import('./src/components/TextField.vue')['default']
+    ToolTipItem: typeof import('./src/components/modals/Tooltips/ToolTipItem.vue')['default']
     TournamentHistory: typeof import('./src/components/modals/Tabs/TournamentHistory.vue')['default']
     WelcomeMain: typeof import('./src/components/WelcomeMain.vue')['default']
   }

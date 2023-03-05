@@ -15,7 +15,6 @@
 					<h1>intelligence: {{ student.intelligence }}</h1>
 					<h1>wisdom: {{ student.wisdom }}</h1>
 					<h1>bravery: {{ student.bravery }}</h1>
-					<h1>piety: {{ student.piety }}</h1>
 					<h1>sensitivity: {{ student.sensitivity }}</h1>
 					<hr />
 					<h1>luck: {{ student.luck }}</h1>
@@ -37,7 +36,7 @@
 				Find New Gladiator
 			</button>
 		</div>
-		<div>
+		<!-- <div>
 			<hr />
 			<h1>Physical Stats</h1>
 			<h2>Strength - determines how hard your physical attacks are.</h2>
@@ -54,16 +53,13 @@
 			</h2>
 			<h2>wisdom - Experience, has influence over many actions</h2>
 			<h2>Bravery - Determines Morale</h2>
-			<h2>
-				Piety - Determines mana, spells, and has small influence in many actions
-			</h2>
 			<h2>Sensitivity - Has influence over many actions</h2>
 			<hr />
 			<h1>Social Stats</h1>
 			<h2>Luck - Has influence over many actions</h2>
 			<h2>Charisma - Has influence over morale attacks(taunt)</h2>
 			<h2>Reputation - Determines Morale</h2>
-		</div>
+		</div> -->
 	</div>
 </template>
 
@@ -127,7 +123,6 @@ async function getNewGladiator() {
 				glad.intelligence +
 				glad.wisdom +
 				glad.bravery +
-				glad.piety +
 				glad.sensitivity) /
 			13
 		).toFixed();

@@ -16,7 +16,6 @@ const { randomBetween, rollDice } = require("./utils");
 //   "intelligence", - Reading Books
 //   "sensitivity", - Reading Books - increase gold
 //   "wisdom", - Praying - increase gold
-//   "piety", - Praying  - increase gold
 //   "bravery", Looking for lost items - increase gold
 //   "luck", Looking for lost items - increase gold
 //   "charisma",  Community Service  - increases fame
@@ -36,7 +35,7 @@ function growthPenality(gladiator, amnt, stat) {
 		"intelligence",
 		"wisdom",
 		"bravery",
-		"piety",
+		// "piety",
 		"sensitivity",
 		"charisma",
 		"luck",
