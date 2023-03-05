@@ -1,7 +1,7 @@
 <template>
   <div v-if="propList">	
     <div v-for="skill in propList" :key="skill" class="border p-1">
-      {{ skill.abilityName }}
+      {{ skill.abilityName }} : ABILITY
       <span v-for="(effect,key) in cutEffect(skill.effect )" :key="effect" >
         <p>{{ key }} :	
           <span v-for="(stat,statKey) in effect" :key="statKey">

@@ -189,9 +189,9 @@ function calcauateBase(glad){
 		return Math.round(total * 0.1);
 	}    
 
-    glad.hits = abilityMix(glad,{"constitution":70,"wisdom":30});
-    glad.morale =  abilityMix(glad,{"reputation":50,"bravery":50});
-    glad.stamina = abilityMix(glad,{"vitality":80,"sensitivity":20});
+    glad.hits = abilityMix(glad,{"constitution":50,"wisdom":25,"bravery":25});
+    glad.stamina = abilityMix(glad,{"vitality":50,"intelligence":25,"sensitivity":25});
+    glad.morale =  abilityMix(glad,{"reputation":33,"bravery":33,"luck":33});
     // if(glad.intelligence < glad.piety){
     //     glad.mana = abilityMix(glad,{"intelligence":20, "piety":80});
     // } else {
@@ -220,16 +220,33 @@ gladiatorSchema.methods.calcuateStats = async function() {
 gladiatorSchema.methods.doLevel = async function() {
     // This will go through equipment and give fill up skills
     // or it will go through 
-    if(this.level > 8){
-        // 336 days in a year
-        if(this.age > (336 * (this.level-8))+256 ){
+     if(this.level == 1){
+        if(this.age > 28){ // takes 28 days to lv 2
+            this.level++;
+        }
+    } else if(this.level == 2){
+        if(this.age > 114){ // takes 3 months to lv 3
+            this.level++;
+        }
+    } else if(this.level == 3){
+        if(this.age > 228){ // takes 6 months to lv 4
+            this.level++;
+        }
+    } else if(this.level == 4){
+        if(this.age > 456){  // takes 1 year to lv 5
+            this.level++;
+        }
+    } else if(this.level < 10) {
+        // Up to level 10 it should be hevery half year.
+        if(this.age > (228 * (this.level -5) )+456 ){
             this.level++;
         }
     } else {
-        if(this.age > Math.pow(2,this.level)){
+        // 336 days in a year
+        if(this.age > (456 * (this.level -5) )+456 ){
             this.level++;
         }
-    }
+    } 
 
     // 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 /
     // 1 / 2 / 4 / 8 / 16/ 32/ 64/128/256/512

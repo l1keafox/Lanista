@@ -36,7 +36,7 @@
 				Find New Gladiator
 			</button>
 		</div>
-		<div>
+		<!-- <div>
 			<hr />
 			<h1>Physical Stats</h1>
 			<h2>Strength - determines how hard your physical attacks are.</h2>
@@ -59,7 +59,7 @@
 			<h2>Luck - Has influence over many actions</h2>
 			<h2>Charisma - Has influence over morale attacks(taunt)</h2>
 			<h2>Reputation - Determines Morale</h2>
-		</div>
+		</div> -->
 	</div>
 </template>
 

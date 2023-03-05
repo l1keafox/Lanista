@@ -76,7 +76,6 @@ function setupStats(glad) {
 async function saveManyModelMemory(gladArray){
 	let createArray = [];
 	for(let gladiator of gladArray){
-		if(gladiator.level >= 3){
 			let memory = await prepModelForMemory(gladiator);
 			memory = JSON.stringify(memory);
 			createArray.push(
@@ -97,7 +96,7 @@ async function saveManyModelMemory(gladArray){
 				}
 			);
 
-		}
+		
 	}
 	console.log(`  -> Added ${createArray.length} / in array: ${gladArray.length}`)
 	await Memory.insertMany( createArray );
