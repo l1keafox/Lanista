@@ -30,7 +30,6 @@
             <h2>intelligence:{{gladiatorData.intelligence}} </h2>
             <h2>wisdom:{{gladiatorData.wisdom}}</h2>
             <h2>bravery:{{gladiatorData.bravery}} </h2>
-            <h2>piety:{{gladiatorData.piety}}</h2>
            <h2> sensitivity:{{gladiatorData.sensitivity}}</h2>
           </div>
           <div class="flex  p-2 flex-col h-48 w-48 bg-yellow-800"  id="socialTut">

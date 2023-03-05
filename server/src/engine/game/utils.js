@@ -62,6 +62,20 @@ function getRandomFromArray(ranArray){
 }
 //C:\Users\Raymond\Desktop\ActJs\Lanista\server\assets\char_a_p1\char_a_p1_0bas_humn_v00.png
 //server\assets\char_a_p1\4har\char_a_p1_4har_bob1_v00.png
+
+function makeSchedule(gladType){
+return [
+  {
+    1:{1:"liftRocks",2:"yoga",3:"swim",4:"running",5:"hiking",6:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),7:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),8:getRandomFromArray(['liftRocks','yoga','swim','running','hiking'])},
+    2:{1:"liftRocks",2:"yoga",3:"swim",4:"running",5:"hiking",6:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),7:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),8:getRandomFromArray(['liftRocks','yoga','swim','running','hiking'])},
+    3:{1:"liftRocks",2:"yoga",3:"swim",4:"running",5:"hiking",6:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),7:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),8:getRandomFromArray(['liftRocks','yoga','swim','running','hiking'])},
+    4:{1:"liftRocks",2:"yoga",3:"swim",4:"running",5:"hiking",6:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),7:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),8:getRandomFromArray(['liftRocks','yoga','swim','running','hiking'])},
+    5:{1:"liftRocks",2:"yoga",3:"swim",4:"running",5:"hiking",6:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),7:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),8:getRandomFromArray(['liftRocks','yoga','swim','running','hiking'])},
+    6:{1:"liftRocks",2:"yoga",3:"swim",4:"running",5:"hiking",6:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),7:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),8:getRandomFromArray(['liftRocks','yoga','swim','running','hiking'])},
+  }
+  ]
+}
+
 function createNewGladiator(gladType) {
   
   //console.log("  -EN> Creating Glad:",gladType);
@@ -112,16 +126,7 @@ function createNewGladiator(gladType) {
         mainHand:getRandomFromArray(['gladius','mace','dagger']),
         offHand:getRandomFromArray(['mediumShield','gloves','largeShield']),
         head:getRandomFromArray(['galea','halfHelm','fullHelm']),
-        schedule:[
-          {
-            1:{1:"liftRocks",2:"yoga",3:"pray",4:"running",5:"hiking",6:"reading",7:"fishing",8:getRandomFromArray(['liftRocks','yoga','pray','running','hiking','reading','fishing'])},
-            2:{1:"liftRocks",2:"yoga",3:"pray",4:"running",5:"hiking",6:"reading",7:"fishing",8:getRandomFromArray(['liftRocks','yoga','pray','running','hiking','reading','fishing'])},
-            3:{1:"liftRocks",2:"yoga",3:"pray",4:"running",5:"hiking",6:"reading",7:"fishing",8:getRandomFromArray(['liftRocks','yoga','pray','running','hiking','reading','fishing'])},
-            4:{1:"liftRocks",2:"yoga",3:"pray",4:"running",5:"hiking",6:"reading",7:"fishing",8:getRandomFromArray(['liftRocks','yoga','pray','running','hiking','reading','fishing'])},
-            5:{1:"liftRocks",2:"yoga",3:"pray",4:"running",5:"hiking",6:"reading",7:"fishing",8:getRandomFromArray(['liftRocks','yoga','pray','running','hiking','reading','fishing'])},
-            6:{1:"liftRocks",2:"yoga",3:"pray",4:"running",5:"hiking",6:"reading",7:"fishing",8:getRandomFromArray(['liftRocks','yoga','pray','running','hiking','reading','fishing'])},
-          }
-        ]
+        schedule:makeSchedule(gladType)
   
     };
 

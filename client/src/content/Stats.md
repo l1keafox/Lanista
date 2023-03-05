@@ -29,7 +29,6 @@ Vitality
 Intelligence
 Wisdom
 Bravery
-Piety
 Sensitivity
 
 These are stats that are usi

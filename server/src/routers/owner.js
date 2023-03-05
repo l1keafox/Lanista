@@ -242,7 +242,7 @@ router.get('/owner/ability/:abilityName', async(req, res) => {
         if(rtn){
             res.send(rtn);
         } else {
-            console.log('  -EN/Router/Owner>leanring data skill missing?',skill);
+            console.log('  -EN/Router/Owner>leanring data skill missing?');
         }
 })
 

@@ -281,11 +281,12 @@ This should be small group sthen.
 				let saved = await parseAndSaveDuel(dResult);
 				duelResults.push({saveId: saved.id, 1: one.name, 2:two.name});
 			} else {
-
+				console.log('ERror No Group[e]',group)
+				return;
 			}
 
 			// winner gets winObj++;
-			if(dResult.k.w == 1){
+			if(dResult.k && dResult.k.w == 1){
 			//if (dResult.final.winner == group[i].name) {
 
 				addToRecord2(toRecord,group[i],"winRecord");
@@ -464,7 +465,6 @@ async function quarterTournament(allGladiators,) {
 		let toRecordObj = {};
 		for(let i in allGladiators){
 			const mainGlad = allGladiators[i];
-			if (mainGlad.level >= 3) {
 				const startOfTick = new Date();
 				let added = [];
                 let tournyName = mainGlad.name[0]+mainGlad.name[1]+mainGlad.name[4];
@@ -484,7 +484,7 @@ async function quarterTournament(allGladiators,) {
                 usedGlads = usedGlads.concat(localGroup);
 				
 
-			}
+			
 		}
 		resolve({usedGlads,toRecordObj});
 	});
@@ -499,7 +499,6 @@ async function regionalTournament(allGladiators) {
 		let toRecordObj = {};
 		for(let i in allGladiators){
 			const mainGlad = allGladiators[i];
-			if (mainGlad.level >= 3) {
 				const startOfTick = new Date();
 				let added = [];
                 let tournyName = mainGlad.name[0]+mainGlad.name[1]+mainGlad.name[4];
@@ -518,7 +517,7 @@ async function regionalTournament(allGladiators) {
                 usedGlads = usedGlads.concat(localGroup);
 				
 
-			}
+			
 		}
 		resolve({usedGlads,toRecordObj});
 	});
@@ -535,13 +534,11 @@ async function localTournament(allGladiators) {
 //		console.log('  -> Starting Local');
 		for(let i in allGladiators){
 			const mainGlad = allGladiators[i];
-			if (mainGlad.level >= 3) {
 				const startOfTick = new Date();
-                let tournyName = mainGlad.name[0]+mainGlad.name[1]+mainGlad.name[4];
+        let tournyName = mainGlad.name[0]+mainGlad.name[1]+mainGlad.name[4];
 				let localGroup = await  getMemoryGroup(mainGlad, groupSize);
 				// So here we will randomize the group before we start the roundRobin
 				//console.log("  -TOURN>>< Starting RoundRobin><",tournyName,mainGlad.level, mainGlad.age, localGroup.length,'/',memoryByLvl[mainGlad.level].length);
-
 				let result = await doRoundRobin(localGroup,tournyName,toRecordObj);
 				// we will need all owners, and make sure it's unique
 				// we will need all glaidators and memories seperated.
@@ -560,7 +557,7 @@ async function localTournament(allGladiators) {
                 usedGlads = usedGlads.concat(localGroup);
 
 			}
-		}
+		
 		resolve({usedGlads,toRecordObj});
 	});
 }
