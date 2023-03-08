@@ -1,18 +1,18 @@
 {
-  "liftRocks": {
+  "lift": {
     "strength": {
       "min": 1,
-      "max": 6,
+      "max": 5,
       "growth": true
     },
-    "bravery": {
+    "wisdom": {
       "min": 1,
-      "max": 4,
+      "max": 3,
       "growth": true
     },
-    "reputation": {
+    "intelligence": {
       "min": 1,
-      "max": 2,
+      "max": 1,
       "growth": true
     },
     "gold": {
@@ -24,17 +24,17 @@
   "swim": {
     "dexterity": {
       "min": 1,
-      "max": 6,
+      "max": 5,
       "growth": true
     },
     "intelligence": {
       "min": 1,
-      "max": 4,
+      "max": 3,
       "growth": true
     },
-    "luck": {
+    "sensitivity": {
       "min": 1,
-      "max": 2,
+      "max": 1,
       "growth": true
     },
     "fame": {
@@ -47,17 +47,17 @@
   "yoga": {
     "agility": {
       "min": 1,
-      "max": 6,
+      "max": 5,
       "growth": true
     },
-    "sensitivity": {
+    "bravery": {
       "min": 1,
-      "max": 4,
+      "max": 3,
       "growth": true
     },
-    "charisma": {
+    "wisdom": {
       "min": 1,
-      "max": 2,
+      "max": 1,
       "growth": true
     },
     "gold": {
@@ -66,20 +66,20 @@
       "growth": true
     }
   },
-  "running": {
-    "constitution": {
+  "run": {
+    "wisdom": {
       "min": 1,
-      "max": 6,
-      "growth": true
-    },
-    "intelligence": {
-      "min": 1,
-      "max": 4,
+      "max": 5,
       "growth": true
     },
     "reputation": {
       "min": 1,
-      "max": 2,
+      "max": 3,
+      "growth": true
+    },
+    "charisma": {
+      "min": 1,
+      "max": 1,
       "growth": true
     },
     "fame": {
@@ -89,20 +89,42 @@
     }
 
   },
-  "hiking": {
-    "vitality": {
+  "hike": {
+    "sensitivity": {
       "min": 1,
-      "max": 6,
+      "max": 5,
       "growth": true
     },
-    "wisdom": {
+    "constitution": {
       "min": 1,
-      "max": 4,
+      "max": 3,
       "growth": true
     },
-    "charisma": {
+    "bravery": {
+      "min": 1,
+      "max": 1,
+      "growth": true
+    },
+    "gold": {
       "min": 1,
       "max": 2,
+      "growth": true
+    }
+  },
+  "jump": {
+    "charisma": {
+      "min": 1,
+      "max": 5,
+      "growth": true
+    },
+    "stamina": {
+      "min": 1,
+      "max": 3,
+      "growth": true
+    },
+    "reputation": {
+      "min": 1,
+      "max": 1,
       "growth": true
     },
     "gold": {

@@ -1,7 +1,8 @@
 const {calcEffect,calcWin} = require("../AbilityParts");
 // provoke wins against Offensive.
-// Currently it loses against hitChance
+// This is the one that wins against attacks, but loses against other taunt and wins less against
 // so it'll 'win' against high damage.
+
 const Provoke = ()=>{
   const ability = {
      abilityName : "Provoke",
@@ -9,10 +10,11 @@ const Provoke = ()=>{
      category: "morale",
      effect : {
       taunting:{
-        reducer:['reverse'], // removes from morale damage this amount. 
+        reducer:['reverse'], 
         // If one of with reverse, became still wins against defensive.
-        charisma: 40,
-        reputation:40        
+        sensitivity: 40,
+        charisma: 30,
+        agility:20  
       },
    },
      winStats:{

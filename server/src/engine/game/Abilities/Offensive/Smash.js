@@ -11,16 +11,13 @@ const Slash = ()=>{
      effect : {
       hitDamage:{
         target:"target",
-        strength: 90,
-        dexterity:30,
-        intelligence:20,
-        luck:10
+        strength: 60,
+        wisdom:60
       },
       hitChance:{
         target:"target",
         dexterity:25,
-        sensitivity:20,
-        luck:10
+        sensitivity:55
       }
     },
      winStats:{

@@ -11,9 +11,8 @@ const Block = ()=>{
         reduce:{
           target:"caster",
           reducer:['Damage'],
-          strength:30,
-          bravery: 30,
-          luck:10
+          wisdom:40,
+          bravery: 40
         },
      },
      winStats:{
