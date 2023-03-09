@@ -53,6 +53,7 @@ async function createNumGlads(gladAmount,newOwner){
 	for (let i = 0; i < gladAmount; i++) {
 		const glad = await new Gladiator(createNewGladiator("default"));
 		glad.calcuateGladiator();
+    glad.isEnabled = true;
 		glad.ownerId = newOwner._id;
 		glad.seed = true;
 		newOwner.gladiators.push(glad.id);

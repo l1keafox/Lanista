@@ -16,6 +16,9 @@ const gladiatorSchema = new Schema(
         seed:{
             type:Boolean
         },
+        isEnabled:{
+            type:Boolean
+        },
         schedule:[],
         scheduleType:{
             type:String,

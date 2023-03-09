@@ -12,7 +12,20 @@ router.get('/gladiator/:gladiatorId', async(req, res) => {
         res.status(400)
         return;
     }
+
     let gladiator = await Gladiator.findById(req.params.gladiatorId);
+    res.send(gladiator)
+})
+router.get('/gladiator/enable/:gladiatorId/:state', async(req, res) => {
+    if(req.params.gladiatorId== "undefined"){
+        res.status(400)
+        return;
+    }
+    let gladiator = await Gladiator.findById(req.params.gladiatorId);
+    console.log(" GLADIATOR BEING ENABLED!",gladiator.isEnabled);
+    gladiator.isEnabled = req.params.state;
+    console.log(" GLADIATOR BEING ENABLED!",gladiator.isEnabled);
+    await gladiator.save();
     res.send(gladiator)
 })
 

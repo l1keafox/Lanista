@@ -13,6 +13,9 @@ const ownerSchema = new Schema(
         userName:{
             type:String,
         },
+        schoolName:{
+            type:String
+        },
         gold:{
             type: Number,
         },

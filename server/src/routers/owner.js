@@ -17,7 +17,7 @@ router.get('/owner/:ownerId', async(req, res) => {
     }
 
     try{
-        const owner = await Owner.findById( req.params.ownerId ).populate('gladiators',['name','age','winRecord','lossRecord','memoryWinRecord','memoryLossRecord','weekWin','monthWin','quarterWin','yearWin','memoryWeekWin','memoryMonthWin','memoryQuarterWin','memoryYearWin','level','lastGain','hairStyleChar','hairChar','skinChar','sexChar']);
+        const owner = await Owner.findById( req.params.ownerId ).populate('gladiators',['name','age','winRecord','lossRecord','memoryWinRecord','memoryLossRecord','weekWin','monthWin','quarterWin','yearWin','memoryWeekWin','memoryMonthWin','memoryQuarterWin','memoryYearWin','level','lastGain','hairStyleChar','hairChar','skinChar','sexChar','isEnabled']);
         const gameDate = await GameDate.find();
 
         res.send({owner, time:gameDate[0] })

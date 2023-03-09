@@ -5,7 +5,7 @@ const {calcEffect,calcWin} = require("../AbilityParts");
 // Wins against offensive
 const Slash = ()=>{
   const state = {
-     abilityName : "slash",
+     abilityName : "smash",
      type : "clash",
      category: "offensive",
      effect : {
