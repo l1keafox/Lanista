@@ -66,12 +66,12 @@ function getRandomFromArray(ranArray){
 function makeSchedule(gladType){
 return [
   {
-    1:{1:"liftRocks",2:"yoga",3:"swim",4:"running",5:"hiking",6:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),7:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),8:getRandomFromArray(['liftRocks','yoga','swim','running','hiking'])},
-    2:{1:"liftRocks",2:"yoga",3:"swim",4:"running",5:"hiking",6:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),7:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),8:getRandomFromArray(['liftRocks','yoga','swim','running','hiking'])},
-    3:{1:"liftRocks",2:"yoga",3:"swim",4:"running",5:"hiking",6:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),7:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),8:getRandomFromArray(['liftRocks','yoga','swim','running','hiking'])},
-    4:{1:"liftRocks",2:"yoga",3:"swim",4:"running",5:"hiking",6:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),7:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),8:getRandomFromArray(['liftRocks','yoga','swim','running','hiking'])},
-    5:{1:"liftRocks",2:"yoga",3:"swim",4:"running",5:"hiking",6:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),7:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),8:getRandomFromArray(['liftRocks','yoga','swim','running','hiking'])},
-    6:{1:"liftRocks",2:"yoga",3:"swim",4:"running",5:"hiking",6:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),7:getRandomFromArray(['liftRocks','yoga','swim','running','hiking']),8:getRandomFromArray(['liftRocks','yoga','swim','running','hiking'])},
+    1:{1:"lift",2:"yoga",3:"swim",4:"run",5:"hike",6:"jump",7:getRandomFromArray(['lift','yoga','swim','run','hike',"jump"]),8:getRandomFromArray(['lift','yoga','swim','run','hike',"jump"])},
+    2:{1:"lift",2:"yoga",3:"swim",4:"run",5:"hike",6:"jump",7:getRandomFromArray(['lift','yoga','swim','run','hike',"jump"]),8:getRandomFromArray(['lift','yoga','swim','run','hike',"jump"])},
+    3:{1:"lift",2:"yoga",3:"swim",4:"run",5:"hike",6:"jump",7:getRandomFromArray(['lift','yoga','swim','run','hike',"jump"]),8:getRandomFromArray(['lift','yoga','swim','run','hike',"jump"])},
+    4:{1:"lift",2:"yoga",3:"swim",4:"run",5:"hike",6:"jump",7:getRandomFromArray(['lift','yoga','swim','run','hike',"jump"]),8:getRandomFromArray(['lift','yoga','swim','run','hike',"jump"])},
+    5:{1:"lift",2:"yoga",3:"swim",4:"run",5:"hike",6:"jump",7:getRandomFromArray(['lift','yoga','swim','run','hike',"jump"]),8:getRandomFromArray(['lift','yoga','swim','run','hike',"jump"])},
+    6:{1:"lift",2:"yoga",3:"swim",4:"run",5:"hike",6:"jump",7:getRandomFromArray(['lift','yoga','swim','run','hike',"jump"]),8:getRandomFromArray(['lift','yoga','swim','run','hike',"jump"])},
   }
   ]
 }

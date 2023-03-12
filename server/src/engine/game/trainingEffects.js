@@ -11,8 +11,8 @@ const { randomBetween, rollDice } = require("./utils");
 //   "strength", - Chopping Firewood - increase gold
 //   "constitution", - Chopping Firewood
 //   "dexterity", - Woodcarving - increase gold
-//   "agility", - Hiking - increase gold
-//   "vitality", Hiking - increase gold
+//   "agility", - hike - increase gold
+//   "vitality", hike - increase gold
 //   "intelligence", - Reading Books
 //   "sensitivity", - Reading Books - increase gold
 //   "wisdom", - Praying - increase gold

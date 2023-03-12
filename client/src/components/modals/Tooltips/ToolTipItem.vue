@@ -5,7 +5,8 @@
       <span v-for="(effect,key) in cutEffect(skill.effect )" :key="effect" >
         <p>{{ key }} :	
           <span v-for="(stat,statKey) in effect" :key="statKey">
-            {{statKey[0]}}{{statKey[1]}}{{statKey[2]}}{{statKey[3]}} %{{ stat }}/
+            {{statKey[0]}}{{statKey[1]}}{{statKey[2]}}{{statKey[3]}} {{ (gladData[statKey] * (stat*0.01)).toFixed(0) }}/
+						
           </span>
         </p>
       </span>
@@ -14,9 +15,8 @@
 </template>
 
 <script setup>
-const props = defineProps(['propList'])
-const {propList} = toRefs(props);
-
+const props = defineProps(['propList','gladData'])
+const {propList,gladData} = toRefs(props);
 function cutEffect( effect ){
 	const stats = {
 		"strength":1,

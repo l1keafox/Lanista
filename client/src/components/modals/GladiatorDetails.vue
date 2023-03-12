@@ -13,7 +13,7 @@
       <BaseTabs :tabs="tabs" v-model="currentTab"/>
     </template>
     <template  v-slot:content>
-    <component :is="currentTab" @closeModal="$emit('closeModal')" :gladId="gladId" :memoryData="memData"  />
+    <component :is="currentTab" @closeModal="$emit('closeModal')" :gladId="gladId" :memoryData="memData" :gladData="gladiatorData" />
     </template>
     <template v-slot:footer ></template>
   </BaseModal>

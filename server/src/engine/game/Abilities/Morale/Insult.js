@@ -1,6 +1,7 @@
 const {calcEffect,calcWin} = require("../AbilityParts");
 // insult wins against other morale
 // wins hard against defensive.
+// Biggest danger of the highest Morale Damage is that it will be the best against both dodge and other taunt.
 const Insult = ()=>{
   const ability = {
      abilityName : "Insult",
@@ -10,10 +11,9 @@ const Insult = ()=>{
       taunting:{
         target:"caster",
         reducer:['hitChance'],
-        sensitivity: 50,
-        reputation: 50,
-        bravery: 20,
-        luck: 10,        
+        bravery: 60,
+        charisma: 50,
+        wisdom: 10
 
       },
    },

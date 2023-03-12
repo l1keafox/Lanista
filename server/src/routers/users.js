@@ -12,6 +12,9 @@ async function createOwner(user) {
 	console.log("  -EN> New Owner with new USER Acct created");
 	for (let i = 0; i < 3; i++) {
 		const glad = await new Gladiator(createNewGladiator("default"));
+		if(i == 0){
+			glad.isEnabled = true;
+		}
 		glad.calcuateGladiator();
 		glad.ownerId = owner._id;
 		owner.gladiators.push(glad.id);
@@ -106,6 +109,10 @@ router.post("/users/login", async (req, res) => {
 			for (let i = 0; i < 3; i++) {
 				const glad = await new Gladiator(createNewGladiator("default"));
 				glad.calcuateGladiator();
+				if(i == 0){
+					glad.isEnabled = true;
+				}
+		
 				glad.ownerId = owner._id;
 				owner.gladiators.push(glad.id);
 				await glad.save();

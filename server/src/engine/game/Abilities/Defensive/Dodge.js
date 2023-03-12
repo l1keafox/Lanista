@@ -11,9 +11,9 @@ const Dodge = ()=>{
         reduce:{
          target:"caster",
          reducer:['Chance'],
-         agility:70,
-         sensitivity:15,
-         luck:15
+         agility:60,
+         bravery:30,
+         reputation:30
        }
      },
      winStats:{

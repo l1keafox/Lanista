@@ -155,6 +155,7 @@ module.exports = {
 
 				gladiator.progressSkill = JSON.stringify(progress);
 
+			} else if(!gladiator.isEnabled && !gladiator.seed){
 			} else {
 
 				const growth = await doGrowth(
