@@ -89,10 +89,20 @@ function getOffhand(clothes, key,apiCall){
   }
 }
 
+function getBehindBothHands(clothes,key,apiCall,frameName){
+  // So on certain frames if it is called here it will do this set.
+    // Depending on the 
+}
 
-function createLayers(clothes, key,apiCall){
+function getBothHands(clothes,key,apiCall,frameName){
+
+}
+
+
+function createLayers(clothes, key,apiCall,frameName){
 
   return [
+		getBehindBothHands(clothes,  key,apiCall,frameName), //   BEHIND LAYER
 		getSkinURL(clothes, key,apiCall), //		skinLayer, 0bot (sub-layer, fully behind the character sprite)
 		getOutfitURL(clothes, key,apiCall), //   createImg(`/assets/${clothes.skin}`); // 1out (outfit, lowest layer)
 		null, //   createImg(`/assets/${clothes.skin}`); // 2clo (cloaks, capes, and mantles)
@@ -100,6 +110,7 @@ function createLayers(clothes, key,apiCall){
 		getHairURL(clothes, key,apiCall), //4har (hair)
 		getHelmURL(clothes, key,apiCall), //4.5har (helmet)
 		null, //   createImg(`/assets/${clothes.skin}`); //5hat (hats and hoods)
+    getBothHands(clothes,key,apiCall,frameName),
 		getMainhand(clothes,  key,apiCall), //   createImg(`/assets/${clothes.skin}`); //6tla (primary tool layer, weapons and such)
 		getOffhand(clothes,  key,apiCall), //   createImg(`/assets/${clothes.skin}`); //7tlb (secondary tool layer, shields and off-hand weapons, highest layer)
 	];

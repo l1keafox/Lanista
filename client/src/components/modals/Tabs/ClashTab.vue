@@ -40,7 +40,7 @@
 					<h1>Clash</h1>
 					<div class="w-64 bg-yellow-100 h-48 m-2 cursor-auto">
 						<template v-for="skill in clash" :key="skill">
-							<ItemMouseOver :itemId="skill" type="skill"> 
+							<ItemMouseOver :itemId="skill" type="skill" :gladData="gladData">  
 								<h1 class="m-1 bg-pink-300 text-center" >{{ skill }}</h1>
 							</ItemMouseOver>
 						</template>
@@ -119,11 +119,12 @@ const props  = defineProps({
     type:String,
     default:""
   },
+	gladData:{},
 	memoryData:{
 
 	}
 });
-const { gladId , memoryData } = toRefs(props)
+const { gladId , memoryData ,gladData} = toRefs(props)
 const emit = defineEmits(["closeModal"])
 const apiCall = inject('apiCall');
 

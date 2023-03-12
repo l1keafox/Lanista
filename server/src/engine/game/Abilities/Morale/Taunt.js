@@ -8,9 +8,10 @@
        effect : {
         taunting:{
           target:"caster",
-          charisma: 50,
           reducer:['hitDamage'],
-          reputation:50
+          sensitivity: 40,
+          reputation: 40,
+          agility:20
         },
      },
        winStats:{

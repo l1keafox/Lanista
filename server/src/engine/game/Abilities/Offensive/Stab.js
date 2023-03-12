@@ -8,15 +8,14 @@ const Stab = ()=>{
      effect : {
       hitDamage:{
         target:"target",
-        strength: 30,
-        agility:30,
-        luck:10
+        agility:60,
+        strength: 20
       },
       hitChance:{
         target:"target",
-        dexterity:100,
-        wisdom:20,
-        luck:10
+        dexterity:90,
+        intelligence:15,
+        wisdom:15
       }
     },
      winStats:{

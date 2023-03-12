@@ -1,6 +1,51 @@
 <template>
 	<div class="flex flex-wrap">
-		<div v-if="glad" :class="gladiatorCard" class="relative items-center m-2 border border-yellow-100">
+		<div v-if="glad && !glad.isEnabled">
+			<div v-if="glad" :class="gladiatorCard" class="relative items-center m-2 border border-yellow-100">
+				<h1 :class="cardTitle">{{ glad.name }}</h1>
+	
+				<hr />
+			 
+				<div class="flex flex-wrap justify-center">
+				<button
+					:id="'detailsBtn' + index"
+					class="bg-blue-200 hover:bg-blue-300 m-1 mx-2 text-purple-700 w-2/5"
+					@click="openModal($event, 'GladiatorDetails')"
+					:data-id="glad._id">
+					Details
+				</button>
+				<button
+					:id="'scheduleBtn' + index"
+					class="bg-yellow-200 hover:bg-yellow-300 m-1 mx-2 text-purple-900  w-2/5"
+					@click="openModal($event, 'ScheduleManager')"
+					:data-id="glad._id">
+					Schedule
+				</button>
+				<button
+					
+					class="bg-black m-1 mx-2 text-purple-700  w-2/5"
+					>
+				</button>
+				<button
+					:id="'historyBtn' + index"
+					class="bg-red-200 hover:bg-red-300 m-1 mx-2 text-purple-700  w-2/5 "
+					@click="openModal($event, 'GladiatorOptions')"
+					:data-id="glad._id">
+					Options
+				</button>
+				<p class="text-center"> Setup schedule and enable under options</p>
+			</div>
+				<div class=" absolute bottom-0 items-center flex justify-center">
+					<Character
+						class="h-[10rem] w-[10rem]"
+						:clothes="makeClothes(glad)"
+						animation="stand"
+						direction="down"
+						:gladName="glad.name" />
+				</div>
+			</div>			
+		</div>
+		<div v-else-if="glad" :class="gladiatorCard" class="relative items-center m-2 border border-yellow-100">
 			<h1 :class="cardTitle">{{ glad.name }}</h1>
 
 			<h2>Level:{{ glad.level }} / Age:{{ glad.age }}</h2>
@@ -39,7 +84,7 @@
 				Options
 			</button>
     </div>
-			<div class=" absolute bottom-10 items-center flex justify-center">
+			<div class=" absolute bottom-0 items-center flex justify-center">
 				<Character
 					class="h-[10rem] w-[10rem]"
 					:clothes="makeClothes(glad)"
@@ -156,9 +201,13 @@ function makeClothes(glad) {
 		body: 1,
 	};
 }
+const setModalData = inject('setModalData')
 function openModal(event, modalName) {
+setModalData(glad)
+
 	emit("openBigModal", {
 		gladiatorId: event.target.getAttribute("data-id"),
+		gladData:glad,
 		modalShown: modalName,
 	});
 }

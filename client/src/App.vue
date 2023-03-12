@@ -16,6 +16,7 @@
 		v-if="showToolTipModal"
 		:context="toolTipContext"
 		:type="contextType"
+		:gladData="toolTipGladData"
 		:is="modals[toolTipType]" />
 </template>
 
@@ -73,6 +74,8 @@ const showTutorialModal = ref(false);
 const showToolTipModal = ref(false);
 const toolTipContext = ref(null);
 const contextType = ref(null);
+const toolTipGladData = ref(null);
+
 const stageMain = ref("WelcomeMain");
 
 const timeData = ref(null);
@@ -95,7 +98,7 @@ provide(
 );
 provide(
 	"gladiatorCard",
-	"h-[27rem] aspect-[5/7] p-3 m-3 cursor-default select-none flex flex-col bg-slate-700 "
+	"h-[23rem] aspect-[5/7] p-2 m-2 cursor-default select-none flex flex-col bg-slate-700 "
 );
 provide("cardTitle", "text-xl text-sky-400");
 provide(
@@ -248,10 +251,25 @@ provide("showTutorial", (tutorial) => {
 		}, 750);
 	}
 });
-provide("showCardTip", (message, type) => {
+let modalData = ref();
+provide("modalData",
+	computed(() => modalData.value)
+);
+
+provide("setModalData",	(gladData)=>{
+		modalData.value ={
+			gladData
+		}
+		console.log(modalData);
+	})
+
+
+
+provide("showCardTip", (message, type,gladData) => {
 	toolTipType.value = "CardToolTipModal";
 	toolTipContext.value = unref(message);
 	contextType.value = unref(type);
+	toolTipGladData.value = unref(gladData);
 	showToolTipModal.value = true;
 });
 provide("hideToolTip", () => {

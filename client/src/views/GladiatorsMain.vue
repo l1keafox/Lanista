@@ -1,5 +1,6 @@
 <template>
-	<div class="flex flex-wrap justify-start content-start overflow-y-auto">
+	<!-- <div class="flex flex-wrap justify-start content-start overflow-y-auto"> -->
+		<div class="flex flex-wrap w-full overflow-x-hidden justify-start content-start">
 		<template
 			v-if="getOwner"
 			v-for="(glad, index) in getOwner.gladiators"
@@ -11,6 +12,7 @@
 		<component
 			:is="components[mShown]"
 			:gladId="gladId"
+			:gladData="gladDataSent"
 			@closeModal="isModalShown = false" />
 	</div>
 </template>
@@ -34,9 +36,11 @@ const showTutorial = inject("showTutorial");
 const isModalShown = ref(false);
 const mShown = ref(false);
 const gladId = ref(false);
+const gladDataSent = ref();
 
-function openModal({ gladiatorId, modalShown }) {
+function openModal({ gladiatorId, modalShown, gladData }) {
 	mShown.value = modalShown;
+	gladDataSent.value = gladData;
 	gladId.value = gladiatorId;
 	isModalShown.value = true;
 }

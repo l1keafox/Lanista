@@ -194,7 +194,7 @@ onMounted(async () => {
 
 	function animate(frameInfo) {
 		
-		const imageArray = doSpriteLayer(clothes,keyFrameArray[0].key,apiCall.value);
+		const imageArray = doSpriteLayer(clothes,keyFrameArray[0].key,apiCall.value,keyFrameArray[0].fNm);
 
 		if (!frameInfo) {
 			console.log("  -Char> ERROR ", frameIndex,keyFrameArray[0]);

@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
 db.once("open", () => {
   ioServer.listen(PORT, () => {
     // IO port being opened.
-    console.log(`  -API> API server running on port ${PORT}!`);
+    console.log(`  -API> API server run on port ${PORT}!`);
     console.log(`  -IO> Socket.io listening on http://localHost:${PORT}?`);
     Engine.init();
   });

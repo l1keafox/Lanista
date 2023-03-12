@@ -17,7 +17,7 @@
 					<div class="flex w-1/2 justify-between">
 						<h2>{{ slot }}</h2>
 
-						<ItemMouseOver :itemId="gladiatorData[slot]"> 
+						<ItemMouseOver :itemId="gladiatorData[slot]" :gladData="gladiatorData"> 
 							<template v-if=" gladiatorData.value">
 								<h2 v-if=" gladiatorData.value[slot]">{{ gladiatorData.value[slot] }}</h2>
 							</template>

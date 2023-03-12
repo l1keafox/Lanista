@@ -1,6 +1,6 @@
 <template>
 		<div id="toolTip"	class="cursor-disabled fixed text-black bg-slate-500 z-50 p-2 rounded">
-			<component :is="components[ToolTip]" :propList="dataList"/>
+			<component :is="components[ToolTip]" :propList="dataList" :gladData="gladData"/>
 		</div>
 </template>
 
@@ -16,13 +16,14 @@ const components = {
 
 const props = defineProps({
 	context: {},
+	gladData:{},
   type:{
     default:"item"
   }
 });
 
 
-const { context,type } = toRefs(props);
+const { context,type,gladData } = toRefs(props);
 const apiCall = inject("apiCall");
 const dataList = ref({})
 

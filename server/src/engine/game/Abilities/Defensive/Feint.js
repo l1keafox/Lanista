@@ -11,9 +11,8 @@ const Feint= ()=>{
         reduce:{
          target:"caster",
          reducer:['taunting'],
-         dexterity:40,
-         reputation:40,
-         intelligence:40
+         intelligence:60,
+         reputation:60
        }
      },
      winStats:{

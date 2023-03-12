@@ -12,16 +12,12 @@ const Slash = ()=>{
       hitDamage:{
         target:"target",
         strength: 50,
-        dexterity:30,
-        intelligence:10,
-        luck:10
+        intelligence:50
       },
       hitChance:{
         target:"target",
         dexterity:50,
-        wisdom:25,
-        intelligence:10,
-        luck:15
+        charisma:50
       }
     },
      winStats:{
