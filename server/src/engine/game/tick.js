@@ -58,9 +58,9 @@ module.exports = {
 
 //			console.log("  -EN>Tournament Day");
 			let allNonSeedGlad = allGladiators.filter(glad => {
-				if(gladiator.isEnabled)	glad.age++;
+				if(glad.isEnabled)	glad.age++;
 
-				return !glad.seed && gladiator.isEnabled
+				return !glad.seed && glad.isEnabled
 			});
 
 			await saveManyModelMemory(allGladiators); // uncertain if this works as intended.
