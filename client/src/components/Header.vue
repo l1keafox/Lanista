@@ -77,6 +77,7 @@ const apiCall = inject("apiCall");
 const showTutorial = inject("showTutorial");
 
 const { tickTimer } = defineProps(["tickTimer"]);
+
 const emit = defineEmits(["logged", "changeMain", "getUser"]);
 
 const dayMap = {
