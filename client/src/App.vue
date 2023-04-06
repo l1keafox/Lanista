@@ -119,7 +119,7 @@ provide(
 );
 
 function doTick() {
-		if (timeData.value && countDown <= 0) {
+		if (timeData.value && (countDown <= 0 || countDown == undefined)) {
 			countDown = timeTimer;
 		} else if (countDown) {
 			countDown -= 100;
