@@ -2,7 +2,7 @@
 	<div class="flex flex-col w-full overflow-x-hidden">
 		<div v-if="showStudent" class="flex overflow-x-auto">
 			<template v-for="(student, index) in showStudent" :key="index">
-				<div :class="gladiatorCard">
+				<div class="h-[25rem] aspect-[5/7] p-2 m-2 cursor-default select-none flex flex-col bg-slate-700 ">
 					<h1 :class="cardTitle">{{ student.name }}</h1>
 					<hr />
 					<h1>strength: {{ student.strength }}</h1>

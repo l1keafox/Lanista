@@ -58,11 +58,11 @@ module.exports = {
 
 //			console.log("  -EN>Tournament Day");
 			let allNonSeedGlad = allGladiators.filter(glad => {
-				glad.age++;
-				return !glad.seed 
+				if(glad.isEnabled)	glad.age++;
+
+				return !glad.seed && glad.isEnabled
 			});
 
-			
 			await saveManyModelMemory(allGladiators); // uncertain if this works as intended.
 
  		  	console.log(`  -EN> Saved Gladiators Time: ${new Date()-startOfTick}  :: ${allNonSeedGlad.length}# of glads`);
@@ -155,7 +155,6 @@ module.exports = {
 
 				gladiator.progressSkill = JSON.stringify(progress);
 
-			} else if(!gladiator.isEnabled && !gladiator.seed){
 			} else {
 
 				const growth = await doGrowth(
