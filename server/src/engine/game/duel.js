@@ -232,7 +232,7 @@ async function doDuel(one, two) {
 			roundReport.R = { r: "t" };
 		} else {
 			roundReport[thisClash.clashWinner.keyId].react =  thisClash.clashWinner.clashReact( thisClash.clashLoser);
-			roundReport[thisClash.clashLoser.keyId].react = thisClash.clashLoser.clashReact(thisClash.clashWinner);
+			roundReport[thisClash.clashLoser.keyId].react = this .clashLoser.clashReact(thisClash.clashWinner);
 
 			roundReport.R = {
 				r: "w",
@@ -323,4 +323,4 @@ async function parseAndSaveDuel(report){
 	return savedDuel;
 }
 
-module.exports = { doDuel , parseDuel,parseAndSaveDuel };
+module.exports = { doDuel, parseDuel, parseAndSaveDuel, Clash, };
