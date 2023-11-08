@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken')
 const userSchema = new Schema(
 	{
@@ -47,7 +47,8 @@ const userSchema = new Schema(
 userSchema.pre('save', async function (next) {
     // Hash the password before saving the user model
     if (this.isNew || this.isModified('password')) {
-        this.password = await bcrypt.hash(this.password, 8)
+				var salt = bcrypt.genSaltSync(10);
+        this.password = await bcrypt.hashSync(this.password, salt);
     }
     next();
 })
