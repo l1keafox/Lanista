@@ -13,19 +13,19 @@
 
 ## Usage
 
-NPM install in all three directories, root/client/server
-npm run seed in root -
-npm run dev 
+PNPM install 
+pnpm run seed in root -
+pnpm run dev 
 
 ![Website](/assets/images/readme.PNG)
 
 ## Installation
 
 1. Download repo
-2. NPM I at root
-3. NPM run seed
+2. PNPM I at root
+<!-- 3. PNPM --filter client run seed
 4. create .env file in server with following:
-    a. JWT_KEY
+    a. JWT_KEY -->
 
 
 ## Contributing
