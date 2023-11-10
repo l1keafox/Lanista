@@ -1,5 +1,5 @@
 # Fetching the minified node image on apline linux
-FROM node:slim
+FROM node:21-alpine
 
 # Declaring env
 ENV NODE_ENV development
@@ -17,4 +17,4 @@ RUN npm install
 CMD [ "node", "server.js" ]
 
 # Exposing server port
-EXPOSE 3001
+# EXPOSE 3001

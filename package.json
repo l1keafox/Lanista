@@ -13,7 +13,6 @@
     "start": "npm run build && cd apps/server && node server.js",
     "server": "cd apps/server && node server.js --ignore client",
     "build": "cd apps/client && npm run build ",
-    "install": "cd apps/server && npm i && cd ../client && npm i",
     "client": "cd apps/client && npm start",
     "develop": "concurrently \"cd apps/server && npm run develop\" \"cd apps/client && npm run dev\"",
     "dev": "concurrently \"cd apps/client && npm run dev\" \"cd apps/server && npm run develop\" ",
