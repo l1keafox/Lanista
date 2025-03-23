@@ -63,11 +63,11 @@ let timeTimer;
 let countDown;
 let interval;
 let timerInterval;
+console.log(`Backend API string : ${location.protocol}://${import.meta.env.VITE_BACKEND_STRING}:${import.meta.env.VITE_PORT}`);
 const apiData =
 	location.protocol === "https:"
 		? `https://${window.location.hostname}`
-		: `http://${process.env.BACKEND_STRING ?? window.location.hostname}:${process.env.VUE_APP_API_URL}`;
-
+		: `http://${import.meta.env.VITE_BACKEND_STRING ?? window.location.hostname}:${import.meta.env.VITE_PORT ?? 3001}`;
 const isLoggedIn = ref(auth.loggedIn());
 const toolTipType = ref(null);
 const showTutorialModal = ref(false);
