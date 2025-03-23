@@ -17,6 +17,7 @@ services:
     ports:
       - "${CLIENT_PORT}:80"
     environment:
+      - BACKEND_STRING=${BACKEND_STRING}
       - PORT=${BACKEND_PORT}
     depends_on:
       - backend

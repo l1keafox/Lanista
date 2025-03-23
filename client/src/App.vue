@@ -66,7 +66,7 @@ let timerInterval;
 const apiData =
 	location.protocol === "https:"
 		? `https://${window.location.hostname}`
-		: `http://${window.location.hostname}:${process.env.VUE_APP_API_URL}`;
+		: `http://${process.env.BACKEND_STRING ?? window.location.hostname}:${process.env.VUE_APP_API_URL}`;
 
 const isLoggedIn = ref(auth.loggedIn());
 const toolTipType = ref(null);
