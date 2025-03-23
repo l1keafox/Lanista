@@ -15,7 +15,6 @@ const app = express();
 
 const { initIo } = require("./src/socket/index"); // initIo to initalize the server, io later on just to grab the object.
 const ioServer = initIo(app); // initalizing io into serverIo
-console.log(  process.env.MONGODB_CONNECTION_STRING  );
 app.use(cors())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
