@@ -21,4 +21,11 @@ jobs:
 
       - name: SSH into Cloudflare Tunnel
         run: |
-          ssh -i ~/.ssh/id_rsa fox@sshd.likeafox.com "ls -la"
+          ssh -i ~/.ssh/id_rsa fox@sshd.likeafox.com << 'EOF'
+            echo "Running Command 1"
+            ls -l
+            echo "Running Command 2"
+            df -h
+            echo "Running Command 3"
+            uptime
+          EOF
