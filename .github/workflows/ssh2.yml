@@ -1,0 +1,24 @@
+name: SSH into Cloudflare Tunnel
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ssh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan ssh.yourdomain.com >> ~/.ssh/known_hosts
+
+      - name: SSH into Cloudflare Tunnel
+        run: |
+          ssh -i ~/.ssh/id_rsa fox@sshd.likeafox.com "ls -la"
