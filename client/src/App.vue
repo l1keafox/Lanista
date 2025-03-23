@@ -64,10 +64,13 @@ let countDown;
 let interval;
 let timerInterval;
 console.log(`Backend API string : ${location.protocol}://${window.location.hostname}:${import.meta.env.VITE_PORT ?? 3006}`);
-const apiData =
+let apiData =
 	location.protocol === "https:"
 		? `https://localhost`
-		: `http://localhost:${3006}`;
+		: `http://${window.location.hostname}:${3006}`;
+if(window.location.hostname == "lanista.likearay.com"){
+	apiData = "lanistaport.likearay.com";
+}
 console.log(apiData);
 const isLoggedIn = ref(auth.loggedIn());
 const toolTipType = ref(null);
