@@ -2,20 +2,20 @@ services:
   backend:
     build: ./server
     ports:
-      - "3001:3001"
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
     environment:
-      MONGODB_CONNECTION_STRING: mongodb://root:example@192.168.0.15:27017
-      NODE_ENV: "prod"
-      PORT: 3001
-      TICK: 15000
-      JWT_KEY: "NEVERFORGET"
+      MONGODB_CONNECTION_STRING: ${MONGO_STRING}
+      NODE_ENV: "${ENV}"
+      PORT: ${BACKEND_PORT}
+      TICK: ${TICK}
+      JWT_KEY: "${JWT}"
     networks:
       - app-network
 
   frontend:
     build: ./client
     ports:
-      - "3005:80"
+      - "${CLIENT_PORT}:80"
     depends_on:
       - backend
     networks:
