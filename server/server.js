@@ -9,7 +9,7 @@ const ownerRouter = require('./src/routers/owner');
 const db = require("./src/config/connection");
 const cors = require('cors');
 const { Engine } = require("./src/engine/");
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3006;
 const app = express();
 // Socket.io Stuff
 
