@@ -1,0 +1,18 @@
+services:
+  backend:
+    build: ./server
+    ports:
+      - "5000:5000"
+    environment:
+      MONGODB_CONNECTION_STRING: mongodb://root:example@192.168.0.15:27017
+      NODE_ENV: "prod"
+      TICK: 15000
+      JWT_KEY: "NEVERFORGET"
+
+
+  frontend:
+    build: ./client
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
