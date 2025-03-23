@@ -16,6 +16,8 @@ services:
     build: ./client
     ports:
       - "${CLIENT_PORT}:80"
+    environment:
+      - PORT=${BACKEND_PORT}
     depends_on:
       - backend
     networks:
