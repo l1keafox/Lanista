@@ -6,8 +6,9 @@ if(process.env.MONGODB_CONNECTION_STRING){
 } else {
   console.log('  -MON>Connecting to local atlas');
 }
+console.log(process.env.MONGODB_CONNECTION_STRING+"/"+process.env.NODE_ENV);
 mongoose.connect(
-  process.env.MONGODB_CONNECTION_STRING  || 'mongodb://127.0.0.1:27017/Lanista',
+  process.env.MONGODB_CONNECTION_STRING+"/Lanista_"+process.env.NODE_ENV+"?authSource=admin"  || 'mongodb://127.0.0.1:27017/Lanista',
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
