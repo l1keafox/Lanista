@@ -17,7 +17,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan ssh.yourdomain.com >> ~/.ssh/known_hosts
+          ssh-keyscan sshd.likeafox.com >> ~/.ssh/known_hosts
 
       - name: SSH into Cloudflare Tunnel
         run: |
