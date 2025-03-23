@@ -64,10 +64,14 @@ let countDown;
 let interval;
 let timerInterval;
 console.log(`Backend API string : ${location.protocol}://${window.location.hostname}:${import.meta.env.VITE_PORT ?? 3006}`);
-const apiData =
+let apiData =
 	location.protocol === "https:"
-		? `https://${window.location.hostname}`
+		? `https://localhost`
 		: `http://${window.location.hostname}:${3006}`;
+if(window.location.hostname.includes("likearay.com")){
+	apiData = "https://lanistaport.likearay.com";
+}
+console.log("Connecting too ://"+apiData);
 const isLoggedIn = ref(auth.loggedIn());
 const toolTipType = ref(null);
 const showTutorialModal = ref(false);
