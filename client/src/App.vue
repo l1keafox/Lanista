@@ -68,10 +68,10 @@ let apiData =
 	location.protocol === "https:"
 		? `https://localhost`
 		: `http://${window.location.hostname}:${3006}`;
-if(window.location.hostname == "lanista.likearay.com"){
-	apiData = "lanistaport.likearay.com";
+if(window.location.hostname.includes("likearay.com")){
+	apiData = "https://lanistaport.likearay.com";
 }
-console.log(apiData);
+console.log("Connecting too ://"+apiData);
 const isLoggedIn = ref(auth.loggedIn());
 const toolTipType = ref(null);
 const showTutorialModal = ref(false);
