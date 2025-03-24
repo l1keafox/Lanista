@@ -26,8 +26,16 @@ jobs:
           echo "Host sshd.likearay.com" >> ~/.ssh/config
           echo "  ProxyCommand /usr/local/bin/cloudflared access ssh --hostname %h" >> ~/.ssh/config
           chmod 600 ~/.ssh/config  # Set correct permissions          
+
       - name: Verify Cloudflared Installation
         run: cloudflared --version
 
-      - name: Connect to Server and Execute Command
-        run: ssh -o StrictHostKeyChecking=no user@sshd.likearay.com "echo 'Connected Successfully!'"        
+      - name: Install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+
+      - name: Connect to Server with Password
+        env:
+          SSH_USER: "your-username"
+          SSH_PASS: ${{ secrets.SSH_PASSWORD }}
+        run: |
+          sshpass -p "$SSH_PASS" ssh -o StrictHostKeyChecking=no $SSH_USER@sshd.likearay.com "echo 'Connected Successfully!'"
