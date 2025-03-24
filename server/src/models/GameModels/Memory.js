@@ -1,57 +1,51 @@
 const { Schema, model } = require("mongoose");
 
-
 // Memories are saved gladiators to be used later in battle.
 // the memory string is what will be created back into an gladiator game object to be played against.
 
+const MemorySchema = new Schema({
+  name: {
+    type: String,
+  },
+  age: {
+    type: Number,
+  },
+  level: {
+    type: Number,
+  },
 
-const MemorySchema = new Schema(
-	{
-        name:{
-            type:String
-        },
-        age:{ 
-            type:Number
-        },
-        level:{ 
-            type:Number
-        },
-        
-        winRecord:{
-            type:Number
-        },
-        lossRecord:{
-            type:Number
-        },
-        weekWin:{
-            type:Number
-        },
-        monthWin:{
-            type:Number
-        },
-        quarterWin:{
-            type:Number
-        },
-        yearWin:{
-            type:Number
-        },
-        seed:{
-            type:Boolean
-        },
+  winRecord: {
+    type: Number,
+  },
+  lossRecord: {
+    type: Number,
+  },
+  weekWin: {
+    type: Number,
+  },
+  monthWin: {
+    type: Number,
+  },
+  quarterWin: {
+    type: Number,
+  },
+  yearWin: {
+    type: Number,
+  },
+  seed: {
+    type: Boolean,
+  },
 
-        gladiatorId:{
-            type:String
-        },
-        ownerId:{
-            type:String
-        },
-        memory:{
-            type:String
-        }
-	},
-);
-
-
+  gladiatorId: {
+    type: String,
+  },
+  ownerId: {
+    type: String,
+  },
+  memory: {
+    type: String,
+  },
+});
 
 const Memory = model("memory", MemorySchema);
 

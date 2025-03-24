@@ -10,7 +10,7 @@
 //     doReact(caster, target) {
 // //        console.log(' BACK STAB wants to win a dodge clash.',caster.effectToDo );
 //       if (caster.clashResult === this.resultWanted  && caster.clashAbility === "dodge" ) {
-        
+
 //         //caster.hits++;
 //         const dodgeChance = modStat4Effect(caster.abilityMix({"dexterity":30,"agility":30,"sensitivity":30,"luck":15}),10);
 //         target.hits -= dodgeChance;
@@ -20,35 +20,35 @@
 //       }
 //     }
 //   };
-  
-const {calcEffect,calcWin} = require("../AbilityParts");
+
+const { calcEffect, calcWin } = require("../AbilityParts");
 // wins against morale
 // Loses against offensive.
 // wins against dodge and block.
-const BackStab= ()=>{
+const BackStab = () => {
   const state = {
-     abilityName : "BackStab",
-     type : "react",
-     cooldown:0,
-     maxCooldown:7,
-     resultWanted:'win',
-     abilityWanted:'dodge',
+    abilityName: "BackStab",
+    type: "react",
+    cooldown: 0,
+    maxCooldown: 7,
+    resultWanted: "win",
+    abilityWanted: "dodge",
     //  categoryWanted:'defensive',
-     effect : {
-      dodgeChance:{
-         target:"caster",
-         dexterity:30,
-         agility:30,
-         sensitivity:30,
-         luck:15
-       }
-     },
-     winStats:{
-       target:"casterChar",
-       effect:"taunting"
-     }
+    effect: {
+      dodgeChance: {
+        target: "caster",
+        dexterity: 30,
+        agility: 30,
+        sensitivity: 30,
+        luck: 15,
+      },
+    },
+    winStats: {
+      target: "casterChar",
+      effect: "taunting",
+    },
   };
-  return { ...calcReact(state),...calcWin(state),...state }
-}
+  return { ...calcReact(state), ...calcWin(state), ...state };
+};
 
 module.exports = BackStab;

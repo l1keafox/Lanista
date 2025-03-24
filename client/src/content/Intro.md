@@ -2,7 +2,7 @@
 
 Welcome to Lanista
 
-To start this game, you will be given an random gladiator to start, and some gold to buy more gladiators. You will want to train and equip your gladiator for dueling life they will have. 
+To start this game, you will be given an random gladiator to start, and some gold to buy more gladiators. You will want to train and equip your gladiator for dueling life they will have.
 
 Starting building will be your school building that will give you tier 1 training methods. Each training method will give an random amount of stats and gold/fame.
 

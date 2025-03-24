@@ -1,250 +1,238 @@
 {
-  "School":{
-    "description":"Starting building that provides basic training options.",
-    "training":["lift","yoga","swim","run","hike","jump"]
+  "School": {
+    "description": "Starting building that provides basic training options.",
+    "training": ["lift", "yoga", "swim", "run", "hike", "jump"]
   },
-  "altar":{
-    "description":"Heal Prepare becomes available.",
-    "learning":["heal"]
+  "altar": {
+    "description": "Heal Prepare becomes available.",
+    "learning": ["heal"]
   },
-  "kickingRoom":{
-    "description":"Kick Clash becomes available",
-    "learning":["kick"]
+  "kickingRoom": {
+    "description": "Kick Clash becomes available",
+    "learning": ["kick"]
   },
-  "burn":{
-    "description":"Burn Prepare becomes available",
-    "learning":["burn"]
-  },
-  
-  "strRoom1":{
-    "description":"Placeholder for str gain - tier 1",
-    "training":["strRoom1"]
-  },
-  "strRoom2":{
-    "description":"Placeholder for str gain, no gain gold",
-    "training":["strRoom2"]
-  },
-  "strRoom3":{
-    "description":"Placeholder for str gain, cost little gold/stats",
-    "training":["strRoom3"]
-  },
-  "strRoom4":{
-    "description":"Placeholder for str gain, cost high gold/stats",
-    "training":["strRoom4"]
+  "burn": {
+    "description": "Burn Prepare becomes available",
+    "learning": ["burn"]
   },
 
-"agiRoom1":{
-  "description":"Placeholder for agi gain - tier 1",
-  "training":["agiRoom1"]
-},
-"agiRoom2":{
-  "description":"Placeholder for agi gain, no gain gold",
-  "training":["agiRoom2"]
-},
-"agiRoom3":{
-  "description":"Placeholder for agi gain, cost little gold/stats",
-  "training":["agiRoom3"]
-},
-"agiRoom4":{
-  "description":"Placeholder for agi gain, cost high gold/stats",
-  "training":["agiRoom4"]
-},
+  "strRoom1": {
+    "description": "Placeholder for str gain - tier 1",
+    "training": ["strRoom1"]
+  },
+  "strRoom2": {
+    "description": "Placeholder for str gain, no gain gold",
+    "training": ["strRoom2"]
+  },
+  "strRoom3": {
+    "description": "Placeholder for str gain, cost little gold/stats",
+    "training": ["strRoom3"]
+  },
+  "strRoom4": {
+    "description": "Placeholder for str gain, cost high gold/stats",
+    "training": ["strRoom4"]
+  },
 
-"dexRoom1":{
-  "description":"Placeholder for dex gain - tier 1",
-  "training":["dexRoom1"]
-},
-"dexRoom2":{
-  "description":"Placeholder for dex gain, no gain gold",
-  "training":["dexRoom2"]
-},
-"dexRoom3":{
-  "description":"Placeholder for dex gain, cost little gold/stats",
-  "training":["dexRoom3"]
-},
-"dexRoom4":{
-  "description":"Placeholder for dex gain, cost high gold/stats",
-  "training":["dexRoom4"]
-},
+  "agiRoom1": {
+    "description": "Placeholder for agi gain - tier 1",
+    "training": ["agiRoom1"]
+  },
+  "agiRoom2": {
+    "description": "Placeholder for agi gain, no gain gold",
+    "training": ["agiRoom2"]
+  },
+  "agiRoom3": {
+    "description": "Placeholder for agi gain, cost little gold/stats",
+    "training": ["agiRoom3"]
+  },
+  "agiRoom4": {
+    "description": "Placeholder for agi gain, cost high gold/stats",
+    "training": ["agiRoom4"]
+  },
 
+  "dexRoom1": {
+    "description": "Placeholder for dex gain - tier 1",
+    "training": ["dexRoom1"]
+  },
+  "dexRoom2": {
+    "description": "Placeholder for dex gain, no gain gold",
+    "training": ["dexRoom2"]
+  },
+  "dexRoom3": {
+    "description": "Placeholder for dex gain, cost little gold/stats",
+    "training": ["dexRoom3"]
+  },
+  "dexRoom4": {
+    "description": "Placeholder for dex gain, cost high gold/stats",
+    "training": ["dexRoom4"]
+  },
 
+  "conRoom1": {
+    "description": "Placeholder for con gain - tier 1",
+    "training": ["conRoom1"]
+  },
+  "conRoom2": {
+    "description": "Placeholder for con gain, no gain gold",
+    "training": ["conRoom2"]
+  },
+  "conRoom3": {
+    "description": "Placeholder for con gain, cost little gold/stats",
+    "training": ["conRoom3"]
+  },
+  "conRoom4": {
+    "description": "Placeholder for con gain, cost high gold/stats",
+    "training": ["conRoom4"]
+  },
 
-"conRoom1":{
-  "description":"Placeholder for con gain - tier 1",
-  "training":["conRoom1"]
-},
-"conRoom2":{
-  "description":"Placeholder for con gain, no gain gold",
-  "training":["conRoom2"]
-},
-"conRoom3":{
-  "description":"Placeholder for con gain, cost little gold/stats",
-  "training":["conRoom3"]
-},
-"conRoom4":{
-  "description":"Placeholder for con gain, cost high gold/stats",
-  "training":["conRoom4"]
-},
+  "vitRoom1": {
+    "description": "Placeholder for vit gain - tier 1",
+    "training": ["vitRoom1"]
+  },
+  "vitRoom2": {
+    "description": "Placeholder for vit gain, no gain gold",
+    "training": ["vitRoom2"]
+  },
+  "vitRoom3": {
+    "description": "Placeholder for vit gain, cost little gold/stats",
+    "training": ["vitRoom3"]
+  },
+  "vitRoom4": {
+    "description": "Placeholder for vit gain, cost high gold/stats",
+    "training": ["vitRoom4"]
+  },
 
+  "intRoom1": {
+    "description": "Placeholder for int gain - tier 1",
+    "training": ["intRoom1"]
+  },
+  "intRoom2": {
+    "description": "Placeholder for int gain, no gain gold",
+    "training": ["intRoom2"]
+  },
+  "intRoom3": {
+    "description": "Placeholder for int gain, cost little gold/stats",
+    "training": ["intRoom3"]
+  },
+  "intRoom4": {
+    "description": "Placeholder for int gain, cost high gold/stats",
+    "training": ["intRoom4"]
+  },
 
-"vitRoom1":{
-  "description":"Placeholder for vit gain - tier 1",
-  "training":["vitRoom1"]
-},
-"vitRoom2":{
-  "description":"Placeholder for vit gain, no gain gold",
-  "training":["vitRoom2"]
-},
-"vitRoom3":{
-  "description":"Placeholder for vit gain, cost little gold/stats",
-  "training":["vitRoom3"]
-},
-"vitRoom4":{
-  "description":"Placeholder for vit gain, cost high gold/stats",
-  "training":["vitRoom4"]
-},
+  "wisRoom1": {
+    "description": "Placeholder for wis gain - tier 1",
+    "training": ["wisRoom1"]
+  },
+  "wisRoom2": {
+    "description": "Placeholder for wis gain, no gain gold",
+    "training": ["wisRoom2"]
+  },
+  "wisRoom3": {
+    "description": "Placeholder for wis gain, cost little gold/stats",
+    "training": ["wisRoom3"]
+  },
+  "wisRoom4": {
+    "description": "Placeholder for wis gain, cost high gold/stats",
+    "training": ["wisRoom4"]
+  },
 
+  "braRoom1": {
+    "description": "Placeholder for bra gain - tier 1",
+    "training": ["braRoom1"]
+  },
+  "braRoom2": {
+    "description": "Placeholder for bra gain, no gain gold",
+    "training": ["braRoom2"]
+  },
+  "braRoom3": {
+    "description": "Placeholder for bra gain, cost little gold/stats",
+    "training": ["braRoom3"]
+  },
+  "braRoom4": {
+    "description": "Placeholder for bra gain, cost high gold/stats",
+    "training": ["braRoom4"]
+  },
 
-"intRoom1":{
-  "description":"Placeholder for int gain - tier 1",
-  "training":["intRoom1"]
-},
-"intRoom2":{
-  "description":"Placeholder for int gain, no gain gold",
-  "training":["intRoom2"]
-},
-"intRoom3":{
-  "description":"Placeholder for int gain, cost little gold/stats",
-  "training":["intRoom3"]
-},
-"intRoom4":{
-  "description":"Placeholder for int gain, cost high gold/stats",
-  "training":["intRoom4"]
-},
+  "pieRoom1": {
+    "description": "Placeholder for pie gain - tier 1",
+    "training": ["pieRoom1"]
+  },
+  "pieRoom2": {
+    "description": "Placeholder for pie gain, no gain gold",
+    "training": ["pieRoom2"]
+  },
+  "pieRoom3": {
+    "description": "Placeholder for pie gain, cost little gold/stats",
+    "training": ["pieRoom3"]
+  },
+  "pieRoom4": {
+    "description": "Placeholder for pie gain, cost high gold/stats",
+    "training": ["pieRoom4"]
+  },
+  "senRoom1": {
+    "description": "Placeholder for sen gain - tier 1",
+    "training": ["senRoom1"]
+  },
+  "senRoom2": {
+    "description": "Placeholder for sen gain, no gain gold",
+    "training": ["senRoom2"]
+  },
+  "senRoom3": {
+    "description": "Placeholder for sen gain, cost little gold/stats",
+    "training": ["senRoom3"]
+  },
+  "senRoom4": {
+    "description": "Placeholder for sen gain, cost high gold/stats",
+    "training": ["senRoom4"]
+  },
 
+  "lucRoom1": {
+    "description": "Placeholder for luc gain - tier 1",
+    "training": ["lucRoom1"]
+  },
+  "lucRoom2": {
+    "description": "Placeholder for luc gain, no gain gold",
+    "training": ["lucRoom2"]
+  },
+  "lucRoom3": {
+    "description": "Placeholder for luc gain, cost little gold/stats",
+    "training": ["lucRoom3"]
+  },
+  "lucRoom4": {
+    "description": "Placeholder for luc gain, cost high gold/stats",
+    "training": ["lucRoom4"]
+  },
 
-"wisRoom1":{
-  "description":"Placeholder for wis gain - tier 1",
-  "training":["wisRoom1"]
-},
-"wisRoom2":{
-  "description":"Placeholder for wis gain, no gain gold",
-  "training":["wisRoom2"]
-},
-"wisRoom3":{
-  "description":"Placeholder for wis gain, cost little gold/stats",
-  "training":["wisRoom3"]
-},
-"wisRoom4":{
-  "description":"Placeholder for wis gain, cost high gold/stats",
-  "training":["wisRoom4"]
-},
+  "repRoom1": {
+    "description": "Placeholder for rep gain - tier 1",
+    "training": ["repRoom1"]
+  },
+  "repRoom2": {
+    "description": "Placeholder for rep gain, no gain gold",
+    "training": ["repRoom2"]
+  },
+  "repRoom3": {
+    "description": "Placeholder for rep gain, cost little gold/stats",
+    "training": ["repRoom3"]
+  },
+  "repRoom4": {
+    "description": "Placeholder for rep gain, cost high gold/stats",
+    "training": ["repRoom4"]
+  },
 
-
-"braRoom1":{
-  "description":"Placeholder for bra gain - tier 1",
-  "training":["braRoom1"]
-},
-"braRoom2":{
-  "description":"Placeholder for bra gain, no gain gold",
-  "training":["braRoom2"]
-},
-"braRoom3":{
-  "description":"Placeholder for bra gain, cost little gold/stats",
-  "training":["braRoom3"]
-},
-"braRoom4":{
-  "description":"Placeholder for bra gain, cost high gold/stats",
-  "training":["braRoom4"]
-},
-
-
-"pieRoom1":{
-  "description":"Placeholder for pie gain - tier 1",
-  "training":["pieRoom1"]
-},
-"pieRoom2":{
-  "description":"Placeholder for pie gain, no gain gold",
-  "training":["pieRoom2"]
-},
-"pieRoom3":{
-  "description":"Placeholder for pie gain, cost little gold/stats",
-  "training":["pieRoom3"]
-},
-"pieRoom4":{
-  "description":"Placeholder for pie gain, cost high gold/stats",
-  "training":["pieRoom4"]
-},
-"senRoom1":{
-  "description":"Placeholder for sen gain - tier 1",
-  "training":["senRoom1"]
-},
-"senRoom2":{
-  "description":"Placeholder for sen gain, no gain gold",
-  "training":["senRoom2"]
-},
-"senRoom3":{
-  "description":"Placeholder for sen gain, cost little gold/stats",
-  "training":["senRoom3"]
-},
-"senRoom4":{
-  "description":"Placeholder for sen gain, cost high gold/stats",
-  "training":["senRoom4"]
-},
-
-"lucRoom1":{
-  "description":"Placeholder for luc gain - tier 1",
-  "training":["lucRoom1"]
-},
-"lucRoom2":{
-  "description":"Placeholder for luc gain, no gain gold",
-  "training":["lucRoom2"]
-},
-"lucRoom3":{
-  "description":"Placeholder for luc gain, cost little gold/stats",
-  "training":["lucRoom3"]
-},
-"lucRoom4":{
-  "description":"Placeholder for luc gain, cost high gold/stats",
-  "training":["lucRoom4"]
-},
-
-
-"repRoom1":{
-  "description":"Placeholder for rep gain - tier 1",
-  "training":["repRoom1"]
-},
-"repRoom2":{
-  "description":"Placeholder for rep gain, no gain gold",
-  "training":["repRoom2"]
-},
-"repRoom3":{
-  "description":"Placeholder for rep gain, cost little gold/stats",
-  "training":["repRoom3"]
-},
-"repRoom4":{
-  "description":"Placeholder for rep gain, cost high gold/stats",
-  "training":["repRoom4"]
-},
-
-
-"chaRoom1":{
-  "description":"Placeholder for cha gain - tier 1",
-  "training":["chaRoom1"]
-},
-"chaRoom2":{
-  "description":"Placeholder for cha gain, no gain gold",
-  "training":["chaRoom2"]
-},
-"chaRoom3":{
-  "description":"Placeholder for cha gain, cost little gold/stats",
-  "training":["chaRoom3"]
-},
-"chaRoom4":{
-  "description":"Placeholder for cha gain, cost high gold/stats",
-  "training":["chaRoom4"]
-}
-
-
-
+  "chaRoom1": {
+    "description": "Placeholder for cha gain - tier 1",
+    "training": ["chaRoom1"]
+  },
+  "chaRoom2": {
+    "description": "Placeholder for cha gain, no gain gold",
+    "training": ["chaRoom2"]
+  },
+  "chaRoom3": {
+    "description": "Placeholder for cha gain, cost little gold/stats",
+    "training": ["chaRoom3"]
+  },
+  "chaRoom4": {
+    "description": "Placeholder for cha gain, cost high gold/stats",
+    "training": ["chaRoom4"]
+  }
 }

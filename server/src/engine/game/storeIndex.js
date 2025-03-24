@@ -10,8 +10,8 @@ It will reference the type : item, structure or ...
 // const structureObj = require("./../../../assets/json/structure.json");
 const storeObj = require("./store.json");
 
-function getStoreItems(){
-    return storeObj;
+function getStoreItems() {
+  return storeObj;
 }
 
 module.exports = { getStoreItems };

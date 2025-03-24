@@ -17,14 +17,14 @@ First an animation is requested. -> "Request"
   Looking at 0 pos of the array, look at what the frameData says and to do a setTime in frameTime
 */
 let cachePng;
-function createImg(url,apiCalld){
-  if(!cachePng){
+function createImg(url, apiCalld) {
+  if (!cachePng) {
     cachePng = {};
   }
-  if(cachePng[url]){
+  if (cachePng[url]) {
     return cachePng[url];
   }
-  if(!apiCalld){
+  if (!apiCalld) {
     return;
   }
   const thisImage = new Image();

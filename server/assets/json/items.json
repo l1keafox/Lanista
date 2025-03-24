@@ -1,153 +1,144 @@
 {
-  "galea":{
-    "slot":"head",
-    "abilities":["taunt"]
+  "galea": {
+    "slot": "head",
+    "abilities": ["taunt"]
   },
-  "fullHelm":{
-    "slot":"head",
-    "abilities":["provoke"]
+  "fullHelm": {
+    "slot": "head",
+    "abilities": ["provoke"]
   },
-  "halfHelm":{
-    "slot":"head",
-    "abilities":["insult"]
+  "halfHelm": {
+    "slot": "head",
+    "abilities": ["insult"]
   },
-  "helm01":{
-    "slot":"head",
-    "abilities":["helm01"]
+  "helm01": {
+    "slot": "head",
+    "abilities": ["helm01"]
   },
-  "helm02":{
-    "slot":"head",
-    "abilities":["helm02"]
+  "helm02": {
+    "slot": "head",
+    "abilities": ["helm02"]
   },
-  "helm03":{
-    "slot":"head",
-    "abilities":["helm03"]
-  },
-
-
-
-  "clothArmor":{
-    "slot":"body",
-    "abilities":["dodge"]
-  },
-  "plateArmor":{
-    "slot":"body",
-    "abilities":["brace"]
-  },
-  "body01":{
-    "slot":"body",
-    "abilities":["body01"]
-  },
-  "body02":{
-    "slot":"body",
-    "abilities":["body02"]
-  },
-  "body03":{
-    "slot":"body",
-    "abilities":["body03"]
-  },
-  "body04":{
-    "slot":"body",
-    "abilities":["body03"]
+  "helm03": {
+    "slot": "head",
+    "abilities": ["helm03"]
   },
 
-
-
-  "mediumShield":{
-    "slot":"offHand",
-    "abilities":["block"]
+  "clothArmor": {
+    "slot": "body",
+    "abilities": ["dodge"]
   },
-  "gloves":{
-    "slot":"offHand",
-    "abilities":["dodge"]
+  "plateArmor": {
+    "slot": "body",
+    "abilities": ["brace"]
   },
-  "largeShield":{
-    "slot":"offHand",
-    "abilities":["feint"]
+  "body01": {
+    "slot": "body",
+    "abilities": ["body01"]
   },
-  "parryDagger":{
-    "slot":"offHand",
-    "abilities":["parryDagger"]
+  "body02": {
+    "slot": "body",
+    "abilities": ["body02"]
   },
-  "offHand01":{
-    "slot":"offHand",
-    "abilities":["offHand01"]
+  "body03": {
+    "slot": "body",
+    "abilities": ["body03"]
   },
-  "offHand02":{
-    "slot":"offHand",
-    "abilities":["offHand02"]
+  "body04": {
+    "slot": "body",
+    "abilities": ["body03"]
   },
 
-  "shortBoots":{
-    "slot":"boots",
-    "abilities":["kick"]
+  "mediumShield": {
+    "slot": "offHand",
+    "abilities": ["block"]
   },
-  "longBoots":{
-    "slot":"boots",
-    "abilities":["knee"]
+  "gloves": {
+    "slot": "offHand",
+    "abilities": ["dodge"]
   },
-  "boots01":{
-    "slot":"boots",
-    "abilities":["boots01"]
+  "largeShield": {
+    "slot": "offHand",
+    "abilities": ["feint"]
   },
-  "boots02":{
-    "slot":"boots",
-    "abilities":["boots02"]
+  "parryDagger": {
+    "slot": "offHand",
+    "abilities": ["parryDagger"]
   },
-  "boots03":{
-    "slot":"boots",
-    "abilities":["boots03"]
+  "offHand01": {
+    "slot": "offHand",
+    "abilities": ["offHand01"]
   },
-  "boots04":{
-    "slot":"boots",
-    "abilities":["boots04"]
+  "offHand02": {
+    "slot": "offHand",
+    "abilities": ["offHand02"]
   },
 
-
-
-  "gladius":{
-    "slot":"mainHand",
-    "abilities":["slash"]
+  "shortBoots": {
+    "slot": "boots",
+    "abilities": ["kick"]
   },
-  "mace":{
-    "slot":"mainHand",
-    "abilities":["smash"]
+  "longBoots": {
+    "slot": "boots",
+    "abilities": ["knee"]
   },
-  "dagger":{
+  "boots01": {
+    "slot": "boots",
+    "abilities": ["boots01"]
+  },
+  "boots02": {
+    "slot": "boots",
+    "abilities": ["boots02"]
+  },
+  "boots03": {
+    "slot": "boots",
+    "abilities": ["boots03"]
+  },
+  "boots04": {
+    "slot": "boots",
+    "abilities": ["boots04"]
+  },
+
+  "gladius": {
+    "slot": "mainHand",
+    "abilities": ["slash"]
+  },
+  "mace": {
+    "slot": "mainHand",
+    "abilities": ["smash"]
+  },
+  "dagger": {
     "slot": "mainHand",
     "abilities": ["stab"],
-    "stats":{
-        "agility":10,
-        "strength":-10
+    "stats": {
+      "agility": 10,
+      "strength": -10
     },
     "maintenance": 75
   },
 
-  "shortSpear":{
-    "slot":"mainHand",
-    "abilities":["stab","backstab"],
+  "shortSpear": {
+    "slot": "mainHand",
+    "abilities": ["stab", "backstab"],
     "maintenance": 100
   },
-  "longSpear":{
-    "slot":"mainHand",
-    "abilities":["stab","parry"],
+  "longSpear": {
+    "slot": "mainHand",
+    "abilities": ["stab", "parry"],
     "maintenance": 100
   },
-  "shortSword":{
-    "slot":"mainHand",
-    "abilities":["slash","backstab"],
+  "shortSword": {
+    "slot": "mainHand",
+    "abilities": ["slash", "backstab"],
     "maintenance": 100
   },
-  "longSword":{
-    "slot":"mainHand",
-    "description":"+str",
-    "abilities":["slash"],
-    "stats":{
-        "strength":10
+  "longSword": {
+    "slot": "mainHand",
+    "description": "+str",
+    "abilities": ["slash"],
+    "stats": {
+      "strength": 10
     },
     "maintenance": 100
   }
 }
-
-
-
