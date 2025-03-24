@@ -1,11 +1,8 @@
 const express = require("express");
 const {
-  User,
   Owner,
   Gladiator,
-  DayEvents,
   saveTournament,
-  saveDuel,
   GameDate,
 } = require("../models");
 const { getTraining } = require("./../engine/game/trainingEffects");
@@ -14,7 +11,6 @@ const { getItemEffect } = require("./../engine/game/itemsIndex");
 const { getStoreItems } = require("./../engine/game/storeIndex");
 const { getAbilityEffect } = require("./../engine/game/abilityIndex");
 const { createNewGladiator } = require("./../engine/game/utils");
-const auth = require("../middleware/auth");
 const router = express.Router();
 
 router.get("/owner/:ownerId", async (req, res) => {
@@ -160,7 +156,6 @@ router.get("/owner/inventoryData/:ownerId", async (req, res) => {
 router.get(
   "/owner/someTournament/:ownerId/:offset/:limit",
   async (req, res) => {
-    // console.log("Some Tourna");
     if (
       req.params.ownerId == "undefined" ||
       req.params.offset == "undefined" ||
@@ -178,13 +173,6 @@ router.get(
       .populate("owners", ["userName"])
       .skip(req.params.offset)
       .limit(req.params.limit);
-
-    // let tournaments2 = await saveTournament.find({ 'owners': { $elemMatch: {$eq:id} } })
-    // .populate('gladiators',['name'])
-
-    // .populate('memories',['name'])
-    // .populate('owners',['userName'])
-    // console.log(tournaments.length,req.params.offset,"/",tournaments2.length,req.params.limit);
     res.send(tournaments);
   },
 );
@@ -193,18 +181,12 @@ router.post("/owner/tournamentRound", async (req, res) => {
   res.send({});
 });
 
-// router.post('/owner/training', async(req, res) => {
-//     let owner = await Owner.findOne({ userAcct: req.body.id });
-//     let rtn = await owner.getTraining();
-//     res.send(rtn);
-// })
 router.get("/owner/training/:ownerId", async (req, res) => {
   if (req.params.ownerId == "undefined") {
     res.status(400);
     return;
   }
 
-  //    let owner = await Owner.findOne({ userAcct: req.body.id });
   const owner = await Owner.findById(req.params.ownerId);
   let rtn = await owner.getTraining();
   res.send(rtn);
@@ -215,7 +197,6 @@ router.get("/owner/learning/:ownerId", async (req, res) => {
     res.status(400);
     return;
   }
-  //    let owner = await Owner.findOne({ userAcct: req.body.id });
   const owner = await Owner.findById(req.params.ownerId);
   let rtn = await owner.getLearning();
   res.send(rtn);
@@ -303,7 +284,6 @@ router.get("/owner/getStudent/:ownerId", async (req, res) => {
   potentialStudents[req.params.ownerId] = [];
   for (let i = 0; i < 4; i++) {
     potentialStudents[req.params.ownerId].push(createNewGladiator("default"));
-    //    console.log(i, "created",potentialStudents[req.params.ownerId].length);
   }
   res.send(potentialStudents[req.params.ownerId]);
 });
@@ -316,10 +296,8 @@ router.post("/owner/buyStudent/", async (req, res) => {
 
   // In this post it will confirm buying th student, so it will
   const { gladName, ownerId, index } = req.body;
-  //console.log(gladName,ownerId);
   if (potentialStudents[ownerId]) {
     const owner2 = await Owner.findById(ownerId);
-    // console.log(potentialStudents[ownerId][index]);
     const glad = await new Gladiator(potentialStudents[ownerId][index]);
     glad.calcuateGladiator();
     potentialStudents[ownerId].splice(index, 1);
@@ -395,7 +373,6 @@ router.post("/owner/buyItem", async (req, res) => {
   owner.gold -= req.body.buyThisThing.cost;
 
   if (req.body.buyThisThing.slot) {
-    console.log("bought item");
     const exist = owner.inventory.find(
       (ele) => ele.type == req.body.buyThisThing.type,
     );
@@ -406,7 +383,6 @@ router.post("/owner/buyItem", async (req, res) => {
     }
     owner.markModified("inventory");
   } else {
-    console.log("bought structure", req.body.buyThisThing.type);
     owner.structures.push(req.body.buyThisThing.type);
     owner.markModified("structures");
   }

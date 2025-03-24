@@ -44,7 +44,6 @@ function getAbilityEffect(skillName) {
     console.log(" BADABADSD", skillName);
     return;
   }
-  // console.log(abilityObj[skillName]().doAbility());
   return abilityObj[skillName]();
 }
 async function doLearn(gladiator, skillName) {

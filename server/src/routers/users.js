@@ -97,7 +97,6 @@ router.post("/users/login", async (req, res) => {
         .status(401)
         .send({ error: "Login failed! Check authentication credentials" });
     }
-    // await User.find({username})
     if (!user.ownerId) {
       const owner = await new Owner(createNewOwner());
       console.log("  -EN> Owner created with base seed acct");

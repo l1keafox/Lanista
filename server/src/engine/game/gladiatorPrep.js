@@ -262,7 +262,6 @@ module.exports = {
   prepModelForMemory,
   prepModelForFight,
   saveModelMemory,
-
   getMemoryGroup,
   saveManyModelMemory,
   prepMemoryForFight,

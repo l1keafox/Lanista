@@ -1,5 +1,4 @@
 // This returns an object that is used by the model.
-const namesArray = require("./names");
 
 function createNewOwner() {
   return { gold: 100, fame: 1, structures: ["School"], inventory: [] };
@@ -58,9 +57,9 @@ function getRandomSex() {
 function getRandomFromArray(ranArray) {
   return ranArray[randomBetween(0, ranArray.length)];
 }
+
 //C:\Users\Raymond\Desktop\ActJs\Lanista\server\assets\char_a_p1\char_a_p1_0bas_humn_v00.png
 //server\assets\char_a_p1\4har\char_a_p1_4har_bob1_v00.png
-
 function makeSchedule(gladType) {
   return [
     {

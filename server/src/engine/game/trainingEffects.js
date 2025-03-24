@@ -72,7 +72,6 @@ async function doGrowth(gladiator, training) {
           trainingObj[training][stat].diceSide,
         );
       }
-      // console.log(stat,"Growth @", growthAmnt ,"Growth",trainingObj[training][stat].growth )
       if (!trainingObj[training][stat].growth) {
         growthAmnt = growthAmnt * -1;
       }

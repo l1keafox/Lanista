@@ -1,7 +1,5 @@
 const { Schema, model } = require("mongoose");
-const Owner = require("./Owner");
 const { getItemEffect } = require("./../../engine/game/itemsIndex");
-const { getAbilityEffect } = require("./../../engine/game/abilityIndex");
 
 const gladiatorSchema = new Schema({
   // Game Stats

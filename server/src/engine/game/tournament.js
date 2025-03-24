@@ -40,16 +40,12 @@ async function tournamentRound(group, toRecord) {
         report.push({ saveId: saved.id, 1: one.name, 2: two.name });
         //			 console.log(`  -EN> DUEL ${group[i].name} vs ${group[i + 1].name} : Winner: ${	duelResult.final.winner	} ` );
 
-        // console.log(saved.id,"Saved ID?");
         if (duelResult.k.w == 1) {
-          // if (duelResult.final.winner == group[i].name) {
           addToRecord2(toRecord, group[i], "winRecord");
           winnerArray.push(group[i]);
 
           addToRecord2(toRecord, group[i + 1], "lossRecord");
           loserArray.push(group[i + 1]);
-
-          // } else if (duelResult.final.winner == group[i + 1].name) {
         } else if (duelResult.k.w == 2) {
           addToRecord2(toRecord, group[i + 1], "winRecord");
           winnerArray.push(group[i + 1]);
@@ -93,14 +89,12 @@ async function bestOutOf3Round(group, toRecord) {
 
           threeReport.push({ saveId: saved.id, 1: one.name, 2: two.name });
           //				 string += `ROUND: ${oneWins+twoWins}  ${group[i].name} vs ${group[i + 1].name} : Winner: **${	duelResult.final.winner	}** `;
-          // if (duelResult.final.winner == group[i].name) {
           if (duelResult.k.w == 1) {
             addToRecord2(toRecord, group[i], "winRecord");
             addToRecord2(toRecord, group[i + 1], "lossRecord");
             // here we should see if anyof these are memories
             oneWins++;
 
-            // } else if (duelResult.final.winner == group[i + 1].name) {
           } else if (duelResult.k.w == 2) {
             addToRecord2(toRecord, group[i], "lossRecord");
             addToRecord2(toRecord, group[i + 1], "winRecord");
@@ -113,7 +107,6 @@ async function bestOutOf3Round(group, toRecord) {
             oneWins++;
           }
         } while (twoWins < 2 && oneWins < 2);
-        //console.log(string);
 
         if (oneWins == 2) {
           winnerArray.push(group[i]);
@@ -130,10 +123,8 @@ async function bestOutOf3Round(group, toRecord) {
           });
         }
       }
-      //threeReport[2][1]
       roundReport.push(threeReport);
     }
-    //winnerArray.forEach( glad => glad.save());
     resolve({ winnerArray, loserArray, report: roundReport });
   });
 }
@@ -141,8 +132,6 @@ async function bestOutOf3Round(group, toRecord) {
 async function bestOfThreeTournament(group, name, toRecord) {
   return new Promise(async (resolve, reject) => {
     let roundCount = 0;
-    let winnerGroup = group;
-    let losersGroup = [];
     let roundReport = [];
     do {
       roundCount++;
