@@ -17,6 +17,11 @@ jobs:
           echo "deb [signed-by=/usr/share/keyrings/cloudflare-archive-keyring.gpg] https://pkg.cloudflare.com/cloudflared $(lsb_release -cs) main" | sudo tee  /etc/apt/sources.list.d/cloudflared.list
           sudo apt update
           sudo apt install cloudflared
+      - name: test cloudflared
+        run: |
+          which cloudflared
+          whereis cloudflared
+          /usr/local/bin/cloudflared --version
       - name: Configure SSH
         uses: shimataro/ssh-key-action@v2
         with:
