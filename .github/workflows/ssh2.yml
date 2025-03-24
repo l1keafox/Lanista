@@ -6,9 +6,8 @@ on:
 
 jobs:
   ssh:
-    name: Run SSH command
     runs-on: ubuntu-latest
-    needs: terraform_apply
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
