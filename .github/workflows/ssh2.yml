@@ -1,34 +1,23 @@
-name: SSH into Cloudflare Tunnel
+name: Run command on remote server
 on:
-  push:
-    branches:
-      - development
-
+  pull_request:
+    types:
+      - closed
 jobs:
-  ssh:
-    name: Deploy Server
+  ssh_command:
+    if: github.event.pull_request.merged == true
+    name: Run SSH command
+    needs: terraform_apply
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Install cloudflared
-        run: |
-          curl -L https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-archive-keyring.gpg >/dev/null
-          echo "deb [signed-by=/usr/share/keyrings/cloudflare-archive-keyring.gpg] https://pkg.cloudflare.com/cloudflared $(lsb_release -cs) main" | sudo tee  /etc/apt/sources.list.d/cloudflared.list
-          sudo apt update
-          sudo apt install cloudflared
-      - name: test cloudflared
-        run: |
-          which cloudflared
-          whereis cloudflared
-          /usr/local/bin/cloudflared --version
-      - name: Configure SSH
-        uses: shimataro/ssh-key-action@v2
+      - name: Connect and run command on remote server
+        uses: and-fm/cloudflared-ssh-action@v3
         with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          name: id_ed25519
-          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
-          config: |
-            Host ${{ secrets.SSH_HOST }}
-              ProxyCommand /usr/local/bin/cloudflared access ssh --hostname %h --id ${{ secrets.CF_SERVICE_TOKEN_ID }} --secret ${{ secrets.CF_SERVICE_TOKEN_SECRET }}
-              IdentityFile ~/.ssh/id_ed25519
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          private_key_filename: ${{ secrets.SSH_PRIVATE_KEY_FILENAME }}
+          private_key_value: ${{ secrets.SSH_PRIVATE_KEY_VALUE }}
+          port: ${{ secrets.SSH_PORT }}
+          service_token_id: ${{ secrets.SERVICE_TOKEN_ID }}
+          service_token_secret: ${{ secrets.SERVICE_TOKEN_SECRET }}
+          commands: mkdir hello-world -v
