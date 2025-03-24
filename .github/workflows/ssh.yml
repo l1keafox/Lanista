@@ -35,7 +35,7 @@ jobs:
 
       - name: Connect to Server with Password
         env:
-          SSH_USER: "your-username"
+          SSH_USER: "fox"
           SSH_PASS: ${{ secrets.SSH_PASSWORD }}
         run: |
           sshpass -p "$SSH_PASS" ssh -o StrictHostKeyChecking=no $SSH_USER@sshd.likearay.com "echo 'Connected Successfully!'"
