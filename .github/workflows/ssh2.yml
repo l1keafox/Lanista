@@ -1,13 +1,24 @@
-name: Run command on remote server
+name: SSH into Cloudflare Tunnel
 on:
   push:
     branches:
       - development
+
 jobs:
-  deploy:
-    name: Run SSH command
+  ssh:
     runs-on: ubuntu-latest
+
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan sshd.likearay.com >> ~/.ssh/known_hosts
+
       - name: Connect and run command on remote server
         uses: and-fm/cloudflared-ssh-action@v3
         with:
@@ -18,4 +29,4 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           service_token_id: ${{ secrets.SERVICE_TOKEN_ID }}
           service_token_secret: ${{ secrets.SERVICE_TOKEN_SECRET }}
-          commands: mkdir hello-world -v
+          commands: mkdir hello-world -v          
