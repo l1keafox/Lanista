@@ -3,7 +3,7 @@ name: Setup Cloudflared and SSH
 on: 
   push:
     branches:
-      - main
+      - development
 
 jobs:
   setup-cloudflared:

@@ -2,7 +2,7 @@ name: SSH into Cloudflare Tunnel
 on:
   push:
     branches:
-      - development
+      - main
 
 jobs:
   ssh:
