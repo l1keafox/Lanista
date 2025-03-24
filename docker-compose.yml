@@ -12,7 +12,7 @@ services:
     networks:
       - app-network
 
-  frontend:
+  legacyfrontend:
     build: ./legacyClient
     ports:
       - "${CLIENT_PORT}:80"
@@ -23,6 +23,16 @@ services:
     networks:
       - app-network
 
+  frontend:
+    build: ./client
+    ports:
+      - "3020:3020"
+    environment:
+      - VITE_PORT=${BACKEND_PORT}
+    depends_on:
+      - backend
+    networks:
+      - app-network
 
 networks:
   app-network:
