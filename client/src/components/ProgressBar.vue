@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <div :style="fillerStyles">
-      <!-- <span class="label">{{ `${completed}%` }}</span> -->
     </div>
   </div>
 </template>

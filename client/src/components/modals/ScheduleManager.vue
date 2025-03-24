@@ -214,11 +214,9 @@ export default {
           currentDay = {};
         }
         currentDay[timeCount] = saveObj[index];
-        //console.log(saveObj[index],dayCount);
       }
 
       rtnObj[dayCount] = currentDay;
-      // console.log(rtnObj);
       //here we should do a post to save it.
       await fetch(this.apiCall.value + `/gladiator/saveWeek`, {
         method: "POST",
@@ -252,7 +250,6 @@ export default {
       `/assets/json/training`,
       this.apiCall.value,
     );
-    console.log("SCH", this.trainJson);
 
     const rpnse = await fetch(
       this.apiCall.value + `/gladiator/${this.gladId}`,
@@ -261,7 +258,6 @@ export default {
       },
     );
     this.gladiatorData = await rpnse.json();
-    console.log(this.gladiatorData.scheduleType);
     this.currentTab = this.gladiatorData.scheduleType;
 
     if (this.gladiatorData.progressSkill) {
@@ -285,13 +281,9 @@ export default {
       },
     );
     const learningData = await learning.json();
-    //		console.log(learningData, "Learning",this.gladiatorData.skills);
     for (let skill of this.gladiatorData.skills) {
-      //			console.log(learningData.includes(skill),skill)
       if (learningData.includes(skill)) {
-        //				console.log("FOUND, so it needs to be removed from learning data,",learningData.indexOf(skill ))
         learningData.splice(learningData.indexOf(skill));
-        //				console.log(learningData);
         break;
       }
     }

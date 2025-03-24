@@ -79,8 +79,6 @@ export default {
       this.gladiatorData = await rpnse.json();
     } else if (this.gladMemory) {
       this.gladiatorData = JSON.parse(this.gladMemory.memory);
-      // console.log("THIS",this.gladMemory);
-      // console.log("PARSED",this.gladiatorData);
       this.gladiatorData.name = this.gladMemory.name;
       this.gladiatorData.age = this.gladMemory.age;
       this.gladiatorData.level = this.gladMemory.level;

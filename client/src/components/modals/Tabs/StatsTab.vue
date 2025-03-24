@@ -109,16 +109,6 @@ onMounted(async () => {
       gladiatorData.value = memoryData.value;
     }
   }, 150);
-  // else if(gladMemory){
-  // gladiatorData.value = JSON.parse(gladMemory.memory);
-  //     console.log("PARSED",this.gladiatorData);
-  //     gladiatorData.value.name = gladMemory.name;
-  //     gladiatorData.value.age = gladMemory.age;
-  //     gladiatorData.value.level = gladMemory.level;
-  //     gladiatorData.value.winRecord = gladMemory.winRecord;
-  //     gladiatorData.value.lossRecord = gladMemory.lossRecord;
-
-  //}
 });
 </script>
 

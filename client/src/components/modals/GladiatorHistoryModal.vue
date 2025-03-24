@@ -48,7 +48,6 @@ export default {
   },
   methods: {},
   async mounted() {
-    console.log(this.currentTab, this.gladId);
     if (this.gladId) {
       const rpnse = await fetch(
         this.apiCall.value + `/gladiator/${this.gladId}`,

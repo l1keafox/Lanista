@@ -103,21 +103,7 @@ export default {
   name: "bestOfThreeModal",
   props: ["tournamentData"],
   inject: ["apiCall"],
-  async mounted() {
-    console.log(this.tournamentData.type);
-    console.log(this.tournamentData.winner);
-    console.log(this.tournamentData.tournamentStructure);
-    // const roundOne = this.tournamentData.tournamentStructure[0]
-    // const roundTwo = this.tournamentData.tournamentStructure[1]
-    // const roundThree = this.tournamentData.tournamentStructure[2]
-    // const roundFour = this.tournamentData.tournamentStructure[3]
-    // console.log(roundOne.length);
-    // console.log(roundTwo.length);
-    // console.log(roundThree.length); // Ah this is 1 because there was an die before.
-    // if(roundFour){
-    //   console.log(roundFour.length);
-    // }
-  },
+
   data() {
     return {
       combatReport: null,
@@ -135,7 +121,6 @@ export default {
       this.openTab = tabNumber;
     },
     async showDuel(duelId, one, two) {
-      //this.tournamentData.tournamentStructure[ openTab ]
       this.glads = [one, two];
       const rpnse = await fetch(
         this.apiCall.value + `/gladiator/getDuel/${duelId}`,

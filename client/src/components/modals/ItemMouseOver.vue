@@ -14,15 +14,15 @@ const showCardTip = inject("showCardTip");
 const props = defineProps(["itemId", "type", "gladId", "gladData"]);
 const { itemId, type, gladId, gladData } = toRefs(props);
 const apiCall = inject("apiCall");
-console.log("GDASdf", gladData);
-if (!gladData.value && gladId.value) {
-  console.log(apiCall.value + `/gladiator/${gladId.value}`);
+
+//if (!gladData.value && gladId.value) {
+//  console.log(apiCall.value + `/gladiator/${gladId.value}`);
   // here we will do a fetch for glad data.
   // const rpnse = await fetch(apiCall.value + `/gladiator/${gladId.value}`, {
   // 	headers: { "Content-Type": "application/json" },
   // });
   // gladData.value = await rpnse.json();
-}
+//}
 
 async function getInfo(skill) {
   toolTipMsg.value = skill;

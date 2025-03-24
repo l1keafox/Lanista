@@ -86,10 +86,5 @@ onMounted(async () => {
     const gameData = await rpnse.json();
     maxTick.value = gameData.tick;
   }
-
-  let bg = document.getElementById("backGround");
-  console.log();
-
-  console.log();
 });
 </script>

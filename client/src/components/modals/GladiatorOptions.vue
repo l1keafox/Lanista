@@ -37,11 +37,10 @@
 <script setup>
 const props = defineProps(["gladData"]);
 const modalData = inject("modalData");
-console.log(modalData.value.gladData);
 const gladData = ref(modalData.value.gladData);
 
 const apiCall = inject("apiCall");
-async function sendEnabled(evt) {
+async function sendEnabled() {
   const rpnse = await fetch(
     apiCall.value + `/gladiator/enable/${gladData.value._id}/true`,
     {

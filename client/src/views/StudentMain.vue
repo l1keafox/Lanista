@@ -67,7 +67,6 @@
 </template>
 
 <script setup>
-const gladiatorCard = inject("gladiatorCard");
 const getOwner = inject("getOwner");
 const cardTitle = inject("cardTitle");
 const apiCall = inject("apiCall");

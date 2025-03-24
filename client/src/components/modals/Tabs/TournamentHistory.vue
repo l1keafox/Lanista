@@ -73,10 +73,6 @@ onMounted(() => {
   observer.observe(document.getElementById("intersection"));
 });
 
-function closeModal() {
-  isModalShown.value = false;
-}
-
 function showDetailModal(event) {
   const tournKey = {
     weekly: "roundRobin",
