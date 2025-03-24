@@ -8,11 +8,11 @@ from here on.
 
 */
 
-const schools = require('./SeedSchools')
+const schools = require("./SeedSchools");
 
-async function SeedAccount(){
-    for(let key in schools){
-        await schools[key]();
-    }
+async function SeedAccount() {
+  for (let key in schools) {
+    await schools[key]();
+  }
 }
 module.exports = SeedAccount;

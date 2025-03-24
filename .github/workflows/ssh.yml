@@ -1,6 +1,6 @@
 name: Setup Cloudflared and SSH
 
-on: 
+on:
   push:
     branches:
       - main
@@ -8,7 +8,7 @@ on:
 jobs:
   setup-cloudflared:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Download and install Cloudflared
         run: |
@@ -22,7 +22,7 @@ jobs:
           touch ~/.ssh/config  # Ensure the config file exists
           echo "Host sshd.likearay.com" >> ~/.ssh/config
           echo "  ProxyCommand /usr/local/bin/cloudflared access ssh --hostname %h" >> ~/.ssh/config
-          chmod 600 ~/.ssh/config  # Set correct permissions          
+          chmod 600 ~/.ssh/config  # Set correct permissions
 
       - name: Verify Cloudflared Installation
         run: cloudflared --version

@@ -1,24 +1,22 @@
 [
-    {
-      "username": "cat",
-      "email": "cat@email.com",
-      "password": "catcat"
-    },
-    {
-      "username": "hamster",
-      "email": "hamster@email.com",
-      "password": "hamham"
-    },
-    {
-      "username": "username",
-      "email": "username@username.com",
-      "password": "password"
-    },
-    {
-      "username": "test",
-      "email": "test@email.com",
-      "password": "testtest"
-    }
-
-  ]
-  
+  {
+    "username": "cat",
+    "email": "cat@email.com",
+    "password": "catcat"
+  },
+  {
+    "username": "hamster",
+    "email": "hamster@email.com",
+    "password": "hamham"
+  },
+  {
+    "username": "username",
+    "email": "username@username.com",
+    "password": "password"
+  },
+  {
+    "username": "test",
+    "email": "test@email.com",
+    "password": "testtest"
+  }
+]

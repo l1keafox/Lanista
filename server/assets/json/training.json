@@ -88,7 +88,6 @@
       "max": 2,
       "growth": true
     }
-
   },
   "hike": {
     "sensitivity": {
@@ -135,489 +134,445 @@
     }
   },
 
-
-  "strRoom1":{
-    "description":"Placeholder for str gain - tier 1",
+  "strRoom1": {
+    "description": "Placeholder for str gain - tier 1",
     "strength": {
       "min": 10,
       "max": 20,
       "growth": true
     }
   },
-  "strRoom2":{
-    "description":"Placeholder for str gain, no gain gold",
+  "strRoom2": {
+    "description": "Placeholder for str gain, no gain gold",
     "strength": {
       "min": 20,
       "max": 30,
       "growth": true
     }
-
   },
-  "strRoom3":{
-    "description":"Placeholder for str gain, cost little gold/stats",
+  "strRoom3": {
+    "description": "Placeholder for str gain, cost little gold/stats",
     "strength": {
       "min": 30,
       "max": 50,
       "growth": true
     },
-    "goldCost": 50 
-
+    "goldCost": 50
   },
-  "strRoom4":{
-    "description":"Placeholder for str gain, cost high gold/stats",
+  "strRoom4": {
+    "description": "Placeholder for str gain, cost high gold/stats",
     "strength": {
       "min": 40,
       "max": 60,
       "growth": true
     }
-  },  
+  },
 
-
-  "agiRoom1":{
-    "description":"Placeholder for agi gain - tier 1",
+  "agiRoom1": {
+    "description": "Placeholder for agi gain - tier 1",
     "agility": {
       "min": 10,
       "max": 20,
       "growth": true
     }
   },
-  "agiRoom2":{
-    "description":"Placeholder for agi gain, no gain gold",
+  "agiRoom2": {
+    "description": "Placeholder for agi gain, no gain gold",
     "agiength": {
       "min": 20,
       "max": 30,
       "growth": true
     }
-
   },
-  "agiRoom3":{
-    "description":"Placeholder for agi gain, cost little gold/stats",
+  "agiRoom3": {
+    "description": "Placeholder for agi gain, cost little gold/stats",
     "agiength": {
       "min": 30,
       "max": 50,
       "growth": true
     },
-    "goldCost": 50 
-
+    "goldCost": 50
   },
-  "agiRoom4":{
-    "description":"Placeholder for agi gain, cost high gold/stats",
+  "agiRoom4": {
+    "description": "Placeholder for agi gain, cost high gold/stats",
     "agiength": {
       "min": 40,
       "max": 60,
       "growth": true
     }
-  },  
+  },
 
-
-  "dexRoom1":{
-    "description":"Placeholder for dex gain - tier 1",
+  "dexRoom1": {
+    "description": "Placeholder for dex gain - tier 1",
     "dexterity": {
       "min": 10,
       "max": 20,
       "growth": true
     }
   },
-  "dexRoom2":{
-    "description":"Placeholder for dex gain, no gain gold",
+  "dexRoom2": {
+    "description": "Placeholder for dex gain, no gain gold",
     "dexterity": {
       "min": 20,
       "max": 30,
       "growth": true
     }
-
   },
-  "dexRoom3":{
-    "description":"Placeholder for dex gain, cost little gold/stats",
+  "dexRoom3": {
+    "description": "Placeholder for dex gain, cost little gold/stats",
     "dexterity": {
       "min": 30,
       "max": 50,
       "growth": true
     },
-    "goldCost": 50 
-
+    "goldCost": 50
   },
-  "dexRoom4":{
-    "description":"Placeholder for dex gain, cost high gold/stats",
+  "dexRoom4": {
+    "description": "Placeholder for dex gain, cost high gold/stats",
     "dexterity": {
       "min": 40,
       "max": 60,
       "growth": true
     }
-  },  
+  },
 
-
-  "conRoom1":{
-    "description":"Placeholder for con gain - tier 1",
+  "conRoom1": {
+    "description": "Placeholder for con gain - tier 1",
     "constitution": {
       "min": 10,
       "max": 20,
       "growth": true
     }
   },
-  "conRoom2":{
-    "description":"Placeholder for con gain, no gain gold",
+  "conRoom2": {
+    "description": "Placeholder for con gain, no gain gold",
     "constitution": {
       "min": 20,
       "max": 30,
       "growth": true
     }
-
   },
-  "conRoom3":{
-    "description":"Placeholder for con gain, cost little gold/stats",
+  "conRoom3": {
+    "description": "Placeholder for con gain, cost little gold/stats",
     "constitution": {
       "min": 30,
       "max": 50,
       "growth": true
     },
-    "goldCost": 50 
-
+    "goldCost": 50
   },
-  "conRoom4":{
-    "description":"Placeholder for con gain, cost high gold/stats",
+  "conRoom4": {
+    "description": "Placeholder for con gain, cost high gold/stats",
     "constitution": {
       "min": 40,
       "max": 60,
       "growth": true
     }
-  },  
+  },
 
-
-  "vitRoom1":{
-    "description":"Placeholder for vit gain - tier 1",
+  "vitRoom1": {
+    "description": "Placeholder for vit gain - tier 1",
     "vitality": {
       "min": 10,
       "max": 20,
       "growth": true
     }
   },
-  "vitRoom2":{
-    "description":"Placeholder for vit gain, no gain gold",
+  "vitRoom2": {
+    "description": "Placeholder for vit gain, no gain gold",
     "vitality": {
       "min": 20,
       "max": 30,
       "growth": true
     }
-
   },
-  "vitRoom3":{
-    "description":"Placeholder for vit gain, cost little gold/stats",
+  "vitRoom3": {
+    "description": "Placeholder for vit gain, cost little gold/stats",
     "vitality": {
       "min": 30,
       "max": 50,
       "growth": true
     },
-    "goldCost": 50 
-
+    "goldCost": 50
   },
-  "vitRoom4":{
-    "description":"Placeholder for vit gain, cost high gold/stats",
+  "vitRoom4": {
+    "description": "Placeholder for vit gain, cost high gold/stats",
     "vitality": {
       "min": 40,
       "max": 60,
       "growth": true
     }
-  },  
+  },
 
-
-  "intRoom1":{
-    "description":"Placeholder for int gain - tier 1",
+  "intRoom1": {
+    "description": "Placeholder for int gain - tier 1",
     "intelligence": {
       "min": 10,
       "max": 20,
       "growth": true
     }
   },
-  "intRoom2":{
-    "description":"Placeholder for int gain, no gain gold",
+  "intRoom2": {
+    "description": "Placeholder for int gain, no gain gold",
     "intelligence": {
       "min": 20,
       "max": 30,
       "growth": true
     }
-
   },
-  "intRoom3":{
-    "description":"Placeholder for int gain, cost little gold/stats",
+  "intRoom3": {
+    "description": "Placeholder for int gain, cost little gold/stats",
     "intelligence": {
       "min": 30,
       "max": 50,
       "growth": true
     },
-    "goldCost": 50 
-
+    "goldCost": 50
   },
-  "intRoom4":{
-    "description":"Placeholder for int gain, cost high gold/stats",
+  "intRoom4": {
+    "description": "Placeholder for int gain, cost high gold/stats",
     "intelligence": {
       "min": 40,
       "max": 60,
       "growth": true
     }
-  },  
+  },
 
-
-  "wisRoom1":{
-    "description":"Placeholder for wis gain - tier 1",
+  "wisRoom1": {
+    "description": "Placeholder for wis gain - tier 1",
     "wisdom": {
       "min": 10,
       "max": 20,
       "growth": true
     }
   },
-  "wisRoom2":{
-    "description":"Placeholder for wis gain, no gain gold",
+  "wisRoom2": {
+    "description": "Placeholder for wis gain, no gain gold",
     "wisdom": {
       "min": 20,
       "max": 30,
       "growth": true
     }
-
   },
-  "wisRoom3":{
-    "description":"Placeholder for wis gain, cost little gold/stats",
+  "wisRoom3": {
+    "description": "Placeholder for wis gain, cost little gold/stats",
     "wisdom": {
       "min": 30,
       "max": 50,
       "growth": true
     },
-    "goldCost": 50 
-
+    "goldCost": 50
   },
-  "wisRoom4":{
-    "description":"Placeholder for wis gain, cost high gold/stats",
+  "wisRoom4": {
+    "description": "Placeholder for wis gain, cost high gold/stats",
     "wisdom": {
       "min": 40,
       "max": 60,
       "growth": true
     }
-  },  
+  },
 
-
-  "braRoom1":{
-    "description":"Placeholder for bra gain - tier 1",
+  "braRoom1": {
+    "description": "Placeholder for bra gain - tier 1",
     "bravery": {
       "min": 10,
       "max": 20,
       "growth": true
     }
   },
-  "braRoom2":{
-    "description":"Placeholder for bra gain, no gain gold",
+  "braRoom2": {
+    "description": "Placeholder for bra gain, no gain gold",
     "bravery": {
       "min": 20,
       "max": 30,
       "growth": true
     }
-
   },
-  "braRoom3":{
-    "description":"Placeholder for bra gain, cost little gold/stats",
+  "braRoom3": {
+    "description": "Placeholder for bra gain, cost little gold/stats",
     "bravery": {
       "min": 30,
       "max": 50,
       "growth": true
     },
-    "goldCost": 50 
-
+    "goldCost": 50
   },
-  "braRoom4":{
-    "description":"Placeholder for bra gain, cost high gold/stats",
+  "braRoom4": {
+    "description": "Placeholder for bra gain, cost high gold/stats",
     "bravery": {
       "min": 40,
       "max": 60,
       "growth": true
     }
-  },  
+  },
 
-
-  "pieRoom1":{
-    "description":"Placeholder for pie gain - tier 1",
+  "pieRoom1": {
+    "description": "Placeholder for pie gain - tier 1",
     "piety": {
       "min": 10,
       "max": 20,
       "growth": true
     }
   },
-  "pieRoom2":{
-    "description":"Placeholder for pie gain, no gain gold",
+  "pieRoom2": {
+    "description": "Placeholder for pie gain, no gain gold",
     "piety": {
       "min": 20,
       "max": 30,
       "growth": true
     }
-
   },
-  "pieRoom3":{
-    "description":"Placeholder for pie gain, cost little gold/stats",
+  "pieRoom3": {
+    "description": "Placeholder for pie gain, cost little gold/stats",
     "piety": {
       "min": 30,
       "max": 50,
       "growth": true
     },
-    "goldCost": 50 
-
+    "goldCost": 50
   },
-  "pieRoom4":{
-    "description":"Placeholder for pie gain, cost high gold/stats",
+  "pieRoom4": {
+    "description": "Placeholder for pie gain, cost high gold/stats",
     "piety": {
       "min": 40,
       "max": 60,
       "growth": true
     }
-  },  
+  },
 
-
-  "senRoom1":{
-    "description":"Placeholder for sen gain - tier 1",
+  "senRoom1": {
+    "description": "Placeholder for sen gain - tier 1",
     "sensitivity": {
       "min": 10,
       "max": 20,
       "growth": true
     }
   },
-  "senRoom2":{
-    "description":"Placeholder for sen gain, no gain gold",
+  "senRoom2": {
+    "description": "Placeholder for sen gain, no gain gold",
     "sensitivity": {
       "min": 20,
       "max": 30,
       "growth": true
     }
-
   },
-  "senRoom3":{
-    "description":"Placeholder for sen gain, cost little gold/stats",
+  "senRoom3": {
+    "description": "Placeholder for sen gain, cost little gold/stats",
     "sensitivity": {
       "min": 30,
       "max": 50,
       "growth": true
     },
-    "goldCost": 50 
-
+    "goldCost": 50
   },
-  "senRoom4":{
-    "description":"Placeholder for sen gain, cost high gold/stats",
+  "senRoom4": {
+    "description": "Placeholder for sen gain, cost high gold/stats",
     "sensitivity": {
       "min": 40,
       "max": 60,
       "growth": true
     }
-  },  
+  },
 
-
-  "lucRoom1":{
-    "description":"Placeholder for luc gain - tier 1",
+  "lucRoom1": {
+    "description": "Placeholder for luc gain - tier 1",
     "luck": {
       "min": 10,
       "max": 20,
       "growth": true
     }
   },
-  "lucRoom2":{
-    "description":"Placeholder for luc gain, no gain gold",
+  "lucRoom2": {
+    "description": "Placeholder for luc gain, no gain gold",
     "luck": {
       "min": 20,
       "max": 30,
       "growth": true
     }
-
   },
-  "lucRoom3":{
-    "description":"Placeholder for luc gain, cost little gold/stats",
+  "lucRoom3": {
+    "description": "Placeholder for luc gain, cost little gold/stats",
     "luck": {
       "min": 30,
       "max": 50,
       "growth": true
     },
-    "goldCost": 50 
-
+    "goldCost": 50
   },
-  "lucRoom4":{
-    "description":"Placeholder for luc gain, cost high gold/stats",
+  "lucRoom4": {
+    "description": "Placeholder for luc gain, cost high gold/stats",
     "luck": {
       "min": 40,
       "max": 60,
       "growth": true
     }
-  },  
+  },
 
-
-  "repRoom1":{
-    "description":"Placeholder for rep gain - tier 1",
+  "repRoom1": {
+    "description": "Placeholder for rep gain - tier 1",
     "reputation": {
       "min": 10,
       "max": 20,
       "growth": true
     }
   },
-  "repRoom2":{
-    "description":"Placeholder for rep gain, no gain gold",
+  "repRoom2": {
+    "description": "Placeholder for rep gain, no gain gold",
     "reputation": {
       "min": 20,
       "max": 30,
       "growth": true
     }
-
   },
-  "repRoom3":{
-    "description":"Placeholder for rep gain, cost little gold/stats",
+  "repRoom3": {
+    "description": "Placeholder for rep gain, cost little gold/stats",
     "reputation": {
       "min": 30,
       "max": 50,
       "growth": true
     },
-    "goldCost": 50 
-
+    "goldCost": 50
   },
-  "repRoom4":{
-    "description":"Placeholder for rep gain, cost high gold/stats",
+  "repRoom4": {
+    "description": "Placeholder for rep gain, cost high gold/stats",
     "reputation": {
       "min": 40,
       "max": 60,
       "growth": true
     }
-  },  
+  },
 
-
-  "chaRoom1":{
-    "description":"Placeholder for cha gain - tier 1",
+  "chaRoom1": {
+    "description": "Placeholder for cha gain - tier 1",
     "charisma": {
       "min": 10,
       "max": 20,
       "growth": true
     }
   },
-  "chaRoom2":{
-    "description":"Placeholder for cha gain, no gain gold",
+  "chaRoom2": {
+    "description": "Placeholder for cha gain, no gain gold",
     "charisma": {
       "min": 20,
       "max": 30,
       "growth": true
     }
-
   },
-  "chaRoom3":{
-    "description":"Placeholder for cha gain, cost little gold/stats",
+  "chaRoom3": {
+    "description": "Placeholder for cha gain, cost little gold/stats",
     "charisma": {
       "min": 30,
       "max": 50,
       "growth": true
     },
-    "goldCost": 50 
-
+    "goldCost": 50
   },
-  "chaRoom4":{
-    "description":"Placeholder for cha gain, cost high gold/stats",
+  "chaRoom4": {
+    "description": "Placeholder for cha gain, cost high gold/stats",
     "charisma": {
       "min": 40,
       "max": 60,
       "growth": true
     }
   }
-
-
-
-
-
 }

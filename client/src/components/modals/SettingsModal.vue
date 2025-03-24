@@ -1,11 +1,11 @@
 <template>
   <BaseModal>
     <template v-slot:header>
-      <h1> SETTINGS </h1>
+      <h1>SETTINGS</h1>
     </template>
 
     <template v-slot:content>
-      <h1> NOTHING HERE FOR NOW. </h1>
+      <h1>NOTHING HERE FOR NOW.</h1>
     </template>
 
     <template v-slot:footer>
@@ -14,10 +14,6 @@
   </BaseModal>
 </template>
 
-<script setup>
+<script setup></script>
 
-</script>
-
-<style scoped>
-
-</style>
+<style scoped></style>

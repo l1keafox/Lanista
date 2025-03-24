@@ -1,28 +1,28 @@
 {
-    "name": "lanistaserver",
-    "version": "0.0.1",
-    "description": "",
-    "main": "server.js",
-    "scripts": {
-        "server": "node server.js --ignore client",
-        "develop": "nodemon server.js",
-        "dev": "nodemon server.js",
-        "seed": "node seeders/seed.js"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "bcrypt": "^5.0.1",
-        "cors": "^2.8.5",
-        "dotenv": "^16.0.3",
-        "express": "^4.17.1",
-        "http": "^0.0.1-security",
-        "jsonwebtoken": "^8.5.1",
-        "mongoose": "^6.6.5",
-        "socket.io": "^4.5.2"
-    },
-    "devDependencies": {
-        "nodemon": "^2.0.4"
-    }
+  "name": "lanistaserver",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "server": "node server.js --ignore client",
+    "develop": "nodemon server.js",
+    "dev": "nodemon server.js",
+    "seed": "node seeders/seed.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.17.1",
+    "http": "^0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.6.5",
+    "socket.io": "^4.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }

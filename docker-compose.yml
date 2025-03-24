@@ -23,7 +23,6 @@ services:
     networks:
       - app-network
 
-
 networks:
   app-network:
-    driver: bridge  # Use the default bridge network driver
+    driver: bridge # Use the default bridge network driver

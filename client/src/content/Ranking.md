@@ -8,7 +8,6 @@ Point Ranking:  will be : % of wins * # of wins.
 
 This will be split by All, and levels.
 
-
 ## Tournaments
 
 Who ever has won the most tournament types.

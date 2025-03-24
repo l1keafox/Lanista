@@ -1,53 +1,51 @@
 <template>
-	<div class="container">
-		<div :style="fillerStyles" class="rounded">
-			<span class="label">
-        <slot class=""/>
+  <div class="container">
+    <div :style="fillerStyles" class="rounded">
+      <span class="label">
+        <slot class="" />
       </span>
-
-		</div>
-	</div>
+    </div>
+  </div>
 </template>
 
 <script setup>
-
-const props  = defineProps({
-	bgcolor: {
-		type: String,
-	},
-  now:{
-    type:Number,
+const props = defineProps({
+  bgcolor: {
+    type: String,
   },
-  max:{
-    type:Number
-  }
+  now: {
+    type: Number,
+  },
+  max: {
+    type: Number,
+  },
 });
 
 const { bgcolor, now, max } = toRefs(props);
 
 const fillerStyles = computed(() => {
-  let completed = (now.value/max.value)*100 ;
-	return {
-		height: "100%",
-		width: `${completed.toFixed()}%`,
-		backgroundColor: bgcolor.value,
-		// borderRadius: "inherit",
-		textAlign: "bottom",
-	};
+  let completed = (now.value / max.value) * 100;
+  return {
+    height: "100%",
+    width: `${completed.toFixed()}%`,
+    backgroundColor: bgcolor.value,
+    // borderRadius: "inherit",
+    textAlign: "bottom",
+  };
 });
 </script>
 
 <style scoped>
 .container {
-	height: 20px;
-	width: 100%;
+  height: 20px;
+  width: 100%;
 
-	background-color: #e0e0de;
+  background-color: #e0e0de;
 }
 
 .label {
-	padding: 5px;
-	color: white;
-	font-weight: bold;
+  padding: 5px;
+  color: white;
+  font-weight: bold;
 }
 </style>

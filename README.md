@@ -15,7 +15,7 @@
 
 NPM install in all three directories, root/client/server
 npm run seed in root -
-npm run dev 
+npm run dev
 
 ![Website](/assets/images/readme.PNG)
 
@@ -25,8 +25,7 @@ npm run dev
 2. NPM I at root
 3. NPM run seed
 4. create .env file in server with following:
-    a. JWT_KEY
-
+   a. JWT_KEY
 
 ## Contributing
 
