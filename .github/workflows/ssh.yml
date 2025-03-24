@@ -38,4 +38,4 @@ jobs:
           SSH_USER: "fox"
           SSH_PASS: ${{ secrets.SSH_PASSWORD }}
         run: |
-          sshpass -p "$SSH_PASS" ssh -o StrictHostKeyChecking=no $SSH_USER@sshd.likearay.com "echo 'Connected Successfully!'"
+          sshpass -p "$SSH_PASS" ssh -o StrictHostKeyChecking=no $SSH_USER@sshd.likearay.com "echo 'Connected Successfully!' && ls -lah && uptime"
