@@ -6,7 +6,6 @@ class AuthService {
     // adding logic here to make sure when there is a token.
     let token = this.getToken();
     if (!token) {
-      //			console.log('No token');
       return false;
     }
     const decoded = decode(token);

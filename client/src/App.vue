@@ -158,7 +158,6 @@ onMounted(async () => {
   }
   timerInterval = setInterval(doTick, 100);
   timeTimer = gameData.tick;
-  // this.toNextTick = this.timeTimer;
   countDown = timeTimer;
   const percent = countDown / timeTimer;
 
@@ -235,7 +234,6 @@ async function updateOwner() {
       timeData.value = oData.time;
       countDown = this.timeTimer;
     } catch (err) {
-      //console.log(err, "clearing");
       // clearInterval(this.interval);
     }
   }

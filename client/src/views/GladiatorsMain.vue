@@ -1,5 +1,4 @@
 <template>
-  <!-- <div class="flex flex-wrap justify-start content-start overflow-y-auto"> -->
   <div
     class="flex flex-wrap w-full overflow-x-hidden justify-start content-start"
   >

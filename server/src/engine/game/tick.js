@@ -10,7 +10,7 @@ const {
 } = require("./../../models");
 const { doGrowth } = require("./trainingEffects");
 const { getAbilityEffect } = require("./abilityIndex");
-const { saveModelMemory, saveManyModelMemory } = require("./gladiatorPrep");
+const { saveManyModelMemory } = require("./gladiatorPrep");
 const {
   localTournament,
   regionalTournament,

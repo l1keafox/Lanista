@@ -49,12 +49,10 @@ const { gladId } = defineProps({
 
 const isModalShown = ref(false);
 const report = ref(null);
-const combatReports = ref(null);
 const count = ref(0);
 const posts = ref([]);
 
 function showCombat(evt) {
-  console.log(posts.value[evt.target.getAttribute("data-index")]);
   report.value = posts.value[evt.target.getAttribute("data-index")];
   isModalShown.value = true;
 }

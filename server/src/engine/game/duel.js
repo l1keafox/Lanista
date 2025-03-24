@@ -1,13 +1,10 @@
 const SHOWBATTLE = false;
-const { getAbilityEffect } = require("./abilityIndex");
 const {
   doEffects,
   compareEffects,
   addEffect,
 } = require("./Abilities/abilityEffects");
-const { getItemEffect } = require("./itemsIndex");
-const { Memory, saveDuel } = require("./../../models");
-//const {  prepModelForFight  } = require('./gladiatorPrep')
+const { saveDuel } = require("./../../models");
 
 async function returnPreparedGladiator(gladiator) {
   // gladiator prep stuff.
@@ -48,7 +45,6 @@ async function returnPreparedGladiator(gladiator) {
   gladiator.endOfRound = function () {
     for (let aReaction of this.react) {
       if (aReaction.cooldown) {
-        //				console.log(aReaction.abilityName, aReaction.cooldown,this.name)
         aReaction.cooldown--;
       }
     }
@@ -77,18 +73,14 @@ async function returnPreparedGladiator(gladiator) {
       );
     for (let aReaction of this.react) {
       if (aReaction.cooldown) {
-        //				console.log(aReaction.abilityName, "HAS CD:",aReaction.cooldown)
         continue;
       }
-      //			console.log(aReaction.cooldown , aReaction.maxCooldown)
-      //aReaction.cooldown = aReaction.maxCooldown;
-      //			console.log("REACT ABILITY",aReaction)
       return aReaction.doReact(this, target);
     }
   };
-  //	console.log(gladiator);
   return gladiator;
 }
+
 class Clash {
   battle(oneChar, twoChar) {
     // Clash Arrays
@@ -199,8 +191,7 @@ async function doDuel(one, two) {
     let roundReport = {};
     roundReport[gladOne.keyId] = {};
     roundReport[gladTwo.keyId] = {};
-    //		let oneReport = {}; // each gladiator will have different reports
-    //		let twoReport = {};
+    
     roundCnt++;
     if (SHOWBATTLE)
       console.log(
@@ -226,7 +217,7 @@ async function doDuel(one, two) {
       console.log(
         `  -EN/Duel>___________________________REACT:${roundCnt}_______________________________`,
       );
-    //console.log( thisClash.report );
+
     roundReport[gladOne.keyId].c = thisClash.report[gladOne.name];
     roundReport[gladTwo.keyId].c = thisClash.report[gladTwo.name];
     // Do  react
@@ -290,9 +281,6 @@ async function doDuel(one, two) {
   const twoDead =
     gladTwo.hits <= 0 || gladTwo.morale <= 0 || gladTwo.stamina <= 0;
 
-  // console.log(gladOne.name,gladOne.hits, gladOne.morale, gladOne.stamina);
-  // console.log(gladTwo.name,gladTwo.hits, gladTwo.morale, gladTwo.stamina);
-
   if (oneDead && twoDead) {
     report.k.w = null;
   } else if (oneDead) {
@@ -300,20 +288,6 @@ async function doDuel(one, two) {
   } else if (twoDead) {
     report.k.w = gladOne.keyId;
   }
-
-  // console.log(report.f.winner);
-  // This information can be accessed in report[report.f.rC]
-  // report.f[gladOne.keyId] = {
-  // 	hits: gladOne.hits,
-  // 	morale: gladOne.morale,
-  // 	stamina: gladOne.stamina
-  // };
-
-  // report.f[gladTwo.keyId] = {
-  // 	hits: gladTwo.hits,
-  // 	morale: gladTwo.morale,
-  // 	stamina: gladTwo.stamina
-  // };
 
   //console.log(`  -EN> Game DUEL : ${gladOne.name} Vs ${gladTwo.name} TIME: ${new Date() - startOfTick}ms Winner:${report.f.winner} `);
   return report;

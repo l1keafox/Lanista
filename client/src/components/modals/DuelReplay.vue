@@ -99,7 +99,6 @@ const cIndex = ref(0);
 
 async function blah(duelId) {
   const apiCall = inject("apiCall");
-  console.log(duelId, "buggy?");
   const rpnse = await fetch(
     apiCall.value + `/gladiator/getDuel/${unref(duelId)}`,
     { headers: { "Content-Type": "application/json" } },
@@ -111,17 +110,11 @@ async function blah(duelId) {
 console.log("DUEL REPLAY getting,", props);
 if (props && props.report && props.report.duel) {
   // This means it's an duel report that needs to json it's duel.
-  console.log(props.report.duel);
   report = JSON.parse(props.report.duel);
-
-  console.log(report);
-  //return;
 }
 
 if (props.duelId) {
-  console.log("Before b lah", props.duelId);
   report = await blah(props.duelId);
-  console.log(report);
 }
 
 const winner = ref("");

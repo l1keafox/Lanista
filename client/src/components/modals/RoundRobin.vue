@@ -55,8 +55,6 @@ export default {
     };
   },
   async mounted() {
-    //let grab = this.tournamentData.duelReport[0];
-    // We going to use a drop down menu, so let's first organlize the data by users.
     this.gladiatorObj = {};
     console.log(this.tournamentData);
     if (this.tournamentData) {
@@ -71,17 +69,13 @@ export default {
         } else {
           this.gladiatorObj[duel[2]].push({ duelId: duel.saveId, vs: duel[1] });
         }
-        //console.log( duel[1], duel[2], duel.saveId )
       });
     }
-    // console.log("THIS:",this.gladiatorObj);
+
   },
   methods: {
     ShowDuel(event) {
-      // console.log( event.target.getAttribute("data-id"));
-      // console.log( this.gladiatorObj [ event.target.getAttribute("data-id") ] )
       let sch = document.getElementById(event.target.getAttribute("data-id"));
-      // console.log(sch.value );
       this.gladiatorObj[event.target.getAttribute("data-id")];
       if (sch.value !== "empty") {
         this.duelId = sch.value;

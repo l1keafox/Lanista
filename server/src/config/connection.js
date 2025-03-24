@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
 require("dotenv").config({});
+
 mongoose.set("strictQuery", true);
 if (process.env.MONGODB_CONNECTION_STRING) {
   console.log("  -MON>Connecting to MONGOOSE ATLAS");
 } else {
   console.log("  -MON>Connecting to local atlas");
 }
-console.log(process.env.MONGODB_CONNECTION_STRING + "/" + process.env.NODE_ENV);
+
 mongoose.connect(
   process.env.MONGODB_CONNECTION_STRING +
     "/Lanista_" +

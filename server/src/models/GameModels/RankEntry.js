@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema } = require("mongoose");
 
 // This is what is saved in the database, all the parts that are used in battle .
 

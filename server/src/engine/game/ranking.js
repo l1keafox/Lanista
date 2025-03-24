@@ -15,7 +15,6 @@ async function doPointRanking(gladArray) {
     // console.log("Win", glad.winRecord, "loss", glad.lossRecord, "total",total,ratio , "Total points::", points );
 
     // lets first see if there are any entries.
-    // console.log(glad);
     const owner2 = await Owner.findById(glad.ownerId);
     let obj = {
       gladiatorId: glad._id,
@@ -48,11 +47,8 @@ async function doPointRanking(gladArray) {
     // here we will test too see if the array is greater than 10,
     // and get rid of the top.
   }
-
-  // console.log(rankArray);
   await RankList.deleteMany({});
   const newRank = await new RankList({ name: "points", ranking: rankArray });
-  // console.log("Dt",newRank,rankArray.length);
   newRank.save();
 }
 

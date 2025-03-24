@@ -144,15 +144,12 @@ const unPrepare = ref(null);
 const clash = ref(null);
 const prepare = ref(null);
 const react = ref(null);
-const toolTipMsg = ref("hi");
 
 onMounted(async () => {
-  // console.log('Clash getting memory data',gladId,memoryData);
   if (memoryData.value) {
     clash.value = memoryData.value.clash;
     prepare.value = memoryData.value.prepare;
     react.value = memoryData.value.react;
-    console.log(clash.value, memoryData);
   } else if (gladId.value) {
     const rpnse = await fetch(
       apiCall.value + `/gladiator/clashInfo/${gladId.value}`,

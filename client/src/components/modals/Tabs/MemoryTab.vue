@@ -71,7 +71,6 @@ onMounted(() => {
   });
 });
 async function showMemory(event) {
-  // let Memory2 = memories.value.find(ele=>ele._id == );
   const Memory2 = memories.value[event.target.getAttribute("data-index")];
   if (Memory2) {
     Memory.value = Memory2;
@@ -96,9 +95,7 @@ async function loadMorePosts() {
   count.value += addPosts;
   memories.value.push(...rn);
 }
-function closeModal() {
-  isModalShown.value = false;
-}
+
 </script>
 
 <style scoped></style>

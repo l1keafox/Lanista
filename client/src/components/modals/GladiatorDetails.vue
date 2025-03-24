@@ -64,7 +64,6 @@ export default {
       this.memData.level = this.gladMemory.level;
       this.memData.winRecord = this.gladMemory.winRecord;
       this.memData.lossRecord = this.gladMemory.lossRecord;
-      console.log("HEREWS?", this.memData);
     }
   },
 };

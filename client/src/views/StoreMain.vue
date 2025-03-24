@@ -42,9 +42,6 @@
 <script setup>
 import auth from "../composables/auth";
 
-const card = inject("card");
-const cardTitle = inject("cardTitle");
-const smallCard = inject("smallCard");
 const apiCall = inject("apiCall");
 const showTutorial = inject("showTutorial");
 const userData = ref(auth.getUser());
