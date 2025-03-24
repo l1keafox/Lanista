@@ -13,7 +13,7 @@ services:
       - app-network
 
   frontend:
-    build: ./client
+    build: ./legacyClient
     ports:
       - "${CLIENT_PORT}:80"
     environment:
