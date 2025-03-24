@@ -6,7 +6,6 @@ on:
 jobs:
   deploy:
     name: Run SSH command
-    needs: terraform_apply
     runs-on: ubuntu-latest
     steps:
       - name: Connect and run command on remote server
