@@ -59,6 +59,7 @@ const modals = {
 	CardToolTipModal,
 };
 
+
 let timeTimer;
 let countDown;
 let interval;
