@@ -3,7 +3,7 @@ const { saveModelMemory } = require("./../gladiatorPrep");
 const { User, Owner, Gladiator } = require("./../../../models");
 const { createNewOwner, createNewGladiator } = require("./../utils");
 
-function doGladTraining(allGladiators,doTicks){
+function doGladTraining(allGladiators, doTicks) {
   let weekDay = 1;
   let dateTime = 1;
 
@@ -20,7 +20,7 @@ function doGladTraining(allGladiators,doTicks){
           weekDay = 1;
         }
       }
-  
+
       //                console.log(dateTime,weekDay);
       await allGladiators.forEach(async (gladiator) => {
         if (weekDay === 7) {
@@ -31,10 +31,10 @@ function doGladTraining(allGladiators,doTicks){
         } else {
           const growth = await doGrowth(
             gladiator, // This is the glad
-            gladiator.schedule[0][weekDay][dateTime] // This is the growth.
+            gladiator.schedule[0][weekDay][dateTime], // This is the growth.
           );
         }
-  
+
         if (dateTime === 8) {
           gladiator.age++;
           gladiator.doLevel();
@@ -45,21 +45,21 @@ function doGladTraining(allGladiators,doTicks){
       }
     }
     resolve("this");
-  })
+  });
 }
 
-async function createNumGlads(gladAmount,newOwner){
+async function createNumGlads(gladAmount, newOwner) {
   let allGladiators = [];
-	for (let i = 0; i < gladAmount; i++) {
-		const glad = await new Gladiator(createNewGladiator("default"));
-		glad.calcuateGladiator();
+  for (let i = 0; i < gladAmount; i++) {
+    const glad = await new Gladiator(createNewGladiator("default"));
+    glad.calcuateGladiator();
     glad.isEnabled = true;
-		glad.ownerId = newOwner._id;
-		glad.seed = true;
-		newOwner.gladiators.push(glad.id);
-    allGladiators.push(glad)
-	}
+    glad.ownerId = newOwner._id;
+    glad.seed = true;
+    newOwner.gladiators.push(glad.id);
+    allGladiators.push(glad);
+  }
   return allGladiators;
 }
 
-module.exports = {doGladTraining,createNumGlads};
+module.exports = { doGladTraining, createNumGlads };

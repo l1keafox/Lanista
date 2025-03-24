@@ -1,40 +1,38 @@
-const timeBetweenTicks = process.env.TICK? process.env.TICK : 15000; 
+const timeBetweenTicks = process.env.TICK ? process.env.TICK : 15000;
 
-const Tick = require('./game/tick');
+const Tick = require("./game/tick");
 let timeToLastTick;
-async function doGameTick(){
-//    console.log('  -EN> Starting Tick:');
-return new Promise(async (resolve, reject) => {
+async function doGameTick() {
+  //    console.log('  -EN> Starting Tick:');
+  return new Promise(async (resolve, reject) => {
     const startOfTick = new Date();
     await Tick.doTick();
     const endOfTick = new Date();
-    console.log(`  -EN> Game Tick took: ${endOfTick - startOfTick}ms  ::  ${Tick.getDate()}`);
+    console.log(
+      `  -EN> Game Tick took: ${endOfTick - startOfTick}ms  ::  ${Tick.getDate()}`,
+    );
     resolve(true);
-});
-
+  });
 }
 
-async function startLoop(){
-    const currentTick = new Date();
-    
-//    console.log('  -> Time Sense Last Tick:',currentTick - timeToLastTick);
-    if((currentTick - timeToLastTick) > timeBetweenTicks ){
-        timeToLastTick = new Date();
-        await doGameTick();
-    }
-    setTimeout(()=>{
-        startLoop(); // calls it self in the end to determine the time.
-    },5);
-    
-    
+async function startLoop() {
+  const currentTick = new Date();
+
+  //    console.log('  -> Time Sense Last Tick:',currentTick - timeToLastTick);
+  if (currentTick - timeToLastTick > timeBetweenTicks) {
+    timeToLastTick = new Date();
+    await doGameTick();
+  }
+  setTimeout(() => {
+    startLoop(); // calls it self in the end to determine the time.
+  }, 5);
 }
 
-module.exports = { 
-    init : async function() {
-        
-        console.log(`  -EN> Starting Game Engine Tick Time:${timeBetweenTicks}ms`);
-        timeToLastTick = new Date(); // this is what starts thecount;
-        await doGameTick();
-        startLoop();
-    },
- };
+module.exports = {
+  init: async function () {
+    console.log(`  -EN> Starting Game Engine Tick Time:${timeBetweenTicks}ms`);
+    timeToLastTick = new Date(); // this is what starts thecount;
+    await doGameTick();
+    startLoop();
+  },
+};

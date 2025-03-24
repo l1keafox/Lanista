@@ -7,7 +7,7 @@
 const initIo = (app) => {
   const http = require("http");
   const ioServer = http.createServer(app);
-  const {Server} = require("socket.io");
+  const { Server } = require("socket.io");
   const cors = require("cors"); // This is used for socket.io
 
   // This is cheating, I wish there was an way

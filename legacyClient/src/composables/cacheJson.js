@@ -1,22 +1,18 @@
-
 let cacheJson;
 
-async function getJson(url,api){
-  if(!cacheJson){
-    cacheJson = {}
+async function getJson(url, api) {
+  if (!cacheJson) {
+    cacheJson = {};
   }
-  if(cacheJson[url]){
+  if (cacheJson[url]) {
     return cacheJson[url];
   }
-  if(!api){
+  if (!api) {
     return;
   }
-  const json = await fetch(
-    api + `${url}.json`,
-    {
-        headers: { "Content-Type": "application/json" },
-      }      
-  );
+  const json = await fetch(api + `${url}.json`, {
+    headers: { "Content-Type": "application/json" },
+  });
 
   cacheJson[url] = await json.json();
 

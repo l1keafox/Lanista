@@ -1,2 +1,2 @@
-const Engine = require('./engine');
-module.exports = {Engine}
+const Engine = require("./engine");
+module.exports = { Engine };

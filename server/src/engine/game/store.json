@@ -1,377 +1,374 @@
 {
-	"items": [
-		{
-			"type": "galea",
-			"cost": 100,
-			"fame": 1
-		},
-		{
-			"type": "fullHelm",
-			"cost": 1000,
-			"fame": 1
-		},
-		{
-			"type": "halfHelm",
-			"cost": 1000,
-			"fame": 1
-		},
+  "items": [
+    {
+      "type": "galea",
+      "cost": 100,
+      "fame": 1
+    },
+    {
+      "type": "fullHelm",
+      "cost": 1000,
+      "fame": 1
+    },
+    {
+      "type": "halfHelm",
+      "cost": 1000,
+      "fame": 1
+    },
 
+    {
+      "type": "shortBoots",
+      "cost": 300,
+      "fame": 1
+    },
+    {
+      "type": "longBoots",
+      "cost": 300,
+      "fame": 1
+    },
+    {
+      "type": "boots01",
+      "cost": 300,
+      "fame": 1
+    },
 
-		{
-			"type": "shortBoots",
-			"cost": 300,
-			"fame": 1
-		},
-		{
-			"type": "longBoots",
-			"cost": 300,
-			"fame": 1
-		},
-		{
-			"type": "boots01",
-			"cost": 300,
-			"fame": 1
-		},
+    {
+      "type": "gloves",
+      "cost": 800,
+      "fame": 1
+    },
+    {
+      "type": "parryDagger",
+      "cost": 800,
+      "fame": 1
+    },
+    {
+      "type": "mediumShield",
+      "cost": 1000,
+      "fame": 1
+    },
 
-		{
-			"type": "gloves",
-			"cost": 800,
-			"fame": 1
-		},
-		{
-			"type": "parryDagger",
-			"cost": 800,
-			"fame": 1
-		},
-		{
-			"type": "mediumShield",
-			"cost": 1000,
-			"fame": 1
-		},
+    {
+      "type": "plateArmor",
+      "cost": 10000,
+      "fame": 1
+    },
+    {
+      "type": "clothArmor",
+      "cost": 100,
+      "fame": 1
+    },
+    {
+      "type": "body01",
+      "cost": 100,
+      "fame": 1
+    },
 
+    {
+      "type": "gladius",
+      "cost": 100,
+      "fame": 1
+    },
+    {
+      "type": "mace",
+      "cost": 1200,
+      "fame": 1
+    },
+    {
+      "type": "dagger",
+      "cost": 200,
+      "fame": 1
+    }
+  ],
 
-		{
-			"type": "plateArmor",
-			"cost": 10000,
-			"fame": 1
-		},
-		{
-			"type": "clothArmor",
-			"cost": 100,
-			"fame": 1
-		},
-		{
-			"type": "body01",
-			"cost": 100,
-			"fame": 1
-		},
+  "structures": [
+    {
+      "type": "kickingRoom",
+      "fame": 1,
+      "cost": 10000
+    },
+    {
+      "type": "altar",
+      "fame": 1,
+      "cost": 5000
+    },
+    {
+      "type": "burn",
+      "fame": 1,
+      "cost": 5000
+    },
 
+    {
+      "type": "agiRoom1",
+      "fame": 2000,
+      "cost": 1500
+    },
+    {
+      "type": "agiRoom2",
+      "fame": 16000,
+      "cost": 15000
+    },
+    {
+      "type": "agiRoom3",
+      "fame": 128000,
+      "cost": 127500
+    },
+    {
+      "type": "agiRoom4",
+      "fame": 1016000,
+      "cost": 1007500
+    },
 
-		{
-			"type": "gladius",
-			"cost": 100,
-			"fame": 1
-		},
-		{
-			"type": "mace",
-			"cost": 1200,
-			"fame": 1
-		},
-		{
-			"type": "dagger",
-			"cost": 200,
-			"fame": 1
-		}
-	],
-  
-	"structures": [
-		{
-			"type": "kickingRoom",
-			"fame": 1,
-			"cost": 10000
-		},
-		{
-			"type": "altar",
-			"fame": 1,
-			"cost": 5000
-		},
-		{
-			"type": "burn",
-			"fame": 1,
-			"cost": 5000
-		},
+    {
+      "type": "strRoom1",
+      "fame": 2000,
+      "cost": 1500
+    },
+    {
+      "type": "strRoom2",
+      "fame": 16000,
+      "cost": 15000
+    },
+    {
+      "type": "strRoom3",
+      "fame": 128000,
+      "cost": 127500
+    },
+    {
+      "type": "strRoom4",
+      "fame": 1016000,
+      "cost": 1007500
+    },
 
-		{
-			"type": "agiRoom1",
-			"fame": 2000,
-			"cost": 1500
-		},
-		{
-			"type": "agiRoom2",
-			"fame": 16000,
-			"cost": 15000
-		},
-		{
-			"type": "agiRoom3",
-			"fame": 128000,
-			"cost": 127500
-		},
-		{
-			"type": "agiRoom4",
-			"fame": 1016000,
-			"cost": 1007500
-		},
+    {
+      "type": "dexRoom1",
+      "fame": 2000,
+      "cost": 1500
+    },
+    {
+      "type": "dexRoom2",
+      "fame": 16000,
+      "cost": 15000
+    },
+    {
+      "type": "dexRoom3",
+      "fame": 128000,
+      "cost": 127500
+    },
+    {
+      "type": "dexRoom4",
+      "fame": 1016000,
+      "cost": 1007500
+    },
 
-		{
-			"type": "strRoom1",
-			"fame": 2000,
-			"cost": 1500
-		},
-		{
-			"type": "strRoom2",
-			"fame": 16000,
-			"cost": 15000
-		},
-		{
-			"type": "strRoom3",
-			"fame": 128000,
-			"cost": 127500
-		},
-		{
-			"type": "strRoom4",
-			"fame": 1016000,
-			"cost": 1007500
-		},
+    {
+      "type": "conRoom1",
+      "fame": 2000,
+      "cost": 1500
+    },
+    {
+      "type": "conRoom2",
+      "fame": 16000,
+      "cost": 15000
+    },
+    {
+      "type": "conRoom3",
+      "fame": 128000,
+      "cost": 127500
+    },
+    {
+      "type": "conRoom4",
+      "fame": 1016000,
+      "cost": 1007500
+    },
 
-		{
-			"type": "dexRoom1",
-			"fame": 2000,
-			"cost": 1500
-		},
-		{
-			"type": "dexRoom2",
-			"fame": 16000,
-			"cost": 15000
-		},
-		{
-			"type": "dexRoom3",
-			"fame": 128000,
-			"cost": 127500
-		},
-		{
-			"type": "dexRoom4",
-			"fame": 1016000,
-			"cost": 1007500
-		},
+    {
+      "type": "vitRoom1",
+      "fame": 2000,
+      "cost": 1500
+    },
+    {
+      "type": "vitRoom2",
+      "fame": 16000,
+      "cost": 15000
+    },
+    {
+      "type": "vitRoom3",
+      "fame": 128000,
+      "cost": 127500
+    },
+    {
+      "type": "vitRoom4",
+      "fame": 1016000,
+      "cost": 1007500
+    },
 
-		{
-			"type": "conRoom1",
-			"fame": 2000,
-			"cost": 1500
-		},
-		{
-			"type": "conRoom2",
-			"fame": 16000,
-			"cost": 15000
-		},
-		{
-			"type": "conRoom3",
-			"fame": 128000,
-			"cost": 127500
-		},
-		{
-			"type": "conRoom4",
-			"fame": 1016000,
-			"cost": 1007500
-		},
+    {
+      "type": "intRoom1",
+      "fame": 2000,
+      "cost": 1500
+    },
+    {
+      "type": "intRoom2",
+      "fame": 16000,
+      "cost": 15000
+    },
+    {
+      "type": "intRoom3",
+      "fame": 128000,
+      "cost": 127500
+    },
+    {
+      "type": "intRoom4",
+      "fame": 1016000,
+      "cost": 1007500
+    },
 
-		{
-			"type": "vitRoom1",
-			"fame": 2000,
-			"cost": 1500
-		},
-		{
-			"type": "vitRoom2",
-			"fame": 16000,
-			"cost": 15000
-		},
-		{
-			"type": "vitRoom3",
-			"fame": 128000,
-			"cost": 127500
-		},
-		{
-			"type": "vitRoom4",
-			"fame": 1016000,
-			"cost": 1007500
-		},
+    {
+      "type": "wisRoom1",
+      "fame": 2000,
+      "cost": 1500
+    },
+    {
+      "type": "wisRoom2",
+      "fame": 16000,
+      "cost": 15000
+    },
+    {
+      "type": "wisRoom3",
+      "fame": 128000,
+      "cost": 127500
+    },
+    {
+      "type": "wisRoom4",
+      "fame": 1016000,
+      "cost": 1007500
+    },
 
-		{
-			"type": "intRoom1",
-			"fame": 2000,
-			"cost": 1500
-		},
-		{
-			"type": "intRoom2",
-			"fame": 16000,
-			"cost": 15000
-		},
-		{
-			"type": "intRoom3",
-			"fame": 128000,
-			"cost": 127500
-		},
-		{
-			"type": "intRoom4",
-			"fame": 1016000,
-			"cost": 1007500
-		},
+    {
+      "type": "braRoom1",
+      "fame": 2000,
+      "cost": 1500
+    },
+    {
+      "type": "braRoom2",
+      "fame": 16000,
+      "cost": 15000
+    },
+    {
+      "type": "braRoom3",
+      "fame": 128000,
+      "cost": 127500
+    },
+    {
+      "type": "braRoom4",
+      "fame": 1016000,
+      "cost": 1007500
+    },
 
-		{
-			"type": "wisRoom1",
-			"fame": 2000,
-			"cost": 1500
-		},
-		{
-			"type": "wisRoom2",
-			"fame": 16000,
-			"cost": 15000
-		},
-		{
-			"type": "wisRoom3",
-			"fame": 128000,
-			"cost": 127500
-		},
-		{
-			"type": "wisRoom4",
-			"fame": 1016000,
-			"cost": 1007500
-		},
+    {
+      "type": "pieRoom1",
+      "fame": 2000,
+      "cost": 1500
+    },
+    {
+      "type": "pieRoom2",
+      "fame": 16000,
+      "cost": 15000
+    },
+    {
+      "type": "pieRoom3",
+      "fame": 128000,
+      "cost": 127500
+    },
+    {
+      "type": "pieRoom4",
+      "fame": 1016000,
+      "cost": 1007500
+    },
 
-		{
-			"type": "braRoom1",
-			"fame": 2000,
-			"cost": 1500
-		},
-		{
-			"type": "braRoom2",
-			"fame": 16000,
-			"cost": 15000
-		},
-		{
-			"type": "braRoom3",
-			"fame": 128000,
-			"cost": 127500
-		},
-		{
-			"type": "braRoom4",
-			"fame": 1016000,
-			"cost": 1007500
-		},
+    {
+      "type": "senRoom1",
+      "fame": 2000,
+      "cost": 1500
+    },
+    {
+      "type": "senRoom2",
+      "fame": 16000,
+      "cost": 15000
+    },
+    {
+      "type": "senRoom3",
+      "fame": 128000,
+      "cost": 127500
+    },
+    {
+      "type": "senRoom4",
+      "fame": 1016000,
+      "cost": 1007500
+    },
 
-		{
-			"type": "pieRoom1",
-			"fame": 2000,
-			"cost": 1500
-		},
-		{
-			"type": "pieRoom2",
-			"fame": 16000,
-			"cost": 15000
-		},
-		{
-			"type": "pieRoom3",
-			"fame": 128000,
-			"cost": 127500
-		},
-		{
-			"type": "pieRoom4",
-			"fame": 1016000,
-			"cost": 1007500
-		},
+    {
+      "type": "lucRoom1",
+      "fame": 2000,
+      "cost": 1500
+    },
+    {
+      "type": "lucRoom2",
+      "fame": 16000,
+      "cost": 15000
+    },
+    {
+      "type": "lucRoom3",
+      "fame": 128000,
+      "cost": 127500
+    },
+    {
+      "type": "lucRoom4",
+      "fame": 1016000,
+      "cost": 1007500
+    },
 
-		{
-			"type": "senRoom1",
-			"fame": 2000,
-			"cost": 1500
-		},
-		{
-			"type": "senRoom2",
-			"fame": 16000,
-			"cost": 15000
-		},
-		{
-			"type": "senRoom3",
-			"fame": 128000,
-			"cost": 127500
-		},
-		{
-			"type": "senRoom4",
-			"fame": 1016000,
-			"cost": 1007500
-		},
+    {
+      "type": "repRoom1",
+      "fame": 2000,
+      "cost": 1500
+    },
+    {
+      "type": "repRoom2",
+      "fame": 16000,
+      "cost": 15000
+    },
+    {
+      "type": "repRoom3",
+      "fame": 128000,
+      "cost": 127500
+    },
+    {
+      "type": "repRoom4",
+      "fame": 1016000,
+      "cost": 1007500
+    },
 
-		{
-			"type": "lucRoom1",
-			"fame": 2000,
-			"cost": 1500
-		},
-		{
-			"type": "lucRoom2",
-			"fame": 16000,
-			"cost": 15000
-		},
-		{
-			"type": "lucRoom3",
-			"fame": 128000,
-			"cost": 127500
-		},
-		{
-			"type": "lucRoom4",
-			"fame": 1016000,
-			"cost": 1007500
-		},
-
-		{
-			"type": "repRoom1",
-			"fame": 2000,
-			"cost": 1500
-		},
-		{
-			"type": "repRoom2",
-			"fame": 16000,
-			"cost": 15000
-		},
-		{
-			"type": "repRoom3",
-			"fame": 128000,
-			"cost": 127500
-		},
-		{
-			"type": "repRoom4",
-			"fame": 1016000,
-			"cost": 1007500
-		},
-
-		{
-			"type": "chaRoom1",
-			"fame": 2000,
-			"cost": 1500
-		},
-		{
-			"type": "chaRoom2",
-			"fame": 16000,
-			"cost": 15000
-		},
-		{
-			"type": "chaRoom3",
-			"fame": 128000,
-			"cost": 127500
-		},
-		{
-			"type": "chaRoom4",
-			"fame": 1016000,
-			"cost": 1007500
-		}
-	]
+    {
+      "type": "chaRoom1",
+      "fame": 2000,
+      "cost": 1500
+    },
+    {
+      "type": "chaRoom2",
+      "fame": 16000,
+      "cost": 15000
+    },
+    {
+      "type": "chaRoom3",
+      "fame": 128000,
+      "cost": 127500
+    },
+    {
+      "type": "chaRoom4",
+      "fame": 1016000,
+      "cost": 1007500
+    }
+  ]
 }

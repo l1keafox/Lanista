@@ -1,4 +1,4 @@
-Slash - Wins against taunt , medium hit and damage - half and half.
+/*Slash - Wins against taunt , medium hit and damage - half and half.
 Bash  - Wins against slash , high damage, low hit - lose big against dodge - wins big against other slash types. 
 Stab  - Wins against dodge , high hit low damage - lose big against bash. - loses big against other slash types. 
 
@@ -22,4 +22,4 @@ pr
 
 do
 bl
-fe
+fe */
