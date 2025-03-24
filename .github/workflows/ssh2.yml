@@ -1,11 +1,10 @@
 name: Run command on remote server
 on:
-  pull_request:
-    types:
-      - closed
+  push:
+    branches:
+      - development
 jobs:
-  ssh_command:
-    if: github.event.pull_request.merged == true
+  deploy:
     name: Run SSH command
     needs: terraform_apply
     runs-on: ubuntu-latest
