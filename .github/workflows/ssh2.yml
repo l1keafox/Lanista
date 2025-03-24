@@ -6,26 +6,24 @@ on:
 
 jobs:
   ssh:
+    name: Deploy Server
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Set up SSH
+      - name: Install cloudflared
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan sshd.likearay.com >> ~/.ssh/known_hosts
-
-      - name: SSH into Cloudflare Tunnel
-        run: |
-          ssh -i ~/.ssh/id_rsa fox@sshd.likearay.com << 'EOF'
-            echo "Running Command 1"
-            ls -l
-            echo "Running Command 2"
-            df -h
-            echo "Running Command 3"
-            uptime
-          EOF
+          curl -L https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-archive-keyring.gpg >/dev/null
+          echo "deb [signed-by=/usr/share/keyrings/cloudflare-archive-keyring.gpg] https://pkg.cloudflare.com/cloudflared $(lsb_release -cs) main" | sudo tee  /etc/apt/sources.list.d/cloudflared.list
+          sudo apt update
+          sudo apt install cloudflared
+      - name: Configure SSH
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          name: id_ed25519
+          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+          config: |
+            Host ${{ secrets.SSH_HOST }}
+              ProxyCommand /usr/local/bin/cloudflared access ssh --hostname %h --id ${{ secrets.CF_SERVICE_TOKEN_ID }} --secret ${{ secrets.CF_SERVICE_TOKEN_SECRET }}
+              IdentityFile ~/.ssh/id_ed25519
