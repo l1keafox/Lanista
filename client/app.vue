@@ -1,4 +1,9 @@
 <template>
-  <div>
-  </div>
+  <ClientOnly>
+    <Login></Login>
+  </ClientOnly>
 </template>
+
+<script setup>
+
+</script>

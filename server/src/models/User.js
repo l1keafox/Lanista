@@ -62,6 +62,7 @@ userSchema.methods.generateAuthToken = async function () {
       showTutorial: this.tutorial,
     },
     process.env.JWT_KEY,
+    process.env.JWT_EXPIRATION ? { expiresIn: process.env.JWT_EXPIRATION } : {}  
   );
   await this.save();
   return this.token;

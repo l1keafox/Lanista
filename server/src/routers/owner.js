@@ -11,9 +11,10 @@ const { getItemEffect } = require("./../engine/game/itemsIndex");
 const { getStoreItems } = require("./../engine/game/storeIndex");
 const { getAbilityEffect } = require("./../engine/game/abilityIndex");
 const { createNewGladiator } = require("./../engine/game/utils");
+const auth = require("./../middleware/auth");
 const router = express.Router();
 
-router.get("/owner/:ownerId", async (req, res) => {
+router.get("/owner/:ownerId",auth, async (req, res) => {
   if (req.params.ownerId == "undefined") {
     res.status(400);
     return;

@@ -83,7 +83,6 @@ router.post("/users/createAcct", async (req, res) => {
 
 router.post("/users/login", async (req, res) => {
   //Login a registered user
-
   try {
     const { username, password } = req.body;
     if (!username) {
